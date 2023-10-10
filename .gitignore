@@ -6,3 +6,5 @@ data
 modules
 package-lock.json
 dist
+resources/webviews/*
+!/resources/webviews/resource.toml
