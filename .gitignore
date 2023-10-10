@@ -1,0 +1,8 @@
+node_modules
+altv-server.exe
+server.log
+cache
+data
+modules
+package-lock.json
+dist

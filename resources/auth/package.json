@@ -1,0 +1,23 @@
+{
+  "name": "auth",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsup src --external alt-server,alt-client --format esm"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@altv/types-client": "^3.0.3",
+    "@altv/types-natives": "^1.5.4",
+    "@altv/types-server": "^3.1.1",
+    "@altv/types-shared": "^1.6.6",
+    "@altv/types-webview": "^1.0.7",
+    "tsup": "^7.2.0",
+    "tsx": "^3.13.0",
+    "typescript": "^5.2.2"
+  }
+}
