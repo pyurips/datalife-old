@@ -8,7 +8,7 @@ gamemode = 'DATALIFE v0.1'
 website = 'dataliferp.com'
 language = 'pt-br'
 description = 'alt:V Sample Server'
-modules = ['js-module', 'js-bytecode-module']
+modules = ['js-module']
 resources = [
     'auth',
     'webviews'
