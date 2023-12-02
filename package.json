@@ -1,0 +1,11 @@
+{
+  "name": "datalife-ms",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "altv-pkg": "^2.7.0"
+  }
+}
