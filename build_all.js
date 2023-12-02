@@ -4,36 +4,57 @@ const { exec } = require('child_process');
 
 const pastaResources = './resources';
 
-fs.readdir(pastaResources, (err, pastas) => {
+function runNpmInstall(caminho) {
+  return new Promise((resolve, reject) => {
+    exec('npm install', { cwd: caminho }, (error, stdout, stderr) => {
+      if (error) {
+        reject(`Erro ao executar "npm install" em ${caminho}: ${error.message}`);
+      } else {
+        resolve(`"npm install" em ${caminho} concluído com sucesso`);
+      }
+    });
+  });
+}
+
+function runNpmBuild(caminho) {
+  return new Promise((resolve, reject) => {
+    exec('npm run build', { cwd: caminho }, (error, stdout, stderr) => {
+      if (error) {
+        reject(`Erro ao executar "npm run build" em ${caminho}: ${error.message}`);
+      } else {
+        resolve(`"npm run build" em ${caminho} concluído com sucesso`);
+      }
+    });
+  });
+}
+
+async function processaPasta(caminhoPasta) {
+  try {
+    // Executar npm install na pasta
+    console.log(await runNpmInstall(caminhoPasta));
+
+    // Executar npm run build na pasta
+    console.log(await runNpmBuild(caminhoPasta));
+
+    // Se existir a subpasta "webview", executar npm install e npm run build
+    const caminhoWebview = path.join(caminhoPasta, 'webview');
+    if (fs.existsSync(caminhoWebview)) {
+      console.log(await runNpmInstall(caminhoWebview));
+      console.log(await runNpmBuild(caminhoWebview));
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+fs.readdir(pastaResources, async (err, pastas) => {
   if (err) {
     console.error(`Erro ao listar pastas em ${pastaResources}: ${err}`);
     return;
   }
 
-  pastas.forEach(pasta => {
+  for (const pasta of pastas) {
     const caminhoPasta = path.join(pastaResources, pasta);
-    const caminhoPackageJson = path.join(caminhoPasta, 'package.json');
-
-    if (fs.existsSync(caminhoPackageJson)) {
-      exec('npm run build', { cwd: caminhoPasta }, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`Erro ao executar "npm run build" em ${caminhoPasta}: ${error.message}`);
-        } else {
-          console.log(`Build do resource ${pasta} concluído com sucesso`);
-        }
-      });
-
-      const caminhoWebview = path.join(caminhoPasta, 'webview');
-
-      if (fs.existsSync(caminhoWebview)) {        
-        exec('npm run build', { cwd: caminhoWebview }, (error, stdout, stderr) => {
-          if (error) {
-            console.error(`Erro ao executar "npm run build" em ${caminhoWebview}: ${error.message}`);
-          } else {
-            console.log(`Build do webview ${pasta} concluído com sucesso`);
-          }
-        });
-      }
-    }
-  });
+    await processaPasta(caminhoPasta);
+  }
 });
