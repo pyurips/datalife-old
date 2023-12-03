@@ -24,6 +24,6 @@
     "resources",
     "**/*.json",
     "./src/webviews/**/*",
-    "!./src/webviews/meu-subdiretorio/resource.toml"
+    "!./src/webviews/resource.toml"
   ]
 }
