@@ -2,10 +2,16 @@
   "name": "datalife-ms",
   "version": "1.0.0",
   "description": "",
+  "scripts": {
+    "build": "tsup src --external alt-server,alt-client,alt:utils --format esm"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "altv-pkg": "^2.7.0"
+    "altv-pkg": "^2.7.0",
+    "tsup": "^8.0.1",
+    "tsx": "^4.6.2",
+    "typescript": "^5.3.2"
   }
 }

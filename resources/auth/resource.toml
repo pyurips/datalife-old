@@ -1,9 +1,0 @@
-type = "js"
-main = "dist/server/index.js"
-client-main = "dist/client/index.js"
-client-files = [
-    "dist/client/*"
-]
-deps = [
-    "utils"
-]
