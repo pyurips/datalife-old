@@ -23,7 +23,6 @@
     "**/*.spec.ts",
     "resources",
     "**/*.json",
-    "./src/webviews/**/*",
-    "!./src/webviews/resource.toml"
+    "./src/webviews/**/*"
   ]
 }
