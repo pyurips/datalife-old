@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsup src --external alt-server,alt-client --format esm"
+    "build": "tsup src --external alt-server,alt-client,natives --format esm"
   },
   "keywords": [],
   "author": "",

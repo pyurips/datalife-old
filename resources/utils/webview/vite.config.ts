@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: './',
   build: {
-    outDir: '../../webviews/auth',
+    outDir: '../../webviews/test_example',
     emptyOutDir: true,
     minify: 'esbuild',
     reportCompressedSize: false,

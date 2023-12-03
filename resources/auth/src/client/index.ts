@@ -1,4 +1,6 @@
 import * as alt from 'alt-client';
+// @ts-ignore
+import * as utils from 'alt:utils';
 
 (async function () {
   let view: alt.WebView;
@@ -7,4 +9,6 @@ import * as alt from 'alt-client';
     view.once('load', resolve);
   });
   view.focus();
+
+  utils.loadUtilsWebView();
 })();
