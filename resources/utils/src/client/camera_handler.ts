@@ -32,8 +32,6 @@ export class customCamera {
       true,
       0
     );
-
-    alt.log(`--> Created camera: ${this.scriptID}`);
   }
 
   /**
@@ -88,17 +86,33 @@ export class customCamera {
 
   /**
    * Stops rendering the camera on the screen
+   * @param {alt.Vector3} easeTime Time in milliseconds for the transition to happen
    */
-  unrender() {
-    native.renderScriptCams(false, false, 0, false, false, null);
+  unrender(easeTime?: number) {
+    native.renderScriptCams(
+      false,
+      false,
+      easeTime ? easeTime : 0,
+      false,
+      false,
+      null
+    );
   }
 
   /**
    * Renders the camera view on the screen
+   * * @param {alt.Vector3} easeTime Time in milliseconds for the transition to happen
    */
-  render() {
+  render(easeTime?: number) {
     native.setCamActive(this.scriptID, true);
-    native.renderScriptCams(true, false, 0, true, false, null);
+    native.renderScriptCams(
+      true,
+      false,
+      easeTime ? easeTime : 0,
+      true,
+      false,
+      null
+    );
   }
 
   /**
@@ -120,7 +134,13 @@ export class customCamera {
    * @param {number} yOffset Position offset of the camera Y
    * @param {number} zOffset Position offset of the camera Z
    */
-  pointAtBone(entity, bone, xOffset, yOffset, zOffset) {
+  pointAtBone(
+    entity: number | alt.Player,
+    bone: number,
+    xOffset: number,
+    yOffset: number,
+    zOffset: number
+  ) {
     native.pointCamAtPedBone(
       this.scriptID,
       entity,
@@ -138,7 +158,7 @@ export class customCamera {
    *
    * @param {alt.Vector3} position Vector3 to where to point the camera at
    */
-  pointAtCoord(position) {
+  pointAtCoord(position: alt.Vector3) {
     native.pointCamAtCoord(this.scriptID, position.x, position.y, position.z);
     this.render();
   }
