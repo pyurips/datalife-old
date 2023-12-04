@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "npx tsc && node build_all_front && node toml_handler.js"
+    "build": "npx tsc && node build_all_interfaces && node toml_handler.js"
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,12 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
 
-export class customCamera {
+export class CustomCamera {
+  private _position: alt.Vector3;
+  private _rotation: alt.Vector3;
+  private _fov: number;
+  private scriptID: number;
+
   /**
    * Create a new camera
    *
@@ -9,11 +14,6 @@ export class customCamera {
    * @param {alt.Vector3} rotation Initial rotation of the camera
    * @param {number} fov Initial field of view of the camera
    */
-
-  private _position: alt.Vector3;
-  private _rotation: alt.Vector3;
-  private _fov: number;
-  private scriptID: number;
 
   constructor(position: alt.Vector3, rotation: alt.Vector3, fov: number) {
     this._position = position;
