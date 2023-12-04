@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const util = require('util');
+import fs from 'fs';
+import path from 'path';
+import { promisify } from 'util';
 
-const readdir = util.promisify(fs.readdir);
-const copyFile = util.promisify(fs.copyFile);
+const readdir = promisify(fs.readdir);
+const copyFile = promisify(fs.copyFile);
 
 async function copyResourceFiles(srcPath, destPath) {
   try {

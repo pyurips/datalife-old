@@ -1,1 +1,1 @@
-import './player_connect';
+import './player_connect.js';

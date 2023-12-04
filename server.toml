@@ -11,6 +11,7 @@ description = 'alt:V Sample Server'
 modules = ['js-module']
 resources = [
     'auth',
-    'webviews'
+    'webviews',
+    'defaults'
 ]
 debug=true
