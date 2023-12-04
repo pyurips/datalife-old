@@ -1,1 +1,3 @@
-import './main_interface_handler.js';
+import { loadMainInterface } from './main_interface_handler.js';
+
+export { loadMainInterface };

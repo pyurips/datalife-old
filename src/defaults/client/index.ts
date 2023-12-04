@@ -1,1 +1,1 @@
-import './connection_complete';
+import './connection_complete.js';
