@@ -10,3 +10,4 @@ resources/webviews/*
 !/resources/webviews/resource.toml
 altv-crash-handler.exe
 libnode.dll
+resources

@@ -17,12 +17,6 @@
     "allowSyntheticDefaultImports": true,
     "declaration": false
   },
-  "include": ["./src/**/*.ts", "./src/**/*.toml"],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "resources",
-    "**/*.json",
-    "./src/webviews/**/*"
-  ]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./src/webviews/**", "./src/**/*.toml"],
 }
