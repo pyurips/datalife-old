@@ -11,13 +11,13 @@ export async function loadMainInterface() {
     view.emit(eventName, ...args);
   });
 
-  view.on('emitTo', (eventType: string, eventName: string, ...args) => {
-    if (eventType === 'server') {
-      alt.emitServerRaw(eventName, ...args);
-    } else {
-      alt.emit(eventName, ...args);
+  view.on(
+    'emitTo',
+    (eventType: string, eventName: 'server' | 'client', ...args) => {
+      if (eventType === 'server') return alt.emitServerRaw(eventName, ...args);
+      return alt.emit(eventName, ...args);
     }
-  });
+  );
 
   await new Promise((resolve) => {
     view.once('load', resolve);
