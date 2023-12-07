@@ -13,7 +13,7 @@ export async function loadMainInterface() {
 
   view.on(
     'emitTo',
-    (eventType: string, eventName: 'server' | 'client', data) => {
+    (eventType: 'server' | 'client', eventName: string, data) => {
       if (eventType === 'server') return alt.emitServerRaw(eventName, data);
       return alt.emit(eventName, data);
     }
