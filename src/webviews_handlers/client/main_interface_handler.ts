@@ -3,19 +3,19 @@ import * as alt from 'alt-client';
 export async function loadMainInterface() {
   const view = new alt.WebView('http://assets/webviews/interfaces/index.html');
 
-  alt.onServer('emitToWebView', (eventName: string, ...args) => {
-    view.emit(eventName, ...args);
+  alt.onServer('emitToWebView', (eventName: string, data) => {
+    view.emit(eventName, data);
   });
 
-  alt.on('emitToWebView', (eventName: string, ...args) => {
-    view.emit(eventName, ...args);
+  alt.on('emitToWebView', (eventName: string, data) => {
+    view.emit(eventName, data);
   });
 
   view.on(
     'emitTo',
-    (eventType: string, eventName: 'server' | 'client', ...args) => {
-      if (eventType === 'server') return alt.emitServerRaw(eventName, ...args);
-      return alt.emit(eventName, ...args);
+    (eventType: string, eventName: 'server' | 'client', data) => {
+      if (eventType === 'server') return alt.emitServerRaw(eventName, data);
+      return alt.emit(eventName, data);
     }
   );
 
