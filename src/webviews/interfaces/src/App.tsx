@@ -1,12 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, Button } from '@nextui-org/react';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import './App.css';
+import useFetcher from './utils/use_fetcher';
 
 function App() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+
+  const {
+    status: signinStatus,
+    loading: signinLoading,
+    error: signinError,
+    fetchData: doSignin,
+    loadingHandler: loadingSigninHandler,
+  } = useFetcher({
+    resource: '/accounts/signin',
+    method: 'post',
+    body: {
+      email,
+      password,
+    },
+  });
+
+  useEffect(() => {
+    loadingSigninHandler(false);
+  }, []);
+
+  useEffect(() => {
+    console.log(signinStatus);
+  }, [signinStatus]);
 
   return (
     <main className="flex items-center justify-center w-screen h-screen">
@@ -30,7 +54,8 @@ function App() {
             type="email"
             autoComplete="email"
             placeholder="Digite seu e-mail"
-            className='max-w-[300px]'
+            className="max-w-[300px]"
+            isInvalid={!!signinError?.message}
           />
 
           <Input
@@ -52,10 +77,16 @@ function App() {
               </button>
             }
             type={passwordVisible ? 'text' : 'password'}
-            className='max-w-[300px]'
+            className="max-w-[300px]"
           />
 
-          <Button variant='flat' color='success' className='h-full'>
+          <Button
+            onPress={() => doSignin()}
+            variant="flat"
+            color="success"
+            className="h-full"
+            isLoading={signinLoading}
+          >
             Entrar
           </Button>
         </form>
