@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Input } from '@nextui-org/react';
+import { Input, Button } from '@nextui-org/react';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import './App.css';
 
@@ -21,20 +21,19 @@ function App() {
 
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="flex flex-row gap-5 p-5"
+          className="flex flex-row gap-5 p-5 items-center"
         >
           <Input
-            fullWidth
             value={email}
             onValueChange={(e) => setEmail(e)}
             isClearable
             type="email"
             autoComplete="email"
             placeholder="Digite seu e-mail"
+            className='max-w-[300px]'
           />
 
           <Input
-            fullWidth
             placeholder="Digite sua senha"
             value={password}
             onValueChange={(e) => setPassword(e)}
@@ -53,7 +52,12 @@ function App() {
               </button>
             }
             type={passwordVisible ? 'text' : 'password'}
+            className='max-w-[300px]'
           />
+
+          <Button variant='flat' color='success' className='h-full'>
+            Entrar
+          </Button>
         </form>
       </div>
     </main>
