@@ -45,7 +45,7 @@ export default function Signin() {
   useEffect(() => {
     if (signinError) setErrorMessage(signinError.message);
   }, [signinError]);
-  console.log(window.innerWidth);
+
   return (
     <main className="flex items-center justify-center w-screen h-screen">
       <div
