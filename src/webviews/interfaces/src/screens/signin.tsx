@@ -8,6 +8,7 @@ export default function Signin() {
   const [password, setPassword] = useState<string>('');
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
 
   const {
     status: signinStatus,
@@ -25,7 +26,16 @@ export default function Signin() {
   });
 
   useEffect(() => {
+    const handleResize = () => {
+      setScale((window.innerWidth + 520) / 1886.6);
+    };
+
     loadingSigninHandler(false);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -35,11 +45,14 @@ export default function Signin() {
   useEffect(() => {
     if (signinError) setErrorMessage(signinError.message);
   }, [signinError]);
-
+  console.log(window.innerWidth);
   return (
     <main className="flex items-center justify-center w-screen h-screen">
-      <div className="bg-neutral-900 w-[60%] h-[70%] rounded-lg lg:rounded-2xl flex flex-col overflow-hidden">
-        <div className="bg-[red] flex flex-1 overflow-hidden">
+      <div
+        style={{ transform: `scale(${scale})` }}
+        className="bg-neutral-900 w-[800px] h-[500px] rounded-2xl flex flex-col overflow-hidden"
+      >
+        <div className="flex flex-1 overflow-hidden">
           <img
             src="https://cdn.discordapp.com/attachments/1059659527286444153/1178237428910268506/pabloyprado_smartphone_in_gta_v_art_style_808098e3-4c8a-46b6-affd-05c367405624.png?ex=6587df1d&is=65756a1d&hm=edf057b98eab786566af85cbc993fea129d8962302d4b6f5720df9f8005fe699&"
             alt=""
