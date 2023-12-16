@@ -15,7 +15,7 @@ export async function loadMainInterface() {
     'emitTo',
     (eventType: 'server' | 'client', eventName: string, data) => {
       if (eventType === 'server') return alt.emitServerRaw(eventName, data);
-      return alt.emit(eventName, data);
+      return alt.emitRaw(eventName, data);
     }
   );
 
