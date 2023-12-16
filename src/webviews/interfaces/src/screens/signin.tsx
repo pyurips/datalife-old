@@ -76,6 +76,7 @@ export default function Signin() {
               isInvalid={!!signinError?.message}
               maxLength={256}
               spellCheck={false}
+              size='sm'
             />
 
             <Input
@@ -85,6 +86,7 @@ export default function Signin() {
               autoComplete="current-password"
               maxLength={256}
               spellCheck={false}
+              size='sm'
               endContent={
                 <button
                   className="focus:outline-none"
