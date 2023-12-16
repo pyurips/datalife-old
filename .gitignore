@@ -11,3 +11,4 @@ resources/webviews/*
 altv-crash-handler.exe
 libnode.dll
 resources
+.env
