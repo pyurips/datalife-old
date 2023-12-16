@@ -1,10 +1,17 @@
 import { useState } from 'react';
 
+type useEventsReturn = {
+  loading: boolean;
+  responseData: unknown;
+  fetchData: (requestData: unknown) => void;
+  loadingHandler: (state: boolean) => void;
+};
+
 function useEvents(
   emitTo: 'client' | 'server',
   eventName: string,
   responseOnly: boolean = false
-) {
+): useEventsReturn {
   // @ts-ignore
   if (!window.alt) throw new Error('Não foi possível identificar o objeto alt');
 
@@ -21,22 +28,19 @@ function useEvents(
     return setLoading(state);
   }
 
-  function fetchData(requestData: unknown): Promise<void> {
+  function fetchData(requestData: unknown) {
     setLoading(true);
-    return new Promise((resolve) => {
-      const eventFunction = (data: unknown) => {
-        setResponseData(data);
-        resolve();
-        // @ts-ignore
-        window.alt.off(`response:${eventName}`, eventFunction);
-        setLoading(false);
-      };
+    const eventFunction = (data: unknown) => {
+      setResponseData(data);
+      // @ts-ignore
+      window.alt.off(`response:${eventName}`, eventFunction);
+      setLoading(false);
+    };
 
-      // @ts-ignore
-      window.alt.on(`response:${eventName}`, eventFunction);
-      // @ts-ignore
-      window.alt.emit('emitTo', emitTo, `request:${eventName}`, requestData);
-    });
+    // @ts-ignore
+    window.alt.on(`response:${eventName}`, eventFunction);
+    // @ts-ignore
+    window.alt.emit('emitTo', emitTo, `request:${eventName}`, requestData);
   }
 
   return {

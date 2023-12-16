@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Input, Button } from '@nextui-org/react';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import useFetcher from '../utils/use_fetcher';
+import useEvents from '../utils/use_events';
 
 export default function Signin() {
   const [email, setEmail] = useState<string>('');
@@ -25,7 +26,13 @@ export default function Signin() {
     },
   });
 
+  const { fetchData, responseData } = useEvents('server', 'testando');
+
   useEffect(() => {
+    fetchData({
+      message: "Olá do cliente!"
+    })
+
     const handleResize = () => {
       setScale((window.innerWidth + 520) / 1886.6);
     };
@@ -37,6 +44,11 @@ export default function Signin() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    // @ts-ignore
+    if (responseData) console.log(responseData.data);
+  }, [responseData]);
 
   useEffect(() => {
     console.log(signinStatus);
