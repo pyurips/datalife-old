@@ -21,9 +21,6 @@ function useEvents(
   eventName: string,
   responseOnly: boolean = false
 ): useEventsReturn {
-  // @ts-ignore
-  if (!window.alt) throw new Error('Não foi possível identificar o objeto alt');
-
   const [loading, setLoading] = useState<boolean>(true);
   const [responseData, setResponseData] = useState<IResponseData>({
     content: null,
@@ -42,6 +39,12 @@ function useEvents(
   }
 
   function fetchData(requestData: unknown) {
+    // @ts-ignore
+    if (!window.alt) {
+      console.error('Não foi possível identificar o objeto alt');
+      return () => {};
+    }
+
     setLoading(true);
     const eventFunction = (data: IResponseData) => {
       setResponseData(data);

@@ -12,7 +12,6 @@ export default function Signin() {
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
 
   const {
-    status: signinStatus,
     loading: signinLoading,
     error: signinError,
     fetchData: doSignin,
