@@ -12,6 +12,6 @@ modules = ['js-module']
 resources = [
     'auth',
     'webviews',
-    'defaults'
+    'defaults',
 ]
 debug=true

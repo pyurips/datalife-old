@@ -1,11 +1,12 @@
-import 'dotenv/config';
 import * as alt from 'alt-client';
 
 export async function loadMainInterface() {
+  const NODE_ENV: 'development' | 'production' = 'development';
+
   const view = new alt.WebView(
-    process.env.NODE_ENV === 'production'
-      ? 'http://assets/webviews/interfaces/index.html'
-      : 'http://localhost:5173/'
+    NODE_ENV === 'development'
+      ? 'http://localhost:5173/'
+      : 'http://assets/webviews/interfaces/index.html'
   );
 
   alt.onServer('emitToWebView', (eventName: string, data) => {
