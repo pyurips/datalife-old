@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Input, Button } from '@nextui-org/react';
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
+import { Input, Button, Link } from '@nextui-org/react';
+import {
+  BsEyeFill,
+  BsEyeSlashFill,
+  BsDiscord,
+  BsYoutube,
+  BsInstagram,
+} from 'react-icons/bs';
 import useFetcher from '../utils/use_fetcher';
 import useEvents from '../utils/use_events';
 
@@ -60,9 +66,9 @@ export default function Signin() {
       >
         <div className="flex flex-1 overflow-hidden">
           <img
-            src="https://cdn.discordapp.com/attachments/1059659527286444153/1178237428910268506/pabloyprado_smartphone_in_gta_v_art_style_808098e3-4c8a-46b6-affd-05c367405624.png?ex=6587df1d&is=65756a1d&hm=edf057b98eab786566af85cbc993fea129d8962302d4b6f5720df9f8005fe699&"
-            alt=""
-            className="w-full h-full object-cover"
+            src="https://cdn.discordapp.com/attachments/1059659527286444153/1185677825668284548/pabloyprado_badass_night_man_riding_bike_gta_v_art_style_ab28e7ff-e8d5-48d8-b80a-a35661f727ce.png?ex=65907b86&is=657e0686&hm=cfda0d28ffe5be3f2dd03a882af22e202b64be9a0efe4cb605b4b4510aa09dbe&"
+            alt="DATALIFE signin photo"
+            className="w-full h-full object-cover object-top"
           />
         </div>
 
@@ -126,6 +132,62 @@ export default function Signin() {
           {!!errorMessage && (
             <p className="text-xs text-[#f31260]">{errorMessage}</p>
           )}
+
+          <div className="flex flex-row items-center justify-between">
+            <p className="text-xs text-neutral-500">
+              Para criar uma conta ou recuperar sua senha, visite{' '}
+              <Link
+                isExternal
+                size="sm"
+                color="foreground"
+                href="https://www.dataliferp.com/"
+              >
+                dataliferp.com
+              </Link>
+              {'.'}
+            </p>
+
+            <div className="flex gap-1">
+              <Link href="https://discord.gg/fvYjbYrMBx" isExternal>
+                <Button
+                  size="sm"
+                  isIconOnly
+                  color="default"
+                  variant="light"
+                  aria-label="Like"
+                >
+                  <BsDiscord size={20} />
+                </Button>
+              </Link>
+
+              <Link
+                href="https://youtube.com/@dataliferp?si=9TacnrF2zC07l0Zm"
+                isExternal
+              >
+                <Button
+                  size="sm"
+                  isIconOnly
+                  color="default"
+                  variant="light"
+                  aria-label="Like"
+                >
+                  <BsYoutube size={20} />
+                </Button>
+              </Link>
+
+              <Link href="https://www.instagram.com/dataliferp/" isExternal>
+                <Button
+                  size="sm"
+                  isIconOnly
+                  color="default"
+                  variant="light"
+                  aria-label="Like"
+                >
+                  <BsInstagram size={20} />
+                </Button>
+              </Link>
+            </div>
+          </div>
         </form>
       </div>
     </main>
