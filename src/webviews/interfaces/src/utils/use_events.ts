@@ -43,7 +43,7 @@ function useEvents(
     loading,
     responseData,
     fetchData,
-    loadingHandler
+    loadingHandler,
   };
 }
 
