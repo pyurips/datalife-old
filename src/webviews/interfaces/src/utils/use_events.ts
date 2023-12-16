@@ -1,30 +1,34 @@
 import { useState } from 'react';
 
-async function useEvents(eventType: 'client' | 'server', eventName: string) {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [data, setData] = useState<unknown>(null);
-
+function useEvents(emitTo: 'client' | 'server', eventName: string) {
   // @ts-ignore
   if (!window.alt) throw new Error('Não foi possível identificar o objeto alt');
 
-  const fetch = async (data: unknown) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [responseData, setResponseData] = useState<unknown>(null);
+
+  function fetchData(requestData: unknown): Promise<void> {
     setLoading(true);
-    // @ts-ignore
-    window.alt.emit('emitTo', eventType, `request:${eventName}`, data);
-    const response = await new Promise((resolve) => {
+    return new Promise((resolve) => {
+      const eventFunction = (data: unknown) => {
+        setResponseData(data);
+        resolve();
+        // @ts-ignore
+        window.alt.off(`response:${eventName}`, eventFunction);
+        setLoading(false);
+      };
+
       // @ts-ignore
-      window.alt.on(`response:${eventName}`, (responseData) =>
-        resolve(responseData)
-      );
+      window.alt.on(`response:${eventName}`, eventFunction);
+      // @ts-ignore
+      window.alt.emit('emitTo', emitTo, `request:${eventName}`, requestData);
     });
-    setData(response);
-    setLoading(false);
-  };
+  }
 
   return {
     loading,
-    data,
-    fetch,
+    responseData,
+    fetchData,
   };
 }
 
