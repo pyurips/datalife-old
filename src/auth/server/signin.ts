@@ -1,7 +1,11 @@
 import * as alt from 'alt-server';
 
-alt.onClient('request:testando', (player: alt.Player, data: unknown) => {
-  //console.log(data);
+const EVENT_NAME = 'testando';
 
-  player.emitRaw('emitToWebView', 'response:testando', { data: "Os dados do servidor" });
+alt.onClient(`request:${EVENT_NAME}`, (player: alt.Player, data: unknown) => {
+  console.log(data);
+
+  player.emitRaw('emitToWebView', `response:${EVENT_NAME}`, {
+    content: 'Os dados do servidor',
+  });
 });

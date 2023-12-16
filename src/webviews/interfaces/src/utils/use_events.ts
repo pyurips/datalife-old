@@ -1,8 +1,17 @@
 import { useState } from 'react';
 
+type IResponseData = {
+  content: unknown;
+  statusCode: number;
+  error: {
+    message: string;
+    internalCode: string;
+  } | null;
+};
+
 type useEventsReturn = {
   loading: boolean;
-  responseData: unknown;
+  responseData: IResponseData;
   fetchData: (requestData: unknown) => void;
   loadingHandler: (state: boolean) => void;
 };
@@ -16,11 +25,15 @@ function useEvents(
   if (!window.alt) throw new Error('Não foi possível identificar o objeto alt');
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [responseData, setResponseData] = useState<unknown>(null);
+  const [responseData, setResponseData] = useState<IResponseData>({
+    content: null,
+    statusCode: 500,
+    error: null,
+  });
 
   if (responseOnly)
     // @ts-ignore
-    return window.alt.on(`response:${eventName}`, (data: unknown) =>
+    return window.alt.on(`response:${eventName}`, (data: IResponseData) =>
       setResponseData(data)
     );
 
@@ -30,7 +43,7 @@ function useEvents(
 
   function fetchData(requestData: unknown) {
     setLoading(true);
-    const eventFunction = (data: unknown) => {
+    const eventFunction = (data: IResponseData) => {
       setResponseData(data);
       // @ts-ignore
       window.alt.off(`response:${eventName}`, eventFunction);

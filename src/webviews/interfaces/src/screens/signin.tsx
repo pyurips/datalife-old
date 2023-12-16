@@ -30,8 +30,8 @@ export default function Signin() {
 
   useEffect(() => {
     fetchData({
-      message: "Olá do cliente!"
-    })
+      message: 'Olá do cliente!',
+    });
 
     const handleResize = () => {
       setScale((window.innerWidth + 520) / 1886.6);
@@ -46,13 +46,8 @@ export default function Signin() {
   }, []);
 
   useEffect(() => {
-    // @ts-ignore
-    if (responseData) console.log(responseData.data);
+    if (responseData) console.log(responseData.content);
   }, [responseData]);
-
-  useEffect(() => {
-    console.log(signinStatus);
-  }, [signinStatus]);
 
   useEffect(() => {
     if (signinError) setErrorMessage(signinError.message);
@@ -88,7 +83,7 @@ export default function Signin() {
               isInvalid={!!signinError?.message}
               maxLength={256}
               spellCheck={false}
-              size='sm'
+              size="sm"
             />
 
             <Input
@@ -98,7 +93,7 @@ export default function Signin() {
               autoComplete="current-password"
               maxLength={256}
               spellCheck={false}
-              size='sm'
+              size="sm"
               endContent={
                 <button
                   className="focus:outline-none"
