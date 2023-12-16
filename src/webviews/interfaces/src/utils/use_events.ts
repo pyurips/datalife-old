@@ -1,11 +1,25 @@
 import { useState } from 'react';
 
-function useEvents(emitTo: 'client' | 'server', eventName: string) {
+function useEvents(
+  emitTo: 'client' | 'server',
+  eventName: string,
+  responseOnly: boolean = false
+) {
   // @ts-ignore
   if (!window.alt) throw new Error('Não foi possível identificar o objeto alt');
 
   const [loading, setLoading] = useState<boolean>(true);
   const [responseData, setResponseData] = useState<unknown>(null);
+
+  if (responseOnly)
+    // @ts-ignore
+    return window.alt.on(`response:${eventName}`, (data: unknown) =>
+      setResponseData(data)
+    );
+
+  function loadingHandler(state: boolean) {
+    return setLoading(state);
+  }
 
   function fetchData(requestData: unknown): Promise<void> {
     setLoading(true);
@@ -29,6 +43,7 @@ function useEvents(emitTo: 'client' | 'server', eventName: string) {
     loading,
     responseData,
     fetchData,
+    loadingHandler
   };
 }
 
