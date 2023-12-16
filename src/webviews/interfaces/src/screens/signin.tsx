@@ -9,6 +9,7 @@ import {
 } from 'react-icons/bs';
 import useFetcher from '../utils/use_fetcher';
 import useEvents from '../utils/use_events';
+import datalifeLogoLight from '../assets/signin/datalife_logo_light.svg';
 
 export default function Signin() {
   const [email, setEmail] = useState<string>('');
@@ -70,6 +71,10 @@ export default function Signin() {
             alt="DATALIFE signin photo"
             className="w-full h-full object-cover object-top"
           />
+
+          <div className="absolute p-3 flex flex-1">
+            <img src={datalifeLogoLight} alt="DATALIFE logo" className='w-[100px]' />
+          </div>
         </div>
 
         <form
