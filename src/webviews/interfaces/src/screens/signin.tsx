@@ -20,7 +20,7 @@ export default function Signin() {
 
   const { fetchData, responseData, loading, loadingHandler } = useEvents(
     'server',
-    'testando'
+    'auth_signin'
   );
 
   useEffect(() => {

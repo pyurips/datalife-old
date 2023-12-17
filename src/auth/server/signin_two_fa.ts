@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
 import axios from 'axios';
 
-const EVENT_NAME = 'auth_signin';
+const EVENT_NAME = 'auth_signinTwoFa';
 
 type IResponseData = {
   content: any | null;
@@ -19,11 +19,12 @@ const DEFAULT_URL =
 
 alt.onClient(
   `request:${EVENT_NAME}`,
-  async (player: alt.Player, data: { email: string; password: string }) => {
+  async (player: alt.Player, data: { email: string; password: string, verificationCode: string }) => {
     try {
-      const response = await axios.post(DEFAULT_URL + '/accounts/signin', {
+      const response = await axios.post(DEFAULT_URL + '/accounts/signintwofa', {
         email: data.email,
         password: data.password,
+        verificationCode: data.verificationCode
       });
 
       const responseData: IResponseData = {

@@ -1,4 +1,4 @@
-import { Input, Button, Link } from '@nextui-org/react';
+import { Input, Button } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 
 export default function VerifyCodeForm({ email }: { email: string }) {
