@@ -52,6 +52,18 @@ export default function VerifyCodeForm({ email }: { email: string }) {
             ? `Reenviar e-mail de confirmação (${seconds})`
             : `Reenviar e-mail de confirmação`}
         </Button>
+
+        <Button
+          onPress={async () => {
+            window.location.reload();
+          }}
+          //isLoading={ecLoading || signinLoading}
+          color="danger"
+          variant="light"
+          size="sm"
+        >
+          Cancelar
+        </Button>
       </div>
     </div>
   );

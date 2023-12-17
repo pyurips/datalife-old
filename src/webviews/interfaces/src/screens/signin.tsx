@@ -67,7 +67,7 @@ export default function Signin() {
           onSubmit={(e) => e.preventDefault()}
           className="flex flex-col gap-3 p-5"
         >
-          {true ? (
+          {responseData.statusCode === 201 ? (
             <VerifyCodeForm email={email} />
           ) : (
             <div className="flex flex-row gap-5 items-center">
