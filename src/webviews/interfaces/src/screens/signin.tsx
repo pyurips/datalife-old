@@ -17,7 +17,10 @@ export default function Signin() {
   const [errorMessage, setErrorMessage] = useState('');
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
 
-  const { fetchData, responseData, loading, loadingHandler } = useEvents('server', 'testando');
+  const { fetchData, responseData, loading, loadingHandler } = useEvents(
+    'server',
+    'testando'
+  );
 
   useEffect(() => {
     loadingHandler(false);
@@ -33,10 +36,8 @@ export default function Signin() {
   }, []);
 
   useEffect(() => {
-    if (responseData) {
-      console.log(responseData.statusCode);
-      console.log(responseData.error?.message);
-    }
+    if (responseData) console.log(responseData.statusCode);
+    if (responseData.error) setErrorMessage(responseData.error?.message);
   }, [responseData]);
 
   return (
@@ -53,7 +54,11 @@ export default function Signin() {
           />
 
           <div className="absolute p-3 flex flex-1">
-            <img src={datalifeLogoLight} alt="DATALIFE logo" className='w-[100px]' />
+            <img
+              src={datalifeLogoLight}
+              alt="DATALIFE logo"
+              className="w-[100px]"
+            />
           </div>
         </div>
 
@@ -70,7 +75,7 @@ export default function Signin() {
               autoComplete="email"
               placeholder="Digite seu e-mail"
               className="max-w-[300px]"
-              //isInvalid={!!signinError?.message}
+              isInvalid={!!errorMessage}
               maxLength={256}
               spellCheck={false}
               size="sm"
@@ -106,7 +111,7 @@ export default function Signin() {
                 setErrorMessage('');
                 fetchData({
                   email,
-                  password
+                  password,
                 });
               }}
               variant="flat"
