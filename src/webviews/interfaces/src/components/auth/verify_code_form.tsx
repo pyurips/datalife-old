@@ -1,9 +1,25 @@
 import { Input, Button } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
+import useEvents from '../../utils/use_events';
 
-export default function VerifyCodeForm({ email }: { email: string }) {
+export default function VerifyCodeForm({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
   const [verificationCode, setVerificationCode] = useState<string>('');
   const [seconds, setSeconds] = useState<number>(60);
+
+  const { fetchData, responseData, loading, loadingHandler } = useEvents(
+    'server',
+    'auth_signin'
+  );
+
+  useEffect(() => {
+    loadingHandler(false);
+  }, []);
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
@@ -17,6 +33,8 @@ export default function VerifyCodeForm({ email }: { email: string }) {
 
   useEffect(() => {
     if (verificationCode) setVerificationCode((prev) => prev.toUpperCase());
+    if (verificationCode.length === 6 && !loading)
+      fetchData({ email, password, verificationCode });
   }, [verificationCode]);
 
   return (
