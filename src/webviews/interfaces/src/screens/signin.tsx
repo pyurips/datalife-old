@@ -9,6 +9,7 @@ import {
 } from 'react-icons/bs';
 import useEvents from '../utils/use_events';
 import datalifeLogoLight from '../assets/signin/datalife_logo_light.svg';
+import VerifyCodeForm from '../components/auth/verify_code_form';
 
 export default function Signin() {
   const [email, setEmail] = useState<string>('');
@@ -66,62 +67,67 @@ export default function Signin() {
           onSubmit={(e) => e.preventDefault()}
           className="flex flex-col gap-3 p-5"
         >
-          <div className="flex flex-row gap-5 items-center">
-            <Input
-              value={email}
-              onValueChange={(e) => setEmail(e)}
-              isClearable
-              type="email"
-              autoComplete="email"
-              placeholder="Digite seu e-mail"
-              className="max-w-[300px]"
-              isInvalid={!!errorMessage}
-              maxLength={256}
-              spellCheck={false}
-              size="sm"
-            />
+          {true ? (
+            <VerifyCodeForm email={email} />
+          ) : (
+            <div className="flex flex-row gap-5 items-center">
+              <Input
+                value={email}
+                onValueChange={(e) => setEmail(e)}
+                isClearable
+                type="email"
+                autoComplete="email"
+                placeholder="Digite seu e-mail"
+                className="max-w-[300px]"
+                isInvalid={!!errorMessage}
+                maxLength={256}
+                spellCheck={false}
+                size="sm"
+              />
 
-            <Input
-              placeholder="Digite sua senha"
-              value={password}
-              onValueChange={(e) => setPassword(e)}
-              autoComplete="current-password"
-              maxLength={256}
-              spellCheck={false}
-              size="sm"
-              endContent={
-                <button
-                  className="focus:outline-none"
-                  type="button"
-                  onClick={() => setPasswordVisible(!passwordVisible)}
-                >
-                  {passwordVisible ? (
-                    <BsEyeFill className="text-2xl text-default-400 pointer-events-none" />
-                  ) : (
-                    <BsEyeSlashFill className="text-2xl text-default-400 pointer-events-none" />
-                  )}
-                </button>
-              }
-              type={passwordVisible ? 'text' : 'password'}
-              className="max-w-[300px]"
-            />
+              <Input
+                placeholder="Digite sua senha"
+                value={password}
+                onValueChange={(e) => setPassword(e)}
+                autoComplete="current-password"
+                maxLength={256}
+                spellCheck={false}
+                size="sm"
+                endContent={
+                  <button
+                    className="focus:outline-none"
+                    type="button"
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                  >
+                    {passwordVisible ? (
+                      <BsEyeFill className="text-2xl text-default-400 pointer-events-none" />
+                    ) : (
+                      <BsEyeSlashFill className="text-2xl text-default-400 pointer-events-none" />
+                    )}
+                  </button>
+                }
+                type={passwordVisible ? 'text' : 'password'}
+                className="max-w-[300px]"
+              />
 
-            <Button
-              onPress={() => {
-                setErrorMessage('');
-                fetchData({
-                  email,
-                  password,
-                });
-              }}
-              variant="flat"
-              color="success"
-              className="h-full"
-              isLoading={loading}
-            >
-              Entrar
-            </Button>
-          </div>
+              <Button
+                onPress={() => {
+                  setErrorMessage('');
+                  fetchData({
+                    email,
+                    password,
+                  });
+                }}
+                variant="flat"
+                color="success"
+                className="h-full"
+                isLoading={loading}
+              >
+                Entrar
+              </Button>
+            </div>
+          )}
+
           {!!errorMessage && (
             <p className="text-xs text-[#f31260]">{errorMessage}</p>
           )}
