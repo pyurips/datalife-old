@@ -1,4 +1,4 @@
-import { Input, Button } from '@nextui-org/react';
+import { Input, Button, Spinner } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import useEvents from '../../utils/use_events';
 
@@ -11,10 +11,11 @@ export default function VerifyCodeForm({
 }) {
   const [verificationCode, setVerificationCode] = useState<string>('');
   const [seconds, setSeconds] = useState<number>(60);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const { fetchData, responseData, loading, loadingHandler } = useEvents(
     'server',
-    'auth_signin'
+    'auth_signinTwoFa'
   );
 
   useEffect(() => {
@@ -33,9 +34,23 @@ export default function VerifyCodeForm({
 
   useEffect(() => {
     if (verificationCode) setVerificationCode((prev) => prev.toUpperCase());
-    if (verificationCode.length === 6 && !loading)
+    if (verificationCode.length === 6 && !loading) {
+      setErrorMessage('');
+      setVerificationCode('');
       fetchData({ email, password, verificationCode });
+    }
   }, [verificationCode]);
+
+  useEffect(() => {
+    if (responseData.error) setErrorMessage(responseData.error?.message);
+  }, [responseData]);
+
+  if (loading)
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <Spinner color="success" labelColor="success" size="lg" />
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-3">
@@ -53,6 +68,7 @@ export default function VerifyCodeForm({
           onValueChange={(e) => setVerificationCode(e)}
           placeholder="Digite o código aqui"
           maxLength={6}
+          isInvalid={!!errorMessage}
           startContent={<p className="font-bold tracking-widest text-lg">V-</p>}
         />
 
@@ -75,7 +91,6 @@ export default function VerifyCodeForm({
           onPress={async () => {
             window.location.reload();
           }}
-          //isLoading={ecLoading || signinLoading}
           color="danger"
           variant="light"
           size="sm"
@@ -83,6 +98,9 @@ export default function VerifyCodeForm({
           Cancelar
         </Button>
       </div>
+      {!!errorMessage && (
+        <p className="text-xs text-[#f31260]">{errorMessage}</p>
+      )}
     </div>
   );
 }

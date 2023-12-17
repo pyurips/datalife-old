@@ -37,7 +37,6 @@ export default function Signin() {
   }, []);
 
   useEffect(() => {
-    if (responseData) console.log(responseData.statusCode);
     if (responseData.error) setErrorMessage(responseData.error?.message);
   }, [responseData]);
 
