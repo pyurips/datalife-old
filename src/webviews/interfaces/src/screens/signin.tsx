@@ -7,7 +7,6 @@ import {
   BsYoutube,
   BsInstagram,
 } from 'react-icons/bs';
-import useFetcher from '../utils/use_fetcher';
 import useEvents from '../utils/use_events';
 import datalifeLogoLight from '../assets/signin/datalife_logo_light.svg';
 
@@ -18,32 +17,14 @@ export default function Signin() {
   const [errorMessage, setErrorMessage] = useState('');
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
 
-  const {
-    loading: signinLoading,
-    error: signinError,
-    fetchData: doSignin,
-    loadingHandler: loadingSigninHandler,
-  } = useFetcher({
-    resource: '/accounts/signin',
-    method: 'post',
-    body: {
-      email,
-      password,
-    },
-  });
-
-  const { fetchData, responseData } = useEvents('server', 'testando');
+  const { fetchData, responseData, loading, loadingHandler } = useEvents('server', 'testando');
 
   useEffect(() => {
-    fetchData({
-      message: 'Olá do cliente!',
-    });
-
+    loadingHandler(false);
     const handleResize = () => {
       setScale((window.innerWidth + 520) / 1886.6);
     };
 
-    loadingSigninHandler(false);
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -52,12 +33,11 @@ export default function Signin() {
   }, []);
 
   useEffect(() => {
-    if (responseData) console.log(responseData.content);
+    if (responseData) {
+      console.log(responseData.statusCode);
+      console.log(responseData.error?.message);
+    }
   }, [responseData]);
-
-  useEffect(() => {
-    if (signinError) setErrorMessage(signinError.message);
-  }, [signinError]);
 
   return (
     <main className="flex items-center justify-center w-screen h-screen">
@@ -90,7 +70,7 @@ export default function Signin() {
               autoComplete="email"
               placeholder="Digite seu e-mail"
               className="max-w-[300px]"
-              isInvalid={!!signinError?.message}
+              //isInvalid={!!signinError?.message}
               maxLength={256}
               spellCheck={false}
               size="sm"
@@ -124,12 +104,15 @@ export default function Signin() {
             <Button
               onPress={() => {
                 setErrorMessage('');
-                doSignin();
+                fetchData({
+                  email,
+                  password
+                });
               }}
               variant="flat"
               color="success"
               className="h-full"
-              isLoading={signinLoading}
+              isLoading={loading}
             >
               Entrar
             </Button>

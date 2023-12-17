@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 type IResponseData = {
-  content: unknown;
-  statusCode: number;
+  content: any | null;
+  statusCode: number | null;
   error: {
     message: string;
     internalCode: string;
@@ -24,7 +24,7 @@ function useEvents(
   const [loading, setLoading] = useState<boolean>(true);
   const [responseData, setResponseData] = useState<IResponseData>({
     content: null,
-    statusCode: 500,
+    statusCode: null,
     error: null,
   });
 
