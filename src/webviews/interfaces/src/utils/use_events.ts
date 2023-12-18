@@ -19,7 +19,6 @@ type useEventsReturn = {
 function useEvents(
   emitTo: 'client' | 'server',
   eventName: string,
-  keepEvent: boolean = false
 ): useEventsReturn {
   const [loading, setLoading] = useState<boolean>(true);
   const [responseData, setResponseData] = useState<IResponseData>({
@@ -27,12 +26,6 @@ function useEvents(
     statusCode: null,
     error: null,
   });
-
-  if (keepEvent)
-    // @ts-ignore
-    return window.alt.on(`response:${eventName}`, (data: IResponseData) =>
-      setResponseData(data)
-    );
 
   function loadingHandler(state: boolean) {
     return setLoading(state);

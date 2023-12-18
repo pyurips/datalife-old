@@ -6,7 +6,6 @@ import {
   renderCustomCamera,
   pointCustomCameraAtCoord,
   destroyCustomCamera,
-  showCursor,
   setScreenMode
   // @ts-ignore
 } from 'alt:utils';

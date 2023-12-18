@@ -6,7 +6,9 @@ export default function App() {
 
   useEffect(() => {
     // @ts-ignore
-    //if (window.alt)
+    if (window.alt)
+      // @ts-ignore
+      window.alt.on('response:webview_setScreen', (data) => setScreen(data));
   }, []);
 
   return <>{screen === 'signin' && <Signin />}</>;
