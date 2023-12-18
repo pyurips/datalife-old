@@ -4,3 +4,6 @@ client-main = "client/index.js"
 client-files = [
   "client/*"
 ]
+deps = [
+  "utils"
+]

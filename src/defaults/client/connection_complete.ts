@@ -1,5 +1,4 @@
 import * as alt from 'alt-client';
-import * as native from 'natives';
 // @ts-ignore
 import { loadMainInterface } from 'alt:webviews_handlers';
 import {
@@ -7,6 +6,8 @@ import {
   renderCustomCamera,
   pointCustomCameraAtCoord,
   destroyCustomCamera,
+  showCursor,
+  setScreenMode
   // @ts-ignore
 } from 'alt:utils';
 
@@ -21,10 +22,7 @@ alt.on('connectionComplete', async () => {
     new alt.Vector3(402.8664, -996.4108, -98.5)
   );
   renderCustomCamera(signinCamera);
-  native.triggerScreenblurFadeIn(100);
-  native.displayRadar(false);
-  native.displayHud(false);
-  alt.toggleGameControls(false);
+  setScreenMode(true);
   await loadMainInterface();
 
   alt.once('request:auth_destroySigninCamera', () => {

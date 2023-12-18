@@ -1,5 +1,6 @@
 import * as alt from 'alt-client';
-import * as native from 'natives';
+// @ts-ignore
+import { showCursor, setScreenMode } from 'alt:utils';
 
 const EVENT_NAME = 'auth_enterGame';
 
@@ -13,9 +14,6 @@ type IResponseData = {
 };
 
 alt.onceServer(`request:${EVENT_NAME}`, () => {
-  native.triggerScreenblurFadeOut(100);
-  native.displayRadar(true);
-  native.displayHud(true);
-  alt.toggleGameControls(true);
-  alt.emitRaw('request:auth_destroySigninCamera')
+  setScreenMode(false);
+  alt.emitRaw('request:auth_destroySigninCamera');
 });

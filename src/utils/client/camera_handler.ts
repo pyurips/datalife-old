@@ -28,7 +28,7 @@ export function renderCustomCamera(camera: number, easeTime?: number) {
     easeTime ? easeTime : 0,
     true,
     false,
-    null
+    0
   );
 }
 
@@ -39,7 +39,7 @@ export function unrenderCustomCamera(easeTime?: number) {
     easeTime ? easeTime : 0,
     false,
     false,
-    null
+    0
   );
 }
 
