@@ -16,6 +16,6 @@ alt.onceServer(`request:${EVENT_NAME}`, () => {
   native.triggerScreenblurFadeOut(100);
   native.displayRadar(true);
   native.displayHud(true);
-  alt.showCursor(false);
   alt.toggleGameControls(true);
+  alt.emitRaw('request:auth_destroySigninCamera')
 });

@@ -1,3 +1,13 @@
-import { createCustomCamera, renderCustomCamera, pointCustomCameraAtCoord } from './camera_handler.js';
+import {
+  createCustomCamera,
+  renderCustomCamera,
+  pointCustomCameraAtCoord,
+  destroyCustomCamera,
+} from './camera_handler.js';
 
-export { createCustomCamera, renderCustomCamera, pointCustomCameraAtCoord };
+export {
+  createCustomCamera,
+  renderCustomCamera,
+  pointCustomCameraAtCoord,
+  destroyCustomCamera,
+};

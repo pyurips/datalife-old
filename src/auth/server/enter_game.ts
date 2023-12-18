@@ -13,6 +13,5 @@ type IResponseData = {
 
 alt.on(`request:${EVENT_NAME}`, (player: alt.Player) => {
   player.emitRaw('request:auth_enterGame');
-  player.emitRaw('auth_destroySigninCamera');
   player.dimension = 0;
 });
