@@ -1,9 +1,8 @@
-import Signin from "./screens/signin";
+import Signin from './screens/signin';
+import { useState, useEffect } from 'react';
 
 export default function App() {
-  return (
-    <>
-      <Signin />
-    </>
-  );
+  const [screen, setScreen] = useState<'signin' | ''>('signin');
+
+  return <>{screen === 'signin' && <Signin />}</>;
 }
