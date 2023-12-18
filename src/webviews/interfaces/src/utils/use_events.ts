@@ -19,7 +19,7 @@ type useEventsReturn = {
 function useEvents(
   emitTo: 'client' | 'server',
   eventName: string,
-  responseOnly: boolean = false
+  keepEvent: boolean = false
 ): useEventsReturn {
   const [loading, setLoading] = useState<boolean>(true);
   const [responseData, setResponseData] = useState<IResponseData>({
@@ -28,7 +28,7 @@ function useEvents(
     error: null,
   });
 
-  if (responseOnly)
+  if (keepEvent)
     // @ts-ignore
     return window.alt.on(`response:${eventName}`, (data: IResponseData) =>
       setResponseData(data)
@@ -48,13 +48,11 @@ function useEvents(
     setLoading(true);
     const eventFunction = (data: IResponseData) => {
       setResponseData(data);
-      // @ts-ignore
-      window.alt.off(`response:${eventName}`, eventFunction);
       setLoading(false);
     };
 
     // @ts-ignore
-    window.alt.on(`response:${eventName}`, eventFunction);
+    window.alt.once(`response:${eventName}`, eventFunction);
     // @ts-ignore
     window.alt.emit('emitTo', emitTo, `request:${eventName}`, requestData);
   }

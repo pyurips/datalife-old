@@ -11,6 +11,6 @@ type IResponseData = {
   } | null;
 };
 
-alt.onClient(`request:${EVENT_NAME}`, (player: alt.Player) => {
-  console.log(`O jogador ${player.name} logou!`);
+alt.on(`request:${EVENT_NAME}`, (player: alt.Player) => {
+  alt.log(`O jogador ${player.name} logou!`);
 });
