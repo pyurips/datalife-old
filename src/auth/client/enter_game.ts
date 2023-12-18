@@ -1,4 +1,4 @@
-import * as alt from 'alt-server';
+import * as alt from 'alt-client';
 
 const EVENT_NAME = 'auth_enterGame';
 
@@ -11,7 +11,6 @@ type IResponseData = {
   } | null;
 };
 
-alt.on(`request:${EVENT_NAME}`, (player: alt.Player) => {
-  player.emitRaw('request:auth_enterGame');
-  player.dimension = 0;
+alt.onceServer(`request:${EVENT_NAME}`, () => {
+  
 });

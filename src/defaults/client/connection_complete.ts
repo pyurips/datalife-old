@@ -15,4 +15,8 @@ alt.on('connectionComplete', async () => {
   alt.showCursor(true);
   alt.toggleGameControls(false);
   await loadMainInterface();
+
+  alt.onceServer('auth_destroySigninCamera', () => {
+    
+  });
 });
