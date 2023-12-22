@@ -14,6 +14,7 @@ export default function Genetics() {
     'Examplo2',
     'Exemplo3',
   ]);
+  const [characterName, setCharacterName] = useState<string>('');
   const [gender, setGender] = useState<boolean>(true);
 
   return (
