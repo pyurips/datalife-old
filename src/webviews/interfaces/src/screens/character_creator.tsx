@@ -13,9 +13,9 @@ export default function CharacterCreator() {
   return (
     <main className="flex h-screen w-full justify-end items-center px-7">
       <div className="flex flex-row py-7 justify-between bg-[#2D2D2D] w-[360px] h-[550px] rounded-2xl overflow-hidden">
-        <div className="bg-[red] flex-1"></div>
+        <div className="flex-1"></div>
 
-        <div className="flex flex-col justify-between items-center w-[100px]">
+        <div className="flex flex-col justify-evenly items-center w-[100px]">
           <Button
             onClick={() => setSelectedMenu('genetics')}
             isIconOnly
