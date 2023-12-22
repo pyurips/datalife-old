@@ -14,6 +14,7 @@ export default function Genetics() {
     'Examplo2',
     'Exemplo3',
   ]);
+  const [gender, setGender] = useState<boolean>(true);
 
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
@@ -26,8 +27,16 @@ export default function Genetics() {
       <div className="flex flex-col gap-2">
         <p className="text-sm">Formato do corpo</p>
         <div className="flex flex-row gap-2">
-          <Button isIconOnly></Button>
-          <Button isIconOnly></Button>
+          <Button
+            onPress={() => setGender(true)}
+            isIconOnly
+            className={`${gender ? 'opacity-100' : 'opacity-50'}`}
+          ></Button>
+          <Button
+            onPress={() => setGender(false)}
+            isIconOnly
+            className={`${!gender ? 'opacity-100' : 'opacity-50'}`}
+          ></Button>
         </div>
       </div>
 
@@ -53,7 +62,7 @@ export default function Genetics() {
       <div className="flex flex-col gap-2">
         <Slider
           color="foreground"
-          size='sm'
+          size="sm"
           label="Combinação da face"
           step={0.01}
           maxValue={1}
@@ -65,7 +74,7 @@ export default function Genetics() {
       <div className="flex flex-col gap-2">
         <Slider
           color="foreground"
-          size='sm'
+          size="sm"
           label="Combinação da pele"
           step={0.01}
           maxValue={1}
