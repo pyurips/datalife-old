@@ -12,10 +12,10 @@ export default function CharacterCreator() {
 
   return (
     <main className="flex h-screen w-full justify-end items-center px-7">
-      <div className="flex flex-row items-center justify-between bg-[#2D2D2D] w-[360px] h-[550px] rounded-2xl overflow-hidden">
-        <div>dsad</div>
+      <div className="flex flex-row py-7 justify-between bg-[#2D2D2D] w-[360px] h-[550px] rounded-2xl overflow-hidden">
+        <div className="bg-[red] flex-1"></div>
 
-        <div className="flex flex-col justify-evenly items-center w-[100px] h-[90%]">
+        <div className="flex flex-col justify-between items-center w-[100px]">
           <Button
             onClick={() => setSelectedMenu('genetics')}
             isIconOnly
@@ -36,7 +36,9 @@ export default function CharacterCreator() {
             onClick={() => setSelectedMenu('hairAndFacialHair')}
             isIconOnly
             className={`flex rounded-xl w-[70px] h-[70px] bg-[#D9D9D9] ${
-              selectedMenu === 'hairAndFacialHair' ? 'opacity-100' : 'opacity-50'
+              selectedMenu === 'hairAndFacialHair'
+                ? 'opacity-100'
+                : 'opacity-50'
             }`}
           ></Button>
 
