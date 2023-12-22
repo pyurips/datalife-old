@@ -35,7 +35,7 @@ export default function CharacterCreator() {
 
           <div className="flex flex-col gap-2">
             <p className="text-sm">Selecione seus parentes</p>
-            <Select>
+            <Select size='sm'>
               {fatherBlends.map((fatherBlends, index) => (
                 <SelectItem key={index} value={fatherBlends}>
                   {fatherBlends}
@@ -43,7 +43,7 @@ export default function CharacterCreator() {
               ))}
             </Select>
 
-            <Select>
+            <Select size='sm'>
               {fatherBlends.map((fatherBlends, index) => (
                 <SelectItem key={index} value={fatherBlends}>
                   {fatherBlends}
@@ -54,7 +54,7 @@ export default function CharacterCreator() {
 
           <div className="flex flex-col gap-2">
             <p className="text-sm">Combinação da face</p>
-            <Select>
+            <Select size='sm'>
               {fatherBlends.map((fatherBlends, index) => (
                 <SelectItem key={index} value={fatherBlends}>
                   {fatherBlends}
@@ -65,7 +65,7 @@ export default function CharacterCreator() {
 
           <div className="flex flex-col gap-2">
             <p className="text-sm">Combinação da pele</p>
-            <Select>
+            <Select size='sm'>
               {fatherBlends.map((fatherBlends, index) => (
                 <SelectItem key={index} value={fatherBlends}>
                   {fatherBlends}
