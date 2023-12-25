@@ -43,7 +43,7 @@ export default function Genetics() {
 
       <div className="flex flex-col gap-2">
         <p className="text-sm">Selecione seus parentes</p>
-        <Select size="sm">
+        <Select size="sm" aria-label="Seleção do pai">
           {fatherBlends.map((fatherBlends, index) => (
             <SelectItem key={index} value={fatherBlends}>
               {fatherBlends}
@@ -51,7 +51,7 @@ export default function Genetics() {
           ))}
         </Select>
 
-        <Select size="sm">
+        <Select size="sm" aria-label="Seleção da mãe">
           {fatherBlends.map((fatherBlends, index) => (
             <SelectItem key={index} value={fatherBlends}>
               {fatherBlends}
@@ -62,6 +62,7 @@ export default function Genetics() {
 
       <div className="flex flex-col gap-2">
         <Slider
+          aria-label="Combinação da face"
           color="foreground"
           size="sm"
           label="Combinação da face"
@@ -74,6 +75,7 @@ export default function Genetics() {
 
       <div className="flex flex-col gap-2">
         <Slider
+          aria-label="Combinação da pele"
           color="foreground"
           size="sm"
           label="Combinação da pele"
