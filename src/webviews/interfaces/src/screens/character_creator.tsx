@@ -1,5 +1,5 @@
-import { Input, Button, Link, Select, SelectItem } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
+import { Button } from '@nextui-org/react';
+import { useState } from 'react';
 import Genetics from '../components/character_creator/genetics';
 
 export default function CharacterCreator() {
@@ -12,7 +12,7 @@ export default function CharacterCreator() {
   >('genetics');
 
   return (
-    <main className="flex h-screen w-full justify-end items-center px-7">
+    <main className="flex h-screen w-full justify-center items-center">
       <div className="flex flex-row py-7 justify-between bg-[#2D2D2D] w-[360px] h-[550px] rounded-2xl overflow-hidden">
         {selectedMenu === 'genetics' && <Genetics />}
 
