@@ -1,5 +1,5 @@
 import { Button } from '@nextui-org/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Genetics from '../components/character_creator/genetics';
 
 export default function CharacterCreator() {
@@ -10,10 +10,26 @@ export default function CharacterCreator() {
     | 'personality'
     | 'clothing'
   >('genetics');
+  const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScale((window.innerWidth + 520) / 1886.6);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
-    <main className="flex h-screen w-full justify-center items-center">
-      <div className="flex flex-row py-7 justify-between bg-[#2D2D2D] w-[360px] h-[550px] rounded-2xl overflow-hidden">
+    <main className="flex h-screen w-full justify-end items-center">
+      <div
+        style={{ transform: `scale(${scale})`, marginRight: (0.11 * window.innerWidth) - 121.2 }}
+        className="flex flex-row py-7 justify-between bg-[#2D2D2D] w-[360px] h-[550px] rounded-2xl overflow-hidden"
+      >
         {selectedMenu === 'genetics' && <Genetics />}
 
         <div className="flex flex-col justify-evenly items-center w-[100px]">
