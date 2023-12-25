@@ -1,19 +1,10 @@
-import {
-  Input,
-  Button,
-  Link,
-  Select,
-  SelectItem,
-  Slider,
-} from '@nextui-org/react';
+import { Input, Button, Slider } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
+import { FaMale, FaFemale } from 'react-icons/fa';
+import { RxUpdate } from 'react-icons/rx';
+import { MdFace, MdFace2 } from "react-icons/md";
 
 export default function Genetics() {
-  const [fatherBlends, setFatherBlends] = useState<string[]>([
-    'Exemplo',
-    'Examplo2',
-    'Exemplo3',
-  ]);
   const [characterName, setCharacterName] = useState<string>('');
   const [gender, setGender] = useState<boolean>(true);
 
@@ -32,58 +23,59 @@ export default function Genetics() {
             onPress={() => setGender(true)}
             isIconOnly
             className={`${gender ? 'opacity-100' : 'opacity-50'}`}
-          ></Button>
+          >
+            <FaMale size={20} />
+          </Button>
           <Button
             onPress={() => setGender(false)}
             isIconOnly
             className={`${!gender ? 'opacity-100' : 'opacity-50'}`}
-          ></Button>
+          >
+            <FaFemale size={20} />
+          </Button>
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <p className="text-sm">Selecione seus parentes</p>
-        <Select size="sm" aria-label="Seleção do pai">
-          {fatherBlends.map((fatherBlends, index) => (
-            <SelectItem key={index} value={fatherBlends}>
-              {fatherBlends}
-            </SelectItem>
-          ))}
-        </Select>
-
-        <Select size="sm" aria-label="Seleção da mãe">
-          {fatherBlends.map((fatherBlends, index) => (
-            <SelectItem key={index} value={fatherBlends}>
-              {fatherBlends}
-            </SelectItem>
-          ))}
-        </Select>
-      </div>
-
-      <div className="flex flex-col gap-2">
+      <div>
         <Slider
-          aria-label="Combinação da face"
-          color="foreground"
-          size="sm"
-          label="Combinação da face"
+          startContent={<MdFace size={20} />}
+          endContent={<MdFace2 size={20} />}
+          label="Rosto mais masculino"
+          hideValue
           step={0.01}
           maxValue={1}
           minValue={0}
           defaultValue={0.5}
+          aria-label="Traços faciais"
+          color='foreground'
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <Slider
-          aria-label="Combinação da pele"
-          color="foreground"
-          size="sm"
-          label="Combinação da pele"
-          step={0.01}
-          maxValue={1}
-          minValue={0}
-          defaultValue={0.5}
-        />
+      <div className="flex flex-col flex-1 gap-2 w-full items-center">
+        <div className="w-full">
+          <Button variant="light" size="sm" color="success">
+            <RxUpdate />
+            Gerar novos rostos
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+          <div className="w-[50px] h-[50px] bg-gray-400"></div>
+        </div>
       </div>
     </div>
   );
