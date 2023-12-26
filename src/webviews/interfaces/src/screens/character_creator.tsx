@@ -1,6 +1,7 @@
 import { Button } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import Genetics from '../components/character_creator/genetics';
+import { MdRotateLeft, MdRotateRight } from 'react-icons/md';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -81,8 +82,22 @@ export default function CharacterCreator() {
           </div>
         </div>
 
-        <div className="flex">
-          <p>Aproximar câmera :D</p>
+        <div className="flex p-5 flex-row justify-between items-center">
+          <div className="flex flex-row items-center gap-2">
+            <Button isIconOnly variant="light">
+              <MdRotateRight size={20} />
+            </Button>
+            <Button variant="light" size="sm" color="default">
+              Aproximar camera
+            </Button>
+            <Button isIconOnly variant="light">
+              <MdRotateLeft size={20} />
+            </Button>
+          </div>
+
+          <Button variant="flat" color="success">
+            Finalizar
+          </Button>
         </div>
       </div>
     </main>
