@@ -18,7 +18,7 @@ export default function FaceFeatures() {
         />
       </div>
 
-      <div className="flex flex-col gap-2 bg-[#424242] p-3 rounded-lg">
+      <div className="flex flex-col gap-5 bg-[#424242] p-3 rounded-lg">
         <p className="text-md">Cor dos olhos</p>
         <div className="grid grid-cols-5 gap-4">
           {eyeColors.map((e, i) => (
