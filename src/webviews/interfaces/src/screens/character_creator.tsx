@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/react';
+import { Button, ButtonGroup } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import Genetics from '../components/character_creator/genetics';
 import { MdRotateLeft, MdRotateRight } from 'react-icons/md';
@@ -84,15 +84,17 @@ export default function CharacterCreator() {
 
         <div className="flex p-3 flex-row justify-between items-center">
           <div className="flex flex-row items-center gap-2">
-            <Button isIconOnly variant="light">
-              <MdRotateRight size={20} />
-            </Button>
-            <Button variant="light" size="sm" color="default">
-              Aproximar camera
-            </Button>
-            <Button isIconOnly variant="light">
-              <MdRotateLeft size={20} />
-            </Button>
+            <ButtonGroup>
+              <Button isIconOnly variant="light">
+                <MdRotateRight size={20} />
+              </Button>
+              <Button variant="light" size="sm" color="default">
+                Aproximar camera
+              </Button>
+              <Button isIconOnly variant="light">
+                <MdRotateLeft size={20} />
+              </Button>
+            </ButtonGroup>
           </div>
 
           <Button variant="flat" color="success">
@@ -100,7 +102,9 @@ export default function CharacterCreator() {
           </Button>
         </div>
 
-        <p className='text-xs text-[#f31260] p-3'>Mensagem de erro</p>
+        {false && (
+          <p className="text-xs text-[#f31260] p-3">Mensagem de erro</p>
+        )}
       </div>
     </main>
   );
