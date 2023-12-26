@@ -5,7 +5,7 @@ import eyeColors from '../../utils/eye_colors';
 export default function FaceFeatures() {
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
-      <div className="bg-[#424242] p-3 rounded-lg">
+      <div className="p-3 rounded-lg">
         <p className="text-md">Tom de pele</p>
         <Slider
           size="sm"
@@ -18,7 +18,7 @@ export default function FaceFeatures() {
         />
       </div>
 
-      <div className="flex flex-col gap-5 bg-[#424242] p-3 rounded-lg">
+      <div className="flex flex-col gap-5 p-3 rounded-lg">
         <p className="text-md">Cor dos olhos</p>
         <div className="grid grid-cols-5 gap-4">
           {eyeColors.map((e, i) => (
@@ -33,7 +33,7 @@ export default function FaceFeatures() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-5 bg-[#424242] p-3 rounded-lg">
+      <div className="flex flex-col gap-5 p-3 rounded-lg">
         <p className="text-md">Nariz</p>
         <Slider
           size="sm"
