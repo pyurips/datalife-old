@@ -2,6 +2,7 @@ import { Button, ButtonGroup } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import Genetics from '../components/character_creator/genetics';
 import { MdRotateLeft, MdRotateRight } from 'react-icons/md';
+import FaceFeatures from '../components/character_creator/faceFeatures';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -36,6 +37,7 @@ export default function CharacterCreator() {
       >
         <div className="flex flex-1 flex-row overflow-y-auto">
           {selectedMenu === 'genetics' && <Genetics />}
+          {selectedMenu === 'faceFeatures' && <FaceFeatures />}
 
           <div className="flex flex-col justify-between items-center p-3">
             <Button
@@ -89,7 +91,7 @@ export default function CharacterCreator() {
                 <MdRotateRight size={20} />
               </Button>
               <Button variant="light" size="sm" color="default">
-                Aproximar camera
+                Aproximar câmera
               </Button>
               <Button isIconOnly variant="light">
                 <MdRotateLeft size={20} />
