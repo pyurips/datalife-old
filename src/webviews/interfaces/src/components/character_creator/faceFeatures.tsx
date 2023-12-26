@@ -19,7 +19,7 @@ export default function FaceFeatures() {
       </div>
 
       <div className="flex flex-col gap-5 p-3 rounded-lg">
-        <p className="text-md">Cor dos olhos</p>
+        <p className="text-md bg-[#424242] p-2 rounded-md">Cor dos olhos</p>
         <div className="grid grid-cols-5 gap-4">
           {eyeColors.map((e, i) => (
             <Button
@@ -34,7 +34,7 @@ export default function FaceFeatures() {
       </div>
 
       <div className="flex flex-col gap-5 p-3 rounded-lg">
-        <p className="text-md">Nariz</p>
+        <p className="text-md bg-[#424242] p-2 rounded-md">Nariz</p>
         <Slider
           size="sm"
           step={0.01}
