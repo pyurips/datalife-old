@@ -99,6 +99,8 @@ export default function CharacterCreator() {
             Finalizar
           </Button>
         </div>
+
+        <p className='text-xs text-[#f31260] p-2'>Mensagem de erro</p>
       </div>
     </main>
   );
