@@ -37,7 +37,7 @@ export default function CharacterCreator() {
         <div className="flex flex-1 flex-row overflow-y-auto">
           {selectedMenu === 'genetics' && <Genetics />}
 
-          <div className="flex flex-col justify-evenly items-center w-[100px]">
+          <div className="flex flex-col justify-between items-center p-3">
             <Button
               onClick={() => setSelectedMenu('genetics')}
               isIconOnly
@@ -82,7 +82,7 @@ export default function CharacterCreator() {
           </div>
         </div>
 
-        <div className="flex p-5 flex-row justify-between items-center">
+        <div className="flex p-3 flex-row justify-between items-center">
           <div className="flex flex-row items-center gap-2">
             <Button isIconOnly variant="light">
               <MdRotateRight size={20} />
