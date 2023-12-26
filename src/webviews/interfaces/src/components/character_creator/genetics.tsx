@@ -104,6 +104,15 @@ export default function Genetics() {
             <MdFace size={40} />
             <p className="text-[10px]">Adjetivo</p>
           </Button>
+          <Button
+            className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242] ${
+              selectedFace === 3 ? 'opacity-100' : 'opacity-50'
+            }`}
+            onClick={() => setSelectedFace(3)}
+          >
+            <MdFace size={40} />
+            <p className="text-[10px]">Adjetivo</p>
+          </Button>
         </div>
       </div>
     </div>
