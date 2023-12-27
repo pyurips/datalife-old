@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import Genetics from '../components/character_creator/genetics';
 import { MdRotateLeft, MdRotateRight } from 'react-icons/md';
 import FaceFeatures from '../components/character_creator/faceFeatures';
+import { GiBodySwapping } from 'react-icons/gi';
+import { LuScanFace } from "react-icons/lu";
+import { BsScissors } from "react-icons/bs";
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -46,7 +49,9 @@ export default function CharacterCreator() {
               className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
                 selectedMenu === 'genetics' ? 'opacity-100' : 'opacity-50'
               }`}
-            ></Button>
+            >
+              <GiBodySwapping size={25} />
+            </Button>
 
             <Button
               onClick={() => setSelectedMenu('faceFeatures')}
@@ -54,7 +59,9 @@ export default function CharacterCreator() {
               className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
                 selectedMenu === 'faceFeatures' ? 'opacity-100' : 'opacity-50'
               }`}
-            ></Button>
+            >
+              <LuScanFace size={25} />
+            </Button>
 
             <Button
               onClick={() => setSelectedMenu('hairAndFacialHair')}
@@ -64,7 +71,9 @@ export default function CharacterCreator() {
                   ? 'opacity-100'
                   : 'opacity-50'
               }`}
-            ></Button>
+            >
+              <BsScissors size={25} />
+            </Button>
 
             <Button
               onClick={() => setSelectedMenu('personality')}
