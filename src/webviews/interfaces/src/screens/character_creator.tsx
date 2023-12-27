@@ -4,8 +4,8 @@ import Genetics from '../components/character_creator/genetics';
 import { MdRotateLeft, MdRotateRight } from 'react-icons/md';
 import FaceFeatures from '../components/character_creator/faceFeatures';
 import { GiBodySwapping } from 'react-icons/gi';
-import { LuScanFace } from "react-icons/lu";
-import { BsScissors } from "react-icons/bs";
+import { LuScanFace } from 'react-icons/lu';
+import { BsScissors } from 'react-icons/bs';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
