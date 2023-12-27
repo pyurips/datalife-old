@@ -43,7 +43,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('genetics')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#D9D9D9] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
                 selectedMenu === 'genetics' ? 'opacity-100' : 'opacity-50'
               }`}
             ></Button>
@@ -51,7 +51,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('faceFeatures')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#D9D9D9] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
                 selectedMenu === 'faceFeatures' ? 'opacity-100' : 'opacity-50'
               }`}
             ></Button>
@@ -59,7 +59,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('hairAndFacialHair')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#D9D9D9] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
                 selectedMenu === 'hairAndFacialHair'
                   ? 'opacity-100'
                   : 'opacity-50'
@@ -69,7 +69,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('personality')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#D9D9D9] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
                 selectedMenu === 'personality' ? 'opacity-100' : 'opacity-50'
               }`}
             ></Button>
@@ -77,7 +77,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('clothing')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#D9D9D9] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
                 selectedMenu === 'clothing' ? 'opacity-100' : 'opacity-50'
               }`}
             ></Button>
