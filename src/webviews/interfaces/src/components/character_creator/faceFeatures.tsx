@@ -21,7 +21,7 @@ export default function FaceFeatures() {
 
       <div className="flex flex-col gap-5 rounded-lg">
         <p className="text-md bg-[#424242] p-2 rounded-md">Cor dos olhos</p>
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-6 gap-4">
           {eyeColors.map((e, i) => (
             <Button
               size="sm"
