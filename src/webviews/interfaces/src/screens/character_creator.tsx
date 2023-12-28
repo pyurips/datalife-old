@@ -2,10 +2,11 @@ import { Button, ButtonGroup } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import Genetics from '../components/character_creator/genetics';
 import { MdRotateLeft, MdRotateRight } from 'react-icons/md';
-import FaceFeatures from '../components/character_creator/faceFeatures';
+import FaceFeatures from '../components/character_creator/face_features';
 import { GiBodySwapping } from 'react-icons/gi';
 import { LuScanFace } from 'react-icons/lu';
 import { BsScissors } from 'react-icons/bs';
+import HairAndFacialHair from '../components/character_creator/hair_and_facial_hair';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -41,6 +42,7 @@ export default function CharacterCreator() {
         <div className="flex flex-1 flex-row overflow-y-auto">
           {selectedMenu === 'genetics' && <Genetics />}
           {selectedMenu === 'faceFeatures' && <FaceFeatures />}
+          {selectedMenu === 'hairAndFacialHair' && <HairAndFacialHair />}
 
           <div className="flex flex-col justify-between items-center p-3">
             <Button
