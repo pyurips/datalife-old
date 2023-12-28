@@ -5,8 +5,11 @@ import { MdRotateLeft, MdRotateRight } from 'react-icons/md';
 import FaceFeatures from '../components/character_creator/face_features';
 import { GiBodySwapping } from 'react-icons/gi';
 import { LuScanFace } from 'react-icons/lu';
-import { BsScissors } from 'react-icons/bs';
+import { BsScissors, BsFillFilePersonFill } from 'react-icons/bs';
+import { GiClothes } from 'react-icons/gi';
 import HairAndFacialHair from '../components/character_creator/hair_and_facial_hair';
+import Personality from '../components/character_creator/personality';
+import Clothing from '../components/character_creator/clothing';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -43,6 +46,8 @@ export default function CharacterCreator() {
           {selectedMenu === 'genetics' && <Genetics />}
           {selectedMenu === 'faceFeatures' && <FaceFeatures />}
           {selectedMenu === 'hairAndFacialHair' && <HairAndFacialHair />}
+          {selectedMenu === 'personality' && <Personality />}
+          {selectedMenu === 'clothing' && <Clothing />}
 
           <div className="flex flex-col justify-between items-center p-3">
             <Button
@@ -83,7 +88,9 @@ export default function CharacterCreator() {
               className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
                 selectedMenu === 'personality' ? 'opacity-100' : 'opacity-50'
               }`}
-            ></Button>
+            >
+              <BsFillFilePersonFill size={25} />
+            </Button>
 
             <Button
               onClick={() => setSelectedMenu('clothing')}
@@ -91,7 +98,9 @@ export default function CharacterCreator() {
               className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
                 selectedMenu === 'clothing' ? 'opacity-100' : 'opacity-50'
               }`}
-            ></Button>
+            >
+              <GiClothes size={25} />
+            </Button>
           </div>
         </div>
 
