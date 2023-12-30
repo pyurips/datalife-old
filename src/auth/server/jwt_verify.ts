@@ -1,5 +1,6 @@
 import * as alt from 'alt-server';
-import { verify } from 'jsonwebtoken';
+import pkg from 'jsonwebtoken';
+const { verify } = pkg;
 
 const EVENT_NAME = 'auth_jwtVerify';
 

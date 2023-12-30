@@ -33,7 +33,7 @@ alt.onClient(
       };
       player.emitRaw('emitToWebView', `response:${EVENT_NAME}`, responseData);
       if (response.status === 200) {
-        alt.emitRaw('request:auth_jwtCreator', response.data);
+        alt.emitRaw('request:auth_jwtCreator', player, response.data);
         alt.emitRaw('request:auth_enterGame', player);
       }
     } catch (e) {
