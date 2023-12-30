@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function App() {
   const [screen, setScreen] = useState<'signin' | 'characterCreator' | null>(
-    'characterCreator'
+    'signin'
   );
 
   useEffect(() => {
