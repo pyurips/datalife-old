@@ -12,3 +12,7 @@ type IResponseData = {
     internalCode: string;
   } | null;
 };
+
+alt.on(`request:${EVENT_NAME}`, (accessToken: string) => {
+
+});
