@@ -12,7 +12,7 @@ export default function App() {
     // @ts-ignore
     if (window.alt)
       // @ts-ignore
-      window.alt.on('response:webview_setScreen', (data) => setScreen(data));
+      window.alt.on('response:webview_setScreen', (screen: string) => setScreen(screen));
   }, []);
 
   return (
