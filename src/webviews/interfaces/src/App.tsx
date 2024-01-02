@@ -1,11 +1,12 @@
 import CharacterCreator from './screens/character_creator';
+import DebugHud from './screens/debug_hud';
 import Signin from './screens/signin';
 import { useState, useEffect } from 'react';
 
 export default function App() {
-  const [screen, setScreen] = useState<'signin' | 'characterCreator' | null>(
-    'signin'
-  );
+  const [screen, setScreen] = useState<
+    'signin' | 'characterCreator' | 'debugHud' | null
+  >('debugHud');
 
   useEffect(() => {
     // @ts-ignore
@@ -18,6 +19,7 @@ export default function App() {
     <>
       {screen === 'signin' && <Signin />}
       {screen === 'characterCreator' && <CharacterCreator />}
+      {screen === 'debugHud' && <DebugHud />}
     </>
   );
 }
