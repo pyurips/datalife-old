@@ -32,7 +32,6 @@ export default function DebugHud() {
           className="w-[100px]"
         />
         <p className="text-sm text-neutral-400">v0.01</p>
-        <p className="text-neutral-900">KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK</p>
       </header>
 
       <div className="flex flex-1 p-5 flex-col items-start">
