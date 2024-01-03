@@ -1,1 +1,1 @@
-import './debug_panel.js';
+import './debug_panel_infos.js';
