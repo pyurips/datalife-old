@@ -12,3 +12,4 @@ altv-crash-handler.exe
 libnode.dll
 resources
 .env
+.server-crashes-cache
