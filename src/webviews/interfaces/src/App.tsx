@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 export default function App() {
   type IScreens = 'signin' | 'characterCreator' | 'debugHud' | null;
-  const [screen, setScreen] = useState<IScreens>('debugHud');
+  const [screen, setScreen] = useState<IScreens>('signin');
 
   useEffect(() => {
     if (window.alt)
