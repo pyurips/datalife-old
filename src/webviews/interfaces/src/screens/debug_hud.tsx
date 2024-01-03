@@ -32,7 +32,7 @@ export default function DebugHud() {
           className="w-[100px]"
         />
         <p className="text-sm text-neutral-400">v0.01</p>
-        <p className='text-neutral-900'>KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK</p>
+        <p className="text-neutral-900">KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK</p>
       </header>
 
       <div className="flex flex-1 p-5 flex-col items-start">
@@ -42,7 +42,7 @@ export default function DebugHud() {
           <p className="text-sm">z: 7520.12</p>
           <p className="text-sm">rot: 3547.80</p>
           <p className="text-sm">spd: 6314.96</p>
-          <Button onPress={() => {}} variant="flat" color="primary">
+          <Button onPress={() => {}} variant="solid" color="primary">
             Copiar coordenadas
           </Button>
         </div>
