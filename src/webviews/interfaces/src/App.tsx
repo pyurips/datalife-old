@@ -4,15 +4,14 @@ import Signin from './screens/signin';
 import { useState, useEffect } from 'react';
 
 export default function App() {
-  const [screen, setScreen] = useState<
-    'signin' | 'characterCreator' | 'debugHud' | null
-  >('debugHud');
+  type IScreens = 'signin' | 'characterCreator' | 'debugHud' | null;
+  const [screen, setScreen] = useState<IScreens>('debugHud');
 
   useEffect(() => {
-    // @ts-ignore
     if (window.alt)
-      // @ts-ignore
-      window.alt.on('response:webview_setScreen', (screen: string) => setScreen(screen));
+      window.alt.on('response:webview_setScreen', (screen: IScreens) =>
+        setScreen(screen)
+      );
   }, []);
 
   return (
