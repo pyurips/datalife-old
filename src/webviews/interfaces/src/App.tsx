@@ -1,11 +1,17 @@
+import AdminPanel from './screens/admin_panel';
 import CharacterCreator from './screens/character_creator';
 import DebugHud from './screens/debug_hud';
 import Signin from './screens/signin';
 import { useState, useEffect } from 'react';
 
 export default function App() {
-  type IScreens = 'signin' | 'characterCreator' | 'debugHud' | null;
-  const [screen, setScreen] = useState<IScreens>('signin');
+  type IScreens =
+    | 'signin'
+    | 'characterCreator'
+    | 'debugHud'
+    | 'adminPanel'
+    | null;
+  const [screen, setScreen] = useState<IScreens>('adminPanel');
 
   useEffect(() => {
     if (window.alt)
@@ -19,6 +25,7 @@ export default function App() {
       {screen === 'signin' && <Signin />}
       {screen === 'characterCreator' && <CharacterCreator />}
       {screen === 'debugHud' && <DebugHud />}
+      {screen === 'adminPanel' && <AdminPanel />}
     </>
   );
 }
