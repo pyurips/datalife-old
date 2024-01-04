@@ -11,12 +11,12 @@ export default function App() {
     | 'debugHud'
     | 'adminPanel'
     | null;
-  const [screen, setScreen] = useState<IScreens>('adminPanel');
+  const [screen, setScreen] = useState<IScreens>('signin');
 
   useEffect(() => {
     if (window.alt)
-      window.alt.on('response:webview_setScreen', (screen: IScreens) =>
-        setScreen(screen)
+      window.alt.on('response:webview_setScreen', (screenReceived: IScreens) =>
+        setScreen(screenReceived)
       );
   }, []);
 

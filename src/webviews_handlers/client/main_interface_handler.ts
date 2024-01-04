@@ -28,5 +28,11 @@ export async function loadMainInterface() {
   await new Promise((resolve) => {
     view.once('load', resolve);
   });
+
   view.focus();
+
+  alt.on('request:webview_toggleFocus', (state: boolean) => {
+    if (state) return view.focus();
+    return view.unfocus();
+  });
 }
