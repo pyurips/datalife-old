@@ -1,7 +1,7 @@
 const adminCategories = [
   {
     category: 'category1',
-    options: ['option1', 'option1'],
+    options: ['option1', 'option1', 'Opção Lai'],
   },
   {
     category: 'category2',

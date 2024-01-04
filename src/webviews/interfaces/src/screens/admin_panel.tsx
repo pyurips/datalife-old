@@ -1,21 +1,14 @@
 import { Switch, Button, ScrollShadow } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-
-const CATEGORIES_MOCK = [
-  'Option1',
-  'Option2',
-  'Option3',
-  'Option4',
-  'Option5',
-  'Option6',
-  'Option7',
-  'Option8',
-  'Option9',
-];
+import adminCategories from '../utils/admin_categories';
 
 export default function AdminPanel() {
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
-  const [category, setCategory] = useState<string>(CATEGORIES_MOCK[0]);
+  const [category, setCategory] = useState<{
+    category: string;
+    options: string[];
+  }>(adminCategories[0]);
+  const [option, setOption] = useState<string>(category.options[0]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,7 +40,7 @@ export default function AdminPanel() {
         </header>
 
         <div className="flex flex-row gap-4 w-full p-4 overflow-x-auto">
-          {CATEGORIES_MOCK.map((e, i) => (
+          {adminCategories.map((e, i) => (
             <Button
               onPress={() => setCategory(e)}
               style={{
@@ -55,7 +48,7 @@ export default function AdminPanel() {
               }}
               key={i}
             >
-              {e}
+              {e.category}
             </Button>
           ))}
         </div>
@@ -63,9 +56,9 @@ export default function AdminPanel() {
         <div className="flex flex-row flex-1 p-3 overflow-y-auto">
           <ScrollShadow hideScrollBar={true}>
             <div className="flex flex-col gap-2">
-              {new Array(10).fill(0).map((_, i) => (
+              {category.options.map((e, i) => (
                 <Button key={i} variant="light">
-                  <p className="text-neutral-300">Opções de pablai</p>
+                  <p className="text-neutral-300">{e}</p>
                 </Button>
               ))}
             </div>
