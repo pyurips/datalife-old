@@ -1,6 +1,8 @@
 import * as alt from 'alt-client';
-// @ts-ignore
-import { setScreenMode } from 'alt:utils';
+import {
+  setScreenMode,
+  // @ts-ignore
+} from 'alt:utils';
 
 alt.on('keyup', async (key) => {
   if (key === 113) {
@@ -12,5 +14,15 @@ alt.on('keyup', async (key) => {
 
     setScreenMode(false);
     return alt.setMeta('currentScreen', 'debugHud');
+  }
+
+  if (key === 114) {
+    const debugCamState = alt.getMeta('debugCamState');
+    if (debugCamState) {
+      alt.setMeta('debugCamState', false);
+      return alt.emitRaw('request:debug_unrenderDebugCam');
+    }
+    alt.setMeta('debugCamState', true);
+    return alt.emitRaw('request:debug_initializeDebugCam');
   }
 });

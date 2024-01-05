@@ -3,6 +3,8 @@ import {
   renderCustomCamera,
   pointCustomCameraAtCoord,
   destroyCustomCamera,
+  setPositionCustomCamera,
+  setRotCustomCamera
 } from './camera_handler.js';
 
 import { showCursor } from './cursor_handler.js';
@@ -14,6 +16,8 @@ export {
   renderCustomCamera,
   pointCustomCameraAtCoord,
   destroyCustomCamera,
+  setPositionCustomCamera,
+  setRotCustomCamera,
   showCursor,
   setScreenMode
 };

@@ -22,14 +22,7 @@ export function createCustomCamera(
 
 export function renderCustomCamera(camera: number, easeTime?: number) {
   native.setCamActive(camera, true);
-  native.renderScriptCams(
-    true,
-    false,
-    easeTime ? easeTime : 0,
-    true,
-    false,
-    0
-  );
+  native.renderScriptCams(true, false, easeTime ? easeTime : 0, true, false, 0);
 }
 
 export function unrenderCustomCamera(easeTime?: number) {
@@ -76,6 +69,24 @@ export function pointCustomCameraAtCoord(
 ) {
   native.pointCamAtCoord(camera, position.x, position.y, position.z);
   renderCustomCamera(camera, easeTime);
+}
+
+export function setPositionCustomCamera(
+  camera: number,
+  x: number,
+  y: number,
+  z: number
+) {
+  native.setCamCoord(camera, x, y, z);
+}
+
+export function setRotCustomCamera(
+  camera: number,
+  x: number,
+  y: number,
+  z: number
+) {
+  native.setCamRot(camera, x, y, z, 2);
 }
 
 // export class CustomCamera {
