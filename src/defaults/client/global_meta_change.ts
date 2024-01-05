@@ -11,6 +11,7 @@ alt.on('globalMetaChange', (key, newValue, oldValue) => {
   }
 
   if (key === 'debugCamState') {
-    
+    if (newValue) return alt.toggleGameControls(false);
+    return alt.toggleGameControls(true);
   }
 });
