@@ -24,15 +24,16 @@ alt.on('request:debug_initializeDebugCam', () => {
     player.rot.y,
     player.rot.z
   );
-  const debugCamera = createCustomCamera(
+  currentDebugCamera = createCustomCamera(
     currentDebugCamCoords,
     currentDebugCamRot,
     40
   );
-  renderCustomCamera(debugCamera);
+  renderCustomCamera(currentDebugCamera);
 });
 
 alt.on('request:debug_unrenderDebugCam', () => {
+  alt.log(currentDebugCamera);
   if (currentDebugCamera) destroyCustomCamera(currentDebugCamera);
 });
 

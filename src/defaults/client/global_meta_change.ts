@@ -9,4 +9,8 @@ alt.on('globalMetaChange', (key, newValue, oldValue) => {
     }
     return alt.emitRaw('emitToWebView', 'response:webview_setScreen', newValue);
   }
+
+  if (key === 'debugCamState') {
+    
+  }
 });
