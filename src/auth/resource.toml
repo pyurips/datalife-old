@@ -6,5 +6,4 @@ client-files = [
 ]
 deps = [
   "utils",
-  "database"
 ]

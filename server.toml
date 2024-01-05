@@ -13,7 +13,8 @@ resources = [
     'auth',
     'webviews',
     'defaults',
-    'admin_panel'
+    'admin_panel',
+    'database'
 ]
 enableSyncedMetaData = false
 debug=true
