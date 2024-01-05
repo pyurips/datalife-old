@@ -16,13 +16,9 @@ const DEFAULT_ERROR_MESSAGE =
 alt.on(`request:${EVENT_NAME}`, async (userId: string) => {
   const URI = process.env.MONGO_DB_KEY;
   if (!URI || !(typeof URI === 'string'))
-    return alt.emitRaw(`response:${EVENT_NAME}`, {
-      data: null,
-      status: 500,
-      error: {
-        message: DEFAULT_ERROR_MESSAGE,
-        internalCode: 1704484092,
-      },
+    return alt.emitRaw(`response:${EVENT_NAME}`, null, 500, {
+      message: DEFAULT_ERROR_MESSAGE,
+      internalCode: 1704484092,
     });
   const client = new MongoClient(URI, {
     minPoolSize: 1,
@@ -50,30 +46,18 @@ alt.on(`request:${EVENT_NAME}`, async (userId: string) => {
       }
     );
     if (!user)
-      return alt.emitRaw(`response:${EVENT_NAME}`, {
-        data: null,
-        status: 500,
-        error: {
-          message:
-            'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.',
-          internalCode: 1704484537,
-        },
-      });
-
-    return alt.emitRaw(`response:${EVENT_NAME}`, {
-      data: user,
-      status: 200,
-      error: null,
-    });
-  } catch (_) {
-    return alt.emitRaw(`response:${EVENT_NAME}`, {
-      data: null,
-      status: 500,
-      error: {
+      return alt.emitRaw(`response:${EVENT_NAME}`, null, 500, {
         message:
           'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.',
-        internalCode: 1704484570,
-      },
+        internalCode: 1704484537,
+      });
+
+    return alt.emitRaw(`response:${EVENT_NAME}`, user, 200, null);
+  } catch (_) {
+    return alt.emitRaw(`response:${EVENT_NAME}`, null, 500, {
+      message:
+        'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.',
+      internalCode: 1704484570,
     });
   } finally {
     await client.close();
