@@ -38,32 +38,52 @@ alt.on('request:debug_unrenderDebugCam', () => {
 });
 
 alt.on('request:debug_setDebugCamX', (step: number) => {
+  currentDebugCamCoords = new alt.Vector3(
+    currentDebugCamCoords.x + step,
+    currentDebugCamCoords.y,
+    currentDebugCamCoords.z
+  );
   setPositionCustomCamera(
     currentDebugCamera,
-    currentDebugCamCoords.x + step,
+    currentDebugCamCoords.x,
     currentDebugCamCoords.y,
     currentDebugCamCoords.z
   );
 });
 
 alt.on('request:debug_setDebugCamY', (step: number) => {
+  currentDebugCamCoords = new alt.Vector3(
+    currentDebugCamCoords.x,
+    currentDebugCamCoords.y + step,
+    currentDebugCamCoords.z
+  );
   setPositionCustomCamera(
     currentDebugCamera,
     currentDebugCamCoords.x,
-    currentDebugCamCoords.y + step,
+    currentDebugCamCoords.y,
     currentDebugCamCoords.z
   );
 });
 
 alt.on('request:debug_setDebugCamZ', (step: number) => {
-  setPositionCustomCamera(
-    currentDebugCamera,
+  currentDebugCamCoords = new alt.Vector3(
     currentDebugCamCoords.x,
     currentDebugCamCoords.y,
     currentDebugCamCoords.z + step
   );
+  setPositionCustomCamera(
+    currentDebugCamera,
+    currentDebugCamCoords.x,
+    currentDebugCamCoords.y,
+    currentDebugCamCoords.z
+  );
 });
 
 alt.on('request:debug_setDebugCamRot', (step: number) => {
-  setRotCustomCamera(currentDebugCamera, 0, 0, currentDebugCamRot.z + step);
+  currentDebugCamRot = new alt.Vector3(
+    currentDebugCamRot.x,
+    currentDebugCamRot.y,
+    currentDebugCamRot.z + step
+  );
+  setRotCustomCamera(currentDebugCamera, 0, 0, currentDebugCamRot.z);
 });
