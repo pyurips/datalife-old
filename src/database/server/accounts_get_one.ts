@@ -1,10 +1,14 @@
+import 'dotenv/config';
+
 import { MongoClient, ObjectId } from 'mongodb';
+import IAccounts from './accounts_model';
 
-import { selectedDB, gameCollectionsList } from '../../../select_db';
+function getSelectedDB() {
+  if (process.env.NODE_ENV === 'development') return 'game_test';
+  return 'game';
+}
 
-import IAccounts from '../../models/accounts';
-
-async function accounts_getOne(userId: string) {
+export async function accounts_getOne(userId: string) {
   const URI = process.env.MONGO_DB_KEY;
   if (!URI || !(typeof URI === 'string'))
     return {
@@ -20,9 +24,9 @@ async function accounts_getOne(userId: string) {
     minPoolSize: 1,
     maxPoolSize: 10,
   });
-  const database = client.db(selectedDB());
+  const database = client.db(getSelectedDB());
   const collection = database.collection<IAccounts>(
-    gameCollectionsList.accounts
+    'accounts'
   );
 
   try {
@@ -68,5 +72,3 @@ async function accounts_getOne(userId: string) {
     await client.close();
   }
 }
-
-export default accounts_getOne;
