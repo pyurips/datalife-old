@@ -9,12 +9,12 @@ export function setHairModel(
   const collection = native.getHashKey(hairOverlayColletion);
   const overlay = native.getHashKey(hairOverlay);
   native.addPedDecorationFromHashes(
-    alt.Player.local.scriptID,
+    alt.Player.local,
     collection,
     overlay
   );
   native.setPedComponentVariation(
-    alt.Player.local.scriptID,
+    alt.Player.local,
     2,
     hairModel,
     0,

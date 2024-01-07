@@ -10,7 +10,7 @@ export function setHeadBlendData(
   skinMix: number
 ) {
   native.setPedHeadBlendData(
-    alt.Player.local.scriptID,
+    alt.Player.local,
     0,
     0,
     0,
@@ -24,7 +24,7 @@ export function setHeadBlendData(
   );
 
   native.setPedHeadBlendData(
-    alt.Player.local.scriptID,
+    alt.Player.local,
     fatherFace,
     motherFace,
     0,
