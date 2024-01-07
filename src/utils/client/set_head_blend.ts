@@ -1,7 +1,7 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
 
-function setHeadBlendData(
+export function setHeadBlendData(
   fatherFace: number,
   motherFace: number,
   fatherSkin: number,
@@ -37,5 +37,3 @@ function setHeadBlendData(
     false
   );
 }
-
-export default setHeadBlendData;
