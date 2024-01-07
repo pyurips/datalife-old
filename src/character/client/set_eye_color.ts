@@ -1,6 +1,6 @@
 import * as native from 'natives';
 import * as alt from 'alt-client';
 
-export function setEyeColor(color: number) {
+alt.on('request:character_setEyeColor', (color: number) => {
   native.setHeadBlendEyeColor(alt.Player.local, color);
-}
+});
