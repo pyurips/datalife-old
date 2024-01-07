@@ -16,6 +16,8 @@ alt.on('connectionComplete', async () => {
     new alt.Vector3(0, 0, 0),
     40
   );
+  alt.loadModel(0x705E61F2);
+	alt.loadModel(0x9C9EFFD8);
   pointCustomCameraAtCoord(
     signinCamera,
     new alt.Vector3(402.8664, -996.4108, -98.5)
