@@ -19,6 +19,7 @@ type useEventsReturn = {
 function useEvents(
   emitTo: 'client' | 'server',
   eventName: string,
+  onlyEmit: boolean = false
 ): useEventsReturn {
   const [loading, setLoading] = useState<boolean>(true);
   const [responseData, setResponseData] = useState<IResponseData>({
@@ -32,7 +33,6 @@ function useEvents(
   }
 
   function fetchData(requestData: unknown) {
-    // @ts-ignore
     if (!window.alt) {
       console.error('Não foi possível identificar o objeto alt');
       return () => {};
@@ -44,9 +44,7 @@ function useEvents(
       setLoading(false);
     };
 
-    // @ts-ignore
-    window.alt.once(`response:${eventName}`, eventFunction);
-    // @ts-ignore
+    if (!onlyEmit) window.alt.once(`response:${eventName}`, eventFunction);
     window.alt.emit('emitTo', emitTo, `request:${eventName}`, requestData);
   }
 
