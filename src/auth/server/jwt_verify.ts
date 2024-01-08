@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 import * as alt from 'alt-server';
 import pkg from 'jsonwebtoken';
 const { verify } = pkg;

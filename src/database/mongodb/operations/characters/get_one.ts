@@ -1,5 +1,5 @@
 import { MongoClient, ObjectId } from 'mongodb';
-import IAccounts from '../../models/accounts';
+//import IAccounts from '../../models/accounts';
 
 function getSelectedDB() {
   if (process.env.NODE_ENV === 'development') return 'game_test';
@@ -9,7 +9,7 @@ function getSelectedDB() {
 const DEFAULT_ERROR_MESSAGE =
   'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.';
 
-async function accounts_getOne(userId: string) {
+async function characters_getOne(userId: string) {
   const URI = process.env.MONGO_DB_KEY;
   if (!URI || !(typeof URI === 'string'))
     return {
@@ -25,7 +25,7 @@ async function accounts_getOne(userId: string) {
     maxPoolSize: 10,
   });
   const database = client.db(getSelectedDB());
-  const collection = database.collection<IAccounts>('accounts');
+  const collection = database.collection('characters');
 
   try {
     const user = await collection.findOne(
@@ -35,20 +35,13 @@ async function accounts_getOne(userId: string) {
       {
         projection: {
           _id: 0,
-          email: 1,
-          twoFA: 1,
-          permissionLevel: 1,
-          inGame: 1,
-          prime: 1,
-          bits: 1,
-          supporterPackages: 1,
         },
       }
     );
     if (!user)
       return {
         data: null,
-        status: 500,
+        status: 400,
         error: {
           message:
             'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.',
@@ -76,4 +69,4 @@ async function accounts_getOne(userId: string) {
   }
 }
 
-export default accounts_getOne;
+export default characters_getOne;
