@@ -5,3 +5,4 @@ import './set_hair_model.js';
 import './set_head_blend.js';
 import './set_head_overlay.js';
 import './set_head_overlay_color.js';
+import './load_into_creator.js';
