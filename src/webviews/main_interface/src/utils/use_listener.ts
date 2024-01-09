@@ -7,9 +7,6 @@ type IResponse = {
 };
 
 export function useListener(eventName: string) {
-  if (!window.alt)
-    return console.error('Não foi encontrado o método alt no objeto Window');
-
   const [response, setResponse] = useState<IResponse>();
 
   function eventHandler(response: IResponse) {
@@ -21,11 +18,10 @@ export function useListener(eventName: string) {
       return console.error('Não foi encontrado o método alt no objeto Window');
     return window.alt.off(`response:${eventName}`, eventHandler);
   }
-
-  window.alt.on(`response:${eventName}`, eventHandler);
+  if (window.alt) window.alt.on(`response:${eventName}`, eventHandler);
 
   return {
     response,
-    turnOffListener
+    turnOffListener,
   };
 }

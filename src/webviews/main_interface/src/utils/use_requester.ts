@@ -7,9 +7,6 @@ type IResponse = {
 };
 
 export function useRequester(emitTo: 'client' | 'server', eventName: string) {
-  if (!window.alt)
-    return console.error('Não foi encontrado o método alt no objeto Window');
-
   const [loading, setLoading] = useState<boolean>(true);
   const [response, setResponse] = useState<IResponse>();
 

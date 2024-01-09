@@ -2,27 +2,22 @@ import AdminPanel from './screens/admin_panel';
 import CharacterCreator from './screens/character_creator';
 import DebugHud from './screens/debug_hud';
 import Signin from './screens/signin';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useListener } from './utils/use_listener';
 
 export default function App() {
-  const [screen, setScreen] = useState('signin');
+  const { response, turnOffListener } = useListener('response:webview_setScreen');
 
   useEffect(() => {
-    if (window.alt)
-      window.alt.on('response:webview_setScreen', (response) => {
-        if (typeof response.data === 'string') return setScreen(response.data);
-        return console.error(
-          'Não foi possível encontrar a tela chamada ' + response.data
-        );
-      });
+    return () => turnOffListener();
   }, []);
 
   return (
     <>
-      {screen === 'signin' && <Signin />}
-      {screen === 'characterCreator' && <CharacterCreator />}
-      {screen === 'debugHud' && <DebugHud />}
-      {screen === 'adminPanel' && <AdminPanel />}
+      {!response?.data && <Signin />}
+      {response?.data === 'characterCreator' && <CharacterCreator />}
+      {response?.data === 'debugHud' && <DebugHud />}
+      {response?.data === 'adminPanel' && <AdminPanel />}
     </>
   );
 }

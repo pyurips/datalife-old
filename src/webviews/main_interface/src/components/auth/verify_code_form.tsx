@@ -1,6 +1,6 @@
 import { Input, Button, Spinner } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import useEvents from '../../utils/use_events';
+import { useRequester } from '../../utils/use_requester';
 
 export default function VerifyCodeForm({
   email,
@@ -13,7 +13,7 @@ export default function VerifyCodeForm({
   const [seconds, setSeconds] = useState<number>(60);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { fetchData, responseData, loading, loadingHandler } = useEvents(
+  const { fetchData, response, loading, loadingHandler } = useRequester(
     'server',
     'auth_signinTwoFa'
   );
@@ -42,8 +42,8 @@ export default function VerifyCodeForm({
   }, [verificationCode]);
 
   useEffect(() => {
-    if (responseData.error) setErrorMessage(responseData.error?.message);
-  }, [responseData]);
+    if (response?.error) setErrorMessage(response.error?.message);
+  }, [response]);
 
   if (loading)
     return (

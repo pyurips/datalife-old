@@ -7,9 +7,9 @@ import {
   BsYoutube,
   BsInstagram,
 } from 'react-icons/bs';
-import useEvents from '../utils/use_events';
 import datalifeLogoLight from '../assets/signin/datalife_logo_light.svg';
 import VerifyCodeForm from '../components/auth/verify_code_form';
+import { useRequester } from '../utils/use_requester';
 
 export default function Signin() {
   const [email, setEmail] = useState<string>('');
@@ -18,7 +18,7 @@ export default function Signin() {
   const [errorMessage, setErrorMessage] = useState('');
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
 
-  const { fetchData, responseData, loading, loadingHandler } = useEvents(
+  const { fetchData, response, loading, loadingHandler } = useRequester(
     'server',
     'auth_signin'
   );
@@ -37,8 +37,8 @@ export default function Signin() {
   }, []);
 
   useEffect(() => {
-    if (responseData.error) setErrorMessage(responseData.error?.message);
-  }, [responseData]);
+    if (response?.error) setErrorMessage(response.error?.message);
+  }, [response]);
 
   return (
     <main className="flex items-center justify-center w-screen h-screen">
@@ -66,7 +66,7 @@ export default function Signin() {
           onSubmit={(e) => e.preventDefault()}
           className="flex flex-col gap-3 p-5"
         >
-          {responseData.statusCode === 201 ? (
+          {response?.status === 201 ? (
             <VerifyCodeForm email={email} password={password} />
           ) : (
             <div className="flex flex-row gap-5 items-center">
