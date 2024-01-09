@@ -1,7 +1,6 @@
 import * as alt from 'alt-server';
 import axios from 'axios';
 import enterGame from '../utils/enter_game.js';
-import { emitter } from '../utils/cevents.js';
 
 const EVENT_NAME = 'auth_signin';
 

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import AdminPanel from './screens/admin_panel';
 import CharacterCreator from './screens/character_creator';
 import DebugHud from './screens/debug_hud';
@@ -7,10 +6,6 @@ import { useListener } from './utils/use_listener';
 
 export default function App() {
   const response = useListener('webview_setScreen');
-
-  useEffect(() => {
-    if (response) return console.log(response);
-  }, [response]);
 
   return (
     <>
