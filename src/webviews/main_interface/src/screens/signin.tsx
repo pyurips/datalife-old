@@ -9,7 +9,8 @@ import {
 } from 'react-icons/bs';
 import datalifeLogoLight from '../assets/signin/datalife_logo_light.svg';
 import VerifyCodeForm from '../components/auth/verify_code_form';
-import { useRequester } from '../utils/use_requester';
+import { useEmitter } from '../utils/use_emitter';
+import { useListener } from '../utils/use_listener';
 
 export default function Signin() {
   const [email, setEmail] = useState<string>('');
@@ -18,13 +19,14 @@ export default function Signin() {
   const [errorMessage, setErrorMessage] = useState('');
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
 
-  const { fetchData, response, loading, loadingHandler } = useRequester(
+  const { fetchData } = useEmitter(
     'server',
     'auth_signin'
   );
 
+  const response = useListener('auth_signin');
+
   useEffect(() => {
-    loadingHandler(false);
     const handleResize = () => {
       setScale((window.innerWidth + 520) / 1886.6);
     };
@@ -37,8 +39,8 @@ export default function Signin() {
   }, []);
 
   useEffect(() => {
-    if (response?.error) setErrorMessage(response.error?.message);
-  }, [response]);
+    if (response) console.log(Object.keys(response));
+  }, [response])
 
   return (
     <main className="flex items-center justify-center w-screen h-screen">
@@ -66,7 +68,7 @@ export default function Signin() {
           onSubmit={(e) => e.preventDefault()}
           className="flex flex-col gap-3 p-5"
         >
-          {response?.status === 201 ? (
+          {false ? (
             <VerifyCodeForm email={email} password={password} />
           ) : (
             <div className="flex flex-row gap-5 items-center">
@@ -120,7 +122,7 @@ export default function Signin() {
                 variant="flat"
                 color="success"
                 className="h-full"
-                isLoading={loading}
+                //isLoading={loading}
               >
                 Entrar
               </Button>

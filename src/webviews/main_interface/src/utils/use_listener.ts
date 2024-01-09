@@ -13,15 +13,7 @@ export function useListener(eventName: string) {
     return setResponse(response);
   }
 
-  function turnOffListener() {
-    if (!window.alt)
-      return console.error('Não foi encontrado o método alt no objeto Window');
-    return window.alt.off(`response:${eventName}`, eventHandler);
-  }
   if (window.alt) window.alt.on(`response:${eventName}`, eventHandler);
 
-  return {
-    response,
-    turnOffListener,
-  };
+  return response;
 }

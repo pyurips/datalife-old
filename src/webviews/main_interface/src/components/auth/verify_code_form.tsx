@@ -1,6 +1,6 @@
 import { Input, Button, Spinner } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import { useRequester } from '../../utils/use_requester';
+import { useEmitter } from '../../utils/use_emitter';
 
 export default function VerifyCodeForm({
   email,
@@ -13,14 +13,10 @@ export default function VerifyCodeForm({
   const [seconds, setSeconds] = useState<number>(60);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { fetchData, response, loading, loadingHandler } = useRequester(
+  const { fetchData } = useEmitter(
     'server',
     'auth_signinTwoFa'
   );
-
-  useEffect(() => {
-    loadingHandler(false);
-  }, []);
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
@@ -34,23 +30,23 @@ export default function VerifyCodeForm({
 
   useEffect(() => {
     if (verificationCode) setVerificationCode((prev) => prev.toUpperCase());
-    if (verificationCode.length === 6 && !loading) {
+    if (verificationCode.length === 6 /*&& !loading*/) {
       setErrorMessage('');
       setVerificationCode('');
       fetchData({ email, password, verificationCode });
     }
   }, [verificationCode]);
 
-  useEffect(() => {
-    if (response?.error) setErrorMessage(response.error?.message);
-  }, [response]);
+  // useEffect(() => {
+  //   if (response?.error) setErrorMessage(response.error?.message);
+  // }, [response]);
 
-  if (loading)
-    return (
-      <div className="flex flex-1 items-center justify-center">
-        <Spinner color="success" labelColor="success" size="lg" />
-      </div>
-    );
+  // if (loading)
+  //   return (
+  //     <div className="flex flex-1 items-center justify-center">
+  //       <Spinner color="success" labelColor="success" size="lg" />
+  //     </div>
+  //   );
 
   return (
     <div className="flex flex-col gap-3">
