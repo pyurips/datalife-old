@@ -1,6 +1,7 @@
 import * as alt from 'alt-server';
-import characters_getOne from '../database/mongodb/operations/characters/get_one';
-import setResponseData from './response_data_handler';
+import characters_getOne from '../database/mongodb/operations/characters/get_one.js';
+import setResponseData from './response_data_handler.js';
+import { emitter } from './cevents.js';
 
 async function enterGame(player: alt.Player) {
   const dbId = player.getLocalMeta('dbId');
@@ -13,7 +14,7 @@ async function enterGame(player: alt.Player) {
       },
     });
   const hasCharacter = await characters_getOne(dbId);
-  if (hasCharacter.status === 400) return 'Mandar o cara para tela de criação';
+  if (hasCharacter.status === 400) return emitter(player, 'request', 'client', 'character_loadCreator', null);
   if (hasCharacter.status === 200)
     return 'Mandar para entrar no jogo normalmente';
   return setResponseData({

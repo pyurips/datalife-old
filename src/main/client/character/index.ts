@@ -1,0 +1,1 @@
+import './load_character_creator.js';

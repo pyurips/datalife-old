@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from 'mongodb';
 //import IAccounts from '../../models/accounts';
-import getEnvDb from '../../../env_db_handler';
+import getEnvDb from '../../../env_db_handler.js';
 
 const DEFAULT_ERROR_MESSAGE =
   'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.';
