@@ -10,12 +10,8 @@ language = 'pt-br'
 description = 'alt:V Sample Server'
 modules = ['js-module']
 resources = [
-    'auth',
+    'main',
     'webviews',
-    'defaults',
-    'admin_panel',
-    'database',
-    'character'
 ]
 enableSyncedMetaData = false
 debug=true
