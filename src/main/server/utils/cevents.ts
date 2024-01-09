@@ -29,7 +29,7 @@ export async function requester(
 ) {
   if (emitTo === 'client') {
     return new Promise((resolve) => {
-      alt.onceClient(`response:${eventName}`, (player, response: IResponse) => {
+      alt.onceClient(`response:${eventName}`, (_, response: IResponse) => {
         resolve(response);
       });
       player.emitRaw(`request:${eventName}`, data);
@@ -38,7 +38,7 @@ export async function requester(
 
   if (emitTo === 'mainInterface') {
     return new Promise((resolve) => {
-      alt.onceClient(`response:${eventName}`, (player, response: IResponse) => {
+      alt.onceClient(`response:${eventName}`, (_, response: IResponse) => {
         resolve(response);
       });
       player.emitRaw('emitToMainInterface', `request:${eventName}`, data);

@@ -12,7 +12,7 @@ export function emitter(
   data: unknown
 ) {
   if (emitTo === 'server') {
-    return alt.emit(eventName, data);
+    return alt.emitServerRaw(eventName, data);
   }
 
   if (emitTo === 'mainInterface') {
