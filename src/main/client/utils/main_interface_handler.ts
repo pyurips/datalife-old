@@ -8,6 +8,10 @@ export async function loadMainInterface() {
 
   mainInterface = new alt.WebView(DEVELOPMENT_URL);
 
+  alt.onServer('emitToMainInterface', (eventName: string, data) => {
+    mainInterface.emit(eventName, data);
+  });
+
   alt.on('emitToMainInterface', (eventName: string, data) => {
     mainInterface.emit(eventName, data);
   });

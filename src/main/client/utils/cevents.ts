@@ -7,14 +7,10 @@ export function emitter(
   data: unknown
 ) {
   if (emitTo === 'server') {
-    return type === 'request'
-      ? alt.emitServerRaw(`request:${eventName}`, data)
-      : alt.emitServerRaw(`response:${eventName}`, data);
+    return alt.emitServerRaw(`${type}:${eventName}`, data);
   }
 
   if (emitTo === 'mainInterface') {
-    return type === 'request'
-      ? alt.emitRaw('emitToMainInterface', `request:${eventName}`, data)
-      : alt.emitRaw('emitToMainInterface', `response:${eventName}`, data);
+    return alt.emitRaw('emitToMainInterface', `${type}:${eventName}`, data);
   }
 }
