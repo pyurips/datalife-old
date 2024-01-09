@@ -20,8 +20,7 @@ alt.onClient(
       });
       if (response.status === 200) {
         player.setLocalMeta('dbId', response.data);
-        await enterGame(player);
-        emitter(player, 'mainInterface', 'auth_signin', { data: null, status: 200, error: null });
+        emitter(player, 'response', 'mainInterface', 'auth_signin', { data: null, status: 200, error: null });
       }
     } catch (e) {
       player.emitRaw('emitToWebView', `response:${EVENT_NAME}`, {
