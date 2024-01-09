@@ -20,6 +20,7 @@ alt.onClient(
       });
       if (response.status === 200) {
         player.setLocalMeta('dbId', response.data);
+        const enteredGameResponse = await enterGame(player);
         emitter(player, 'response', 'mainInterface', 'auth_signin', { data: null, status: 200, error: null });
       }
     } catch (e) {
