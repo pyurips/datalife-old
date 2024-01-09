@@ -19,13 +19,6 @@ export default function Signin() {
   const [errorMessage, setErrorMessage] = useState('');
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
 
-  const { fetchData } = useEmitter(
-    'server',
-    'auth_signin'
-  );
-
-  const response = useListener('auth_signin');
-
   useEffect(() => {
     const handleResize = () => {
       setScale((window.innerWidth + 520) / 1886.6);
@@ -37,10 +30,6 @@ export default function Signin() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  useEffect(() => {
-    if (response) console.log(Object.keys(response));
-  }, [response])
 
   return (
     <main className="flex items-center justify-center w-screen h-screen">
@@ -114,7 +103,7 @@ export default function Signin() {
               <Button
                 onPress={() => {
                   setErrorMessage('');
-                  fetchData({
+                  return useEmitter('server', 'auth_signin', {
                     email,
                     password,
                   });

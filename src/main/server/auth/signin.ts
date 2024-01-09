@@ -23,14 +23,15 @@ alt.onClient(
         await enterGame(player);
       }
     } catch (e) {
-      player.emitRaw('emitToWebView', `response:${EVENT_NAME}`, {
-        data: null,
-        status: e.response.status,
-        error: {
-          message: e.response.data.message,
-          internalCode: e.response.data.internalCode,
-        },
-      });
+      console.log(e);
+      // player.emitRaw('emitToWebView', `response:${EVENT_NAME}`, {
+      //   data: null,
+      //   status: e.response.status,
+      //   error: {
+      //     message: e.response.data.message,
+      //     internalCode: e.response.data.internalCode,
+      //   },
+      // });
     }
   }
 );

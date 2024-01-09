@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { FaMale, FaFemale } from 'react-icons/fa';
 import { RxUpdate } from 'react-icons/rx';
 import { MdFace, MdFace2 } from 'react-icons/md';
+import { useEmitter } from '../../utils/use_emitter';
 
 export default function Genetics() {
   const [characterName, setCharacterName] = useState<string>('');
@@ -12,24 +13,26 @@ export default function Genetics() {
 
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
-      <Input
-        size="sm"
-        variant="bordered"
-        placeholder="Nome do personagem"
-      ></Input>
+      <Input size="sm" variant="bordered" placeholder="Nome do personagem" />
 
       <div className="flex flex-col gap-2">
         <p className="text-sm">Formato do corpo</p>
         <div className="flex flex-row gap-2">
           <Button
-            onPress={() => setGender(true)}
+            onPress={() => {
+              setGender(true);
+              return useEmitter('server', 'character_changePlayerModel', 0x705e61f2);
+            }}
             isIconOnly
             className={`${gender ? 'opacity-100' : 'opacity-50'}`}
           >
             <FaMale size={20} />
           </Button>
           <Button
-            onPress={() => setGender(false)}
+            onPress={() => {
+              setGender(false);
+              return useEmitter('server', 'character_changePlayerModel', 0x9c9effd8);
+            }}
             isIconOnly
             className={`${!gender ? 'opacity-100' : 'opacity-50'}`}
           >
@@ -50,7 +53,7 @@ export default function Genetics() {
           hideValue
           value={facialFeatures}
           onChange={(e) => setFacialFeatures(e as number)}
-          step={0.01}
+          step={0.1}
           maxValue={1}
           minValue={0}
           defaultValue={0.5}
