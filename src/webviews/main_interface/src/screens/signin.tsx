@@ -10,7 +10,6 @@ import {
 import datalifeLogoLight from '../assets/signin/datalife_logo_light.svg';
 import VerifyCodeForm from '../components/auth/verify_code_form';
 import { useEmitter } from '../utils/use_emitter';
-import { useListener } from '../utils/use_listener';
 
 export default function Signin() {
   const [email, setEmail] = useState<string>('');

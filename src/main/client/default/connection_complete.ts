@@ -6,9 +6,9 @@ import { createSigninCamera } from '../utils/signin_camera_handler.js';
 
 alt.on('connectionComplete', async () => {
   createSigninCamera();
-  await loadMainInterface();
   showCursor(true);
   setScreenMode(true);
+  await loadMainInterface();
   alt.loadModel(0x705e61f2);
   alt.loadModel(0x9c9effd8);
 });

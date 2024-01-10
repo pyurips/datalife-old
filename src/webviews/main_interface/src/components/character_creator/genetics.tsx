@@ -13,7 +13,13 @@ export default function Genetics() {
 
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
-      <Input size="sm" variant="bordered" placeholder="Nome do personagem" />
+      <Input
+        value={characterName}
+        onValueChange={(e) => setCharacterName(e)}
+        size="sm"
+        variant="bordered"
+        placeholder="Nome do personagem"
+      />
 
       <div className="flex flex-col gap-2">
         <p className="text-sm">Formato do corpo</p>
@@ -21,7 +27,11 @@ export default function Genetics() {
           <Button
             onPress={() => {
               setGender(true);
-              return useEmitter('server', 'character_changePlayerModel', 0x705e61f2);
+              return useEmitter(
+                'server',
+                'character_changePlayerModel',
+                0x705e61f2
+              );
             }}
             isIconOnly
             className={`${gender ? 'opacity-100' : 'opacity-50'}`}
@@ -31,7 +41,11 @@ export default function Genetics() {
           <Button
             onPress={() => {
               setGender(false);
-              return useEmitter('server', 'character_changePlayerModel', 0x9c9effd8);
+              return useEmitter(
+                'server',
+                'character_changePlayerModel',
+                0x9c9effd8
+              );
             }}
             isIconOnly
             className={`${!gender ? 'opacity-100' : 'opacity-50'}`}

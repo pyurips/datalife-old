@@ -19,7 +19,6 @@ alt.onClient(
       });
       if (response.status === 200) {
         player.setLocalMeta('dbId', response.data);
-        alt.log("Logado: " + Math.random());
         await enterGame(player);
       }
     } catch (e) {
