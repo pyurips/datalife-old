@@ -10,7 +10,7 @@ export default function FaceFeatures() {
         <p className="text-md">Tom de pele</p>
         <Slider
           size="sm"
-          step={0.01}
+          step={0.1}
           maxValue={1}
           minValue={-1}
           aria-label="Tamanho"
