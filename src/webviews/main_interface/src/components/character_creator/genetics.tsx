@@ -1,15 +1,17 @@
 import { Input, Button, Slider } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
 import { FaMale, FaFemale } from 'react-icons/fa';
 import { RxUpdate } from 'react-icons/rx';
 import { MdFace, MdFace2 } from 'react-icons/md';
 import { useEmitter } from '../../utils/use_emitter';
+import { useCharacterFacialFeatures, useCharacterModel, useCharacterName } from '../../context/character';
 
 export default function Genetics() {
-  const [characterName, setCharacterName] = useState<string>('');
-  const [gender, setGender] = useState<boolean>(true);
-  const [selectedFace, setSelectedFace] = useState<number>(0);
-  const [facialFeatures, setFacialFeatures] = useState<number>(0.5);
+  const characterName = useCharacterName((state) => state.characterName);
+  const setCharacterName = useCharacterName((state) => state.setCharacterName);
+  const gender = useCharacterModel((state) => state.model);
+  const setGender = useCharacterModel((state) => state.setCharacterModel);
+  const facialFeatures = useCharacterFacialFeatures((state) => state.facialFeatures);
+  const setFacialFeatures = useCharacterFacialFeatures((state) => state.setFacialFeatures);
 
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
@@ -26,7 +28,7 @@ export default function Genetics() {
         <div className="flex flex-row gap-2">
           <Button
             onPress={() => {
-              setGender(true);
+              setGender(0x705e61f2);
               return useEmitter(
                 'server',
                 'character_changePlayerModel',
@@ -34,13 +36,13 @@ export default function Genetics() {
               );
             }}
             isIconOnly
-            className={`${gender ? 'opacity-100' : 'opacity-50'}`}
+            className={`${gender === 0x705e61f2 ? 'opacity-100' : 'opacity-50'}`}
           >
             <FaMale size={20} />
           </Button>
           <Button
             onPress={() => {
-              setGender(false);
+              setGender(0x9c9effd8);
               return useEmitter(
                 'server',
                 'character_changePlayerModel',
@@ -48,7 +50,7 @@ export default function Genetics() {
               );
             }}
             isIconOnly
-            className={`${!gender ? 'opacity-100' : 'opacity-50'}`}
+            className={`${gender === 0x9c9effd8 ? 'opacity-100' : 'opacity-50'}`}
           >
             <FaFemale size={20} />
           </Button>
@@ -86,46 +88,10 @@ export default function Genetics() {
 
         <div className="grid grid-cols-2 gap-4">
           <Button
-            className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242] ${
-              selectedFace === 0 ? 'opacity-100' : 'opacity-50'
-            }`}
-            onClick={() => setSelectedFace(0)}
-          >
-            <MdFace size={40} />
-            <p className="text-[10px]">Adjetivo</p>
-          </Button>
-          <Button
-            className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242] ${
-              selectedFace === 1 ? 'opacity-100' : 'opacity-50'
-            }`}
-            onClick={() => setSelectedFace(1)}
-          >
-            <MdFace size={40} />
-            <p className="text-[10px]">Adjetivo</p>
-          </Button>
-          <Button
-            className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242] ${
-              selectedFace === 2 ? 'opacity-100' : 'opacity-50'
-            }`}
-            onClick={() => setSelectedFace(2)}
-          >
-            <MdFace size={40} />
-            <p className="text-[10px]">Adjetivo</p>
-          </Button>
-          <Button
-            className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242] ${
-              selectedFace === 3 ? 'opacity-100' : 'opacity-50'
-            }`}
-            onClick={() => setSelectedFace(3)}
-          >
-            <MdFace size={40} />
-            <p className="text-[10px]">Adjetivo</p>
-          </Button>
-          <Button
-            className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242] ${
-              selectedFace === 3 ? 'opacity-100' : 'opacity-50'
-            }`}
-            onClick={() => setSelectedFace(3)}
+            className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242]`}
+            onClick={() => {
+              console.log('Rosto clicado');
+            }}
           >
             <MdFace size={40} />
             <p className="text-[10px]">Adjetivo</p>
