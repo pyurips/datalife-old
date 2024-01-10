@@ -11,6 +11,7 @@ import HairAndFacialHair from '../components/character_creator/hair_and_facial_h
 import Personality from '../components/character_creator/personality';
 import Clothing from '../components/character_creator/clothing';
 import { useEmitter } from '../utils/use_emitter';
+import { useCharacterHeadBlend } from '../context/character';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -23,12 +24,29 @@ export default function CharacterCreator() {
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
   const [cameraZoom, setCameraZoom] = useState<boolean>(false);
 
+  const faceMix = useCharacterHeadBlend((state) => state.faceMix);
+  const setFaceMix = useCharacterHeadBlend((state) => state.setFaceMix);
+
+  const skinMix = useCharacterHeadBlend((state) => state.skinMix);
+  const setSkinMix = useCharacterHeadBlend((state) => state.setSkinMix);
+
   useEffect(() => {
     const handleResize = () => {
       setScale((window.innerWidth + 520) / 1886.6);
     };
 
     window.addEventListener('resize', handleResize);
+
+    setFaceMix(Math.random() * 2 - 1);
+    setSkinMix(Math.random() * 2 - 1);
+    useEmitter('client', 'character_setHeadBlend', {
+      fatherFace: Math.floor(Math.random() * 46),
+      motherFace: Math.floor(Math.random() * 46),
+      fatherSkin: Math.floor(Math.random() * 46),
+      motherSkin: Math.floor(Math.random() * 46),
+      faceMix,
+      skinMix
+    });
 
     return () => {
       window.removeEventListener('resize', handleResize);

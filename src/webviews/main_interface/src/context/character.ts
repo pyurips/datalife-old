@@ -25,19 +25,11 @@ export const useCharacterFacialFeatures = create<{
 }));
 
 export const useCharacterHeadBlend = create<{
-  fatherFace: number;
-  motherFace: number;
-  fatherSkin: number;
-  motherSkin: number;
   faceMix: number;
   skinMix: number;
   setFaceMix: (value: number) => void;
   setSkinMix: (value: number) => void;
 }>((set) => ({
-  fatherFace: 0,
-  motherFace: 0,
-  fatherSkin: 0,
-  motherSkin: 0,
   faceMix: 0,
   skinMix: 0,
   setSkinMix: (value) => set((state) => ({ ...state, skinMix: value })),
