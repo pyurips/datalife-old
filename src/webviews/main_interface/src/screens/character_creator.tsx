@@ -109,7 +109,7 @@ export default function CharacterCreator() {
         <div className="flex p-3 flex-row justify-between items-center">
           <div className="flex flex-row items-center gap-2">
             <ButtonGroup>
-              <Button isIconOnly variant="light">
+              <Button isIconOnly variant="light" onPress={() => useEmitter('client', 'character_startCreatorRotate', -0.2)}>
                 <MdRotateRight size={20} />
               </Button>
               <Button
@@ -127,7 +127,7 @@ export default function CharacterCreator() {
               >
                 {cameraZoom ? 'Afastar câmera' : 'Aproximar câmera'}
               </Button>
-              <Button isIconOnly variant="light">
+              <Button isIconOnly variant="light" onPress={() => useEmitter('client', 'character_startCreatorRotate', 0.2)}>
                 <MdRotateLeft size={20} />
               </Button>
             </ButtonGroup>
