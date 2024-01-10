@@ -10,6 +10,7 @@ import { GiClothes } from 'react-icons/gi';
 import HairAndFacialHair from '../components/character_creator/hair_and_facial_hair';
 import Personality from '../components/character_creator/personality';
 import Clothing from '../components/character_creator/clothing';
+import { useEmitter } from '../utils/use_emitter';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -20,6 +21,7 @@ export default function CharacterCreator() {
     | 'clothing'
   >('genetics');
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
+  const [cameraZoom, setCameraZoom] = useState<boolean>(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -110,8 +112,20 @@ export default function CharacterCreator() {
               <Button isIconOnly variant="light">
                 <MdRotateRight size={20} />
               </Button>
-              <Button variant="light" size="sm" color="default">
-                Aproximar câmera
+              <Button
+                onPress={() => {
+                  if (cameraZoom) {
+                    setCameraZoom(false);
+                    return useEmitter('client', 'character_toggleCreatorCameraToFace', false);
+                  }
+                  setCameraZoom(true);
+                  return useEmitter('client', 'character_toggleCreatorCameraToFace', true);
+                }}
+                variant="light"
+                size="sm"
+                color="default"
+              >
+                {cameraZoom ? 'Afastar câmera' : 'Aproximar câmera'}
               </Button>
               <Button isIconOnly variant="light">
                 <MdRotateLeft size={20} />

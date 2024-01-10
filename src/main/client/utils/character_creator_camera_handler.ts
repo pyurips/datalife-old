@@ -3,6 +3,7 @@ import {
   createCustomCamera,
   destroyCustomCamera,
   renderCustomCamera,
+  setPositionCustomCamera,
 } from './camera_handler.js';
 
 let characterCreatorCamera: number = null;
@@ -14,6 +15,23 @@ export function createCharacterCreatorCamera() {
     40
   );
   renderCustomCamera(characterCreatorCamera);
+}
+
+export function toggleCreatorCameraToFace(state: boolean) {
+  if (state)
+    return setPositionCustomCamera(
+      characterCreatorCamera,
+      -763.000,
+      329.5897,
+      200.0864
+    );
+
+  return setPositionCustomCamera(
+    characterCreatorCamera,
+    -762.6678,
+    327.4897,
+    199.3864
+  );
 }
 
 export function deleteCharacterCreatorCamera() {
