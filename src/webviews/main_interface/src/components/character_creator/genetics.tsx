@@ -8,6 +8,7 @@ import {
   useCharacterModel,
   useCharacterName,
   useRandomFaces,
+  useSelectedRandomFace,
 } from '../../context/character';
 import { useEffect } from 'react';
 
@@ -30,6 +31,12 @@ export default function Genetics() {
   const setMotherSkin = useCharacterHeadBlend((state) => state.setMotherSkin);
   const randomFaces = useRandomFaces((state) => state.randomFaces);
   const resetRandomFaces = useRandomFaces((state) => state.resetRandomFaces);
+  const selectedRandomFace = useSelectedRandomFace(
+    (state) => state.selectedRandomFace
+  );
+  const setSelectedRandomFace = useSelectedRandomFace(
+    (state) => state.setSelectedRandomFace
+  );
 
   useEffect(() => {
     useEmitter('client', 'character_setHeadBlend', {
@@ -92,7 +99,15 @@ export default function Genetics() {
 
       <div className="flex flex-col flex-1 gap-2 w-full items-center">
         <div className="w-full">
-          <Button variant="light" size="sm" color="success" onPress={() => resetRandomFaces()}>
+          <Button
+            variant="light"
+            size="sm"
+            color="success"
+            onPress={() => {
+              setSelectedRandomFace(null);
+              resetRandomFaces()
+            }}
+          >
             <RxUpdate />
             Gerar novos rostos
           </Button>
@@ -102,8 +117,11 @@ export default function Genetics() {
           {randomFaces.map((e, i) => (
             <Button
               key={i}
-              className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242]`}
+              className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242] ${
+                selectedRandomFace === i ? 'opacity-100' : 'opacity-50'
+              }`}
               onClick={() => {
+                setSelectedRandomFace(i);
                 setFatherFace(e.fatherFace);
                 setFatherSkin(e.fatherSkin);
                 setMotherFace(e.motherFace);

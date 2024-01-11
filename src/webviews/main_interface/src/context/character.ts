@@ -114,3 +114,11 @@ export const useRandomFaces = create<{
         })),
     }),
 }));
+
+export const useSelectedRandomFace = create<{
+  selectedRandomFace: number | null;
+  setSelectedRandomFace: (value: number | null) => void;
+}>((set) => ({
+  selectedRandomFace: null,
+  setSelectedRandomFace: (value) => set({ selectedRandomFace: value }),
+}));
