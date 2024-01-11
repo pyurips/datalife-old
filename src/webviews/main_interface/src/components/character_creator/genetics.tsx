@@ -3,7 +3,12 @@ import { FaMale, FaFemale } from 'react-icons/fa';
 import { RxUpdate } from 'react-icons/rx';
 import { MdFace, MdFace2 } from 'react-icons/md';
 import { useEmitter } from '../../utils/use_emitter';
-import { useCharacterHeadBlend, useCharacterModel, useCharacterName } from '../../context/character';
+import {
+  useCharacterHeadBlend,
+  useCharacterModel,
+  useCharacterName,
+  useRandomFaces,
+} from '../../context/character';
 import { useEffect } from 'react';
 
 export default function Genetics() {
@@ -18,7 +23,13 @@ export default function Genetics() {
   const faceMix = useCharacterHeadBlend((state) => state.faceMix);
   const setFaceMix = useCharacterHeadBlend((state) => state.setFaceMix);
   const skinMix = useCharacterHeadBlend((state) => state.skinMix);
-  //const setSkinMix = useCharacterHeadBlend((state) => state.setSkinMix);
+  const setSkinMix = useCharacterHeadBlend((state) => state.setSkinMix);
+  const setFatherFace = useCharacterHeadBlend((state) => state.setFatherFace);
+  const setFatherSkin = useCharacterHeadBlend((state) => state.setFatherSkin);
+  const setMotherFace = useCharacterHeadBlend((state) => state.setMotherFace);
+  const setMotherSkin = useCharacterHeadBlend((state) => state.setMotherSkin);
+  const randomFaces = useRandomFaces((state) => state.randomFaces);
+  const resetRandomFaces = useRandomFaces((state) => state.resetRandomFaces);
 
   useEffect(() => {
     useEmitter('client', 'character_setHeadBlend', {
@@ -54,7 +65,9 @@ export default function Genetics() {
               );
             }}
             isIconOnly
-            className={`${gender === 0x705e61f2 ? 'opacity-100' : 'opacity-50'}`}
+            className={`${
+              gender === 0x705e61f2 ? 'opacity-100' : 'opacity-50'
+            }`}
           >
             <FaMale size={20} />
           </Button>
@@ -68,52 +81,50 @@ export default function Genetics() {
               );
             }}
             isIconOnly
-            className={`${gender === 0x9c9effd8 ? 'opacity-100' : 'opacity-50'}`}
+            className={`${
+              gender === 0x9c9effd8 ? 'opacity-100' : 'opacity-50'
+            }`}
           >
             <FaFemale size={20} />
           </Button>
         </div>
       </div>
 
-      <div>
-        <Slider
-          startContent={<MdFace size={20} />}
-          endContent={<MdFace2 size={20} />}
-          label={
-            faceMix < 0.5
-              ? 'Rosto mais masculino'
-              : 'Rosto mais feminino'
-          }
-          hideValue
-          value={faceMix}
-          onChange={(e) => setFaceMix(e as number)}
-          step={0.1}
-          maxValue={1}
-          minValue={0}
-          defaultValue={0.5}
-          aria-label="Traços faciais"
-          color="foreground"
-        />
-      </div>
-
       <div className="flex flex-col flex-1 gap-2 w-full items-center">
         <div className="w-full">
-          <Button variant="light" size="sm" color="success">
+          <Button variant="light" size="sm" color="success" onPress={() => resetRandomFaces()}>
             <RxUpdate />
             Gerar novos rostos
           </Button>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <Button
-            className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242]`}
-            onClick={() => {
-              console.log('Rosto clicado');
-            }}
-          >
-            <MdFace size={40} />
-            <p className="text-[10px]">Adjetivo</p>
-          </Button>
+          {randomFaces.map((e, i) => (
+            <Button
+              key={i}
+              className={`flex flex-col w-[50px] h-[80px] p-2 bg-[#424242]`}
+              onClick={() => {
+                setFatherFace(e.fatherFace);
+                setFatherSkin(e.fatherSkin);
+                setMotherFace(e.motherFace);
+                setMotherSkin(e.motherSkin);
+                setFaceMix(e.faceMix);
+                setSkinMix(e.skinMix);
+
+                useEmitter('client', 'character_setHeadBlend', {
+                  fatherFace: e.fatherFace,
+                  motherFace: e.motherFace,
+                  fatherSkin: e.fatherSkin,
+                  motherSkin: e.motherSkin,
+                  faceMix: e.faceMix,
+                  skinMix: e.skinMix,
+                });
+              }}
+            >
+              <MdFace size={40} />
+              <p className="text-[10px]">Adjetivo</p>
+            </Button>
+          ))}
         </div>
       </div>
     </div>

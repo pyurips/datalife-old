@@ -12,8 +12,8 @@ import VerifyCodeForm from '../components/auth/verify_code_form';
 import { useEmitter } from '../utils/use_emitter';
 
 export default function Signin() {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('pabloyuridev@gmail.com');
+  const [password, setPassword] = useState<string>('#Trade10102');
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
