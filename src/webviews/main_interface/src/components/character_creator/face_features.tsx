@@ -1,24 +1,10 @@
-import { Input, Button, Slider } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
+import { Button, Slider } from '@nextui-org/react';
 import eyeColors from '../../utils/eye_colors';
 import faceFeatures from '../../utils/face_features';
 
 export default function FaceFeatures() {
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
-      <div className="rounded-lg">
-        <p className="text-md">Tom de pele</p>
-        <Slider
-          size="sm"
-          step={0.1}
-          maxValue={1}
-          minValue={-1}
-          aria-label="Tamanho"
-          defaultValue={0.2}
-          color="foreground"
-        />
-      </div>
-
       <div className="flex flex-col gap-5 rounded-lg">
         <p className="text-md bg-[#424242] p-2 rounded-md">Cor dos olhos</p>
         <div className="grid grid-cols-6 gap-4">

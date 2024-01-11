@@ -1,4 +1,4 @@
-import { Input, Button, Slider } from '@nextui-org/react';
+import { Input, Button } from '@nextui-org/react';
 import { FaMale, FaFemale } from 'react-icons/fa';
 import { RxUpdate } from 'react-icons/rx';
 import { MdFace, MdFace2, MdFace3, MdFace4, MdFace5, MdFace6 } from 'react-icons/md';
