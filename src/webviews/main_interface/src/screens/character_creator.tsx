@@ -11,7 +11,6 @@ import HairAndFacialHair from '../components/character_creator/hair_and_facial_h
 import Personality from '../components/character_creator/personality';
 import Clothing from '../components/character_creator/clothing';
 import { useEmitter } from '../utils/use_emitter';
-import { useCharacterHeadBlend } from '../context/character';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -24,29 +23,12 @@ export default function CharacterCreator() {
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
   const [cameraZoom, setCameraZoom] = useState<boolean>(false);
 
-  const faceMix = useCharacterHeadBlend((state) => state.faceMix);
-  const setFaceMix = useCharacterHeadBlend((state) => state.setFaceMix);
-
-  const skinMix = useCharacterHeadBlend((state) => state.skinMix);
-  const setSkinMix = useCharacterHeadBlend((state) => state.setSkinMix);
-
   useEffect(() => {
     const handleResize = () => {
       setScale((window.innerWidth + 520) / 1886.6);
     };
 
     window.addEventListener('resize', handleResize);
-
-    setFaceMix(Math.random() * 2 - 1);
-    setSkinMix(Math.random() * 2 - 1);
-    useEmitter('client', 'character_setHeadBlend', {
-      fatherFace: Math.floor(Math.random() * 46),
-      motherFace: Math.floor(Math.random() * 46),
-      fatherSkin: Math.floor(Math.random() * 46),
-      motherSkin: Math.floor(Math.random() * 46),
-      faceMix,
-      skinMix
-    });
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -127,17 +109,31 @@ export default function CharacterCreator() {
         <div className="flex p-3 flex-row justify-between items-center">
           <div className="flex flex-row items-center gap-2">
             <ButtonGroup>
-              <Button isIconOnly variant="light" onPress={() => useEmitter('client', 'character_startCreatorRotate', -0.2)}>
+              <Button
+                isIconOnly
+                variant="light"
+                onPress={() =>
+                  useEmitter('client', 'character_startCreatorRotate', -0.2)
+                }
+              >
                 <MdRotateRight size={20} />
               </Button>
               <Button
                 onPress={() => {
                   if (cameraZoom) {
                     setCameraZoom(false);
-                    return useEmitter('client', 'character_toggleCreatorCameraToFace', false);
+                    return useEmitter(
+                      'client',
+                      'character_toggleCreatorCameraToFace',
+                      false
+                    );
                   }
                   setCameraZoom(true);
-                  return useEmitter('client', 'character_toggleCreatorCameraToFace', true);
+                  return useEmitter(
+                    'client',
+                    'character_toggleCreatorCameraToFace',
+                    true
+                  );
                 }}
                 variant="light"
                 size="sm"
@@ -145,7 +141,13 @@ export default function CharacterCreator() {
               >
                 {cameraZoom ? 'Afastar câmera' : 'Aproximar câmera'}
               </Button>
-              <Button isIconOnly variant="light" onPress={() => useEmitter('client', 'character_startCreatorRotate', 0.2)}>
+              <Button
+                isIconOnly
+                variant="light"
+                onPress={() =>
+                  useEmitter('client', 'character_startCreatorRotate', 0.2)
+                }
+              >
                 <MdRotateLeft size={20} />
               </Button>
             </ButtonGroup>

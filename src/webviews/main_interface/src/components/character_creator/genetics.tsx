@@ -3,15 +3,33 @@ import { FaMale, FaFemale } from 'react-icons/fa';
 import { RxUpdate } from 'react-icons/rx';
 import { MdFace, MdFace2 } from 'react-icons/md';
 import { useEmitter } from '../../utils/use_emitter';
-import { useCharacterFacialFeatures, useCharacterModel, useCharacterName } from '../../context/character';
+import { useCharacterHeadBlend, useCharacterModel, useCharacterName } from '../../context/character';
+import { useEffect } from 'react';
 
 export default function Genetics() {
   const characterName = useCharacterName((state) => state.characterName);
   const setCharacterName = useCharacterName((state) => state.setCharacterName);
   const gender = useCharacterModel((state) => state.model);
   const setGender = useCharacterModel((state) => state.setCharacterModel);
-  const facialFeatures = useCharacterFacialFeatures((state) => state.facialFeatures);
-  const setFacialFeatures = useCharacterFacialFeatures((state) => state.setFacialFeatures);
+  const fatherFace = useCharacterHeadBlend((state) => state.fatherFace);
+  const motherFace = useCharacterHeadBlend((state) => state.motherFace);
+  const fatherSkin = useCharacterHeadBlend((state) => state.fatherSkin);
+  const motherSkin = useCharacterHeadBlend((state) => state.motherSkin);
+  const faceMix = useCharacterHeadBlend((state) => state.faceMix);
+  const setFaceMix = useCharacterHeadBlend((state) => state.setFaceMix);
+  const skinMix = useCharacterHeadBlend((state) => state.skinMix);
+  //const setSkinMix = useCharacterHeadBlend((state) => state.setSkinMix);
+
+  useEffect(() => {
+    useEmitter('client', 'character_setHeadBlend', {
+      fatherFace,
+      motherFace,
+      fatherSkin,
+      motherSkin,
+      faceMix,
+      skinMix,
+    });
+  }, [faceMix]);
 
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
@@ -62,13 +80,13 @@ export default function Genetics() {
           startContent={<MdFace size={20} />}
           endContent={<MdFace2 size={20} />}
           label={
-            facialFeatures < 0.5
+            faceMix < 0.5
               ? 'Rosto mais masculino'
               : 'Rosto mais feminino'
           }
           hideValue
-          value={facialFeatures}
-          onChange={(e) => setFacialFeatures(e as number)}
+          value={faceMix}
+          onChange={(e) => setFaceMix(e as number)}
           step={0.1}
           maxValue={1}
           minValue={0}
