@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import creatorAdjectives from '../utils/creator_adjectives';
 
 export const useCharacterName = create<{
   characterName: string;
@@ -46,6 +47,8 @@ export const useCharacterHeadBlend = create<{
 
 export const useRandomFaces = create<{
   randomFaces: {
+    adjective: string,
+    iconId: number
     fatherFace: number;
     motherFace: number;
     fatherSkin: number;
@@ -57,6 +60,8 @@ export const useRandomFaces = create<{
 }>((set) => ({
   randomFaces: new Array(20)
     .fill({
+      adjective: '',
+      iconId: 0,
       fatherFace: 0,
       motherFace: 0,
       fatherSkin: 0,
@@ -65,6 +70,8 @@ export const useRandomFaces = create<{
       skinMix: 0,
     })
     .map((_) => ({
+      adjective: creatorAdjectives[Math.floor(Math.random() * creatorAdjectives.length)],
+      iconId: Math.floor(Math.random() * 6) + 1,
       fatherFace: Math.floor(
         Math.random() * Array.from({ length: 46 }, (_, index) => index).length
       ),
@@ -85,6 +92,8 @@ export const useRandomFaces = create<{
     set({
       randomFaces: new Array(20)
         .fill({
+          adjective: '',
+          iconId: 0,
           fatherFace: 0,
           motherFace: 0,
           fatherSkin: 0,
@@ -93,6 +102,8 @@ export const useRandomFaces = create<{
           skinMix: 0,
         })
         .map((_) => ({
+          adjective: creatorAdjectives[Math.floor(Math.random() * creatorAdjectives.length)],
+          iconId: Math.floor(Math.random() * 6) + 1,
           fatherFace: Math.floor(
             Math.random() *
               Array.from({ length: 46 }, (_, index) => index).length

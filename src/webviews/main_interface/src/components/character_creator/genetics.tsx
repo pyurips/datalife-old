@@ -1,7 +1,7 @@
 import { Input, Button, Slider } from '@nextui-org/react';
 import { FaMale, FaFemale } from 'react-icons/fa';
 import { RxUpdate } from 'react-icons/rx';
-import { MdFace, MdFace2 } from 'react-icons/md';
+import { MdFace, MdFace2, MdFace3, MdFace4, MdFace5, MdFace6 } from 'react-icons/md';
 import { useEmitter } from '../../utils/use_emitter';
 import {
   useCharacterHeadBlend,
@@ -139,8 +139,13 @@ export default function Genetics() {
                 });
               }}
             >
-              <MdFace size={40} />
-              <p className="text-[10px]">Adjetivo</p>
+              { e.iconId === 1 && (<MdFace size={40} />) }
+              { e.iconId === 2 && (<MdFace2 size={40} />) }
+              { e.iconId === 3 && (<MdFace3 size={40} />) }
+              { e.iconId === 4 && (<MdFace4 size={40} />) }
+              { e.iconId === 5 && (<MdFace5 size={40} />) }
+              { e.iconId === 6 && (<MdFace6 size={40} />) }
+              <p className="text-[10px]">{ e.adjective }</p>
             </Button>
           ))}
         </div>
