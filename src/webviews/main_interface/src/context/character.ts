@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import creatorAdjectives from '../utils/creator_adjectives';
+import faceFeatures from '../utils/face_features';
 
 export const useCharacterName = create<{
   characterName: string;
@@ -55,8 +56,8 @@ export const useCharacterHeadBlend = create<{
 
 export const useRandomFaces = create<{
   randomFaces: {
-    adjective: string,
-    iconId: number
+    adjective: string;
+    iconId: number;
     fatherFace: number;
     motherFace: number;
     fatherSkin: number;
@@ -78,7 +79,8 @@ export const useRandomFaces = create<{
       skinMix: 0,
     })
     .map((_) => ({
-      adjective: creatorAdjectives[Math.floor(Math.random() * creatorAdjectives.length)],
+      adjective:
+        creatorAdjectives[Math.floor(Math.random() * creatorAdjectives.length)],
       iconId: Math.floor(Math.random() * 6) + 1,
       fatherFace: Math.floor(
         Math.random() * Array.from({ length: 46 }, (_, index) => index).length
@@ -110,7 +112,10 @@ export const useRandomFaces = create<{
           skinMix: 0,
         })
         .map((_) => ({
-          adjective: creatorAdjectives[Math.floor(Math.random() * creatorAdjectives.length)],
+          adjective:
+            creatorAdjectives[
+              Math.floor(Math.random() * creatorAdjectives.length)
+            ],
           iconId: Math.floor(Math.random() * 6) + 1,
           fatherFace: Math.floor(
             Math.random() *
@@ -140,4 +145,13 @@ export const useSelectedRandomFace = create<{
 }>((set) => ({
   selectedRandomFace: null,
   setSelectedRandomFace: (value) => set({ selectedRandomFace: value }),
+}));
+
+export const useFaceFeatures = create<{
+  faceFeatures: { id: number; value: number }[];
+  setFaceFeatures: (id: number, value: number) => void;
+}>((set) => ({
+  faceFeatures: [],
+  setFaceFeatures: (id: number, value: number) =>
+    set((state) => ({ faceFeatures: [...state.faceFeatures, { id, value }] })),
 }));
