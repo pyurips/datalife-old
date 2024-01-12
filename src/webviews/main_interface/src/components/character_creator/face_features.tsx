@@ -1,6 +1,7 @@
 import { Button, Slider } from '@nextui-org/react';
 import eyeColors from '../../utils/eye_colors';
 import faceFeatures from '../../utils/face_features';
+import { useEmitter } from '../../utils/use_emitter';
 
 export default function FaceFeatures() {
   return (
@@ -14,7 +15,9 @@ export default function FaceFeatures() {
               key={i}
               style={{ backgroundColor: e.color }}
               isIconOnly
-              onClick={() => {}}
+              onClick={() =>
+                useEmitter('client', 'character_setCharacterEyeColor', e.value)
+              }
             ></Button>
           ))}
         </div>
