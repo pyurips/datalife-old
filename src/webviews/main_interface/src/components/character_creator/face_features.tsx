@@ -2,8 +2,12 @@ import { Button, Slider } from '@nextui-org/react';
 import eyeColors from '../../utils/eye_colors';
 import faceFeatures from '../../utils/face_features';
 import { useEmitter } from '../../utils/use_emitter';
+import { useFaceFeatures } from '../../context/character';
 
 export default function FaceFeatures() {
+  const faceFeaturesHook = useFaceFeatures((state) => state.faceFeatures);
+  const setFaceFeaturesHook = useFaceFeatures((state) => state.setFaceFeatures);
+
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
       <div className="flex flex-col gap-5 rounded-lg">
@@ -31,12 +35,22 @@ export default function FaceFeatures() {
               <p className="text-sm p-2 rounded-md">{feature.label}</p>
               <Slider
                 size="sm"
-                step={0.01}
+                step={0.1}
                 maxValue={feature.max}
                 minValue={feature.min}
                 aria-label={feature.label}
                 defaultValue={feature.default}
                 color="foreground"
+                value={
+                  faceFeaturesHook.find((e) => e.id === feature.id)?.value || 0
+                }
+                onChange={(value) => {
+                  setFaceFeaturesHook(feature.id, value as number);
+                  useEmitter('client', 'character_setFaceFeature', {
+                    featureId: feature.id,
+                    scale: value,
+                  });
+                }}
               />
             </div>
           ))}

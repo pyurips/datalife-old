@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import creatorAdjectives from '../utils/creator_adjectives';
-import faceFeatures from '../utils/face_features';
 
 export const useCharacterName = create<{
   characterName: string;
@@ -152,6 +151,17 @@ export const useFaceFeatures = create<{
   setFaceFeatures: (id: number, value: number) => void;
 }>((set) => ({
   faceFeatures: [],
-  setFaceFeatures: (id: number, value: number) =>
-    set((state) => ({ faceFeatures: [...state.faceFeatures, { id, value }] })),
+  setFaceFeatures: (id, value) =>
+    set((state) => {
+      const index = state.faceFeatures.findIndex(
+        (feature) => feature.id === id
+      );
+      if (index !== -1) {
+        const updatedFeatures = [...state.faceFeatures];
+        updatedFeatures[index] = { id, value };
+        return { faceFeatures: updatedFeatures };
+      } else {
+        return { faceFeatures: [...state.faceFeatures, { id, value }] };
+      }
+    }),
 }));
