@@ -1,21 +1,35 @@
 import { Tabs, Tab, Button } from '@nextui-org/react';
-import { maleHairNames } from '../../utils/hair_models';
 import hairColors from '../../utils/hair_colors';
+import {
+  maleHairStyles,
+  femaleHairStyles,
+} from '../../utils/character_hair_styles';
+import { useCharacterModel } from '../../context/character';
+import { useEmitter } from '../../utils/use_emitter';
 
 export default function HairAndFacialHair() {
+  const characterModel = useCharacterModel((state) => state.model);
+
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
       <div>
         <Tabs aria-label="Options">
           <Tab key="hair" title="Cabelo">
             <div className="grid grid-cols-4 gap-4">
-              {maleHairNames.map((_, i) => (
+              {(characterModel === 0x705e61f2
+                ? maleHairStyles
+                : femaleHairStyles
+              ).map((e, i) => (
                 <Button
                   key={i}
                   size="lg"
                   isIconOnly
-                  onClick={() => {}}
-                ></Button>
+                  onClick={() =>
+                    useEmitter('client', 'character_setHair', e.value)
+                  }
+                >
+                  {e.value}
+                </Button>
               ))}
             </div>
           </Tab>
@@ -60,7 +74,7 @@ export default function HairAndFacialHair() {
         <Tabs aria-label="Options">
           <Tab key="hair" title="Pelos faciais">
             <div className="grid grid-cols-4 gap-4">
-              {maleHairNames.map((_, i) => (
+              {[].map((_, i) => (
                 <Button
                   key={i}
                   size="lg"
