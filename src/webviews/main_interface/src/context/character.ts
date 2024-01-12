@@ -9,6 +9,14 @@ export const useCharacterName = create<{
   setCharacterName: (value) => set({ characterName: value }),
 }));
 
+export const useCharacterNameValidation = create<{
+  validationErrors: string;
+  setValidationErrors: (value: string) => void;
+}>((set) => ({
+  validationErrors: '',
+  setValidationErrors: (value) => set({ validationErrors: value }),
+}));
+
 export const useCharacterModel = create<{
   model: number;
   setCharacterModel: (value: number) => void;

@@ -1,29 +1,34 @@
 import { Input, Button } from '@nextui-org/react';
 import { FaMale, FaFemale } from 'react-icons/fa';
 import { RxUpdate } from 'react-icons/rx';
-import { MdFace, MdFace2, MdFace3, MdFace4, MdFace5, MdFace6 } from 'react-icons/md';
+import {
+  MdFace,
+  MdFace2,
+  MdFace3,
+  MdFace4,
+  MdFace5,
+  MdFace6,
+} from 'react-icons/md';
 import { useEmitter } from '../../utils/use_emitter';
 import {
   useCharacterHeadBlend,
   useCharacterModel,
   useCharacterName,
+  useCharacterNameValidation,
   useRandomFaces,
   useSelectedRandomFace,
 } from '../../context/character';
 import { useEffect } from 'react';
+
+const regexName =
+  /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]+( [A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]+)*$/;
 
 export default function Genetics() {
   const characterName = useCharacterName((state) => state.characterName);
   const setCharacterName = useCharacterName((state) => state.setCharacterName);
   const gender = useCharacterModel((state) => state.model);
   const setGender = useCharacterModel((state) => state.setCharacterModel);
-  const fatherFace = useCharacterHeadBlend((state) => state.fatherFace);
-  const motherFace = useCharacterHeadBlend((state) => state.motherFace);
-  const fatherSkin = useCharacterHeadBlend((state) => state.fatherSkin);
-  const motherSkin = useCharacterHeadBlend((state) => state.motherSkin);
-  const faceMix = useCharacterHeadBlend((state) => state.faceMix);
   const setFaceMix = useCharacterHeadBlend((state) => state.setFaceMix);
-  const skinMix = useCharacterHeadBlend((state) => state.skinMix);
   const setSkinMix = useCharacterHeadBlend((state) => state.setSkinMix);
   const setFatherFace = useCharacterHeadBlend((state) => state.setFatherFace);
   const setFatherSkin = useCharacterHeadBlend((state) => state.setFatherSkin);
@@ -37,17 +42,24 @@ export default function Genetics() {
   const setSelectedRandomFace = useSelectedRandomFace(
     (state) => state.setSelectedRandomFace
   );
+  const characterNameValidationError = useCharacterNameValidation(
+    (state) => state.validationErrors
+  );
+  const setCharacterValidationError = useCharacterNameValidation(
+    (state) => state.setValidationErrors
+  );
 
   useEffect(() => {
-    useEmitter('client', 'character_setHeadBlend', {
-      fatherFace,
-      motherFace,
-      fatherSkin,
-      motherSkin,
-      faceMix,
-      skinMix,
-    });
-  }, [faceMix]);
+    if (characterName.length > 25)
+      return setCharacterValidationError(
+        'O nome do personagem não pode ter mais de 25 caracteres'
+      );
+
+    if (!regexName.test(characterName))
+      return setCharacterValidationError('Digite um nome de personagem válido');
+
+    return setCharacterValidationError('');
+  }, [characterName]);
 
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
@@ -57,6 +69,8 @@ export default function Genetics() {
         size="sm"
         variant="bordered"
         placeholder="Nome do personagem"
+        errorMessage={characterNameValidationError}
+        isInvalid={!!characterNameValidationError}
       />
 
       <div className="flex flex-col gap-2">
@@ -65,6 +79,7 @@ export default function Genetics() {
           <Button
             onPress={() => {
               setGender(0x705e61f2);
+              setSelectedRandomFace(null);
               return useEmitter(
                 'server',
                 'character_changePlayerModel',
@@ -81,6 +96,7 @@ export default function Genetics() {
           <Button
             onPress={() => {
               setGender(0x9c9effd8);
+              setSelectedRandomFace(null);
               return useEmitter(
                 'server',
                 'character_changePlayerModel',
@@ -105,7 +121,7 @@ export default function Genetics() {
             color="success"
             onPress={() => {
               setSelectedRandomFace(null);
-              resetRandomFaces()
+              resetRandomFaces();
             }}
           >
             <RxUpdate />
@@ -139,13 +155,13 @@ export default function Genetics() {
                 });
               }}
             >
-              { e.iconId === 1 && (<MdFace size={40} />) }
-              { e.iconId === 2 && (<MdFace2 size={40} />) }
-              { e.iconId === 3 && (<MdFace3 size={40} />) }
-              { e.iconId === 4 && (<MdFace4 size={40} />) }
-              { e.iconId === 5 && (<MdFace5 size={40} />) }
-              { e.iconId === 6 && (<MdFace6 size={40} />) }
-              <p className="text-[10px]">{ e.adjective }</p>
+              {e.iconId === 1 && <MdFace size={40} />}
+              {e.iconId === 2 && <MdFace2 size={40} />}
+              {e.iconId === 3 && <MdFace3 size={40} />}
+              {e.iconId === 4 && <MdFace4 size={40} />}
+              {e.iconId === 5 && <MdFace5 size={40} />}
+              {e.iconId === 6 && <MdFace6 size={40} />}
+              <p className="text-[10px]">{e.adjective}</p>
             </Button>
           ))}
         </div>
