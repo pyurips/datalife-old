@@ -23,7 +23,11 @@ export default function Hud() {
 
   return (
     <main className="flex flex-col w-screen h-screen">
-      <div className="flex flex-row gap-1">
+      <div style={{
+        right: 0.06 * window.innerWidth - 65.2,
+        top: 0.018 * window.innerWidth - 9.4,
+        transform: `scale(${scale})`,
+      }} className="absolute flex flex-row gap-1">
         <Need
           color="warning"
           icon={<PiBowlFoodFill size={25} color="#f5a524" />}
