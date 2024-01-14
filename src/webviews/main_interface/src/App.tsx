@@ -10,11 +10,11 @@ export default function App() {
 
   return (
     <>
-      {/* {!response?.data && <Signin />} */}
+      {!response?.data && <Signin />}
       {response?.data === 'characterCreator' && <CharacterCreator />}
       {response?.data === 'debugHud' && <DebugHud />}
       {response?.data === 'adminPanel' && <AdminPanel />}
-      {true && <Hud />}
+      {response?.data === 'hud' && <Hud />}
     </>
   );
 }

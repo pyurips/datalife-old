@@ -153,7 +153,13 @@ export default function CharacterCreator() {
             </ButtonGroup>
           </div>
 
-          <Button variant="flat" color="success">
+          <Button
+            variant="flat"
+            color="success"
+            onPress={() =>
+              useEmitter('client', 'character_loadPlayerIntoWorld')
+            }
+          >
             Finalizar
           </Button>
         </div>
