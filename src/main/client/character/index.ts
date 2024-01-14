@@ -5,3 +5,4 @@ import './set_head_blend.js';
 import './set_character_eye_color.js';
 import './set_face_features.js';
 import './set_character_hair.js';
+import './load_player_into_world.js';

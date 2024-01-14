@@ -5,7 +5,7 @@ export function emitter(
   type: 'request' | 'response',
   emitTo: 'client' | 'mainInterface',
   eventName: string,
-  data: unknown
+  data?: unknown
 ) {
   if (emitTo === 'client') {
     return alt.emitClientRaw(player, `${type}:${eventName}`, data);

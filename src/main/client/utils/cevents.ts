@@ -4,7 +4,7 @@ export function emitter(
   emitTo: 'server' | 'mainInterface',
   type: 'request' | 'response',
   eventName: string,
-  data: unknown
+  data?: unknown
 ) {
   if (emitTo === 'server') {
     return alt.emitServerRaw(`${type}:${eventName}`, data);

@@ -22,5 +22,5 @@ export function createSigninCamera() {
 }
 
 export function deleteSigninCamera() {
-  destroyCustomCamera(signinCamera);
+  if (signinCamera) destroyCustomCamera(signinCamera);
 }

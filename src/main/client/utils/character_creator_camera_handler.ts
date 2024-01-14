@@ -21,7 +21,7 @@ export function toggleCreatorCameraToFace(state: boolean) {
   if (state)
     return setPositionCustomCamera(
       characterCreatorCamera,
-      -763.000,
+      -763.0,
       329.5897,
       200.0864
     );
@@ -35,5 +35,5 @@ export function toggleCreatorCameraToFace(state: boolean) {
 }
 
 export function deleteCharacterCreatorCamera() {
-  destroyCustomCamera(characterCreatorCamera);
+  if (characterCreatorCamera) destroyCustomCamera(characterCreatorCamera);
 }
