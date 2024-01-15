@@ -15,5 +15,12 @@ export function useListener(eventName: string) {
 
   if (window.alt) window.alt.on(`response:${eventName}`, eventHandler);
 
-  return response;
+  function turnOffEvent() {
+    if (window.alt) window.alt?.off(`response:${eventName}`, eventHandler);
+  }
+
+  return {
+    response,
+    turnOffEvent,
+  };
 }

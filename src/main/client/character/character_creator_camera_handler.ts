@@ -4,7 +4,7 @@ import {
   destroyCustomCamera,
   renderCustomCamera,
   setPositionCustomCamera,
-} from './camera_handler.js';
+} from '../utils/camera_handler.js';
 
 let characterCreatorCamera: number = null;
 

@@ -6,7 +6,7 @@ import Signin from './screens/signin';
 import { useListener } from './utils/use_listener';
 
 export default function App() {
-  const response = useListener('webview_setScreen');
+  const { response } = useListener('webview_setScreen');
 
   return (
     <>
