@@ -1,14 +1,14 @@
-import loadCreator from './load_character_creator';
-import loadPlayerIntoWorld from './load_player_into_world';
-import setCharacterEyeColor from './set_character_eye_color';
-import setHair from './set_character_hair';
-import setFaceFeatures from './set_face_features';
-import setHeadBlend from './set_head_blend';
+import loadCreator from './load_character_creator.js';
+import loadPlayerIntoWorld from './load_player_into_world.js';
+import setCharacterEyeColor from './set_character_eye_color.js';
+import setHair from './set_character_hair.js';
+import setFaceFeatures from './set_face_features.js';
+import setHeadBlend from './set_head_blend.js';
 import {
   createCharacterCreatorCamera,
   toggleCreatorCameraToFace,
   deleteCharacterCreatorCamera,
-} from './character_creator_camera_handler';
+} from './character_creator_camera_handler.js';
 
 const characterOperations = {
   loadCreator,

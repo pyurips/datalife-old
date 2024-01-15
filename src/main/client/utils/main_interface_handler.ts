@@ -1,5 +1,5 @@
 import * as alt from 'alt-client';
-import operations from './operations';
+import operations from './operations.js';
 
 let mainInterface: alt.WebView = null;
 
