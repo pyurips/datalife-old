@@ -7,7 +7,5 @@ alt.on('connectionComplete', async () => {
   createSigninCamera();
   setScreenMode(true);
   await loadMainInterface();
-  alt.loadModel(0x705e61f2);
-  alt.loadModel(0x9c9effd8);
-  await alt.emitRpc('rpc', 'twoFa', { message: 'Dados' });
+  await alt.emitRpc('rpc', 'loadPlayerIntoWorld');
 });

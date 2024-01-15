@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 
-alt.onClient('request:character_loadPlayerIntoWorld', (player) => {
+function loadPlayerIntoWorld(player: alt.Player, data?: unknown) {
   player.pos = new alt.Vector3(0, 0, 0);
   player.dimension = 0;
   player.giveWeapon(0x83bf0278, 999, false);
@@ -15,4 +15,6 @@ alt.onClient('request:character_loadPlayerIntoWorld', (player) => {
       0
     );
   }, 10000);
-});
+}
+
+export default loadPlayerIntoWorld;

@@ -1,5 +1,7 @@
 import * as alt from 'alt-server';
 
-alt.onClient('request:character_changePlayerModel', (player, model: number) => {
-  player.model = model;
-});
+function changePlayerModel(player: alt.Player, data?: any) {
+  player.model = data.model;
+}
+
+export default changePlayerModel;
