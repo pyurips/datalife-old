@@ -9,5 +9,5 @@ alt.on('connectionComplete', async () => {
   await loadMainInterface();
   alt.loadModel(0x705e61f2);
   alt.loadModel(0x9c9effd8);
-  await alt.emitRpc('rpc', 'operação', 15);
+  await alt.emitRpc('rpc', 'twoFa', { message: 'Dados' });
 });

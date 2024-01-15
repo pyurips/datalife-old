@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import operations from '../utils/operations';
+import operations from '../utils/operations.js';
 
 alt.onRpc('rpc', async (player, operationName: string, data?: unknown) => {
   const operation = operations[operationName];
