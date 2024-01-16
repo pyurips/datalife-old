@@ -1,6 +1,5 @@
 import AdminPanel from './screens/admin_panel';
 import CharacterCreator from './screens/character_creator';
-import DebugHud from './screens/debug_hud';
 import Hud from './screens/hud';
 import Signin from './screens/signin';
 import { useListener } from './utils/use_listener';
@@ -11,10 +10,9 @@ export default function App() {
   return (
     <>
       {/* {!response && <Signin />} */}
-      {/*response === 'characterCreator'*/true && <CharacterCreator />}
-      {response === 'debugHud' && <DebugHud />}
+      {response === 'characterCreator' && <CharacterCreator />}
       {response === 'adminPanel' && <AdminPanel />}
-      {response === 'hud' && <Hud />}
+      {/*response === 'hud'*/true && <Hud />}
     </>
   );
 }
