@@ -1,21 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Input, Button, Link } from '@nextui-org/react';
-import {
-  BsEyeFill,
-  BsEyeSlashFill,
-  BsDiscord,
-  BsYoutube,
-  BsInstagram,
-} from 'react-icons/bs';
+import { Button, Link } from '@nextui-org/react';
+import { BsDiscord, BsYoutube, BsInstagram } from 'react-icons/bs';
 import datalifeLogoLight from '../assets/signin/datalife_logo_light.svg';
-import VerifyCodeForm from '../components/auth/verify_code_form';
-import { useEmitter } from '../utils/use_emitter';
 
 export default function Signin() {
-  const [email, setEmail] = useState<string>('pabloyuridev@gmail.com');
-  const [password, setPassword] = useState<string>('#Trade10102');
-  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState('');
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
 
   useEffect(() => {
@@ -34,7 +22,7 @@ export default function Signin() {
     <main className="flex items-center justify-center w-screen h-screen">
       <div
         style={{ transform: `scale(${scale})` }}
-        className="bg-neutral-900 w-[800px] h-[500px] rounded-2xl flex flex-col overflow-hidden"
+        className="bg-stone-950 w-[800px] h-[500px] rounded-2xl flex flex-col overflow-hidden"
       >
         <div className="flex flex-1 overflow-hidden">
           <img
@@ -52,74 +40,19 @@ export default function Signin() {
           </div>
         </div>
 
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="flex flex-col gap-3 p-5"
-        >
-          {false ? (
-            <VerifyCodeForm email={email} password={password} />
-          ) : (
-            <div className="flex flex-row gap-5 items-center">
-              <Input
-                value={email}
-                onValueChange={(e) => setEmail(e)}
-                isClearable
-                type="email"
-                autoComplete="email"
-                placeholder="Digite seu e-mail"
-                className="max-w-[300px]"
-                isInvalid={!!errorMessage}
-                maxLength={256}
-                spellCheck={false}
-                size="sm"
-              />
+        <div className="flex flex-col gap-3 p-5">
+          <div className="flex flex-row gap-5 items-center">
+            <Button
+              onPress={() => {}}
+              variant="flat"
+              color="success"
+              startContent={<BsDiscord size={20} />}
+            >
+              Entrar com o Discord
+            </Button>
+          </div>
 
-              <Input
-                placeholder="Digite sua senha"
-                value={password}
-                onValueChange={(e) => setPassword(e)}
-                autoComplete="current-password"
-                maxLength={256}
-                spellCheck={false}
-                size="sm"
-                endContent={
-                  <button
-                    className="focus:outline-none"
-                    type="button"
-                    onClick={() => setPasswordVisible(!passwordVisible)}
-                  >
-                    {passwordVisible ? (
-                      <BsEyeFill className="text-2xl text-default-400 pointer-events-none" />
-                    ) : (
-                      <BsEyeSlashFill className="text-2xl text-default-400 pointer-events-none" />
-                    )}
-                  </button>
-                }
-                type={passwordVisible ? 'text' : 'password'}
-                className="max-w-[300px]"
-              />
-
-              <Button
-                onPress={() => {
-                  setErrorMessage('');
-                  return useEmitter('server', 'auth_signin', {
-                    email,
-                    password,
-                  });
-                }}
-                variant="flat"
-                color="success"
-                className="h-full"
-                //isLoading={loading}
-              >
-                Entrar
-              </Button>
-            </div>
-          )}
-
-          {!!errorMessage && (
-            <p className="text-xs text-[#f31260]">{errorMessage}</p>
-          )}
+          {true && <p className="text-xs text-red-600">{'Mensagem de erro'}</p>}
 
           <div className="flex flex-row items-center justify-between">
             <p className="text-xs text-neutral-500">
@@ -176,7 +109,7 @@ export default function Signin() {
               </Link>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </main>
   );
