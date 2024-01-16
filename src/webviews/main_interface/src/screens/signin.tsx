@@ -7,7 +7,10 @@ import useRequester from '../utils/useRequester';
 export default function Signin() {
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
 
-  const { responseData: _, fetchData, loading } = useRequester('auth_discordSignin', false);
+  const { responseData, fetchData, loading } = useRequester(
+    'auth_discordSignin',
+    false
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -56,7 +59,9 @@ export default function Signin() {
             </Button>
           </div>
 
-          {true && <p className="text-xs text-red-600">{'Mensagem de erro'}</p>}
+          {responseData?.internalCode && (
+            <p className="text-xs text-red-600">{responseData?.message}</p>
+          )}
 
           <div className="flex flex-row items-center justify-between">
             <p className="text-xs text-neutral-500">

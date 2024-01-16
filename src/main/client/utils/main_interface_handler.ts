@@ -17,11 +17,18 @@ export async function loadMainInterface() {
     const operation = operations[operationName];
     if (!operation)
       return alt.logError(`O nome da operação (${operationName}) não existe`);
-    const response =
-      operation.constructor.name === 'AsyncFunction'
-        ? await operation(data)
-        : operation(data);
-    mainInterface.emit(`response:${operationName}`, response);
+    try {
+      const response =
+        operation.constructor.name === 'AsyncFunction'
+          ? await operation(data)
+          : operation(data);
+      mainInterface.emit(`response:${operationName}`, response);
+    } catch (e) {
+      mainInterface.emit(`response:${operationName}`, {
+        message: e.message,
+        internalCode: e.internalCode || 1,
+      });
+    }
   });
 
   await new Promise((resolve) => {

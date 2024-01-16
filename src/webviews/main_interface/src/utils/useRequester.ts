@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function useRequester(operationName: string, startLoading: boolean) {
   const [loading, setLoading] = useState<boolean>(startLoading);
-  const [responseData, setResponseData] = useState<unknown>();
+  const [responseData, setResponseData] = useState<any>();
 
   function fetchData(requestData?: unknown) {
     setLoading(true);
@@ -11,7 +11,7 @@ function useRequester(operationName: string, startLoading: boolean) {
       return setLoading(false);
     }
 
-    window.alt.once(`response:${operationName}`, (responseData: unknown) => {
+    window.alt.once(`response:${operationName}`, (responseData: any) => {
       setResponseData(responseData);
       return setLoading(false);
     });
