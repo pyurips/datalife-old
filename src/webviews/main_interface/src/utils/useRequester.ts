@@ -8,7 +8,7 @@ async function useRequester(operationName: string, startLoading: boolean) {
     setLoading(true);
     if (!window.alt)
       return console.error('Não foi encontrado o método alt no objeto Window');
-    window.alt.once('response', (responseData: unknown) => {
+    window.alt.once(`response:${operationName}`, (responseData: unknown) => {
       setResponseData(responseData);
       setLoading(false);
     });

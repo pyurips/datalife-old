@@ -21,7 +21,7 @@ export async function loadMainInterface() {
       operation.constructor.name === 'AsyncFunction'
         ? await operation(data)
         : operation(data);
-    mainInterface.emit('response', response);
+    mainInterface.emit(`reponse:${operationName}`, response);
   });
 
   await new Promise((resolve) => {
