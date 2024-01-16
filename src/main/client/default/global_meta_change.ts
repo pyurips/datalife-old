@@ -1,6 +1,6 @@
 import * as alt from 'alt-client';
 import { mainInterfaceToggleFocus } from '../utils/main_interface_handler.js';
-import { emitter } from '../utils/cevents.js';
+import webViewEmitter from '../utils/webview_emitter.js';
 
 alt.on('globalMetaChange', (key, newValue, oldValue) => {
   if (key === 'currentScreen') {
@@ -9,11 +9,7 @@ alt.on('globalMetaChange', (key, newValue, oldValue) => {
     } else {
       mainInterfaceToggleFocus(true);
     }
-    return emitter('mainInterface', 'response', 'webview_setScreen', {
-      data: newValue,
-      status: 200,
-      error: null,
-    });
+    return webViewEmitter('emitToMainInterface', 'webView_setScreen', newValue);
   }
 
   if (key === 'debugCamState') {

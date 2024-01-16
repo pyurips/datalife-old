@@ -6,15 +6,15 @@ import Signin from './screens/signin';
 import { useListener } from './utils/use_listener';
 
 export default function App() {
-  const { response } = useListener('webview_setScreen');
+  const { response } = useListener('webView_setScreen');
 
   return (
     <>
-      {!response?.data && <Signin />}
-      {response?.data === 'characterCreator' && <CharacterCreator />}
-      {response?.data === 'debugHud' && <DebugHud />}
-      {response?.data === 'adminPanel' && <AdminPanel />}
-      {response?.data === 'hud' && <Hud />}
+      {!response && <Signin />}
+      {response === 'characterCreator' && <CharacterCreator />}
+      {response === 'debugHud' && <DebugHud />}
+      {response === 'adminPanel' && <AdminPanel />}
+      {response === 'hud' && <Hud />}
     </>
   );
 }

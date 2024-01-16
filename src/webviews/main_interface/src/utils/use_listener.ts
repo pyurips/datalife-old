@@ -1,22 +1,16 @@
 import { useState } from 'react';
 
-type IResponse = {
-  data: unknown;
-  status: number;
-  error: { message: string; internalCode: number };
-};
-
 export function useListener(eventName: string) {
-  const [response, setResponse] = useState<IResponse>();
+  const [response, setResponse] = useState();
 
-  function eventHandler(response: IResponse) {
+  function eventHandler(response: any) {
     return setResponse(response);
   }
 
-  if (window.alt) window.alt.on(`response:${eventName}`, eventHandler);
+  if (window.alt) window.alt.on(eventName, eventHandler);
 
   function turnOffEvent() {
-    if (window.alt) window.alt?.off(`response:${eventName}`, eventHandler);
+    if (window.alt) window.alt?.off(eventName, eventHandler);
   }
 
   return {
