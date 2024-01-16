@@ -3,7 +3,7 @@ type IClientError = {
   internalCode: number;
 };
 
-export class ClientError extends Error {
+class ClientError extends Error {
   internalCode: number;
 
   constructor({
@@ -14,3 +14,5 @@ export class ClientError extends Error {
     this.internalCode = internalCode;
   }
 }
+
+export default ClientError;
