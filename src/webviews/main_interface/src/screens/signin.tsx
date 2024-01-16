@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 import { Button, Link } from '@nextui-org/react';
 import { BsDiscord, BsYoutube, BsInstagram } from 'react-icons/bs';
 import datalifeLogoLight from '../assets/signin/datalife_logo_light.svg';
+import useRequester from '../utils/useRequester';
 
 export default function Signin() {
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
+
+  const { responseData: _, fetchData, loading } = useRequester('auth_discordSignin', false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,10 +46,11 @@ export default function Signin() {
         <div className="flex flex-col gap-3 p-5">
           <div className="flex flex-row gap-5 items-center">
             <Button
-              onPress={() => {}}
+              onPress={() => fetchData()}
               variant="flat"
               color="success"
-              startContent={<BsDiscord size={20} />}
+              startContent={!loading && <BsDiscord size={20} />}
+              isLoading={loading}
             >
               Entrar com o Discord
             </Button>

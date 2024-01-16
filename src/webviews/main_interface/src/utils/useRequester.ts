@@ -1,18 +1,21 @@
 import { useState } from 'react';
 
-async function useRequester(operationName: string, startLoading: boolean) {
+function useRequester(operationName: string, startLoading: boolean) {
   const [loading, setLoading] = useState<boolean>(startLoading);
   const [responseData, setResponseData] = useState<unknown>();
 
-  async function fetchData(requestData: unknown) {
+  function fetchData(requestData?: unknown) {
     setLoading(true);
-    if (!window.alt)
-      return console.error('Não foi encontrado o método alt no objeto Window');
+    if (!window.alt) {
+      console.error('Não foi encontrado o método alt no objeto Window');
+      return setLoading(false);
+    }
+
     window.alt.once(`response:${operationName}`, (responseData: unknown) => {
       setResponseData(responseData);
-      setLoading(false);
+      return setLoading(false);
     });
-    window.alt.emit('request', operationName, requestData);
+    return window.alt.emit('request', operationName, requestData);
   }
 
   return {
