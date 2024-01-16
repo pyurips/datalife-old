@@ -7,5 +7,4 @@ alt.on('connectionComplete', async () => {
   createSigninCamera();
   setScreenMode(true);
   await loadMainInterface();
-  await alt.emitRpc('rpc', 'loadPlayerIntoWorld');
 });
