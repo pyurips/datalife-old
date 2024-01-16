@@ -10,8 +10,8 @@ export default function App() {
 
   return (
     <>
-      {!response && <Signin />}
-      {response === 'characterCreator' && <CharacterCreator />}
+      {/* {!response && <Signin />} */}
+      {/*response === 'characterCreator'*/true && <CharacterCreator />}
       {response === 'debugHud' && <DebugHud />}
       {response === 'adminPanel' && <AdminPanel />}
       {response === 'hud' && <Hud />}

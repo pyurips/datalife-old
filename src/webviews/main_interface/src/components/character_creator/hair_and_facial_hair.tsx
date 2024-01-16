@@ -35,7 +35,7 @@ export default function HairAndFacialHair() {
           </Tab>
           <Tab key="color" title="Cores">
             <div className="flex flex-col gap-4">
-              <h2 className="text-sm bg-[#424242] p-2 rounded-md">Primária</h2>
+              <h2 className="text-sm bg-stone-900 p-2 rounded-md">Primária</h2>
               <div className="grid grid-cols-5 gap-4">
                 {hairColors.map((e, i) => (
                   <Button
@@ -49,7 +49,7 @@ export default function HairAndFacialHair() {
                   ></Button>
                 ))}
               </div>
-              <h2 className="text-sm bg-[#424242] p-2 rounded-md">
+              <h2 className="text-sm bg-stone-900 p-2 rounded-md">
                 Secundária
               </h2>
               <div className="grid grid-cols-5 gap-4">
@@ -86,7 +86,7 @@ export default function HairAndFacialHair() {
           </Tab>
           <Tab key="color" title="Cores">
             <div className="flex flex-col gap-4">
-              <h2 className="text-sm bg-[#424242] p-2 rounded-md">Primária</h2>
+              <h2 className="text-sm bg-stone-900 p-2 rounded-md">Primária</h2>
               <div className="grid grid-cols-5 gap-4">
                 {hairColors.map((e, i) => (
                   <Button
@@ -100,7 +100,7 @@ export default function HairAndFacialHair() {
                   ></Button>
                 ))}
               </div>
-              <h2 className="text-sm bg-[#424242] p-2 rounded-md">
+              <h2 className="text-sm bg-stone-900 p-2 rounded-md">
                 Secundária
               </h2>
               <div className="grid grid-cols-5 gap-4">

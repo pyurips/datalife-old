@@ -11,7 +11,7 @@ export default function FaceFeatures() {
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
       <div className="flex flex-col gap-5 rounded-lg">
-        <p className="text-md bg-[#424242] p-2 rounded-md">Cor dos olhos</p>
+        <p className="text-md bg-stone-900 p-2 rounded-md">Cor dos olhos</p>
         <div className="grid grid-cols-6 gap-4">
           {eyeColors.map((e, i) => (
             <Button
@@ -29,7 +29,7 @@ export default function FaceFeatures() {
 
       {Object.entries(faceFeatures).map(([group, features], groupIndex) => (
         <div key={groupIndex}>
-          <h2 className="text-md bg-[#424242] p-2 rounded-md">{group}</h2>
+          <h2 className="text-md bg-stone-900 p-2 rounded-md">{group}</h2>
           {features.map((feature) => (
             <div key={feature.id} className="flex flex-col">
               <p className="text-sm p-2 rounded-md">{feature.label}</p>

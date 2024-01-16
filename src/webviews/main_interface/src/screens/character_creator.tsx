@@ -42,7 +42,7 @@ export default function CharacterCreator() {
           transform: `scale(${scale})`,
           marginRight: 0.11 * window.innerWidth - 121.2,
         }}
-        className="flex flex-col bg-[#2D2D2D] w-[360px] h-[550px] rounded-2xl overflow-hidden"
+        className="flex flex-col bg-stone-950 w-[360px] h-[550px] rounded-2xl overflow-hidden"
       >
         <div className="flex flex-1 flex-row overflow-y-auto">
           {selectedMenu === 'genetics' && <Genetics />}
@@ -55,7 +55,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('genetics')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-stone-900 ${
                 selectedMenu === 'genetics' ? 'opacity-100' : 'opacity-50'
               }`}
             >
@@ -65,7 +65,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('faceFeatures')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-stone-900 ${
                 selectedMenu === 'faceFeatures' ? 'opacity-100' : 'opacity-50'
               }`}
             >
@@ -75,7 +75,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('hairAndFacialHair')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-stone-900 ${
                 selectedMenu === 'hairAndFacialHair'
                   ? 'opacity-100'
                   : 'opacity-50'
@@ -87,7 +87,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('personality')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-stone-900 ${
                 selectedMenu === 'personality' ? 'opacity-100' : 'opacity-50'
               }`}
             >
@@ -97,7 +97,7 @@ export default function CharacterCreator() {
             <Button
               onClick={() => setSelectedMenu('clothing')}
               isIconOnly
-              className={`flex rounded-xl w-[70px] h-[70px] bg-[#424242] ${
+              className={`flex rounded-xl w-[70px] h-[70px] bg-stone-900 ${
                 selectedMenu === 'clothing' ? 'opacity-100' : 'opacity-50'
               }`}
             >
@@ -165,7 +165,7 @@ export default function CharacterCreator() {
         </div>
 
         {false && (
-          <p className="text-xs text-[#f31260] p-3">Mensagem de erro</p>
+          <p className="text-xs text-red-600 p-3">Mensagem de erro</p>
         )}
       </div>
     </main>
