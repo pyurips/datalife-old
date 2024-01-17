@@ -9,10 +9,10 @@ export default function App() {
 
   return (
     <>
-      {/* {!response && <Signin />} */}
+      {!response && <Signin />}
       {response === 'characterCreator' && <CharacterCreator />}
       {response === 'adminPanel' && <AdminPanel />}
-      {/*response === 'hud'*/true && <Hud />}
+      {response === 'hud' && <Hud />}
     </>
   );
 }

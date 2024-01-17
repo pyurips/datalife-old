@@ -1,7 +1,7 @@
-import twoFa from './signin_two_fa.js';
+import validateDiscordSignin from './validate_discord_signin.js';
 
 const authOperations = {
-  twoFa
-}
+  validateDiscordSignin,
+};
 
 export default authOperations;
