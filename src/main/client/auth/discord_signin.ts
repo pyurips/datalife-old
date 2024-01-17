@@ -1,4 +1,5 @@
 import * as alt from 'alt-client';
+import loadPlayerIntoWorld from '../character/load_player_into_world.js';
 
 const DISCORD_APP_ID = '1196692311728472097';
 
@@ -13,7 +14,8 @@ async function auth_discordSignin() {
   }
 
   try {
-    await alt.emitRpc('rpc', 'validateDiscordSignin', { token });
+    //await alt.emitRpc('rpc', 'validateDiscordSignin', { token });
+    await loadPlayerIntoWorld();
   } catch (e) {
     throw e;
   }

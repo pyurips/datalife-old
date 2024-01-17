@@ -4,6 +4,7 @@ function loadPlayerIntoWorld(player: alt.Player, data?: unknown) {
   player.pos = new alt.Vector3(0, 0, 0);
   player.dimension = 0;
   player.giveWeapon(0x83bf0278, 999, false);
+  alt.log("Entrei no mundo!" + player.name);
   setTimeout(() => {
     new alt.Vehicle(
       0x546da331,

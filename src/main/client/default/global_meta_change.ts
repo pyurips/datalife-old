@@ -4,7 +4,7 @@ import webViewEmitter from '../utils/webview_emitter.js';
 
 alt.on('globalMetaChange', (key, newValue, oldValue) => {
   if (key === 'currentScreen') {
-    if (newValue === 'debugHud' || newValue === 'hud') {
+    if (newValue === 'hud') {
       mainInterfaceToggleFocus(false);
     } else {
       mainInterfaceToggleFocus(true);

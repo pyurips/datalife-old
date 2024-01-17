@@ -13,6 +13,10 @@ export async function loadMainInterface() {
     mainInterface.emit(eventName, data);
   });
 
+  alt.on('emitToMainInterface', (eventName: string, data) => {
+    mainInterface.emit(eventName, data);
+  });
+
   mainInterface.on('request', async (operationName: string, data?: unknown) => {
     const operation = operations[operationName];
     if (!operation)

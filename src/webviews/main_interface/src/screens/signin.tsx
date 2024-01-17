@@ -64,8 +64,8 @@ export default function Signin() {
           )}
 
           <div className="flex flex-row items-center justify-between">
-            <p className="text-xs text-neutral-500">
-              Para criar uma conta ou recuperar sua senha, visite{' '}
+            <p className="text-xs text-stone-500">
+              Para mais informações sobre o servidor, visite{' '}
               <Link
                 isExternal
                 size="sm"
