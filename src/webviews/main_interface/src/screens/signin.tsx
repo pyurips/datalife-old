@@ -59,8 +59,8 @@ export default function Signin() {
             </Button>
           </div>
 
-          {responseData?.internalCode && (
-            <p className="text-xs text-red-600">{responseData?.message}</p>
+          {responseData?.error && (
+            <p className="text-xs text-red-600">{responseData?.error}</p>
           )}
 
           <div className="flex flex-row items-center justify-between">

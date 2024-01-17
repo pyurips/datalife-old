@@ -23,10 +23,9 @@ export async function loadMainInterface() {
           ? await operation(data)
           : operation(data);
       mainInterface.emit(`response:${operationName}`, response);
-    } catch (e) {
+    } catch (error) {
       mainInterface.emit(`response:${operationName}`, {
-        message: e.message,
-        internalCode: e.internalCode || 1,
+        error,
       });
     }
   });

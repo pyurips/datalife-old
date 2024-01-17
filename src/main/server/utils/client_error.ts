@@ -1,18 +1,15 @@
-type IClientError = {
-  message?: string;
-  internalCode: number;
-};
-
-class ClientError extends Error {
-  internalCode: number;
-
-  constructor({
-    message = 'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.',
-    internalCode,
-  }: IClientError) {
-    super(message);
-    this.internalCode = internalCode;
-  }
+function sendClientError(
+  internalCode: number,
+  showInternalCode = true,
+  message?: string
+) {
+  const clientError = new Error(
+    (message ||
+      'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.') +
+      `${showInternalCode && ` (${internalCode})`}`
+  );
+  clientError.name = 'DATALIFEClientError';
+  throw clientError;
 }
 
-export default ClientError;
+export default sendClientError;
