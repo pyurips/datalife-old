@@ -9,14 +9,9 @@ export function useListener(eventName: string) {
 
   useEffect(() => {
     if (window.alt) window.alt.on(eventName, eventHandler);
+
+    return () => window.alt?.off(eventName, eventHandler);
   }, []);
 
-  function turnOffEvent() {
-    if (window.alt) window.alt?.off(eventName, eventHandler);
-  }
-
-  return {
-    response,
-    turnOffEvent,
-  };
+  return response;
 }

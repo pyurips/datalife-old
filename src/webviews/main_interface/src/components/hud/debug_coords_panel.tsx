@@ -1,23 +1,10 @@
 import { Button } from '@nextui-org/react';
 import { useListener } from '../../utils/use_listener';
-import { useEffect } from 'react';
 
 export default function DebugCoordsPanel() {
-  const { response: playerCoords, turnOffEvent: turnOffEventCoords } =
-    useListener('debugMode_sendPlayerCoords');
-  const { response: playerRot, turnOffEvent: turnOffEventRot } = useListener(
-    'debugMode_sendPlayerRot'
-  );
-  const { response: playerSpeed, turnOffEvent: turnOffEventSpeed } =
-    useListener('debugMode_sendPlayerSpeed');
-
-  useEffect(() => {
-    return () => {
-      turnOffEventCoords();
-      turnOffEventRot();
-      turnOffEventSpeed();
-    };
-  }, []);
+  const playerCoords = useListener('debugMode_sendPlayerCoords');
+  const playerRot = useListener('debugMode_sendPlayerRot');
+  const playerSpeed = useListener('debugMode_sendPlayerSpeed');
 
   return (
     <div className="flex flex-col bg-stone-800/[.9] rounded-lg p-2 gap-2">
