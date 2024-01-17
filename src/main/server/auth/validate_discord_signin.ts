@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import axios from 'axios';
-import ClientError from '../utils/client_error';
+import ClientError from '../utils/client_error.js';
 
 async function validateDiscordSignin(player: alt.Player, data?: any) {
   try {
