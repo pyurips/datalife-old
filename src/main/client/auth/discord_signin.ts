@@ -12,7 +12,7 @@ async function auth_discordSignin() {
   }
 
   try {
-    //await alt.emitRpc('rpc', 'validateDiscordSignin', { token });
+    await alt.emitRpc('rpc', 'validateDiscordSignin', { token });
     await loadPlayerIntoWorld();
   } catch (e) {
     throw e;

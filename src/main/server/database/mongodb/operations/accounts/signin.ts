@@ -1,12 +1,12 @@
 import { MongoClient } from 'mongodb';
 
 import getEnvDb from '../../../env_db_handler.js';
-import IAccounts from '../../models/accounts';
-import sendClientError from '../../../../utils/client_error';
+import IAccounts from '../../models/accounts.js';
+import sendClientError from '../../../../utils/client_error.js';
 
-export default async function (discordId: string) {
+async function discordSigninOrSignup(discordId: string) {
   const URI = process.env.MONGO_DB_KEY;
-  if (!URI || !(typeof URI === 'string')) sendClientError(1705525658);
+  if (!URI || !(typeof URI === 'string')) return sendClientError(1705525658);
   const client = new MongoClient(URI, {
     minPoolSize: 1,
     maxPoolSize: 10,
@@ -44,10 +44,10 @@ export default async function (discordId: string) {
                 session,
               }
             );
-            return createdAccount.insertedId.toString();
+            return createdAccount;
           }
 
-          return user._id.toString();
+          return user;
         })
         .finally(async () => await client.close())
     );
@@ -57,19 +57,6 @@ export default async function (discordId: string) {
     if (e.name === 'DATALIFEClientError') throw e;
     return sendClientError(1705526054);
   }
-
-  // try {
-  //   const user = await collection.findOne({
-  //     discordId,
-  //   });
-  //   if (!user) {
-  //     return ''
-  //   }
-  //   return user._id.toString();
-  // } catch (e) {
-  //   if (e.name === 'DATALIFEClientError') throw e;
-  //   sendClientError(1705526054);
-  // } finally {
-  //   await client.close();
-  // }
 }
+
+export default discordSigninOrSignup;

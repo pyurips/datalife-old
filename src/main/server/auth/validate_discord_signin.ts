@@ -1,6 +1,7 @@
 import * as alt from 'alt-server';
 import axios from 'axios';
 import sendClientError from '../utils/client_error.js';
+import discordSigninOrSignup from '../database/mongodb/operations/accounts/signin.js';
 
 async function validateDiscordSignin(player: alt.Player, data?: any) {
   try {
@@ -10,11 +11,12 @@ async function validateDiscordSignin(player: alt.Player, data?: any) {
         Authorization: `Bearer ${data.token}`,
       },
     });
-    if (!response || !response.data.id) sendClientError(1705460913);
-    alt.log(response.data);
+    if (!response || !response.data.id) return sendClientError(1705460913);
+    const accountData = await discordSigninOrSignup(response.data.id);
+    player.setLocalMeta('accountData', accountData);
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
-    sendClientError(1705460706);
+    return sendClientError(1705460706);
   }
 }
 
