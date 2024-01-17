@@ -5,7 +5,7 @@ import { FaToiletPaper } from 'react-icons/fa6';
 import { IoBedSharp } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
 import datalifeLogoDark from '../assets/signin/datalife_logo_dark.svg';
-import { Button } from '@nextui-org/react';
+import DebugCoordsPanel from '../components/hud/debug_coords_panel';
 
 export default function Hud() {
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
@@ -41,18 +41,7 @@ export default function Hud() {
           <p className="text-[12px] text-neutral-400">v0.01</p>
         </div>
 
-        <div className="flex flex-col bg-stone-800/[.9] rounded-lg p-2 gap-2">
-          <p className="text-sm">x: {0}</p>
-          <p className="text-sm">y: {0}</p>
-          <p className="text-sm">z: {0}</p>
-          <p className="text-sm">rot x: {0}</p>
-          <p className="text-sm">rot y: {0}</p>
-          <p className="text-sm">rot z: {0}</p>
-          <p className="text-sm">spd: {0}</p>
-          <Button onPress={() => {}} variant="solid" color="primary">
-            Copiar coordenadas
-          </Button>
-        </div>
+        <DebugCoordsPanel />
       </div>
 
       <div
