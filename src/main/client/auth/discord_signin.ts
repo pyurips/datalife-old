@@ -8,9 +8,7 @@ async function auth_discordSignin() {
   try {
     token = await alt.Discord.requestOAuth2Token(DISCORD_APP_ID);
   } catch (_) {
-    throw new Error(
-      'Erro na conexão com o Discord. Tente reiniciar o Discord ou o jogo.'
-    );
+    throw 'Erro na conexão com o Discord. Tente reiniciar o Discord ou o jogo.'
   }
 
   try {
