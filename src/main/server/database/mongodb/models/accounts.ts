@@ -1,7 +1,5 @@
 type IAccounts = {
-  email: string;
-  twoFA: boolean;
-  passwordHash: string;
+  discordId: string;
   createdAt: Date;
   updatedAt: Date | null;
   lastLogin: Date | null;
@@ -9,7 +7,7 @@ type IAccounts = {
   inGame: boolean;
   prime: Date | null;
   bits: number;
-  supporterPackages: 'Patrocinador(a)' | 'Chefia' | 'Magnata' | null;
+  supporterPackage: 'Patrocinador(a)' | 'Chefia' | 'Magnata' | null;
 };
 
 export default IAccounts;

@@ -6,7 +6,7 @@ async function loadPlayerIntoWorld(player: alt.Player, data?: unknown) {
   player.giveWeapon(0x83bf0278, 999, false);
   await alt.Utils.wait(1000);
   new alt.Vehicle(
-    0xf26ceff9,
+    0xea6a047f,
     player.pos.x,
     player.pos.y,
     player.pos.z + 1,
