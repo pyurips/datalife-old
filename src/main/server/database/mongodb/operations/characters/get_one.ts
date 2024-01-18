@@ -1,27 +1,17 @@
 import { MongoClient, ObjectId } from 'mongodb';
-//import IAccounts from '../../models/accounts';
+import ICharacters from '../../models/characters.js';
 import getEnvDb from '../../../env_db_handler.js';
-
-const DEFAULT_ERROR_MESSAGE =
-  'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.';
+import sendClientError from '../../../../utils/client_error.js';
 
 async function characters_getOne(userId: string) {
   const URI = process.env.MONGO_DB_KEY;
-  if (!URI || !(typeof URI === 'string'))
-    return {
-      data: null,
-      status: 500,
-      error: {
-        message: DEFAULT_ERROR_MESSAGE,
-        internalCode: 1704484092,
-      },
-    };
+  if (!URI || !(typeof URI === 'string')) return sendClientError(1705547804);
   const client = new MongoClient(URI, {
     minPoolSize: 1,
     maxPoolSize: 10,
   });
   const database = client.db(getEnvDb());
-  const collection = database.collection('characters');
+  const collection = database.collection<ICharacters>('characters');
 
   try {
     const character = await collection.findOne(
@@ -34,32 +24,10 @@ async function characters_getOne(userId: string) {
         },
       }
     );
-    if (!character)
-      return {
-        data: null,
-        status: 400,
-        error: {
-          message:
-            'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.',
-          internalCode: 1704484537,
-        },
-      };
-
-    return {
-      data: character,
-      status: 200,
-      error: null,
-    };
-  } catch (_) {
-    return {
-      data: null,
-      status: 500,
-      error: {
-        message:
-          'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.',
-        internalCode: 1704484570,
-      },
-    };
+    return character;
+  } catch (e) {
+    if (e.name === 'DATALIFEClientError') throw e;
+    return sendClientError(1705526054);
   } finally {
     await client.close();
   }

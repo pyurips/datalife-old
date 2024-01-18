@@ -5,7 +5,7 @@ import getEnvDb from '../../../env_db_handler.js';
 const DEFAULT_ERROR_MESSAGE =
   'Desculpe, ocorreu um erro interno no servidor. Nossa equipe já foi notificada e está trabalhando para resolver o problema. Por favor, tente novamente mais tarde.';
 
-async function accounts_getOne(userId: string) {
+async function getOneAccount(userId: string) {
   const URI = process.env.MONGO_DB_KEY;
   if (!URI || !(typeof URI === 'string'))
     return {
@@ -72,4 +72,4 @@ async function accounts_getOne(userId: string) {
   }
 }
 
-export default accounts_getOne;
+export default getOneAccount;
