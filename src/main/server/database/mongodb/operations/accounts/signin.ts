@@ -43,14 +43,19 @@ async function discordSigninOrSignup(discordId: string) {
                 session,
               }
             );
-            return createdAccount;
+            return {
+              ...createdAccount,
+              _id: createdAccount.insertedId.toString()
+            };
           }
 
-          return user;
+          return {
+            ...user,
+            _id: user._id.toString()
+          };
         })
         .finally(async () => await client.close())
     );
-    if (!result) return sendClientError(1705526366);
     return result;
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;

@@ -8,12 +8,15 @@ async function auth_discordSignin() {
   try {
     token = await alt.Discord.requestOAuth2Token(DISCORD_APP_ID);
   } catch (_) {
-    throw 'Erro na conexão com o Discord. Tente reiniciar o Discord ou o jogo.'
+    throw 'Erro na conexão com o Discord. Tente reiniciar o Discord ou o jogo.';
   }
 
   try {
     await alt.emitRpc('rpc', 'validateDiscordSignin', { token });
-    await loadPlayerIntoWorld();
+    const accountData = alt.getLocalMeta('accountData') as any;
+    const availableCharacter = await alt.emitRpc('rpc', 'getCharacterData', { userId: accountData._id });
+    if (availableCharacter) return await loadPlayerIntoWorld();
+    return alt.log("Não tem personagem") // Carregar aqui o NÃO TEM PERSONAGEM
   } catch (e) {
     throw e;
   }

@@ -30,6 +30,7 @@ async function createOneCharacter(userId: string, characterData: any) {
 
           const createdCharacter = await collection.insertOne(
             {
+              _id: new ObjectId(userId),
               name: characterData.name,
               createdAt: new Date(),
             },

@@ -18,11 +18,6 @@ async function getOneAccount(userId: string) {
       {
         _id: new ObjectId(userId),
       },
-      {
-        projection: {
-          _id: 0,
-        },
-      }
     );
     return user;
   } catch (e) {
