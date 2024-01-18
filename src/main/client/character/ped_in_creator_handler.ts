@@ -2,17 +2,16 @@ import * as alt from 'alt-client';
 import * as native from 'natives';
 
 let pedInCreator = null;
-let pedInCreatorModel = null;
+let pedInCreatorModel = Math.random() > 0.5 ? 0x705e61f2 : 0x9c9effd8;
 let pedInCreatorHeadBlend = null;
 let pedInCreatorEyeColor = null;
 let pedInCreatorHair = null;
 let pedInCreatorHairColors = { primary: null, secondary: null };
 
-export function createPedInCreator() {
-  const player = alt.Player.local;
+export async function createPedInCreator() {
   pedInCreator = new alt.LocalPed(
-    player.model,
-    player.dimension,
+    pedInCreatorModel,
+    alt.Player.local.dimension,
     new alt.Vector3(-763.17, 330.59, 199.49),
     new alt.Vector3(0, 0, -3.06)
   );
@@ -24,8 +23,7 @@ export function deletePedInCreator() {
   if (pedInCreator) return pedInCreator.destroy();
 }
 
-export async function setPedInCreatorModel(model: number) {
-  await alt.Utils.requestModel(model);
+export function setPedInCreatorModel(model: number) {
   pedInCreator.model = model;
   native.setPedHeadBlendData(pedInCreator, 0, 0, 0, 0, 0, 0, 0, 0, 0, false);
 }
