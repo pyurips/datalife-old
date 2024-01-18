@@ -5,7 +5,7 @@ import sendClientError from '../../../../utils/client_error.js';
 
 async function characters_getOne(userId: string) {
   const URI = process.env.MONGO_DB_KEY;
-  if (!URI || !(typeof URI === 'string')) return sendClientError(1705547804);
+  if (!URI || !(typeof URI === 'string')) return sendClientError(1705548166);
   const client = new MongoClient(URI, {
     minPoolSize: 1,
     maxPoolSize: 10,
@@ -27,7 +27,7 @@ async function characters_getOne(userId: string) {
     return character;
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
-    return sendClientError(1705526054);
+    return sendClientError(1705548153);
   } finally {
     await client.close();
   }

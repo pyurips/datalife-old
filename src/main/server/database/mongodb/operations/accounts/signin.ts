@@ -1,5 +1,4 @@
 import { MongoClient } from 'mongodb';
-
 import getEnvDb from '../../../env_db_handler.js';
 import IAccounts from '../../models/accounts.js';
 import sendClientError from '../../../../utils/client_error.js';
