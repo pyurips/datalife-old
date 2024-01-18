@@ -46,7 +46,7 @@ async function createOneCharacter(userId: string, characterData: any) {
     return result;
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
-    return sendClientError(1705548153);
+    return sendClientError(1705550397);
   } finally {
     await client.close();
   }
