@@ -1,5 +1,6 @@
 import * as alt from 'alt-client';
 import loadPlayerIntoWorld from '../character/load_player_into_world.js';
+import loadCreator from '../character/load_character_creator.js';
 
 const DISCORD_APP_ID = '1196692311728472097';
 
@@ -16,7 +17,7 @@ async function auth_discordSignin() {
     const accountData = alt.getLocalMeta('accountData') as any;
     const availableCharacter = await alt.emitRpc('rpc', 'getCharacterData', { userId: accountData._id });
     if (availableCharacter) return await loadPlayerIntoWorld();
-    return alt.log("Não tem personagem") // Carregar aqui o NÃO TEM PERSONAGEM
+    return loadCreator();
   } catch (e) {
     throw e;
   }
