@@ -3,7 +3,7 @@ import ICharacters from '../../models/characters.js';
 import getEnvDb from '../../../env_db_handler.js';
 import sendClientError from '../../../../utils/client_error.js';
 
-async function getOneCharacter(userId: string) {
+async function createOneCharacter(userId: string) {
   const URI = process.env.MONGO_DB_KEY;
   if (!URI || !(typeof URI === 'string')) return sendClientError(1705548166);
   const client = new MongoClient(URI, {
@@ -33,4 +33,4 @@ async function getOneCharacter(userId: string) {
   }
 }
 
-export default getOneCharacter;
+export default createOneCharacter;
