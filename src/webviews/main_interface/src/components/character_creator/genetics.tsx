@@ -10,6 +10,7 @@ import {
   MdFace6,
 } from 'react-icons/md';
 import { useEmitter } from '../../utils/use_emitter';
+import useRequester from '../../utils/useRequester';
 import {
   useCharacterHeadBlend,
   useCharacterModel,
@@ -49,6 +50,11 @@ export default function Genetics() {
     (state) => state.setValidationErrors
   );
 
+  const { responseData, fetchData, loading } = useRequester(
+    'setPedInCreatorModel',
+    false
+  );
+
   useEffect(() => {
     if (characterName.length > 25)
       return setCharacterValidationError(
@@ -80,11 +86,7 @@ export default function Genetics() {
             onPress={() => {
               setGender(0x705e61f2);
               setSelectedRandomFace(null);
-              return useEmitter(
-                'server',
-                'character_changePlayerModel',
-                0x705e61f2
-              );
+              return fetchData(0x705e61f2);
             }}
             isIconOnly
             className={`${
@@ -97,11 +99,7 @@ export default function Genetics() {
             onPress={() => {
               setGender(0x9c9effd8);
               setSelectedRandomFace(null);
-              return useEmitter(
-                'server',
-                'character_changePlayerModel',
-                0x9c9effd8
-              );
+              return fetchData(0x9c9effd8);
             }}
             isIconOnly
             className={`${
