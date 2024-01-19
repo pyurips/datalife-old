@@ -5,7 +5,14 @@ import {
   toggleCreatorCameraToFace,
   deleteCharacterCreatorCamera,
 } from './character_creator_camera_handler.js';
-import { setPedInCreatorModel } from './ped_in_creator_handler.js';
+import {
+  setPedInCreatorModel,
+  setPedInCreatorHeadBlend,
+  setPedInCreatorMicroMorph,
+  setPedInCreatorEyeColor,
+  setPedInCreatorHairColors,
+  setPedInCreatorHairModel
+} from './ped_in_creator_handler.js';
 
 const characterOperations = {
   loadCreator,
@@ -13,7 +20,12 @@ const characterOperations = {
   createCharacterCreatorCamera,
   toggleCreatorCameraToFace,
   deleteCharacterCreatorCamera,
-  setPedInCreatorModel
+  setPedInCreatorModel,
+  setPedInCreatorHeadBlend,
+  setPedInCreatorMicroMorph,
+  setPedInCreatorEyeColor,
+  setPedInCreatorHairColors,
+  setPedInCreatorHairModel
 };
 
 export default characterOperations;
