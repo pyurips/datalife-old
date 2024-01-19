@@ -11,7 +11,10 @@ import HairAndFacialHair from '../components/character_creator/hair_and_facial_h
 import Personality from '../components/character_creator/personality';
 import Clothing from '../components/character_creator/clothing';
 import useRequester from '../utils/useRequester';
-import { useCharacterNameValidation } from '../context/character';
+import {
+  useCharacterName,
+  useCharacterNameValidation,
+} from '../context/character';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -27,13 +30,18 @@ export default function CharacterCreator() {
     (state) => state.validationErrors
   );
   const [isRotating, setIsRotating] = useState<number | null>(null);
+  const characterName = useCharacterName((state) => state.characterName);
 
-  const { fetchData: spawnPlayer } = useRequester('loadPlayerIntoWorld', false);
   const { fetchData: toggleCamera } = useRequester(
     'toggleCreatorCameraToFace',
     false
   );
   const { fetchData: rotatePed } = useRequester('rotatePedInCreator', false);
+  const {
+    responseData: createACharData,
+    fetchData: createACharacter,
+    loading,
+  } = useRequester('createACharacter', false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -134,7 +142,7 @@ export default function CharacterCreator() {
                 variant="light"
                 onPressChange={(isPressed) => {
                   if (isPressed) return setIsRotating(-0.05);
-                  return setIsRotating(null)
+                  return setIsRotating(null);
                 }}
               >
                 <MdRotateRight size={20} />
@@ -159,7 +167,7 @@ export default function CharacterCreator() {
                 variant="light"
                 onPressChange={(isPressed) => {
                   if (isPressed) return setIsRotating(0.05);
-                  return setIsRotating(null)
+                  return setIsRotating(null);
                 }}
               >
                 <MdRotateLeft size={20} />
@@ -171,13 +179,20 @@ export default function CharacterCreator() {
             isDisabled={!!characterNameValidationError}
             variant="flat"
             color="success"
-            onPress={() => spawnPlayer()}
+            onPress={() =>
+              createACharacter({
+                name: characterName,
+              })
+            }
+            isLoading={loading}
           >
             Finalizar
           </Button>
         </div>
 
-        {false && <p className="text-xs text-red-600 p-3">Mensagem de erro</p>}
+        {createACharData?.error && (
+          <p className="text-xs text-red-600 p-3">{createACharData?.error}</p>
+        )}
       </div>
     </main>
   );

@@ -14,6 +14,7 @@ import {
   setPedInCreatorHairModel,
   rotatePedInCreator
 } from './ped_in_creator_handler.js';
+import createACharacter from './create_a_character.js';
 
 const characterOperations = {
   loadCreator,
@@ -27,7 +28,8 @@ const characterOperations = {
   setPedInCreatorEyeColor,
   setPedInCreatorHairColors,
   setPedInCreatorHairModel,
-  rotatePedInCreator
+  rotatePedInCreator,
+  createACharacter
 };
 
 export default characterOperations;
