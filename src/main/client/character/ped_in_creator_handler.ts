@@ -79,3 +79,11 @@ export function setPedInCreatorHairModel({
 }) {
   native.setPedComponentVariation(pedInCreator, 2, model, texture || 0, 0);
 }
+
+export function rotatePedInCreator(step: number) {
+  pedInCreator.rot = new alt.Vector3(
+    pedInCreator.rot.x,
+    pedInCreator.rot.y,
+    pedInCreator.rot.z + step
+  );
+}

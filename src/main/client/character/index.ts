@@ -11,7 +11,8 @@ import {
   setPedInCreatorMicroMorph,
   setPedInCreatorEyeColor,
   setPedInCreatorHairColors,
-  setPedInCreatorHairModel
+  setPedInCreatorHairModel,
+  rotatePedInCreator
 } from './ped_in_creator_handler.js';
 
 const characterOperations = {
@@ -25,7 +26,8 @@ const characterOperations = {
   setPedInCreatorMicroMorph,
   setPedInCreatorEyeColor,
   setPedInCreatorHairColors,
-  setPedInCreatorHairModel
+  setPedInCreatorHairModel,
+  rotatePedInCreator
 };
 
 export default characterOperations;

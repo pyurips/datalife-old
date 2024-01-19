@@ -10,7 +10,6 @@ import { GiClothes } from 'react-icons/gi';
 import HairAndFacialHair from '../components/character_creator/hair_and_facial_hair';
 import Personality from '../components/character_creator/personality';
 import Clothing from '../components/character_creator/clothing';
-import { useEmitter } from '../utils/use_emitter';
 import useRequester from '../utils/useRequester';
 import { useCharacterNameValidation } from '../context/character';
 
@@ -27,8 +26,14 @@ export default function CharacterCreator() {
   const characterNameValidationError = useCharacterNameValidation(
     (state) => state.validationErrors
   );
+  const [isRotating, setIsRotating] = useState<number | null>(null);
 
   const { fetchData: spawnPlayer } = useRequester('loadPlayerIntoWorld', false);
+  const { fetchData: toggleCamera } = useRequester(
+    'toggleCreatorCameraToFace',
+    false
+  );
+  const { fetchData: rotatePed } = useRequester('rotatePedInCreator', false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,6 +46,14 @@ export default function CharacterCreator() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isRotating) return rotatePed(isRotating);
+    }, 1);
+
+    return () => clearInterval(interval);
+  }, [isRotating]);
 
   return (
     <main className="flex h-screen w-full justify-end items-center">
@@ -119,9 +132,10 @@ export default function CharacterCreator() {
               <Button
                 isIconOnly
                 variant="light"
-                onPress={() =>
-                  useEmitter('client', 'character_startCreatorRotate', -0.2)
-                }
+                onPressChange={(isPressed) => {
+                  if (isPressed) return setIsRotating(-0.05);
+                  return setIsRotating(null)
+                }}
               >
                 <MdRotateRight size={20} />
               </Button>
@@ -129,18 +143,10 @@ export default function CharacterCreator() {
                 onPress={() => {
                   if (cameraZoom) {
                     setCameraZoom(false);
-                    return useEmitter(
-                      'client',
-                      'character_toggleCreatorCameraToFace',
-                      false
-                    );
+                    return toggleCamera(false);
                   }
                   setCameraZoom(true);
-                  return useEmitter(
-                    'client',
-                    'character_toggleCreatorCameraToFace',
-                    true
-                  );
+                  return toggleCamera(true);
                 }}
                 variant="light"
                 size="sm"
@@ -151,16 +157,22 @@ export default function CharacterCreator() {
               <Button
                 isIconOnly
                 variant="light"
-                onPress={() =>
-                  useEmitter('client', 'character_startCreatorRotate', 0.2)
-                }
+                onPressChange={(isPressed) => {
+                  if (isPressed) return setIsRotating(0.05);
+                  return setIsRotating(null)
+                }}
               >
                 <MdRotateLeft size={20} />
               </Button>
             </ButtonGroup>
           </div>
 
-          <Button isDisabled={!!characterNameValidationError} variant="flat" color="success" onPress={() => spawnPlayer()}>
+          <Button
+            isDisabled={!!characterNameValidationError}
+            variant="flat"
+            color="success"
+            onPress={() => spawnPlayer()}
+          >
             Finalizar
           </Button>
         </div>
