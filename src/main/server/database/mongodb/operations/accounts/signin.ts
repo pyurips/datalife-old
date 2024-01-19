@@ -43,15 +43,12 @@ async function discordSigninOrSignup(discordId: string) {
                 session,
               }
             );
-            return {
-              ...createdAccount,
-              _id: createdAccount.insertedId.toString()
-            };
+            return createdAccount;
           }
 
           return {
             ...user,
-            _id: user._id.toString()
+            _id: user._id.toString(),
           };
         })
         .finally(async () => await client.close())

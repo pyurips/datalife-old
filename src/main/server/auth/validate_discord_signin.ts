@@ -12,7 +12,13 @@ async function validateDiscordSignin(player: alt.Player, data?: any) {
       },
     });
     if (!response || !response.data.id) return sendClientError(1705460913);
-    const accountData = await discordSigninOrSignup(response.data.id);
+    const accountData = (await discordSigninOrSignup(response.data.id)) as any;
+    if (accountData.acknowledged) {
+      const newAccountData = (await discordSigninOrSignup(
+        response.data.id
+      )) as any;
+      return player.setLocalMeta('accountData', newAccountData);
+    }
     player.setLocalMeta('accountData', accountData);
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
