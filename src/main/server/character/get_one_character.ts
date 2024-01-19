@@ -4,12 +4,12 @@ import getOneCharacter from '../database/mongodb/operations/characters/get_one.j
 
 async function getCharacterData(player: alt.Player, data?: any) {
   try {
-    if (!data.userId) return sendClientError(1705554615);
+    if (!data.userId) throw sendClientError(1705554615);
     const character = await getOneCharacter(data.userId);
     return character;
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
-    return sendClientError(1705554221);
+    throw sendClientError(1705554221);
   }
 }
 

@@ -1,7 +1,9 @@
 import * as alt from 'alt-server';
 import axios from 'axios';
 import sendClientError from '../utils/client_error.js';
-import discordSigninOrSignup from '../database/mongodb/operations/accounts/signin.js';
+import getOneAccountOnDiscord from '../database/mongodb/operations/accounts/get_one_on_discord.js';
+import discordSignup from '../database/mongodb/operations/accounts/signup.js';
+import getOneAccount from '../database/mongodb/operations/accounts/get_one.js';
 
 async function validateDiscordSignin(player: alt.Player, data?: any) {
   try {
@@ -11,18 +13,15 @@ async function validateDiscordSignin(player: alt.Player, data?: any) {
         Authorization: `Bearer ${data.token}`,
       },
     });
-    if (!response || !response.data.id) return sendClientError(1705460913);
-    const accountData = (await discordSigninOrSignup(response.data.id)) as any;
-    if (accountData.acknowledged) {
-      const newAccountData = (await discordSigninOrSignup(
-        response.data.id
-      )) as any;
-      return player.setLocalMeta('accountData', newAccountData);
-    }
-    player.setLocalMeta('accountData', accountData);
+    if (!response || !response.data.id) throw sendClientError(1705460913);
+    const accountData = await getOneAccountOnDiscord(response.data.id);
+    if (accountData) return player.setLocalMeta('accountData', accountData);
+    const newAccountId = await discordSignup(response.data.id);
+    const newAccountData = await getOneAccount(newAccountId);
+    return player.setLocalMeta('accountData', newAccountData);
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
-    return sendClientError(1705460706);
+    throw sendClientError(1705460706);
   }
 }
 

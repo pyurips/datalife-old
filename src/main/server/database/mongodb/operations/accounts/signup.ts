@@ -3,9 +3,9 @@ import getEnvDb from '../../../env_db_handler.js';
 import IAccounts from '../../models/accounts.js';
 import sendClientError from '../../../../utils/client_error.js';
 
-async function discordSigninOrSignup(discordId: string) {
+async function discordSignup(discordId: string) {
   const URI = process.env.MONGO_DB_KEY;
-  if (!URI || !(typeof URI === 'string')) return sendClientError(1705525658);
+  if (!URI || !(typeof URI === 'string')) throw sendClientError(1705525658);
   const client = new MongoClient(URI, {
     minPoolSize: 1,
     maxPoolSize: 10,
@@ -26,38 +26,34 @@ async function discordSigninOrSignup(discordId: string) {
             }
           );
 
-          if (!user) {
-            const createdAccount = await collection.insertOne(
-              {
-                discordId,
-                createdAt: new Date(),
-                updatedAt: null,
-                lastLogin: null,
-                permissionLevel: 0,
-                inGame: false,
-                prime: null,
-                bits: 0,
-                supporterPackage: null,
-              },
-              {
-                session,
-              }
-            );
-            return createdAccount;
-          }
+          if (user) throw sendClientError(1705703987);
 
-          return {
-            ...user,
-            _id: user._id.toString(),
-          };
+          const createdAccount = await collection.insertOne(
+            {
+              discordId,
+              createdAt: new Date(),
+              updatedAt: null,
+              lastLogin: null,
+              permissionLevel: 0,
+              inGame: false,
+              prime: null,
+              bits: 0,
+              supporterPackage: null,
+            },
+            {
+              session,
+            }
+          );
+
+          return createdAccount.insertedId.toString();
         })
         .finally(async () => await client.close())
     );
     return result;
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
-    return sendClientError(1705526054);
+    throw sendClientError(1705526054);
   }
 }
 
-export default discordSigninOrSignup;
+export default discordSignup;

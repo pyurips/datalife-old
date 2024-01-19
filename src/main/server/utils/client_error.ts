@@ -9,7 +9,7 @@ function sendClientError(
       `${showInternalCode && ` (${internalCode})`}`
   );
   clientError.name = 'DATALIFEClientError';
-  throw clientError;
+  return clientError;
 }
 
 export default sendClientError;

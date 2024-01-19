@@ -5,7 +5,7 @@ import sendClientError from '../../../../utils/client_error.js';
 
 async function createOneCharacter(userId: string, characterData: any) {
   const URI = process.env.MONGO_DB_KEY;
-  if (!URI || !(typeof URI === 'string')) return sendClientError(1705548166);
+  if (!URI || !(typeof URI === 'string')) throw sendClientError(1705548166);
   const client = new MongoClient(URI, {
     minPoolSize: 1,
     maxPoolSize: 10,
@@ -26,7 +26,7 @@ async function createOneCharacter(userId: string, characterData: any) {
             }
           );
 
-          if (character) return sendClientError(1705550095);
+          if (character) throw sendClientError(1705550095);
 
           const createdCharacter = await collection.insertOne(
             {
@@ -43,11 +43,11 @@ async function createOneCharacter(userId: string, characterData: any) {
         })
         .finally(async () => await client.close())
     );
-    if (!result) return sendClientError(1705550299);
+    if (!result) throw sendClientError(1705550299);
     return result;
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
-    return sendClientError(1705550397);
+    throw sendClientError(1705550397);
   } finally {
     await client.close();
   }

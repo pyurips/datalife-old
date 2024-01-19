@@ -1,11 +1,11 @@
-import { MongoClient, ObjectId } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import IAccounts from '../../models/accounts.js';
 import getEnvDb from '../../../env_db_handler.js';
 import sendClientError from '../../../../utils/client_error.js';
 
-async function getOneAccount(userId: string) {
+async function getOneAccountOnDiscord(discordId: string) {
   const URI = process.env.MONGO_DB_KEY;
-  if (!URI || !(typeof URI === 'string')) throw sendClientError(1705548424);
+  if (!URI || !(typeof URI === 'string')) throw sendClientError(1705704309);
   const client = new MongoClient(URI, {
     minPoolSize: 1,
     maxPoolSize: 10,
@@ -14,18 +14,16 @@ async function getOneAccount(userId: string) {
   const collection = database.collection<IAccounts>('accounts');
 
   try {
-    const user = await collection.findOne(
-      {
-        _id: new ObjectId(userId),
-      },
-    );
+    const user = await collection.findOne({
+      discordId,
+    });
     return user;
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
-    throw sendClientError(1705526054);
+    throw sendClientError(1705704326);
   } finally {
     await client.close();
   }
 }
 
-export default getOneAccount;
+export default getOneAccountOnDiscord;
