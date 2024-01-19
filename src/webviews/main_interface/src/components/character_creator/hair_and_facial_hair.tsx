@@ -5,10 +5,19 @@ import {
   femaleHairStyles,
 } from '../../utils/character_hair_styles';
 import { useCharacterModel } from '../../context/character';
-import { useEmitter } from '../../utils/use_emitter';
+import useRequester from '../../utils/useRequester';
 
 export default function HairAndFacialHair() {
   const characterModel = useCharacterModel((state) => state.model);
+  const { fetchData: setHairModel } = useRequester(
+    'setPedInCreatorHairModel',
+    false
+  );
+
+  const { fetchData: setHairColors } = useRequester(
+    'setPedInCreatorHairColors',
+    false
+  );
 
   return (
     <div className="flex flex-1 p-5 flex-col gap-5 overflow-y-auto">
@@ -24,9 +33,7 @@ export default function HairAndFacialHair() {
                   key={i}
                   size="lg"
                   isIconOnly
-                  onClick={() =>
-                    useEmitter('client', 'character_setHair', e.value)
-                  }
+                  onClick={() => setHairModel({ model: e.value })}
                 >
                   {e.value}
                 </Button>
@@ -45,7 +52,7 @@ export default function HairAndFacialHair() {
                     key={i}
                     size="sm"
                     isIconOnly
-                    onClick={() => {}}
+                    onClick={() => setHairColors({ primary: i, secondary: i })}
                   ></Button>
                 ))}
               </div>
@@ -61,7 +68,7 @@ export default function HairAndFacialHair() {
                     key={i}
                     size="sm"
                     isIconOnly
-                    onClick={() => {}}
+                    onClick={() => setHairColors({ primary: i, secondary: i })}
                   ></Button>
                 ))}
               </div>

@@ -12,6 +12,7 @@ import Personality from '../components/character_creator/personality';
 import Clothing from '../components/character_creator/clothing';
 import { useEmitter } from '../utils/use_emitter';
 import useRequester from '../utils/useRequester';
+import { useCharacterNameValidation } from '../context/character';
 
 export default function CharacterCreator() {
   const [selectedMenu, setSelectedMenu] = useState<
@@ -23,12 +24,11 @@ export default function CharacterCreator() {
   >('genetics');
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
   const [cameraZoom, setCameraZoom] = useState<boolean>(false);
+  const characterNameValidationError = useCharacterNameValidation(
+    (state) => state.validationErrors
+  );
 
-  const {
-    responseData,
-    fetchData: spawnPlayer,
-    loading,
-  } = useRequester('loadPlayerIntoWorld', false);
+  const { fetchData: spawnPlayer } = useRequester('loadPlayerIntoWorld', false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -160,7 +160,7 @@ export default function CharacterCreator() {
             </ButtonGroup>
           </div>
 
-          <Button variant="flat" color="success" onPress={() => spawnPlayer()}>
+          <Button isDisabled={!!characterNameValidationError} variant="flat" color="success" onPress={() => spawnPlayer()}>
             Finalizar
           </Button>
         </div>

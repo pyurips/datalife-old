@@ -46,7 +46,13 @@ export function setPedInCreatorHeadBlend({
   );
 }
 
-export function setPedInCreatorMicroMorph(value: number, scale: number) {
+export function setPedInCreatorMicroMorph({
+  value,
+  scale,
+}: {
+  value: number;
+  scale: number;
+}) {
   native.setPedMicroMorph(pedInCreator, value, scale);
 }
 
@@ -54,10 +60,22 @@ export function setPedInCreatorEyeColor(value: number) {
   native.setHeadBlendEyeColor(pedInCreator, value);
 }
 
-export function setPedInCreatorHairColors(primary: number, secondary: number) {
+export function setPedInCreatorHairColors({
+  primary,
+  secondary,
+}: {
+  primary: number;
+  secondary: number;
+}) {
   native.setPedHairTint(pedInCreator, primary, secondary);
 }
 
-export function setPedInCreatorHairModel(model: number, texture: number) {
+export function setPedInCreatorHairModel({
+  model,
+  texture,
+}: {
+  model: number;
+  texture: number;
+}) {
   native.setPedComponentVariation(pedInCreator, 2, model, texture || 0, 0);
 }

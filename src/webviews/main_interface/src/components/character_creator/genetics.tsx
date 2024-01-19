@@ -9,7 +9,6 @@ import {
   MdFace5,
   MdFace6,
 } from 'react-icons/md';
-import { useEmitter } from '../../utils/use_emitter';
 import useRequester from '../../utils/useRequester';
 import {
   useCharacterHeadBlend,
@@ -50,8 +49,10 @@ export default function Genetics() {
     (state) => state.setValidationErrors
   );
 
-  const { responseData, fetchData, loading } = useRequester(
-    'setPedInCreatorModel',
+  const { fetchData: setModel } = useRequester('setPedInCreatorModel', false);
+
+  const { fetchData: setHeadBlend } = useRequester(
+    'setPedInCreatorHeadBlend',
     false
   );
 
@@ -86,7 +87,7 @@ export default function Genetics() {
             onPress={() => {
               setGender(0x705e61f2);
               setSelectedRandomFace(null);
-              return fetchData(0x705e61f2);
+              return setModel(0x705e61f2);
             }}
             isIconOnly
             className={`${
@@ -99,7 +100,7 @@ export default function Genetics() {
             onPress={() => {
               setGender(0x9c9effd8);
               setSelectedRandomFace(null);
-              return fetchData(0x9c9effd8);
+              return setModel(0x9c9effd8);
             }}
             isIconOnly
             className={`${
@@ -143,7 +144,7 @@ export default function Genetics() {
                 setFaceMix(e.faceMix);
                 setSkinMix(e.skinMix);
 
-                useEmitter('client', 'character_setHeadBlend', {
+                setHeadBlend({
                   fatherFace: e.fatherFace,
                   motherFace: e.motherFace,
                   fatherSkin: e.fatherSkin,
