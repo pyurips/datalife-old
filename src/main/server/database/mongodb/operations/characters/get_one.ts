@@ -17,7 +17,10 @@ async function getOneCharacter(userId: string) {
     const character = await collection.findOne({
       _id: new ObjectId(userId),
     });
-    return character;
+    return {
+      ...character,
+      _id: character._id.toString()
+    };
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
     throw sendClientError(1705548153);

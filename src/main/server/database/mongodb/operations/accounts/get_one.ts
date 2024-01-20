@@ -19,7 +19,10 @@ async function getOneAccount(userId: string) {
         _id: new ObjectId(userId),
       },
     );
-    return user;
+    return {
+      ...user,
+      _id: user._id.toString()
+    };
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
     throw sendClientError(1705526054);

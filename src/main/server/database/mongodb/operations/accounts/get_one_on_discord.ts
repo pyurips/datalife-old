@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 import IAccounts from '../../models/accounts.js';
 import getEnvDb from '../../../env_db_handler.js';
 import sendClientError from '../../../../utils/client_error.js';
@@ -17,7 +17,10 @@ async function getOneAccountOnDiscord(discordId: string) {
     const user = await collection.findOne({
       discordId,
     });
-    return user;
+    return {
+      ...user,
+      _id: user._id.toString()
+    };
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
     throw sendClientError(1705704326);
