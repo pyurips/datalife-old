@@ -1,6 +1,7 @@
-import { Switch, Button, ScrollShadow } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
-import adminCategories from '../utils/admin_categories';
+import { Switch, Button, ScrollShadow } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import adminCategories from "../utils/admin_categories";
+import { useDebugMode } from "../context/admin_panel";
 
 export default function AdminPanel() {
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
@@ -9,16 +10,18 @@ export default function AdminPanel() {
     options: string[];
   }>(adminCategories[0]);
   const [option, setOption] = useState<string>(category.options[0]);
+  const debugMode = useDebugMode((state) => state.debugMode);
+  const setDebugMode = useDebugMode((state) => state.setDebugMode);
 
   useEffect(() => {
     const handleResize = () => {
       setScale((window.innerWidth + 520) / 1886.6);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -35,7 +38,13 @@ export default function AdminPanel() {
           </div>
 
           <div>
-            <Switch size="sm">Modo debug</Switch>
+            <Switch
+              isSelected={debugMode}
+              onValueChange={(value) => setDebugMode(value)}
+              size="sm"
+            >
+              Modo debug
+            </Switch>
           </div>
         </header>
 
@@ -44,7 +53,7 @@ export default function AdminPanel() {
             <Button
               onPress={() => setCategory(e)}
               style={{
-                opacity: category === e ? '1' : '0.5',
+                opacity: category === e ? "1" : "0.5",
               }}
               key={i}
             >

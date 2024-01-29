@@ -1,24 +1,26 @@
-import Need from '../components/hud/need';
-import { PiBowlFoodFill } from 'react-icons/pi';
-import { BiSolidDrink } from 'react-icons/bi';
-import { FaToiletPaper } from 'react-icons/fa6';
-import { IoBedSharp } from 'react-icons/io5';
-import { useEffect, useState } from 'react';
-import datalifeLogoDark from '../assets/signin/datalife_logo_dark.svg';
-import DebugCoordsPanel from '../components/hud/debug_coords_panel';
+import Need from "../components/hud/need";
+import { PiBowlFoodFill } from "react-icons/pi";
+import { BiSolidDrink } from "react-icons/bi";
+import { FaToiletPaper } from "react-icons/fa6";
+import { IoBedSharp } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import datalifeLogoDark from "../assets/signin/datalife_logo_dark.svg";
+import DebugCoordsPanel from "../components/hud/debug_coords_panel";
+import { useDebugMode } from "../context/admin_panel";
 
 export default function Hud() {
   const [scale, setScale] = useState((window.innerWidth + 520) / 1886.6);
+  const debugMode = useDebugMode((state) => state.debugMode);
 
   useEffect(() => {
     const handleResize = () => {
       setScale((window.innerWidth + 520) / 1886.6);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -41,7 +43,7 @@ export default function Hud() {
           <p className="text-[12px] text-neutral-400">v0.01</p>
         </div>
 
-        <DebugCoordsPanel />
+        {debugMode && <DebugCoordsPanel />}
       </div>
 
       <div
