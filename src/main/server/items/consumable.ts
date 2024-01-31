@@ -1,6 +1,7 @@
 type IConsumable = {
   id: number;
   name: string;
+  description: string;
   weight: number;
   quality: 1 | 2 | 3;
   value: number;
@@ -10,7 +11,8 @@ type IConsumable = {
 const consumable: IConsumable[] = [
   {
     id: 1,
-    name: "Roupa 1",
+    name: "Consumível",
+    description: "Descrição do consumível",
     weight: 1,
     quality: 1,
     value: 12,

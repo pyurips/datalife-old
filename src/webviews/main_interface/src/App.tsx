@@ -1,4 +1,5 @@
 import AdminPanel from "./screens/admin_panel";
+import Belongings from "./screens/belongings";
 import CharacterCreator from "./screens/character_creator";
 import Hud from "./screens/hud";
 import Signin from "./screens/signin";
@@ -9,10 +10,11 @@ export default function App() {
 
   return (
     <>
-      {!screen && <Signin />}
+      {/* {!screen && <Signin />} */}
       {screen === "characterCreator" && <CharacterCreator />}
       {screen === "adminPanel" && <AdminPanel />}
       {screen === "hud" && <Hud />}
+      {/*screen === "belongings"*/true && <Belongings />}
     </>
   );
 }
