@@ -12,8 +12,8 @@ export default function Inventory() {
       />
 
       <div className="flex flex-row gap-4 flex-wrap overflow-auto">
-        {new Array(50).fill(0).map((_) => (
-          <Item />
+        {new Array(50).fill(0).map((_, i) => (
+          <Item key={i}/>
         ))}
       </div>
 
