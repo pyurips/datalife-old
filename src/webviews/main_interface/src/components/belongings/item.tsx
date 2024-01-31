@@ -8,7 +8,7 @@ import {
 
 export default function Item() {
   return (
-    <Popover className="dark">
+    <Popover backdrop="opaque" className="dark">
       <PopoverTrigger>
         <Button className="w-[80px] h-[80px] bg-stone-900"></Button>
       </PopoverTrigger>
