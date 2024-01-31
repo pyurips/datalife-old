@@ -12,7 +12,7 @@ export default function Item() {
       <PopoverTrigger>
         <Button className="w-[80px] h-[80px] bg-stone-900"></Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent className="bg-stone-800">
         <div className="flex flex-col gap-3 p-2 max-w-[200px]">
           <div className="text-sm text-stone-300 text-justify">Nome do item dsa da da dasda dasad dasda weerr</div>
           <div className="text-xs text-stone-400 text-justify">Descrição do item das dad as da dadas da da das da dad ad a</div>
