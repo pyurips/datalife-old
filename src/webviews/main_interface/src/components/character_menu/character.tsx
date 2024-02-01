@@ -24,7 +24,7 @@ export default function Character() {
         {new Array(10).fill(0).map((_, i) => (
           <button
             key={i}
-            className="relative text-stone-300 size-[3.5vw] bg-stone-900 overflow-hidden rounded-[0.5vw]"
+            className="relative text-stone-400 size-[3.5vw] bg-stone-900 overflow-hidden rounded-[0.5vw]"
           >
             <div className="absolute top-0 w-full h-full flex items-start pt-[0.1vw] pl-[0.2vw]">
               <p className="text-[1vw]">9</p>
