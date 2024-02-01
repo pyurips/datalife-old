@@ -5,7 +5,7 @@ import { setScreenMode } from '../utils/screen_mode_handler.js';
 
 alt.on('globalMetaChange', (key, newValue, oldValue) => {
   if (key === 'currentScreen') {
-    if (newValue === 'hud') {
+    if (newValue === 'mainHud') {
       mainInterfaceToggleFocus(false);
       setScreenMode(false);
     } else {

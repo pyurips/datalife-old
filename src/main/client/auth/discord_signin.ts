@@ -15,8 +15,13 @@ async function auth_discordSignin() {
   try {
     await alt.emitRpc('rpc', 'validateDiscordSignin', { token });
     const accountData = alt.getLocalMeta('accountData') as any;
-    const availableCharacter = await alt.emitRpc('rpc', 'getCharacterData', { userId: accountData._id });
-    if (availableCharacter) return await loadPlayerIntoWorld();
+    const availableCharacter = await alt.emitRpc('rpc', 'getCharacterData', {
+      userId: accountData._id,
+    });
+    if (availableCharacter) {
+      await loadPlayerIntoWorld();
+      return alt.setMeta('canOpenScreens', true);
+    }
     return loadCreator();
   } catch (e) {
     throw e;
