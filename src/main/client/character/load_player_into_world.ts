@@ -10,7 +10,7 @@ async function loadPlayerIntoWorld() {
   deleteSigninCamera();
   deletePedInCreator();
   alt.removeIpl('apa_v_mp_h_01_b');
-  alt.setMeta('currentScreen', 'hud');
+  alt.setMeta('currentScreen', 'mainHud');
   setScreenMode(false);
   toggleNativeHudHandler(true, false, true);
   await alt.emitRpc('rpc', 'loadPlayerIntoWorld');

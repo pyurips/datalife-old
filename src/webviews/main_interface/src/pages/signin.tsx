@@ -1,8 +1,15 @@
-import { FaDiscord } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
-import { BsDiscord, BsYoutube, BsInstagram } from "react-icons/bs";
+import { FaDiscord } from 'react-icons/fa';
+import { Button } from '@/components/ui/button';
+import { BsDiscord, BsYoutube, BsInstagram } from 'react-icons/bs';
+import { VscLoading } from 'react-icons/vsc';
+import useRequester from '@/utils/use_requester';
 
 export default function Signin() {
+  const { fetchData: signin, loading: signinLoading } = useRequester(
+    'auth_discordSignin',
+    false
+  );
+
   return (
     <div className="flex flex-col w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden gap-[1vw]">
       <div className="flex flex-1 overflow-hidden">
@@ -14,8 +21,15 @@ export default function Signin() {
       </div>
 
       <div className="flex flex-row items-center justify-between px-[1vw]">
-        <Button className="flex flex-row items-center gap-[0.5vw] px-[1.5vw] py-[1vw] h-min bg-green-800">
-          <FaDiscord className="text-[1.5vw]" />
+        <Button
+          disabled={signinLoading}
+          className="flex flex-row items-center gap-[0.5vw] px-[1.5vw] py-[1vw] h-min bg-green-800"
+          onClick={() => signin()}
+        >
+          {!signinLoading && <FaDiscord className="text-[1.5vw]" />}
+          {signinLoading && (
+            <VscLoading className="text-[1.1vw] animate-spin" />
+          )}
           <p className="font-normal text-[1.1vw]">Entrar</p>
         </Button>
 
@@ -48,7 +62,7 @@ export default function Signin() {
           target="_blank"
           className="text-stone-100"
         >
-          {" "}
+          {' '}
           dataliferp.com
         </a>
         .

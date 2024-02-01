@@ -7,4 +7,5 @@ alt.on('connectionComplete', async () => {
   createSigninCamera();
   setScreenMode(true);
   await loadMainInterface();
+  alt.setMeta('currentScreen', 'signin');
 });
