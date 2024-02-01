@@ -14,19 +14,35 @@ export default function MainHud() {
         <div className="flex flex-row items-center gap-[1vw]">
           <div className="flex flex-col gap-[0.1vw] items-center">
             <PiBowlFoodFill className="text-[1.6vw] text-orange-400" />
-            <Progress color="bg-green-500" className="w-[3vw] h-[0.5vw]" value={100} />
+            <Progress
+              color="bg-green-500"
+              className="w-[3vw] h-[0.5vw]"
+              value={100}
+            />
           </div>
           <div className="flex flex-col gap-[0.1vw] items-center">
             <BiSolidDrink className="text-[1.6vw] text-blue-400" />
-            <Progress color="bg-green-500" className="w-[3vw] h-[0.5vw]" value={100} />
+            <Progress
+              color="bg-green-500"
+              className="w-[3vw] h-[0.5vw]"
+              value={100}
+            />
           </div>
           <div className="flex flex-col gap-[0.1vw] items-center">
             <FaToiletPaper className="text-[1.6vw] text-purple-400" />
-            <Progress color="bg-green-500" className="w-[3vw] h-[0.5vw]" value={100} />
+            <Progress
+              color="bg-green-500"
+              className="w-[3vw] h-[0.5vw]"
+              value={100}
+            />
           </div>
           <div className="flex flex-col gap-[0.1vw] items-center">
             <IoBedSharp className="text-[1.6vw] text-neutral-400" />
-            <Progress color="bg-green-500" className="w-[3vw] h-[0.5vw]" value={35} />
+            <Progress
+              color="bg-green-500"
+              className="w-[3vw] h-[0.5vw]"
+              value={35}
+            />
           </div>
         </div>
       </div>
