@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
+import Signin from "./components/signin";
 
 export default function App() {
   return (
-    <>
-      <Button>Click me</Button>
-      Olá
-    </>
+    <main className="h-screen w-screen flex items-center justify-center">
+      <Signin />
+    </main>
   );
 }
