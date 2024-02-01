@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { FaWeightHanging } from 'react-icons/fa';
 import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
 
 export default function Belongings() {
   return (
@@ -32,17 +33,32 @@ export default function Belongings() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="max-w-[15vw] bg-stone-950 text-stone-300 border-none p-[0.5vw] rounded-[1vw]">
                 <DropdownMenuLabel>
-                  <div className="flex flex-col gap-[0.5vw]">
-                    <p className="leading-[1.5vw] text-[0.9vw]">
+                  <div className="flex flex-col gap-[1vw]">
+                    <p className="leading-[1vw] text-[0.9vw]">
                       Roupa esquisita amarela branca verde
                     </p>
+
+                    <div className="flex flex-row items-center justify-between">
+                      <Badge className="text-[0.8vw] rounded-[1vw]">
+                        Qualidade
+                      </Badge>
+                      <div className="flex flex-row gap-[0.2vw] items-end">
+                        <p className="text-stone-300 text-[1vw]">20</p>
+                        <p className="text-stone-400 text-[0.9vw] font-semibold">
+                          kg
+                        </p>
+                      </div>
+                    </div>
+
                     <p className="leading-[1vw] text-stone-400 text-[0.8vw] text-justify">
                       Descrição bem esquisita dessa roupa esquisita
                     </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-stone-600" />
-                <DropdownMenuItem className="text-[0.8vw]">Usar</DropdownMenuItem>
+                <DropdownMenuItem className="text-[0.8vw]">
+                  Usar
+                </DropdownMenuItem>
                 <DropdownMenuItem className="text-[0.8vw]">
                   Jogar fora
                 </DropdownMenuItem>
