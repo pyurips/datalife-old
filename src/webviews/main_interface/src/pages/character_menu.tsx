@@ -1,4 +1,5 @@
 import Belongings from '@/components/character_menu/belongings';
+import Character from '@/components/character_menu/character';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useState } from 'react';
@@ -11,6 +12,7 @@ export default function CharacterMenu() {
   return (
     <div className="flex flex-row w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden">
       <div className="flex flex-1 py-[1vw] pl-[1vw]">
+      { option === "character" && <Character /> }
         { option === "belongings" && <Belongings /> }
       </div>
 
