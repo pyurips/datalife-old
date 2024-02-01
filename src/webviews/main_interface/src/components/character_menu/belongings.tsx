@@ -30,13 +30,20 @@ export default function Belongings() {
                   <p className="text-[0.8vw] p-[0.3vw] text-stone-300">2151</p>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="max-w-[10vw] bg-stone-800 text-stone-300 border-none p-[0.5vw] rounded-[1vw]">
-                <DropdownMenuLabel className="text-[10px] lg:text-[1vw]">
-                  My Account sa as a da{' '}
+              <DropdownMenuContent className="max-w-[15vw] bg-stone-950 text-stone-300 border-none p-[0.5vw] rounded-[1vw]">
+                <DropdownMenuLabel>
+                  <div className="flex flex-col gap-[0.5vw]">
+                    <p className="leading-[1.5vw] text-[0.9vw]">
+                      Roupa esquisita amarela branca verde
+                    </p>
+                    <p className="leading-[1vw] text-stone-400 text-[0.8vw] text-justify">
+                      Descrição bem esquisita dessa roupa esquisita
+                    </p>
+                  </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-stone-600" />
-                <DropdownMenuItem className="text-[1vw]">Usar</DropdownMenuItem>
-                <DropdownMenuItem className="text-[1vw]">
+                <DropdownMenuItem className="text-[0.8vw]">Usar</DropdownMenuItem>
+                <DropdownMenuItem className="text-[0.8vw]">
                   Jogar fora
                 </DropdownMenuItem>
               </DropdownMenuContent>

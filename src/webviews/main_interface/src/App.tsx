@@ -11,6 +11,7 @@ export default function App() {
       {screen === "signin" && <Signin />}
       {screen === "mainHud" && <MainHud />}
       {screen === "characterMenu" && <CharacterMenu />}
+      <CharacterMenu />
     </main>
   );
 }
