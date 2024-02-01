@@ -4,6 +4,7 @@
  
 @layer base {
   :root {
+    user-select: none;
     --background: 0 0% 0% 0;
     --foreground: 20 14.3% 4.1%;
 
