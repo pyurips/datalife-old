@@ -22,8 +22,9 @@ export default function Signin() {
 
       <div className="flex flex-row items-center justify-between px-[1vw]">
         <Button
+          variant="secondary"
           disabled={signinLoading}
-          className="flex flex-row items-center gap-[0.5vw] px-[1.5vw] py-[1vw] h-min bg-green-800"
+          className="flex flex-row items-center gap-[0.5vw] px-[1.5vw] py-[1vw] h-min bg-green-800 hover:bg-green-900"
           onClick={() => signin()}
         >
           {!signinLoading && <FaDiscord className="text-[1.5vw]" />}
@@ -36,19 +37,19 @@ export default function Signin() {
         <div className="flex flex-row gap-[0.5vw]">
           <Button
             variant="ghost"
-            className="text-stone-300 hover:text-stone-950 p-[0.5vw] h-min"
+            className="p-[0.5vw] h-min"
           >
             <BsDiscord className="text-[1.5vw]" />
           </Button>
           <Button
             variant="ghost"
-            className="text-stone-300 hover:text-stone-950 p-[0.5vw] h-min"
+            className="p-[0.5vw] h-min"
           >
             <BsYoutube className="text-[1.5vw]" />
           </Button>
           <Button
             variant="ghost"
-            className="text-stone-300 hover:text-stone-950 p-[0.5vw] h-min"
+            className="p-[0.5vw] h-min"
           >
             <BsInstagram className="text-[1.5vw]" />
           </Button>
