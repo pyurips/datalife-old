@@ -43,7 +43,6 @@ function createAVehicle(
     fuelCapacity: vehicleProps.fuelCapacity,
   };
   vehicle.setMeta('vehicleData', vehicleData);
-  alt.log(vehicle.getMeta('vehicleData'));
 }
 
 export default createAVehicle;
