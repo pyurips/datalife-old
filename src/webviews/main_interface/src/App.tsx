@@ -3,6 +3,7 @@ import MainHud from './pages/main_hud';
 import Signin from './pages/signin';
 import { useListener } from './utils/use_listener';
 import { ThemeProvider } from './components/theme_provider';
+import CharacterCustomization from './pages/character_customization';
 
 export default function App() {
   const screen = useListener('webView_setScreen');
@@ -13,6 +14,7 @@ export default function App() {
         {screen === 'signin' && <Signin />}
         {screen === 'mainHud' && <MainHud />}
         {screen === 'characterMenu' && <CharacterMenu />}
+        <CharacterCustomization />
       </main>
     </ThemeProvider>
   );
