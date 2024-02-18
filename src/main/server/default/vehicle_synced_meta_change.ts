@@ -3,7 +3,7 @@ import * as alt from 'alt-server';
 alt.on('syncedMetaChange', (entity, key, value, oldValue) => {
   if (entity instanceof alt.Vehicle) {
     if (key === 'vehicleData') {
-      entity.engineOn = value.fuel === 0 ? false : value.engineState;
+      entity.engineOn = value.engineState;
       entity.engineHealth = value.engineHealth;
       entity.numberPlateIndex = value.numberPlateStyle;
       entity.numberPlateText = value.numberPlateText;

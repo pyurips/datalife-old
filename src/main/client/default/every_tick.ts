@@ -1,9 +1,11 @@
 import * as alt from 'alt-client';
 import webViewEmitter from '../utils/webview_emitter.js';
+import defaultCharacterBehaviors from '../character/default_behaviors.js';
 
 const player = alt.Player.local;
 
 alt.everyTick(() => {
+  defaultCharacterBehaviors();
   webViewEmitter('emitToMainInterface', 'debugMode_sendPlayerCoords', {
     x: player.pos.x.toFixed(3),
     y: player.pos.y.toFixed(3),
