@@ -18,8 +18,8 @@ export default function Genetics() {
           </p>
         </div>
 
-        <div className="flex flex-row gap-[1vw] flex-wrap">
-          {new Array(50).fill(0).map((_, i) => (
+        <div className="flex justify-center flex-row gap-[1vw] flex-wrap">
+          {new Array(54).fill(0).map((_, i) => (
             <Button size="icon" key={i} variant="secondary" className="size-[3vw]"></Button>
           ))}
         </div>
