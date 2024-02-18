@@ -19,7 +19,7 @@ export default function Genetics() {
         </div>
 
         <div className="flex justify-center flex-row gap-[1vw] flex-wrap">
-          {new Array(54).fill(0).map((_, i) => (
+          {new Array(52).fill(0).map((_, i) => (
             <Button size="icon" key={i} variant="secondary" className="size-[3vw]"></Button>
           ))}
         </div>
