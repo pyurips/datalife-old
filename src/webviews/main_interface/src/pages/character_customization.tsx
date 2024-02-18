@@ -24,6 +24,12 @@ export default function CharacterCustomization() {
         </div>
 
         <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-[0.4vw]">
+            <Button size="icon" variant="secondary"></Button>
+            <Button variant="secondary">Aproximar câmera</Button>
+            <Button size="icon" variant="secondary"></Button>
+          </div>
+
           <Button className="bg-green-600 hover:bg-green-700 text-[1vw] py-[1vw] px-[1.1vw] rounded-[0.5vw]">
             Finalizar
           </Button>
