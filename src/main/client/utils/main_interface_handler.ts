@@ -7,7 +7,7 @@ export async function loadMainInterface() {
   const DEVELOPMENT_URL = 'http://localhost:5173/';
   const PRODUCTION_URL = 'http://assets/webviews/main_interface/index.html';
 
-  mainInterface = new alt.WebView(DEVELOPMENT_URL);
+  mainInterface = new alt.WebView(PRODUCTION_URL);
 
   alt.onServer('emitToMainInterface', (eventName: string, data) => {
     mainInterface.emit(eventName, data);

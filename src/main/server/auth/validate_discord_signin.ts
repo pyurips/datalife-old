@@ -14,10 +14,14 @@ async function validateDiscordSignin(player: alt.Player, data?: any) {
     });
     if (!response || !response.data.id) throw sendClientError(1705460913);
     const accountData = await getOneAccount(response.data.id);
-    if (accountData) return player.setLocalMeta('accountData', accountData);
+    if (accountData) {
+      player.setMeta('accountData', accountData);
+      return accountData;
+    }
     await discordSignup(response.data.id);
     const newAccountData = await getOneAccount(response.data.id);
-    return player.setLocalMeta('accountData', newAccountData);
+    player.setMeta('accountData', newAccountData);
+    return newAccountData;
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
     throw sendClientError(1705460706);

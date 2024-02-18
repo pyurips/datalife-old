@@ -13,8 +13,7 @@ async function auth_discordSignin() {
   }
 
   try {
-    await alt.emitRpc('rpc', 'validateDiscordSignin', { token });
-    const accountData = alt.getLocalMeta('accountData') as any;
+    const accountData = await alt.emitRpc('rpc', 'validateDiscordSignin', { token });
     const availableCharacter = await alt.emitRpc('rpc', 'getCharacterData', {
       userId: accountData._id,
     });
