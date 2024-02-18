@@ -14,3 +14,4 @@ resources = [
     'webviews',
 ]
 debug=true
+enableSyncedMetaData = true

@@ -1,3 +1,3 @@
 import './player_connect.js';
 import './rpc.js';
-import './meta_change.js';
+import './vehicle_synced_meta_change.js';

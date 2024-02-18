@@ -10,6 +10,8 @@ async function loadPlayerIntoWorld(player: alt.Player, data?: unknown) {
     fuelType: 'gasoline',
     fuelCapacity: 100,
     fuelRate: 1,
+    numberPlateStyle: 0,
+    numberPlateText: 'Pablo'
   });
 }
 
