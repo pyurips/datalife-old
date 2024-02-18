@@ -8,7 +8,7 @@ async function loadPlayerIntoWorld(player: alt.Player, data?: unknown) {
   await alt.Utils.wait(1000);
   createAVehicle(0x13b57d8a, player.pos, player.rot, {
     fuelType: 'gasoline',
-    fuelCapacity: 100,
+    fuel: 0,
     fuelRate: 1,
     numberPlateStyle: 0,
     numberPlateText: 'Pablo'

@@ -9,8 +9,8 @@ type IVehicleProps = {
   numberPlateText: string;
 
   fuelType: 'gasoline' | 'diesel' | 'eletric' | 'kerosene' | null;
-  fuelRate: number;
-  fuelCapacity: number;
+  fuelRate?: number;
+  fuel?: number;
 };
 
 function createAVehicle(
@@ -39,8 +39,8 @@ function createAVehicle(
     numberPlateText: vehicleProps.numberPlateText,
 
     fuelType: vehicleProps.fuelType,
-    fuelRate: vehicleProps.fuelRate,
-    fuelCapacity: vehicleProps.fuelCapacity,
+    fuelRate: vehicleProps.fuelRate || 0.1,
+    fuel: vehicleProps.fuel || 100,
   };
   vehicle.setSyncedMeta('vehicleData', vehicleData);
 }
