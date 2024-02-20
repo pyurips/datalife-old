@@ -15,4 +15,8 @@ alt.on('keyup', (key) => {
       return alt.setMeta('currentScreen', 'mainHud');
     return alt.setMeta('currentScreen', 'characterMenu');
   }
+
+  if (key === 75) {
+    alt.emitRpc('rpc', 'toggleVehicleEngine');
+  }
 });
