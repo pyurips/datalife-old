@@ -19,4 +19,8 @@ alt.on('keyup', (key) => {
   if (key === 75) {
     alt.emitRpc('rpc', 'toggleVehicleEngine');
   }
+
+  if (key === 76) {
+    alt.emitRpc('rpc', 'toggleVehicleLock');
+  }
 });

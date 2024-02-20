@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "update": "npx altv-pkg release",
+    "windows": "npm run build && altv-server.exe",
+    "linux": "npm run build && ./altv-server",
     "build": "npx tsc && node build_all_interfaces && node toml_handler.js"
   },
   "keywords": [],
