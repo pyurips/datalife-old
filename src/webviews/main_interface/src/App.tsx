@@ -15,7 +15,6 @@ export default function App() {
         {screen === 'mainHud' && <MainHud />}
         {screen === 'characterMenu' && <CharacterMenu />}
         {screen === 'characterCustomization' && <CharacterCustomization />}
-        <MainHud />
       </main>
     </ThemeProvider>
   );
