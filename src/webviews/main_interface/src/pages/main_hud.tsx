@@ -4,10 +4,11 @@ import { PiBowlFoodFill } from "react-icons/pi";
 import { BiSolidDrink } from "react-icons/bi";
 import { FaToiletPaper } from "react-icons/fa6";
 import { IoBedSharp } from "react-icons/io5";
+import DebugPanel from "@/components/main_hud/debug_panel";
 
 export default function MainHud() {
   return (
-    <div className="w-full h-full p-[1vw]">
+    <div className="flex flex-col gap-[1vw] w-full h-full p-[1vw]">
       <div className="flex flex-row items-center justify-between">
         <img src={logoDark} alt="DATALIFE logo" className="w-[8vw]" />
 
@@ -46,6 +47,8 @@ export default function MainHud() {
           </div>
         </div>
       </div>
+
+      <DebugPanel />
     </div>
   );
 }
