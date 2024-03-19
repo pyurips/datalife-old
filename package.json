@@ -6,7 +6,8 @@
     "update": "npx altv-pkg release",
     "windows": "npm run build && altv-server.exe",
     "linux": "npm run build && ./altv-server",
-    "build": "npx tsc && node build_all_interfaces && node toml_handler.js"
+    "build": "npx tsc && node build_all_interfaces && node toml_handler.js",
+    "types": "npm i -D @altv/types-shared @altv/types-client @altv/types-natives @altv/types-webview @altv/types-shared @altv/types-server"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +26,6 @@
   "dependencies": {
     "axios": "^1.6.2",
     "dotenv": "^16.3.1",
-    "jsonwebtoken": "^9.0.2",
-    "mongodb": "6.3"
+    "jsonwebtoken": "^9.0.2"
   }
 }

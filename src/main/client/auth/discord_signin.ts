@@ -19,6 +19,7 @@ async function auth_discordSignin() {
     });
     if (availableCharacter) {
       await loadPlayerIntoWorld();
+      alt.log(accountData);
       return alt.setMeta('canOpenScreens', true);
     }
     return loadCreator();
