@@ -12,8 +12,8 @@ export default function CharacterMenu() {
   return (
     <div className="flex flex-row w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden">
       <div className="flex flex-1 py-[1vw] pl-[1vw]">
-      { option === "character" && <Character /> }
-        { option === "belongings" && <Belongings /> }
+        {option === 'character' && <Character />}
+        {option === 'belongings' && <Belongings />}
       </div>
 
       <ScrollArea>

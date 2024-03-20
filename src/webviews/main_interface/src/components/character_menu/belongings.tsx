@@ -11,14 +11,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { FaWeightHanging } from 'react-icons/fa';
 import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
 
 export default function Belongings() {
   return (
     <div className="flex flex-col w-full gap-[1vw]">
       <header className="flex flex-row items-center gap-2">
-        <FaSearch className="text-[1.3vw] text-stone-200" />
-        <Input className="border-stone-700 focus:border-stone-500 hover:border-stone-500 text-stone-300" />
+        <FaSearch className="text-[1.3vw]" />
+        <Input />
       </header>
 
       <ScrollArea>
@@ -27,11 +26,11 @@ export default function Belongings() {
             <DropdownMenu key={i}>
               <DropdownMenuTrigger asChild>
                 <button className="flex flex-col w-[6vw] h-[6vw] bg-stone-900 items-end overflow-hidden rounded-[0.8vw] transition-all active:bg-stone-800">
-                  <div className="flex flex-1 items-center justify-center text-stone-300"></div>
-                  <p className="text-[0.8vw] p-[0.3vw] text-stone-300">2151</p>
+                  <div className="flex flex-1 items-center justify-center"></div>
+                  <p className="text-[0.8vw] p-[0.3vw]">2151</p>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="max-w-[15vw] bg-stone-950 text-stone-300 border-none p-[0.5vw] rounded-[1vw]">
+              <DropdownMenuContent className="max-w-[15vw] bg-stone-950 border-none p-[0.5vw] rounded-[1vw]">
                 <DropdownMenuLabel>
                   <div className="flex flex-col gap-[1vw]">
                     <p className="leading-[1vw] text-[0.9vw]">
@@ -39,18 +38,16 @@ export default function Belongings() {
                     </p>
 
                     <div className="flex flex-row items-center justify-between">
-                      <Badge className="text-[0.8vw] rounded-[1vw]">
-                        Qualidade
-                      </Badge>
+                      <p className="text-[0.8vw]">Qualidade</p>
                       <div className="flex flex-row gap-[0.2vw] items-end">
-                        <p className="text-stone-300 text-[1vw]">20</p>
-                        <p className="text-stone-400 text-[0.9vw] font-semibold">
+                        <p className="text-[1vw]">20</p>
+                        <p className="text-[0.9vw] font-semibold">
                           kg
                         </p>
                       </div>
                     </div>
 
-                    <p className="leading-[1vw] text-stone-400 text-[0.8vw] text-justify">
+                    <p className="leading-[1vw] text-[0.8vw] text-justify">
                       Descrição bem esquisita dessa roupa esquisita
                     </p>
                   </div>
@@ -69,11 +66,11 @@ export default function Belongings() {
       </ScrollArea>
 
       <div className="flex flex-row items-center justify-between gap-[1vw]">
-        <FaWeightHanging className="text-[1.5vw] text-stone-400" />
+        <FaWeightHanging className="text-[1.5vw]" />
         <Progress color="bg-green-500" className="h-[0.3vw]" value={100} />
         <div className="flex flex-row gap-[0.2vw] items-end">
-          <p className="text-stone-300 text-[1vw]">110/120</p>
-          <p className="text-stone-400 text-[0.9vw] font-semibold">kg</p>
+          <p className="text-[1vw]">110/120</p>
+          <p className="text-[0.9vw] font-semibold">kg</p>
         </div>
       </div>
     </div>

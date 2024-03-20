@@ -30,7 +30,7 @@ export default function CharacterCustomization() {
             <Button size="icon" variant="secondary"></Button>
           </div>
 
-          <Button className="bg-green-600 hover:bg-green-700 text-[1vw] py-[1vw] px-[1.1vw] rounded-[0.5vw]">
+          <Button className="bg-green-400 hover:bg-green-300 text-[1vw] py-[1vw] px-[1.1vw] rounded-[0.5vw]">
             Finalizar
           </Button>
         </div>
