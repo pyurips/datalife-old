@@ -13,15 +13,7 @@ async function auth_signin(player: alt.Player, data?: any) {
     });
     if (!response || !response.data.id) throw sendClientError(1705460913);
     const accountData = await accounts_signin(response.data.id);
-    alt.log(accountData);
-    // if (accountData) {
-    //   player.setMeta('accountData', accountData);
-    //   return accountData;
-    // }
-    // await discordSignup(response.data.id);
-    // const newAccountData = await getOneAccount(response.data.id);
-    // player.setMeta('accountData', newAccountData);
-    return;
+    return player.setLocalMeta("accountData", accountData);
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
     throw sendClientError(1705460706);

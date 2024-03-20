@@ -1,3 +1,4 @@
+import sendClientError from '../../../utils/client_error.js';
 import postegreClient from '../index.js';
 import * as alt from 'alt-server';
 
@@ -18,8 +19,8 @@ async function accounts_signin(discord_id: string) {
       [discord_id]
     );
     return res.rows[0];
-  } catch (e) {
-    return alt.logError(e);
+  } catch (_) {
+    throw sendClientError(1710900857);
   } finally {
     await client.end();
   }
