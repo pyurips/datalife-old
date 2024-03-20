@@ -1,7 +1,7 @@
-import auth_discordSignin from "./discord_signin.js";
+import auth_signin from "./signin.js";
 
 const authOperations = {
-  auth_discordSignin
+  auth_signin
 }
 
 export default authOperations;

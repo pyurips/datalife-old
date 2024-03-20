@@ -1,21 +1,25 @@
-import postegreClient from '..';
+import postegreClient from '../index.js';
+import * as alt from 'alt-server';
 
 async function accounts_signin(discord_id: string) {
   const client = postegreClient();
-  await client.connect();
   try {
+    await client.connect();
     const res = await client.query(
-      `INSERT INTO accounts (discord_id)
-      VALUES ($1)
-      ON CONFLICT (discord_id) DO NOTHING
-      RETURNING *;
-      select * from accounts WHERE discord_id = $1;`,
+      `WITH ins AS (
+        INSERT INTO accounts (discord_id)
+        VALUES ($1)
+        ON CONFLICT (discord_id) DO NOTHING
+        RETURNING *
+      )
+      SELECT * FROM accounts WHERE discord_id = $1
+      UNION ALL
+      SELECT * FROM ins;`,
       [discord_id]
     );
-    console.log('Resultado abaixo: ');
-    console.log(res);
+    return res.rows[0];
   } catch (e) {
-    console.error(e);
+    return alt.logError(e);
   } finally {
     await client.end();
   }

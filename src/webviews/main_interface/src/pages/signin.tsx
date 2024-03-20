@@ -6,7 +6,7 @@ import useRequester from '@/utils/use_requester';
 
 export default function Signin() {
   const { fetchData: signin, loading: signinLoading } = useRequester(
-    'auth_discordSignin',
+    'auth_signin',
     false
   );
 
