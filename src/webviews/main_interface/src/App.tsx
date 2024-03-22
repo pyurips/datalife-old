@@ -4,6 +4,7 @@ import Signin from './pages/signin';
 import { useListener } from './utils/use_listener';
 import { ThemeProvider } from './components/theme_provider';
 import CharacterCustomization from './pages/character_customization';
+import AdminPanel from './pages/admin_panel';
 
 export default function App() {
   const screen = useListener('webView_setScreen');
@@ -15,7 +16,7 @@ export default function App() {
         {screen === 'mainHud' && <MainHud />}
         {screen === 'characterMenu' && <CharacterMenu />}
         {screen === 'characterCustomization' && <CharacterCustomization />}
-        <CharacterMenu />
+        <AdminPanel />
       </main>
     </ThemeProvider>
   );
