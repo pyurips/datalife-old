@@ -21,7 +21,10 @@ export default function AdminPanel() {
               className={`p-[1vw] h-min ${
                 selectedCategory === category ? 'opacity-100' : 'opacity-50'
               }`}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => {
+                setSelectedCategory(category)
+                setSelectedOption(adminCategories.find(({ category: c }) => c === category)?.options[0] as string);
+              }}
             >
               {category}
             </Button>
