@@ -1,3 +1,4 @@
+import WorldTeleport from '@/components/admin_panel/world_teleport';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import adminCategories from '@/utils/admin_panel_categories';
@@ -22,8 +23,11 @@ export default function AdminPanel() {
                 selectedCategory === category ? 'opacity-100' : 'opacity-50'
               }`}
               onClick={() => {
-                setSelectedCategory(category)
-                setSelectedOption(adminCategories.find(({ category: c }) => c === category)?.options[0] as string);
+                setSelectedCategory(category);
+                setSelectedOption(
+                  adminCategories.find(({ category: c }) => c === category)
+                    ?.options[0] as string
+                );
               }}
             >
               {category}
@@ -49,6 +53,12 @@ export default function AdminPanel() {
                 {option}
               </Button>
             ))}
+        </div>
+
+        <div className="flex flex-1 p-3">
+          {selectedCategory === 'Mundo' && selectedOption === 'Teleporte' && (
+            <WorldTeleport />
+          )}
         </div>
       </div>
     </div>
