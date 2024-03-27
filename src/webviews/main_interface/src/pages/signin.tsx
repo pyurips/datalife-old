@@ -3,18 +3,25 @@ import { Button } from '@/components/ui/button';
 import { BsDiscord, BsYoutube, BsInstagram } from 'react-icons/bs';
 import { VscLoading } from 'react-icons/vsc';
 import useRequester from '@/utils/use_requester';
+import signinHomeImage from '@/assets/signin_home_image.png';
+import { useEffect } from 'react';
 
 export default function Signin() {
-  const { fetchData: signin, loading: signinLoading } = useRequester(
-    'auth_signin',
-    false
-  );
+  const {
+    responseData: signinData,
+    fetchData: signin,
+    loading: signinLoading,
+  } = useRequester('auth_signin', false);
+
+  useEffect(() => {
+    if (signinData) console.log(signinData.error);
+  }, [signinData]);
 
   return (
     <div className="flex flex-col w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden gap-[1vw]">
       <div className="flex flex-1 overflow-hidden">
         <img
-          src="https://cdn.discordapp.com/attachments/1059659527286444153/1185677825668284548/pabloyprado_badass_night_man_riding_bike_gta_v_art_style_ab28e7ff-e8d5-48d8-b80a-a35661f727ce.png?ex=65c7da86&is=65b56586&hm=35ab68b5b3fd8b12a793128db2c4352cee88733cccdc27debb87aacc1a01ee07&"
+          src={signinHomeImage}
           alt="Signin image"
           className="w-full h-full object-cover object-top"
         />
@@ -35,26 +42,23 @@ export default function Signin() {
         </Button>
 
         <div className="flex flex-row gap-[0.5vw]">
-          <Button
-            variant="ghost"
-            className="p-[0.5vw] h-min"
-          >
+          <Button variant="ghost" className="p-[0.5vw] h-min">
             <BsDiscord className="text-[1.5vw]" />
           </Button>
-          <Button
-            variant="ghost"
-            className="p-[0.5vw] h-min"
-          >
+          <Button variant="ghost" className="p-[0.5vw] h-min">
             <BsYoutube className="text-[1.5vw]" />
           </Button>
-          <Button
-            variant="ghost"
-            className="p-[0.5vw] h-min"
-          >
+          <Button variant="ghost" className="p-[0.5vw] h-min">
             <BsInstagram className="text-[1.5vw]" />
           </Button>
         </div>
       </div>
+
+      {signinData?.error && (
+        <p className="text-red-500 text-[0.9vw] px-[1vw]">
+          {signinData?.error}
+        </p>
+      )}
 
       <p className="text-stone-400 text-[1vw] px-[1vw] pb-[1vw]">
         Para mais informações sobre o servidor, visite
