@@ -3,8 +3,16 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import adminCategories from '@/utils/admin_panel_categories';
 import { useState } from 'react';
+import { Switch } from '@/components/ui/switch';
 
 export default function AdminPanel() {
+  function roleHandler(roleId: number) {
+    if (roleId === 4) return 'Administrador';
+    if (roleId === 3) return 'Moderador';
+    if (roleId === 2) return 'Ajudante';
+    return 'Cargo indefinido';
+  }
+
   const [selectedCategory, setSelectedCategory] = useState(
     adminCategories[0].category
   );
@@ -14,6 +22,13 @@ export default function AdminPanel() {
 
   return (
     <div className="flex flex-col w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden">
+      <div className="flex w-full p-[1vw] flex-row gap-[1vw] items-center justify-between">
+        <p>Cargo</p>
+        <div className="flex flex-row items-center gap-3">
+          <Switch />
+          <p>Debug mode</p>
+        </div>
+      </div>
       <ScrollArea>
         <div className="flex w-full p-[1vw] flex-row gap-[1vw] overflow-auto">
           {adminCategories.map(({ category }) => (
