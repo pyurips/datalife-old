@@ -4,10 +4,7 @@ import sendClientError from '../utils/client_error.js';
 async function admin_world_tele_to_coords(player: alt.Player, data?: any) {
   try {
     const accountData = player.getLocalMeta('accountData') as any;
-    if (accountData.permission_level < 2)
-      return alt.log(
-        `Player ${player.name} tried to use admin command admin_world_tele_to_coords without permission`
-      );
+    if (accountData.permission_level < 2) throw sendClientError(1711614658);
     player.pos = new alt.Vector3(+data.x, +data.y, +data.z);
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;

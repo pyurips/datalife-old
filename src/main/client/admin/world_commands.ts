@@ -1,5 +1,5 @@
 import * as alt from 'alt-client';
 
-export function admin_world_tele_to_coords(data: any) {
-  alt.emitRpc('rpc', 'admin_world_tele_to_coords', data);
+export async function admin_world_tele_to_coords(data: any) {
+  await alt.emitRpc('rpc', 'admin_world_tele_to_coords', data);
 }
