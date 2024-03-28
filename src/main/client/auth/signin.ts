@@ -1,6 +1,7 @@
 import * as alt from 'alt-client';
 import loadPlayerIntoWorld from '../character/load_player_into_world.js';
 import loadCreator from '../character/load_character_creator.js';
+import IAccount from '../../shared/IAccount.js';
 
 const DISCORD_APP_ID = '1196692311728472097';
 
