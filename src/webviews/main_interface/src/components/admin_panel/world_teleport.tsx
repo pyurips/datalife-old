@@ -6,13 +6,19 @@ import { useState } from 'react';
 export default function WorldTeleport() {
   const [toCoords, setToCoords] = useState({ x: '', y: '', z: '' });
 
-  const { fetchData: toCoordsFetch } = useRequester(
+  const { responseData: toCoordsData, fetchData: toCoordsFetch } = useRequester(
     'admin_world_tele_to_coords',
     false
   );
 
   return (
     <div className="w-full flex flex-col gap-3">
+      {toCoordsData?.error && (
+        <p className="text-red-500 text-[0.9vw] px-[1vw]">
+          {toCoordsData?.error}
+        </p>
+      )}
+
       <div className="flex flex-row gap-3">
         <Input
           placeholder="X"
