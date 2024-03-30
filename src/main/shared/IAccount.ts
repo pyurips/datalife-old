@@ -1,5 +1,6 @@
 type IAccount = {
   id: string;
+  name: string;
   discord_id: string;
   created_at: Date;
   updated_at: Date;
