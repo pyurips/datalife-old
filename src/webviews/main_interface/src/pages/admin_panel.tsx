@@ -8,8 +8,12 @@ import useRequester from '@/utils/use_requester';
 import { VscLoading } from 'react-icons/vsc';
 import PlayersAll from '@/components/admin_panel/players_all';
 import VehiclesCreate from '@/components/admin_panel/vehicles_create';
+import { useDebugMode } from '@/contexts/admin';
 
 export default function AdminPanel() {
+  const debugMode = useDebugMode((state) => state.debugMode);
+  const setDebugMode = useDebugMode((state) => state.setDebugMode);
+
   const {
     responseData: accountData,
     fetchData: accountFetch,
@@ -40,7 +44,10 @@ export default function AdminPanel() {
         {accountLoading && <VscLoading className="text-[1.1vw] animate-spin" />}
         {!accountLoading && <p>{roleHandler(accountData?.permission_level)}</p>}
         <div className="flex flex-row items-center gap-3">
-          <Switch />
+          <Switch
+            checked={debugMode}
+            onCheckedChange={(value) => setDebugMode(value)}
+          />
           <p>Debug mode</p>
         </div>
       </div>

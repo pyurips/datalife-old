@@ -1,12 +1,15 @@
-import logoDark from "../assets/logo_dark.svg";
-import { Progress } from "@/components/ui/progress";
-import { PiBowlFoodFill } from "react-icons/pi";
-import { BiSolidDrink } from "react-icons/bi";
-import { FaToiletPaper } from "react-icons/fa6";
-import { IoBedSharp } from "react-icons/io5";
-import DebugPanel from "@/components/main_hud/debug_panel";
+import logoDark from '../assets/logo_dark.svg';
+import { Progress } from '@/components/ui/progress';
+import { PiBowlFoodFill } from 'react-icons/pi';
+import { BiSolidDrink } from 'react-icons/bi';
+import { FaToiletPaper } from 'react-icons/fa6';
+import { IoBedSharp } from 'react-icons/io5';
+import DebugPanel from '@/components/main_hud/debug_panel';
+import { useDebugMode } from '@/contexts/admin';
 
 export default function MainHud() {
+  const debugMode = useDebugMode((state) => state.debugMode);
+
   return (
     <div className="flex flex-col gap-[1vw] w-full h-full p-[1vw]">
       <div className="flex flex-row items-center justify-between">
@@ -48,7 +51,7 @@ export default function MainHud() {
         </div>
       </div>
 
-      <DebugPanel />
+      {debugMode && <DebugPanel />}
     </div>
   );
 }
