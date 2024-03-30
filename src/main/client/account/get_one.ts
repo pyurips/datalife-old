@@ -1,5 +1,8 @@
 import * as alt from 'alt-client';
+import IAccount from '../../shared/IAccount';
 
 export async function account_getOne(data: any) {
-  return await alt.emitRpc('rpc', 'account_getOne');
+  const accountData = alt.getLocalMeta('accountData') as IAccount;
+  alt.log(accountData);
+  return accountData;
 }
