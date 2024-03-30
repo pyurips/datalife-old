@@ -15,6 +15,7 @@ async function auth_signin() {
 
   await alt.emitRpc('rpc', 'auth_signin', { token });
   await loadPlayerIntoWorld();
+  alt.setMeta('canOpenScreens', true);
   // const availableCharacter = await alt.emitRpc('rpc', 'getCharacterData', {
   //   userId: accountData._id,
   // });
