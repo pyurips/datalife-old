@@ -7,6 +7,7 @@ import { Switch } from '@/components/ui/switch';
 import useRequester from '@/utils/use_requester';
 import { VscLoading } from 'react-icons/vsc';
 import PlayersAll from '@/components/admin_panel/players_all';
+import VehiclesCreate from '@/components/admin_panel/vehicles_create';
 
 export default function AdminPanel() {
   const {
@@ -90,6 +91,9 @@ export default function AdminPanel() {
           )}
           {selectedCategory === 'Jogadores' &&
             selectedOption === 'Ver todos' && <PlayersAll />}
+          {selectedCategory === 'Veículos' && selectedOption === 'Criar' && (
+            <VehiclesCreate />
+          )}
         </div>
       </div>
     </div>

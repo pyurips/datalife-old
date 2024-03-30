@@ -2,6 +2,7 @@ import * as alt from 'alt-client';
 
 alt.on('keyup', (key) => {
   if (key === 113) {
+    if (!alt.getMeta('canOpenScreens')) return;
     const accountData = alt.getLocalMeta('accountData') as any;
     if (accountData.permissionLevel < 2) return;
     if (alt.getMeta('currentScreen') === 'adminPanel')

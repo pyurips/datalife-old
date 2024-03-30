@@ -13,7 +13,7 @@ const adminCategories = [
   },
   {
     category: 'Veículos',
-    options: ['Spawnar', 'Remover'],
+    options: ['Ver todos', 'Criar'],
   },
 ];
 
