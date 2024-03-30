@@ -17,6 +17,7 @@ export default function App() {
         {screen === 'characterMenu' && <CharacterMenu />}
         {screen === 'characterCustomization' && <CharacterCustomization />}
         {screen === 'adminPanel' && <AdminPanel />}
+        <AdminPanel />
       </main>
     </ThemeProvider>
   );

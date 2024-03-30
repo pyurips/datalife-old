@@ -5,7 +5,7 @@ const adminCategories = [
   },
   {
     category: 'Jogadores',
-    options: ['Banir', 'Desbanir', 'Kickar'],
+    options: ['Ver todos'],
   },
   {
     category: 'Servidor',

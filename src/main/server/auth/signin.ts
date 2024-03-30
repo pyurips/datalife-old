@@ -13,7 +13,7 @@ async function auth_signin(player: alt.Player, data?: any) {
     });
     if (!response || !response.data.id) throw sendClientError(1705460913);
     const accountData = await accounts_signin(response.data.id);
-    return player.setLocalMeta("accountData", accountData);
+    return player.setLocalMeta("accountData", { ...accountData, name: response.data.global_name });
   } catch (e) {
     if (e.name === 'DATALIFEClientError') throw e;
     throw sendClientError(1705460706);

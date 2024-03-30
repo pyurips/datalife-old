@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Switch } from '@/components/ui/switch';
 import useRequester from '@/utils/use_requester';
 import { VscLoading } from 'react-icons/vsc';
+import PlayersAll from '@/components/admin_panel/players_all';
 
 export default function AdminPanel() {
   const {
@@ -36,7 +37,7 @@ export default function AdminPanel() {
     <div className="flex flex-col w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden">
       <div className="flex w-full p-[1vw] flex-row gap-[1vw] items-center justify-between">
         {accountLoading && <VscLoading className="text-[1.1vw] animate-spin" />}
-        {!accountLoading && <p>{roleHandler(accountData.permission_level)}</p>}
+        {!accountLoading && <p>{roleHandler(accountData?.permission_level)}</p>}
         <div className="flex flex-row items-center gap-3">
           <Switch />
           <p>Debug mode</p>
@@ -87,6 +88,8 @@ export default function AdminPanel() {
           {selectedCategory === 'Mundo' && selectedOption === 'Teleporte' && (
             <WorldTeleport />
           )}
+          {selectedCategory === 'Jogadores' &&
+            selectedOption === 'Ver todos' && <PlayersAll />}
         </div>
       </div>
     </div>
