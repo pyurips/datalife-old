@@ -1,4 +1,7 @@
+import * as alt from 'alt-server';
+
 class Character {
+  private playerInstance: alt.Player;
   public name: string;
   public health: number;
   public money: number;
@@ -34,6 +37,26 @@ class Character {
     experience: number;
     rate: number;
   }[];
+
+  constructor(player: alt.Player) {
+    this.playerInstance = player;
+  }
+
+  public create() {}
+
+  public update() {}
+
+  public delete() {}
+
+  public get() {}
+
+  public loadIntoWorld() {
+    this.playerInstance.spawn(-14.295, 24.695, 71.656);
+    this.playerInstance.dimension = 0;
+    this.playerInstance.giveWeapon(0x83bf0278, 999, false);
+  }
+
+  public callableByRPC() {}
 }
 
 export default Character;
