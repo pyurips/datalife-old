@@ -13,7 +13,12 @@ class Vehicle {
   public fuel = 1000;
   private vehicle: alt.Vehicle;
 
-  constructor(
+  private player: alt.Player;
+  constructor(player: alt.Player) {
+    this.player = player;
+  }
+
+  public create(
     model: number,
     position: alt.Vector3,
     rotation: alt.Vector3,

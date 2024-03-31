@@ -2,24 +2,9 @@ import * as alt from 'alt-server';
 import operations from './utils/operations.js';
 import sendClientError from './utils/client_error';
 import fuelHandler from './vehicle/fuel_handler.js';
+import Vehicle from './vehicle.js';
 
 class Default {
-  onVehicleSyncedMetaChange() {
-    alt.on('syncedMetaChange', (entity, key, value, oldValue) => {
-      if (entity instanceof alt.Vehicle) {
-        if (key === 'vehicleData') {
-          entity.engineOn = value.fuel === 0 ? false : value.engineState;
-          entity.engineHealth = value.engineHealth;
-          entity.numberPlateIndex = value.numberPlateStyle;
-          entity.numberPlateText = value.numberPlateText;
-          entity.lockState = value.locked;
-          entity.engineHealth = value.engineHealth;
-          entity.dirtLevel = value.dirtLevel;
-        }
-      }
-    });
-  }
-
   onPlayerDisconnect() {}
 
   onPlayerConnect() {
@@ -32,7 +17,7 @@ class Default {
 
   onEverySecond() {
     new alt.Utils.Interval(() => {
-      fuelHandler();
+      Vehicle.allVehicles.forEach((vehicle) => vehicle.updateFuel());
     }, 1000);
   }
 
