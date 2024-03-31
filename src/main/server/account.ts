@@ -14,19 +14,17 @@ class Account {
   public bits: number;
   public character: Character;
 
-  constructor(playerInstance: alt.Player) {
-    this.playerInstance = playerInstance;
-  }
-
-  public create(
+  constructor(
+    playerInstance: alt.Player,
     id: string,
     discordId: string,
     createdAt: Date,
     updatedAt: Date,
     lastLogin: Date,
     permissionLevel: number,
-    bits: number
+    bits: number,
   ) {
+    this.playerInstance = playerInstance;
     this.id = id;
     this.discordId = discordId;
     this.createdAt = createdAt;
@@ -50,7 +48,7 @@ class Account {
     return Account.allAccounts;
   }
 
-  public callableByRPC = {}
+  public callableByRPC = {};
 }
 
 export default Account;

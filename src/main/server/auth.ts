@@ -22,8 +22,8 @@ class Auth {
         throw Utils.sendClientError(1705460913);
       const pool = new Postgresql();
       const accountData = await pool.signinByAccount(response.data.id);
-      const accountConnected = new Account(this.player);
-      accountConnected.create(
+      new Account(
+        this.player,
         accountData.id,
         accountData.discord_id,
         accountData.created_at,
