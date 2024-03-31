@@ -44,6 +44,13 @@ class Account {
     if (!account) throw Utils.sendClientError(1711867687);
     return account;
   }
+
+  public getAll() {
+    if (this.permissionLevel < 2) throw Utils.sendClientError(1711915485);
+    return Account.allAccounts;
+  }
+
+  public callableByRPC = {}
 }
 
 export default Account;

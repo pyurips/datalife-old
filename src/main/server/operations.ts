@@ -1,7 +1,6 @@
 import * as alt from 'alt-server';
 import Auth from './auth.js';
 import Vehicle from './vehicle.js';
-import Admin from './admin.js';
 import Account from './account.js';
 
 function getOperation(player: alt.Player, type: string, operation: string) {
@@ -11,13 +10,12 @@ function getOperation(player: alt.Player, type: string, operation: string) {
   }
 
   const account = Account.getAccountByPlayerInstance(player);
+  if (type === 'account') {
+    return account.callableByRPC[operation].bind(account);
+  }
   if (type === 'vehicle') {
     const vehicle = new Vehicle(account);
     return vehicle.callableByRPC[operation].bind(vehicle);
-  }
-  if (type === 'admin') {
-    const admin = new Admin(account);
-    return admin.callableByRPC[operation].bind(admin);
   }
 }
 
