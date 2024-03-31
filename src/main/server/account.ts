@@ -1,18 +1,35 @@
-import * as alt from 'alt-server';
-
 class Account {
-  private playerInstance: alt.Player;
-  private id: string;
-  private name: string;
-  private discordId: string;
-  private createdAt: Date;
-  private updatedAt: Date;
-  private lastLogin: Date;
-  private permissionLevel: number;
-  private bits: number;
+  static allAccounts: Account[] = [];
+  public sessionId: number;
+  public id: string;
+  public discordId: string;
+  public createdAt: Date;
+  public updatedAt: Date;
+  public lastLogin: Date;
+  public permissionLevel: number;
+  public bits: number;
 
-  constructor(player: alt.Player) {
-    this.playerInstance = player;
+  constructor(sessionId: number) {
+    this.sessionId = this.sessionId;
+  }
+
+  public create(
+    id: string,
+    discordId: string,
+    createdAt: Date,
+    updatedAt: Date,
+    lastLogin: Date,
+    permissionLevel: number,
+    bits: number
+  ) {
+    this.id = id;
+    this.discordId = discordId;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.lastLogin = lastLogin;
+    this.permissionLevel = permissionLevel;
+    this.bits = bits;
+    Account.allAccounts.push(this);
   }
 }
 
