@@ -25,6 +25,8 @@ class Default {
       'rpc',
       async (player, type: string, operationName: string, data?: unknown) => {
         const operation = getOperation(player, type, operationName);
+        if (typeof operation !== 'function')
+          throw Utils.sendClientError(1711876057);
         if (!operation) throw Utils.sendClientError(1711859254);
         return operation.constructor.name === 'AsyncFunction'
           ? await operation(data)

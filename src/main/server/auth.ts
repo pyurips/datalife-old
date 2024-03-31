@@ -32,10 +32,8 @@ class Auth {
         accountData.permission_level,
         accountData.bits
       );
-      console.log("Foi mesmo?");
     } catch (e) {
       if (e.name === 'DATALIFEClientError') throw e;
-      console.log(e);
       throw Utils.sendClientError(1705460706);
     }
   }
