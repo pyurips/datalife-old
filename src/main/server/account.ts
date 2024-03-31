@@ -22,7 +22,7 @@ class Account {
     updatedAt: Date,
     lastLogin: Date,
     permissionLevel: number,
-    bits: number,
+    bits: number
   ) {
     this.playerInstance = playerInstance;
     this.id = id;
@@ -48,7 +48,9 @@ class Account {
     return Account.allAccounts;
   }
 
-  public callableByRPC = {};
+  public callableByRPC = {
+    getAll: this.getAll,
+  };
 }
 
 export default Account;
