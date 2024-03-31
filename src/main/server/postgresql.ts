@@ -1,12 +1,12 @@
 import pkg from 'pg';
 import Utils from './utils.js';
-const { Pool } = pkg;
+const { Pool, Client } = pkg;
 
 class Postgresql {
-  private pool: pkg.Pool;
+  private pool: pkg.Client;
 
   constructor() {
-    this.pool = new Pool({
+    this.pool = new Client({
       connectionString: process.env.POSTGRE_CONNECTION_STRING,
       ssl: {
         rejectUnauthorized: false,

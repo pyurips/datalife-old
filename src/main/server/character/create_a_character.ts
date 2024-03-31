@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import sendClientError from '../utils/client_error.js';
+//import sendClientError from '../utils/client_error.js';
 //import createOneCharacter from '../database/mongodb/operations/characters/create_one.js';
 
 async function createACharacter(player: alt.Player, data?: any) {
