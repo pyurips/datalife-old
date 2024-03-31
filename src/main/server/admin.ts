@@ -38,6 +38,16 @@ class Admin {
     this.checkPermission(3);
     // TODO
   }
+
+  public callableByRPC() {
+    return {
+      admin_vehicles_createToMe: this.admin_vehicles_createToMe,
+      admin_vehicles_createToCoords: this.admin_vehicles_createToCoords,
+      admin_vehicles_createToPlayer: this.admin_vehicles_createToPlayer,
+      admin_vehicles_delete: this.admin_vehicles_delete,
+      admin_vehicles_deleteAll: this.admin_vehicles_deleteAll,
+    }
+  }
 }
 
 export default Admin;

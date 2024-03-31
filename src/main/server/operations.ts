@@ -7,15 +7,15 @@ import Account from './account.js';
 function getOperation(player: alt.Player, type: string, operation: string) {
   if (type === 'auth') {
     const auth = new Auth(player);
-    return auth[operation].bind(auth);
+    return auth.callableByRPC[operation].bind(auth);
   };
   if (type === 'vehicle') {
     const vehicle = new Vehicle(Account.getAccountBySessionId(player.id));
-    return vehicle[operation].bind(vehicle);
+    return vehicle.callableByRPC[operation].bind(vehicle);
   };
   if (type === 'admin') {
     const admin = new Admin(Account.getAccountBySessionId(player.id));
-    return admin[operation].bind(admin);
+    return admin.callableByRPC[operation].bind(admin);
   };
 }
 

@@ -1,8 +1,10 @@
 import * as alt from 'alt-server';
 import Account from './account.js';
+import Utils from './utils.js';
 
 class Vehicle {
   static allVehicles: Vehicle[] = [];
+  public sessionId: number;
   public engineState = false;
   public engineHealth: 1000;
   public lockState: typeof this.vehicleInstance.lockState = 2;
@@ -21,12 +23,15 @@ class Vehicle {
     this.player = alt.Player.getByID(account.sessionId);
   }
 
+  private hasCreated () {}
+
   public create(
     model: number,
     position: alt.Vector3,
     rotation: alt.Vector3,
     streamingDistance?: number
   ) {
+    if (this.account.permissionLevel < 3) throw Utils.sendClientError(1711876657);
     this.vehicleInstance = new alt.Vehicle(
       model,
       position.x,
@@ -37,6 +42,7 @@ class Vehicle {
       rotation.z,
       streamingDistance
     );
+    this.sessionId = this.vehicleInstance.id;
     Vehicle.allVehicles.push(this);
   }
 
@@ -60,6 +66,14 @@ class Vehicle {
   private toggleHood() {}
   private toggleWindows() {}
   private toggleDoors() {}
+
+  public callableByRPC() {
+    return {
+      create: this.create,
+      toggleEngine: this.toggleEngine,
+      toggleLock: this.toggleLock,
+    }
+  }
 }
 
 export default Vehicle;

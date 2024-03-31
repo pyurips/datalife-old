@@ -37,6 +37,12 @@ class Auth {
       throw Utils.sendClientError(1705460706);
     }
   }
+
+  public callableByRPC() {
+    return {
+      signin: this.signin,
+    }
+  }
 }
 
 export default Auth;
