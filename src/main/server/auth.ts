@@ -10,7 +10,7 @@ class Auth {
     this.player = player;
   }
 
-  async signin(data?: any) {
+  async signin(data: { token: string }) {
     try {
       const response = await axios.get('https://discordapp.com/api/users/@me', {
         headers: {
@@ -22,7 +22,7 @@ class Auth {
         throw Utils.sendClientError(1705460913);
       const pool = new Postgresql();
       const accountData = await pool.signinByAccount(response.data.id);
-      const accountConnected = new Account(this.player.id);
+      const accountConnected = new Account(this.player);
       accountConnected.create(
         accountData.id,
         accountData.discord_id,
@@ -32,6 +32,7 @@ class Auth {
         accountData.permission_level,
         accountData.bits
       );
+      alt.log("Loguei, caralhoo");
     } catch (e) {
       if (e.name === 'DATALIFEClientError') throw e;
       throw Utils.sendClientError(1705460706);
@@ -41,7 +42,7 @@ class Auth {
   public callableByRPC() {
     return {
       signin: this.signin,
-    }
+    };
   }
 }
 

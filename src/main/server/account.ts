@@ -3,7 +3,7 @@ import Utils from "./utils.js";
 
 class Account {
   static allAccounts: Account[] = [];
-  public sessionId: number;
+  public playerInstance: alt.Player;
   public id: string;
   public discordId: string;
   public createdAt: Date;
@@ -12,8 +12,8 @@ class Account {
   public permissionLevel: number;
   public bits: number;
 
-  constructor(sessionId: number) {
-    this.sessionId = this.sessionId;
+  constructor(playerInstance: alt.Player) {
+    this.playerInstance = playerInstance;
   }
 
   public create(
@@ -35,16 +35,12 @@ class Account {
     Account.allAccounts.push(this);
   }
 
-  static getAccountBySessionId(sessionId: number) {
+  static getAccountByPlayerInstance(playerInstance: alt.Player) {
     const account = Account.allAccounts.find(
-      (account) => account.sessionId === sessionId
+      (account) => account.playerInstance.id === playerInstance.id
     );
     if (!account) throw Utils.sendClientError(1711867687);
     return account;
-  }
-
-  public getPlayerInstance() {
-    return alt.Player.getByID(this.sessionId);
   }
 }
 
