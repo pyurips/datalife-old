@@ -1,7 +1,6 @@
 import * as alt from 'alt-client';
 import loadPlayerIntoWorld from '../character/load_player_into_world.js';
 import loadCreator from '../character/load_character_creator.js';
-import IAccount from '../../shared/IAccount.js';
 
 const DISCORD_APP_ID = '1196692311728472097';
 
@@ -13,9 +12,10 @@ async function auth_signin() {
     throw 'Erro na conexão com o Discord. Tente reiniciar o Discord ou o jogo.';
   }
 
-  await alt.emitRpc('rpc', 'auth_signin', { token });
-  await loadPlayerIntoWorld();
-  alt.setMeta('canOpenScreens', true);
+  await alt.emitRpc('rpc', 'auth', 'signin', { token });
+  console.log("Logou pae");
+  //await loadPlayerIntoWorld();
+  //alt.setMeta('canOpenScreens', true);
   // const availableCharacter = await alt.emitRpc('rpc', 'getCharacterData', {
   //   userId: accountData._id,
   // });

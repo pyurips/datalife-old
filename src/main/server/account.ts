@@ -1,3 +1,5 @@
+import Utils from "./utils.js";
+
 class Account {
   static allAccounts: Account[] = [];
   public sessionId: number;
@@ -30,6 +32,14 @@ class Account {
     this.permissionLevel = permissionLevel;
     this.bits = bits;
     Account.allAccounts.push(this);
+  }
+
+  static getAccountBySessionId(sessionId: number) {
+    const account = Account.allAccounts.find(
+      (account) => account.sessionId === sessionId
+    );
+    if (!account) throw Utils.sendClientError(1711867687);
+    return account;
   }
 }
 

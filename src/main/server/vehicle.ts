@@ -1,21 +1,24 @@
 import * as alt from 'alt-server';
+import Account from './account.js';
 
 class Vehicle {
   static allVehicles: Vehicle[] = [];
   public engineState = false;
   public engineHealth: 1000;
-  public lockState: typeof this.vehicle.lockState = 2;
+  public lockState: typeof this.vehicleInstance.lockState = 2;
   public dirtLevel = 0;
   public numberPlateStyle: number;
   public numberPlateText: string;
   public fuelType: 'gasoline' | 'diesel' | 'eletric' | 'kerosene' | null;
   public fuelRate = 1;
   public fuel = 1000;
-  private vehicle: alt.Vehicle;
+  private vehicleInstance: alt.Vehicle;
 
   private player: alt.Player;
-  constructor(player: alt.Player) {
-    this.player = player;
+  private account: Account;
+  constructor(account: Account) {
+    this.account = account;
+    this.player = alt.Player.getByID(account.sessionId);
   }
 
   public create(
@@ -24,7 +27,7 @@ class Vehicle {
     rotation: alt.Vector3,
     streamingDistance?: number
   ) {
-    this.vehicle = new alt.Vehicle(
+    this.vehicleInstance = new alt.Vehicle(
       model,
       position.x,
       position.y,

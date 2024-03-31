@@ -1,5 +1,5 @@
 import pkg from 'pg';
-import sendClientError from './utils/client_error.js';
+import Utils from './utils.js';
 const { Pool } = pkg;
 
 class Postgresql {
@@ -54,7 +54,7 @@ class Postgresql {
       );
       return res.rows[0];
     } catch (_) {
-      throw sendClientError(1710900857);
+      throw Utils.sendClientError(1710900857);
     } finally {
       await pool.end();
     }

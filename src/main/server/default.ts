@@ -1,13 +1,12 @@
 import * as alt from 'alt-server';
-import operations from './utils/operations.js';
-import sendClientError from './utils/client_error';
-import fuelHandler from './vehicle/fuel_handler.js';
+import Utils from './utils.js';
 import Vehicle from './vehicle.js';
+import getOperation from './operations.js';
 
 class Default {
-  onPlayerDisconnect() {}
+  static onPlayerDisconnect() {}
 
-  onPlayerConnect() {
+  static onPlayerConnect() {
     alt.on('playerConnect', (player) => {
       player.dimension = player.id + 1;
       player.spawn(0, 0, 0, 0);
@@ -15,16 +14,16 @@ class Default {
     });
   }
 
-  onEverySecond() {
+  static onEverySecond() {
     new alt.Utils.Interval(() => {
       Vehicle.allVehicles.forEach((vehicle) => vehicle.updateFuel());
     }, 1000);
   }
 
-  turnOnRpc() {
-    alt.onRpc('rpc', async (player, operationName: string, data?: unknown) => {
-      const operation = operations[operationName];
-      if (!operation) throw sendClientError(1711859254);
+  static turnOnRpc() {
+    alt.onRpc('rpc', async (player, type: string, operationName: string, data?: unknown) => {
+      const operation = getOperation(player, type, operationName);
+      if (!operation) throw Utils.sendClientError(1711859254);
       return operation.constructor.name === 'AsyncFunction'
         ? await operation(player, data)
         : operation(player, data);

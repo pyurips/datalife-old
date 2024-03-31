@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import axios from 'axios';
-import sendClientError from './utils/client_error.js';
+import Utils from './utils.js';
 import Account from './account.js';
 import Postgresql from './postgresql.js';
 
@@ -18,7 +18,8 @@ class Auth {
           Authorization: `Bearer ${data.token}`,
         },
       });
-      if (!response || !response.data.id) throw sendClientError(1705460913);
+      if (!response || !response.data.id)
+        throw Utils.sendClientError(1705460913);
       const pool = new Postgresql();
       const accountData = await pool.signinByAccount(response.data.id);
       const accountConnected = new Account(this.player.id);
@@ -33,7 +34,7 @@ class Auth {
       );
     } catch (e) {
       if (e.name === 'DATALIFEClientError') throw e;
-      throw sendClientError(1705460706);
+      throw Utils.sendClientError(1705460706);
     }
   }
 }
