@@ -9,7 +9,8 @@ class Admin {
   }
 
   private checkPermission(level: number) {
-    if (this.account.permissionLevel < level) throw Utils.sendClientError(1711835426);
+    if (this.account.permissionLevel < level)
+      throw Utils.sendClientError(1711835426);
   }
 
   admin_vehicles_createToMe(data?: any) {
@@ -37,15 +38,7 @@ class Admin {
     // TODO
   }
 
-  public callableByRPC() {
-    return {
-      admin_vehicles_createToMe: this.admin_vehicles_createToMe,
-      admin_vehicles_createToCoords: this.admin_vehicles_createToCoords,
-      admin_vehicles_createToPlayer: this.admin_vehicles_createToPlayer,
-      admin_vehicles_delete: this.admin_vehicles_delete,
-      admin_vehicles_deleteAll: this.admin_vehicles_deleteAll,
-    }
-  }
+  public callableByRPC = {};
 }
 
 export default Admin;

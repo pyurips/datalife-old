@@ -32,18 +32,16 @@ class Auth {
         accountData.permission_level,
         accountData.bits
       );
-      alt.log("Loguei, caralhoo");
+      alt.log('Loguei, caralhoo, ' + this.player.name);
     } catch (e) {
       if (e.name === 'DATALIFEClientError') throw e;
       throw Utils.sendClientError(1705460706);
     }
   }
 
-  public callableByRPC() {
-    return {
-      signin: this.signin,
-    };
-  }
+  public callableByRPC = {
+    signin: this.signin,
+  };
 }
 
 export default Auth;

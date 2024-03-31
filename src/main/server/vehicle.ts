@@ -6,7 +6,7 @@ class Vehicle {
   static allVehicles: Vehicle[] = [];
   public sessionId: number;
   public engineState = false;
-  public engineHealth: 1000;
+  public engineHealth = 1000;
   public lockState: typeof this.vehicleInstance.lockState = 2;
   public dirtLevel = 0;
   public numberPlateStyle: number;
@@ -21,7 +21,7 @@ class Vehicle {
     this.account = account;
   }
 
-  private hasCreated () {}
+  private hasCreated() {}
 
   public create(
     model: number,
@@ -29,7 +29,8 @@ class Vehicle {
     rotation: alt.Vector3,
     streamingDistance?: number
   ) {
-    if (this.account.permissionLevel < 3) throw Utils.sendClientError(1711876657);
+    if (this.account.permissionLevel < 3)
+      throw Utils.sendClientError(1711876657);
     this.vehicleInstance = new alt.Vehicle(
       model,
       position.x,
@@ -65,13 +66,11 @@ class Vehicle {
   private toggleWindows() {}
   private toggleDoors() {}
 
-  public callableByRPC() {
-    return {
-      create: this.create,
-      toggleEngine: this.toggleEngine,
-      toggleLock: this.toggleLock,
-    }
-  }
+  public callableByRPC = {
+    create: this.create,
+    toggleEngine: this.toggleEngine,
+    toggleLock: this.toggleLock,
+  };
 }
 
 export default Vehicle;
