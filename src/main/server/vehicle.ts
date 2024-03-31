@@ -4,17 +4,10 @@ import Utils from './utils.js';
 
 class Vehicle {
   static allVehicles: Vehicle[] = [];
-  public sessionId: number;
-  public engineState = false;
-  public engineHealth = 1000;
-  public lockState: typeof this.vehicleInstance.lockState = 2;
-  public dirtLevel = 0;
-  public numberPlateStyle: number;
-  public numberPlateText: string;
   public fuelType: 'gasoline' | 'diesel' | 'eletric' | 'kerosene' | null;
   public fuelRate = 1;
   public fuel = 1000;
-  private vehicleInstance: alt.Vehicle;
+  public vehicleInstance: alt.Vehicle;
 
   private account: Account;
   constructor(account: Account) {
@@ -23,53 +16,42 @@ class Vehicle {
 
   private hasCreated() {}
 
-  public create(
-    model: number,
-    position: alt.Vector3,
-    rotation: alt.Vector3,
-    streamingDistance?: number
-  ) {
+  public create(data: {
+    model: number;
+    position: alt.Vector3;
+    rotation: alt.Vector3;
+    fuelType: 'gasoline' | 'diesel' | 'eletric' | 'kerosene' | null;
+    fuelRate: number;
+    fuel: number;
+    streamingDistance?: number;
+  }) {
     if (this.account.permissionLevel < 3)
       throw Utils.sendClientError(1711876657);
+    this.fuelType = data.fuelType;
+    this.fuelRate = data.fuelRate;
+    this.fuel = data.fuel;
     this.vehicleInstance = new alt.Vehicle(
-      model,
-      position.x,
-      position.y,
-      position.z,
-      rotation.x,
-      rotation.y,
-      rotation.z,
-      streamingDistance
+      data.model,
+      data.position.x,
+      data.position.y,
+      data.position.z,
+      data.rotation.x,
+      data.rotation.y,
+      data.rotation.z,
+      data?.streamingDistance
     );
-    this.sessionId = this.vehicleInstance.id;
     Vehicle.allVehicles.push(this);
   }
 
   public updateFuel() {
-    if (!this.engineState) return;
+    if (!this.vehicleInstance.engineOn) return;
     const newFuel =
       this.fuel - this.fuelRate <= 0 ? 0 : this.fuel - this.fuelRate;
-    if (newFuel === 0) this.engineState = false;
+    if (newFuel === 0) this.vehicleInstance.engineOn = false;
   }
-
-  public toggleEngine() {
-    this.engineState = !this.engineState;
-  }
-
-  public toggleLock(lockState: typeof this.lockState) {
-    this.lockState = lockState;
-  }
-
-  private toggleLights() {}
-  private toggleTrunk() {}
-  private toggleHood() {}
-  private toggleWindows() {}
-  private toggleDoors() {}
 
   public callableByRPC = {
     create: this.create,
-    toggleEngine: this.toggleEngine,
-    toggleLock: this.toggleLock,
   };
 }
 
