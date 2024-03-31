@@ -32,7 +32,6 @@ class Auth {
         accountData.permission_level,
         accountData.bits
       );
-      alt.log('Loguei, caralhoo, ' + this.player.name);
     } catch (e) {
       if (e.name === 'DATALIFEClientError') throw e;
       throw Utils.sendClientError(1705460706);

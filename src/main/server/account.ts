@@ -1,5 +1,6 @@
 import * as alt from 'alt-server';
-import Utils from "./utils.js";
+import Utils from './utils.js';
+import Character from './character.js';
 
 class Account {
   static allAccounts: Account[] = [];
@@ -11,6 +12,7 @@ class Account {
   public lastLogin: Date;
   public permissionLevel: number;
   public bits: number;
+  public character: Character;
 
   constructor(playerInstance: alt.Player) {
     this.playerInstance = playerInstance;
