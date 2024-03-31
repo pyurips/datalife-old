@@ -25,6 +25,7 @@ export class Cloth implements Item {
     description: string,
     quality: 'Comum' | 'Incomum' | 'Raro',
     weight: number,
+    stackable: boolean,
     componentId: number,
     drawableId: number,
     textureId: number,
@@ -35,6 +36,7 @@ export class Cloth implements Item {
     this.description = description;
     this.quality = quality;
     this.weight = weight;
+    this.stackable = stackable;
     this.componentId = componentId;
     this.drawableId = drawableId;
     this.textureId = textureId;
@@ -75,6 +77,7 @@ export class Prop implements Item {
     description: string,
     quality: 'Comum' | 'Incomum' | 'Raro',
     weight: number,
+    stackable: boolean,
     componentId: number,
     drawableId: number,
     textureId: number,
@@ -85,6 +88,7 @@ export class Prop implements Item {
     this.description = description;
     this.quality = quality;
     this.weight = weight;
+    this.stackable = stackable;
     this.componentId = componentId;
     this.drawableId = drawableId;
     this.textureId = textureId;
@@ -122,6 +126,7 @@ export class Consumable implements Item {
     description: string,
     quality: 'Comum' | 'Incomum' | 'Raro',
     weight: number,
+    stackable: boolean,
     value: number,
     kind: 'food' | 'drink' | 'alcohol' | 'firstAid'
   ) {
@@ -129,6 +134,7 @@ export class Consumable implements Item {
     this.description = description;
     this.quality = quality;
     this.weight = weight;
+    this.stackable = stackable;
     this.value = value;
     this.kind = kind;
   }
@@ -149,11 +155,13 @@ export class Material implements Item {
     name: string,
     description: string,
     quality: 'Comum' | 'Incomum' | 'Raro',
-    weight: number
+    weight: number,
+    stackable: boolean
   ) {
     this.name = name;
     this.description = description;
     this.quality = quality;
     this.weight = weight;
+    this.stackable = stackable;
   }
 }
