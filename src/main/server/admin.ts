@@ -3,11 +3,9 @@ import Utils from './utils.js';
 import Account from './account.js';
 
 class Admin {
-  private player: alt.Player;
   private account: Account;
   constructor(account: Account) {
     this.account = account;
-    this.player = alt.Player.getByID(account.sessionId);
   }
 
   private checkPermission(level: number) {

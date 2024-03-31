@@ -1,3 +1,4 @@
+import * as alt from 'alt-server';
 import Utils from "./utils.js";
 
 class Account {
@@ -40,6 +41,10 @@ class Account {
     );
     if (!account) throw Utils.sendClientError(1711867687);
     return account;
+  }
+
+  public getPlayerInstance() {
+    return alt.Player.getByID(this.sessionId);
   }
 }
 

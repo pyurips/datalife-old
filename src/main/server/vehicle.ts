@@ -16,11 +16,9 @@ class Vehicle {
   public fuel = 1000;
   private vehicleInstance: alt.Vehicle;
 
-  private player: alt.Player;
   private account: Account;
   constructor(account: Account) {
     this.account = account;
-    this.player = alt.Player.getByID(account.sessionId);
   }
 
   private hasCreated () {}
