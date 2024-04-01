@@ -3,7 +3,7 @@ import * as alt from 'alt-server';
 abstract class Item {
   abstract name: string;
   abstract description: string;
-  abstract quality: 'Comum' | 'Incomum' | 'Raro';
+  abstract quality: 0 | 1 | 2;
   abstract weight: number;
   abstract stackable: boolean;
 }
@@ -11,7 +11,7 @@ abstract class Item {
 export class Cloth implements Item {
   public name: string;
   public description: string;
-  public quality: 'Comum' | 'Incomum' | 'Raro';
+  public quality: 0 | 1 | 2;
   public weight: number;
   public componentId: number;
   public drawableId: number;
@@ -20,28 +20,49 @@ export class Cloth implements Item {
   public dlc?: number;
   public stackable: boolean;
 
-  constructor(
-    name: string,
-    description: string,
-    quality: 'Comum' | 'Incomum' | 'Raro',
-    weight: number,
-    stackable: boolean,
-    componentId: number,
-    drawableId: number,
-    textureId: number,
-    upperBody: number,
-    dlc?: number
-  ) {
-    this.name = name;
-    this.description = description;
+  private itemsList = [
+    {
+      name: 'Camiseta',
+      description: 'Uma camiseta comum',
+      weight: 0.5,
+      stackable: false,
+      componentId: 11,
+      drawableId: 15,
+      textureId: 0,
+      upperBody: 0,
+    },
+    {
+      name: 'Jaqueta',
+      description: 'Uma jaqueta comum',
+      weight: 1,
+      stackable: false,
+      componentId: 11,
+      drawableId: 15,
+      textureId: 1,
+      upperBody: 0,
+    },
+    {
+      name: 'Colete',
+      description: 'Um colete comum',
+      weight: 1.5,
+      stackable: false,
+      componentId: 9,
+      drawableId: 9,
+      textureId: 0,
+      upperBody: 1,
+    },
+  ];
+
+  constructor(id: number, quality: 0 | 1 | 2) {
+    this.name = this.itemsList[id].name;
+    this.description = this.itemsList[id].description;
+    this.weight = this.itemsList[id].weight;
+    this.stackable = this.itemsList[id].stackable;
+    this.componentId = this.itemsList[id].componentId;
+    this.drawableId = this.itemsList[id].drawableId;
+    this.textureId = this.itemsList[id].textureId;
+    this.upperBody = this.itemsList[id].upperBody;
     this.quality = quality;
-    this.weight = weight;
-    this.stackable = stackable;
-    this.componentId = componentId;
-    this.drawableId = drawableId;
-    this.textureId = textureId;
-    this.upperBody = upperBody;
-    this.dlc = dlc;
   }
 
   public wear(player: alt.Player) {
@@ -63,7 +84,7 @@ export class Cloth implements Item {
 export class Prop implements Item {
   public name: string;
   public description: string;
-  public quality: 'Comum' | 'Incomum' | 'Raro';
+  public quality: 0 | 1 | 2;
   public weight: number;
   public componentId: number;
   public drawableId: number;
@@ -72,28 +93,49 @@ export class Prop implements Item {
   public dlc?: number;
   public stackable: boolean;
 
-  constructor(
-    name: string,
-    description: string,
-    quality: 'Comum' | 'Incomum' | 'Raro',
-    weight: number,
-    stackable: boolean,
-    componentId: number,
-    drawableId: number,
-    textureId: number,
-    upperBody: number,
-    dlc?: number
-  ) {
-    this.name = name;
-    this.description = description;
+  private itemsList = [
+    {
+      name: 'Óculos de Sol',
+      description: 'Óculos de sol comum',
+      weight: 0.1,
+      stackable: false,
+      componentId: 1,
+      drawableId: 1,
+      textureId: 0,
+      upperBody: 0,
+    },
+    {
+      name: 'Boné',
+      description: 'Um boné comum',
+      weight: 0.1,
+      stackable: false,
+      componentId: 0,
+      drawableId: 0,
+      textureId: 0,
+      upperBody: 0,
+    },
+    {
+      name: 'Máscara',
+      description: 'Uma máscara comum',
+      weight: 0.1,
+      stackable: false,
+      componentId: 1,
+      drawableId: 0,
+      textureId: 0,
+      upperBody: 0,
+    },
+  ];
+
+  constructor(id: number, quality: 0 | 1 | 2) {
+    this.name = this.itemsList[id].name;
+    this.description = this.itemsList[id].description;
+    this.weight = this.itemsList[id].weight;
+    this.stackable = this.itemsList[id].stackable;
+    this.componentId = this.itemsList[id].componentId;
+    this.drawableId = this.itemsList[id].drawableId;
+    this.textureId = this.itemsList[id].textureId;
+    this.upperBody = this.itemsList[id].upperBody;
     this.quality = quality;
-    this.weight = weight;
-    this.stackable = stackable;
-    this.componentId = componentId;
-    this.drawableId = drawableId;
-    this.textureId = textureId;
-    this.upperBody = upperBody;
-    this.dlc = dlc;
   }
 
   public wear(player: alt.Player) {
@@ -115,28 +157,30 @@ export class Prop implements Item {
 export class Consumable implements Item {
   public name: string;
   public description: string;
-  public quality: 'Comum' | 'Incomum' | 'Raro';
+  public quality: 0 | 1 | 2;
   public weight: number;
   public value: number;
-  public kind: 'food' | 'drink' | 'alcohol' | 'firstAid';
   public stackable: boolean;
+  public kind: 'food' | 'drink' | 'medicine';
 
-  constructor(
-    name: string,
-    description: string,
-    quality: 'Comum' | 'Incomum' | 'Raro',
-    weight: number,
-    stackable: boolean,
-    value: number,
-    kind: 'food' | 'drink' | 'alcohol' | 'firstAid'
-  ) {
-    this.name = name;
-    this.description = description;
+  private itemsList = [
+    {
+      name: 'Pão',
+      description: 'Pão fresquinho',
+      weight: 0.1,
+      stackable: true,
+      value: 5,
+      kind: 'food',
+    },
+  ];
+
+  constructor(id: number, quality: 0 | 1 | 2) {
+    this.name = this.itemsList[id].name;
+    this.description = this.itemsList[id].description;
+    this.weight = this.itemsList[id].weight;
+    this.stackable = this.itemsList[id].stackable;
+    this.value = this.itemsList[id].value;
     this.quality = quality;
-    this.weight = weight;
-    this.stackable = stackable;
-    this.value = value;
-    this.kind = kind;
   }
 
   public consume(player: alt.Player) {
@@ -147,21 +191,24 @@ export class Consumable implements Item {
 export class Material implements Item {
   public name: string;
   public description: string;
-  public quality: 'Comum' | 'Incomum' | 'Raro';
+  public quality: 0 | 1 | 2;
   public weight: number;
   public stackable: boolean;
 
-  constructor(
-    name: string,
-    description: string,
-    quality: 'Comum' | 'Incomum' | 'Raro',
-    weight: number,
-    stackable: boolean
-  ) {
-    this.name = name;
-    this.description = description;
+  private itemsList = [
+    {
+      name: 'Ferro',
+      description: 'Ferro puro',
+      weight: 0.5,
+      stackable: true,
+    },
+  ];
+
+  constructor(id: number, quality: 0 | 1 | 2) {
+    this.name = this.itemsList[id].name;
+    this.description = this.itemsList[id].description;
+    this.weight = this.itemsList[id].weight;
+    this.stackable = this.itemsList[id].stackable;
     this.quality = quality;
-    this.weight = weight;
-    this.stackable = stackable;
   }
 }
