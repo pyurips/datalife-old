@@ -14,7 +14,13 @@ class Vehicle {
     this.account = account;
   }
 
-  private hasCreated() {}
+  private getVehicleInstanceById(id: number) {
+    const vehicle = Vehicle.allVehicles.find(
+      (vehicle) => vehicle.vehicleInstance.id === id
+    );
+    if (!vehicle) throw Utils.sendClientError(1711939878);
+    return vehicle;
+  }
 
   public create(data: {
     model: number;
