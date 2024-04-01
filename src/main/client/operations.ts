@@ -1,22 +1,15 @@
-// import * as alt from 'alt-server';
-// import Auth from './auth.js';
-// import Vehicle from './vehicle.js';
-// import Account from './account.js';
+import Camera from './camera.js';
+import Character from './character.js';
 
-// function getOperation(player: alt.Player, type: string, operation: string) {
-//   if (type === 'auth') {
-//     const auth = new Auth(player);
-//     return auth.callableByRPC[operation].bind(auth);
-//   }
+function getOperation(type: string, operation: string) {
+  if (type === 'camera') {
+    const camera = new Camera();
+    return camera[operation].bind(camera);
+  }
+  if (type === 'character') {
+    const character = new Character();
+    return character[operation].bind(character);
+  }
+}
 
-//   const account = Account.getAccountByPlayerInstance(player);
-//   if (type === 'account') {
-//     return account.callableByRPC[operation].bind(account);
-//   }
-//   if (type === 'vehicle') {
-//     const vehicle = new Vehicle(account);
-//     return vehicle.callableByRPC[operation].bind(vehicle);
-//   }
-// }
-
-// export default getOperation;
+export default getOperation;
