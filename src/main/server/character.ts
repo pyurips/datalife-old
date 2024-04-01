@@ -1,4 +1,5 @@
 import * as alt from 'alt-server';
+import { Cloth, Material, Prop, Consumable } from './item';
 
 class Character {
   private playerInstance: alt.Player;
@@ -15,7 +16,8 @@ class Character {
   //public factions: Faction; TODO
   //public family: Family; TODO
   //public job: Job; TODO
-  //public belongings: Belongings; TODO
+  public belongings: (Cloth | Material | Prop | Consumable)[];
+  public weightCapacity: number;
 
   public needs: {
     hunger: number;
@@ -54,6 +56,10 @@ class Character {
     this.playerInstance.spawn(-14.295, 24.695, 71.656);
     this.playerInstance.dimension = 0;
     this.playerInstance.giveWeapon(0x83bf0278, 999, false);
+  }
+
+  public addToBelongings(item: Cloth | Material | Prop | Consumable) {
+    this.belongings.push(item);
   }
 
   public callableByRPC() {}

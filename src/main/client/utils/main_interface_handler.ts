@@ -1,5 +1,5 @@
 import * as alt from 'alt-client';
-import operations from './operations.js';
+import requester from '../requester.js';
 
 let mainInterface: alt.WebView = null;
 
@@ -18,14 +18,8 @@ export async function loadMainInterface() {
   });
 
   mainInterface.on('request', async (operationName: string, data?: unknown) => {
-    const operation = operations[operationName];
-    if (!operation)
-      return alt.logError(`O nome da operação (${operationName}) não existe`);
     try {
-      const response =
-        operation.constructor.name === 'AsyncFunction'
-          ? await operation(data)
-          : operation(data);
+      const response = requester(operationName, data);
       mainInterface.emit(`response:${operationName}`, response);
     } catch (error) {
       mainInterface.emit(`response:${operationName}`, {
