@@ -1,14 +1,14 @@
-import Camera from './camera.js';
 import Character from './character.js';
+import CustomCamera from './camera.js';
 
 function getOperation(type: string, operation: string) {
-  if (type === 'camera') {
-    const camera = new Camera();
-    return camera[operation].bind(camera);
-  }
   if (type === 'character') {
     const character = new Character();
     return character[operation].bind(character);
+  }
+  if (type === 'customCamera') {
+    const customCamera = new CustomCamera();
+    return customCamera[operation].bind(customCamera);
   }
 }
 
