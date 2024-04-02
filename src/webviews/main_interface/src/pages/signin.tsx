@@ -8,14 +8,16 @@ import { useEffect } from 'react';
 
 export default function Signin() {
   const {
-    data: signinData,
-    fetch: signin,
-    loading: signinLoading,
+    data: data_1,
+    fetch: fetch_1,
+    loading: loading_1,
   } = useRequester('client_auth_getDiscordToken', false);
 
+  const { fetch: fetch_2 } = useRequester('server_auth_signin', false);
+
   useEffect(() => {
-    if (signinData) console.log(signinData);
-  }, [signinData]);
+    if (data_1?.token) fetch_2({ token: data_1.token });
+  }, [data_1]);
 
   return (
     <div className="flex flex-col w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden gap-[1vw]">
@@ -30,14 +32,12 @@ export default function Signin() {
       <div className="flex flex-row items-center justify-between px-[1vw]">
         <Button
           variant="secondary"
-          disabled={signinLoading}
+          disabled={loading_1}
           className="flex flex-row items-center gap-[0.5vw] px-[1.5vw] py-[1vw] h-min bg-green-800 hover:bg-green-900"
-          onClick={() => signin()}
+          onClick={() => fetch_1()}
         >
-          {!signinLoading && <FaDiscord className="text-[1.5vw]" />}
-          {signinLoading && (
-            <VscLoading className="text-[1.1vw] animate-spin" />
-          )}
+          {!loading_1 && <FaDiscord className="text-[1.5vw]" />}
+          {loading_1 && <VscLoading className="text-[1.1vw] animate-spin" />}
           <p className="font-normal text-[1.1vw]">Entrar</p>
         </Button>
 
@@ -54,10 +54,8 @@ export default function Signin() {
         </div>
       </div>
 
-      {signinData?.error && (
-        <p className="text-red-500 text-[0.9vw] px-[1vw]">
-          {signinData?.error}
-        </p>
+      {data_1?.error && (
+        <p className="text-red-500 text-[0.9vw] px-[1vw]">{data_1?.error}</p>
       )}
 
       <p className="text-stone-400 text-[1vw] px-[1vw] pb-[1vw]">
