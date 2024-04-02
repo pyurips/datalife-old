@@ -32,8 +32,10 @@ class Auth {
         accountData.permission_level,
         accountData.bits
       );
+      alt.log(this.player.name + ' signed in.');
     } catch (e) {
       if (e.name === 'DATALIFEClientError') throw e;
+      alt.log(e);
       throw Utils.sendClientError(1705460706);
     }
   }

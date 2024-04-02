@@ -11,10 +11,10 @@ export default function Signin() {
     data: signinData,
     fetch: signin,
     loading: signinLoading,
-  } = useRequester('auth_signin', false);
+  } = useRequester('client_auth_getDiscordToken', false);
 
   useEffect(() => {
-    if (signinData) console.log(signinData.error);
+    if (signinData) console.log(signinData);
   }, [signinData]);
 
   return (

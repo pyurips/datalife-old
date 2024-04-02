@@ -10,7 +10,8 @@ class Webview {
 
     webView.on('request', async (operationName: string, data?: unknown) => {
       try {
-        const response = requester(operationName, data);
+        const response = await requester(operationName, data);
+        alt.log(response);
         webView.emit(`response:${operationName}`, response);
       } catch (error) {
         webView.emit(`response:${operationName}`, {
