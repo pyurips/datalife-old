@@ -18,7 +18,7 @@ export default function VehiclesCreate() {
   const [vehiclesListState, setVehiclesListState] = useState<any>(vehiclesList);
   const [search, setSearch] = useState('');
 
-  const { fetchData: fetchToMe } = useRequester(
+  const { fetch: fetchToMe } = useRequester(
     'admin_vehicles_createToMe',
     false
   );

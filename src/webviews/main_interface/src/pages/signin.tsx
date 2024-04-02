@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 
 export default function Signin() {
   const {
-    responseData: signinData,
-    fetchData: signin,
+    data: signinData,
+    fetch: signin,
     loading: signinLoading,
   } = useRequester('auth_signin', false);
 

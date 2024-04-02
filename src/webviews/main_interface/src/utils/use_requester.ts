@@ -1,15 +1,10 @@
 import { useState } from 'react';
 
-type operations =
-  | 'server_auth_signin'
-  | 'server_auth_signup'
-  | 'client_debug_getCoords';
-
 function useRequester(operationName: string, startLoading: boolean) {
   const [loading, setLoading] = useState<boolean>(startLoading);
-  const [responseData, setResponseData] = useState<any>();
+  const [data, setData] = useState<any>();
 
-  function fetchData(requestData?: unknown) {
+  function fetch(requestData?: unknown) {
     setLoading(true);
     if (!window.alt) {
       console.error('Não foi encontrado o método alt no objeto Window');
@@ -17,15 +12,15 @@ function useRequester(operationName: string, startLoading: boolean) {
     }
 
     window.alt.once(`response:${operationName}`, (responseData: any) => {
-      setResponseData(responseData);
+      setData(responseData);
       return setLoading(false);
     });
     return window.alt.emit('request', operationName, requestData);
   }
 
   return {
-    responseData,
-    fetchData,
+    data,
+    fetch,
     loading,
   };
 }

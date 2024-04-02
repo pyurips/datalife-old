@@ -16,8 +16,8 @@ import { VscLoading } from 'react-icons/vsc';
 
 export default function PlayersAll() {
   const {
-    responseData: getAllResponseData,
-    fetchData: getAllFetchData,
+    data: getAllResponseData,
+    fetch: getAllFetchData,
     loading: getAllLoading,
   } = useRequester('account_getAll', true);
 

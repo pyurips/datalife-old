@@ -6,7 +6,7 @@ import { useState } from 'react';
 export default function WorldTeleport() {
   const [toCoords, setToCoords] = useState({ x: '', y: '', z: '' });
 
-  const { responseData: toCoordsData, fetchData: toCoordsFetch } = useRequester(
+  const { data: toCoordsData, fetch: toCoordsFetch } = useRequester(
     'admin_world_tele_to_coords',
     false
   );

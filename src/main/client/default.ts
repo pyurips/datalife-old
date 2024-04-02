@@ -10,6 +10,7 @@ class Default {
       CustomCamera.createSigninCamera();
       Utils.setPageMode(true);
       await Webview.loadWebView(0);
+      Webview.toggleFocus(0, true);
     });
   }
 

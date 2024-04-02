@@ -3,7 +3,7 @@ import requester from './requester.js';
 
 class Webview {
   static webViews = ['http://assets/webviews/main_interface/index.html'];
-  static activeWebViews: alt.WebView[] = [];
+  static activeWebViews: { id: number; webView: alt.WebView }[] = [];
 
   static async loadWebView(WebviewId: number, isOverlay = false) {
     const webView = new alt.WebView(this.webViews[WebviewId], isOverlay);
@@ -22,11 +22,18 @@ class Webview {
     await new Promise((resolve) => {
       webView.once('load', resolve);
     });
+
+    this.activeWebViews.push({ id: WebviewId, webView });
   }
 
   static toggleFocus(webViewId: number, state: boolean) {
-    if (state) return this.activeWebViews[webViewId].focus();
-    return this.activeWebViews[webViewId].unfocus();
+    if (state)
+      return this.activeWebViews
+        .find((e) => e.id === webViewId)
+        .webView.focus();
+    return this.activeWebViews
+      .find((e) => e.id === webViewId)
+      .webView.unfocus();
   }
 }
 

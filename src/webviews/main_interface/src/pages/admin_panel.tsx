@@ -15,8 +15,8 @@ export default function AdminPanel() {
   const setDebugMode = useDebugMode((state) => state.setDebugMode);
 
   const {
-    responseData: accountData,
-    fetchData: accountFetch,
+    data: accountData,
+    data: accountFetch,
     loading: accountLoading,
   } = useRequester('account_getOne', true);
 
