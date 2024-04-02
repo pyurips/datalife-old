@@ -2,6 +2,7 @@ import * as alt from 'alt-client';
 import CustomCamera from './camera.js';
 import Utils from './utils.js';
 import Webview from './webview.js';
+import Character from './character.js';
 
 class Default {
   static onConnectionComplete() {
@@ -12,9 +13,11 @@ class Default {
     });
   }
 
-  static onEveryTick() {}
-
-  static onKeyUp() {}
+  static onEveryTick() {
+    alt.everyTick(() => {
+      Character.defaultCharacterBehaviors();
+    });
+  }
 }
 
 export default Default;
