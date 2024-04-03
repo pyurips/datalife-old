@@ -1,4 +1,5 @@
 import * as alt from 'alt-server';
+import Utils from './utils.js';
 
 abstract class Item {
   abstract name: string;
@@ -6,6 +7,7 @@ abstract class Item {
   abstract quality: 0 | 1 | 2;
   abstract weight: number;
   abstract stackable: boolean;
+  abstract quantity: number;
   abstract getAttributes: () => {
     name: string;
     description: string;
@@ -26,6 +28,7 @@ export class Cloth implements Item {
   public upperBody: number;
   public dlc?: number;
   public stackable: boolean;
+  public quantity: number;
 
   private itemsList = [
     {
@@ -60,7 +63,8 @@ export class Cloth implements Item {
     },
   ];
 
-  constructor(id: number, quality: 0 | 1 | 2) {
+  constructor(id: number, quality: 0 | 1 | 2, quantity: number = 1) {
+    if (quantity < 1) throw Utils.sendClientError(1712148108);
     this.name = this.itemsList[id].name;
     this.description = this.itemsList[id].description;
     this.weight = this.itemsList[id].weight;
@@ -70,6 +74,7 @@ export class Cloth implements Item {
     this.textureId = this.itemsList[id].textureId;
     this.upperBody = this.itemsList[id].upperBody;
     this.quality = quality;
+    this.quantity = quantity;
   }
 
   public wear(player: alt.Player) {

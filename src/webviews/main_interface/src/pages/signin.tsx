@@ -9,6 +9,7 @@ import { usePage } from '@/contexts/page';
 
 export default function Signin() {
   const setPage = usePage((state) => state.setPage);
+  const setCanChangePage = usePage((state) => state.setCanChangePage);
 
   const {
     data: data_1,
@@ -53,6 +54,7 @@ export default function Signin() {
       fetch_4();
       fetch_5();
       setPage('mainHud');
+      setCanChangePage(true);
     }
   }, [data_3]);
 

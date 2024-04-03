@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 export default function App() {
   const page = usePage((state) => state.page);
   const setPage = usePage((state) => state.setPage);
+  const canChangePage = usePage((state) => state.canChangePage);
   const [pressedKey, setPressedKey] = useState('');
   const { fetch } = useRequester('client_utils_setPageMode', false);
 
@@ -27,6 +28,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (!canChangePage) return;
     if (pressedKey.toLowerCase() === 'b')
       page === 'characterMenu' ? setPage('mainHud') : setPage('characterMenu');
     if (pressedKey === 'F2')

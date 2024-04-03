@@ -7,6 +7,7 @@ export const usePage = create<{
     | 'characterMenu'
     | 'characterCustomization'
     | 'adminPanel';
+  canChangePage: boolean;
   setPage: (
     value:
       | 'signin'
@@ -15,7 +16,10 @@ export const usePage = create<{
       | 'characterCustomization'
       | 'adminPanel'
   ) => void;
+  setCanChangePage: (value: boolean) => void;
 }>((set) => ({
   page: 'signin',
+  canChangePage: false,
+  setCanChangePage: (value) => set({ canChangePage: value }),
   setPage: (value) => set({ page: value }),
 }));
