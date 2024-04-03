@@ -28,26 +28,28 @@ export default function Signin() {
     loading: loading_3,
   } = useRequester('server_account_loadCharacter', false);
 
-  const { fetch: fetch_4, loading: loading_4 } = useRequester(
-    'server_character_loadIntoWorld',
-    false
-  );
+  const {
+    data: data_4,
+    fetch: fetch_4,
+    loading: loading_4,
+  } = useRequester('server_character_loadIntoWorld', false);
 
-  const { fetch: fetch_5, loading: loading_5 } = useRequester(
-    'client_customCamera_delete',
-    false
-  );
+  const {
+    data: data_5,
+    fetch: fetch_5,
+    loading: loading_5,
+  } = useRequester('client_customCamera_delete', false);
 
   useEffect(() => {
     if (data_1?.token) fetch_2({ token: data_1.token });
   }, [data_1]);
 
   useEffect(() => {
-    if (data_2) fetch_3();
+    if (data_2 && !data_2?.error) fetch_3();
   }, data_2);
 
   useEffect(() => {
-    if (data_3) {
+    if (data_3 && !data_3?.error) {
       fetch_4();
       fetch_5();
       setPage('mainHud');
@@ -67,7 +69,9 @@ export default function Signin() {
       <div className="flex flex-row items-center justify-between px-[1vw]">
         <Button
           variant="secondary"
-          disabled={loading_1}
+          disabled={
+            loading_1 || loading_2 || loading_3 || loading_4 || loading_5
+          }
           className="flex flex-row items-center gap-[0.5vw] px-[1.5vw] py-[1vw] h-min bg-green-800 hover:bg-green-900"
           onClick={() => fetch_1()}
         >
@@ -93,8 +97,18 @@ export default function Signin() {
         </div>
       </div>
 
-      {data_1?.error && (
-        <p className="text-red-500 text-[0.9vw] px-[1vw]">{data_1?.error}</p>
+      {(data_1?.error ||
+        data_2?.error ||
+        data_3?.error ||
+        data_4?.error ||
+        data_5?.error) && (
+        <p className="text-red-500 text-[0.9vw] px-[1vw]">
+          {data_1?.error ||
+            data_2?.error ||
+            data_3?.error ||
+            data_4?.error ||
+            data_5?.error}
+        </p>
       )}
 
       <p className="text-stone-400 text-[1vw] px-[1vw] pb-[1vw]">
