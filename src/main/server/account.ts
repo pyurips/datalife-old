@@ -48,14 +48,33 @@ class Account {
     return Account.allAccounts;
   }
 
-  public loadACharacter() {
+  public loadCharacter() {
     if (this.character) throw Utils.sendClientError(1712108032);
     this.character = new Character(this.playerInstance);
+    this.character.updateAll(
+      100,
+      1000,
+      0,
+      1,
+      0,
+      [],
+      100,
+      {
+        hunger: { value: 100, rate: 0 },
+        thirst: { value: 100, rate: 0 },
+        fatigue: { value: 100, rate: 0 },
+        bathroom: { value: 100, rate: 0 },
+        hygiene: { value: 100, rate: 0 },
+      },
+      [],
+      []
+    );
+    return 1;
   }
 
   public callableByRPC = {
     getAll: this.getAll,
-    loadACharacter: this.loadACharacter
+    loadCharacter: this.loadCharacter,
   };
 }
 

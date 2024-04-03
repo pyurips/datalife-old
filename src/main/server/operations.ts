@@ -17,6 +17,10 @@ function getOperation(player: alt.Player, type: string, operation: string) {
     const vehicle = new Vehicle(account);
     return vehicle.callableByRPC[operation].bind(vehicle);
   }
+  if (type === 'character') {
+    const character = account.character;
+    return character.callableByRPC[operation].bind(character);
+  }
 }
 
 export default getOperation;

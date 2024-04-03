@@ -32,6 +32,7 @@ class Auth {
         accountData.permission_level,
         accountData.bits
       );
+      return 1;
     } catch (e) {
       if (e.name === 'DATALIFEClientError') throw e;
       throw Utils.sendClientError(1705460706);

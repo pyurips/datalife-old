@@ -3,7 +3,6 @@ import { Cloth, Material, Prop, Consumable } from './item';
 
 class Character {
   private playerInstance: alt.Player;
-  public name: string;
   public health: number;
   public money: number;
   public bank: number;
@@ -20,11 +19,11 @@ class Character {
   public weightCapacity: number;
 
   public needs: {
-    hunger: number;
-    thirst: number;
-    fatigue: number;
-    bathroom: number;
-    hygiene: number;
+    hunger: { value: number; rate: number };
+    thirst: { value: number; rate: number };
+    fatigue: { value: number; rate: number };
+    bathroom: { value: number; rate: number };
+    hygiene: { value: number; rate: number };
   };
 
   public conditions: {
@@ -44,13 +43,44 @@ class Character {
     this.playerInstance = player;
   }
 
-  public create() {}
-
-  public update() {}
-
-  public delete() {}
-
-  public get() {}
+  public updateAll(
+    health: number,
+    money: number,
+    bank: number,
+    level: number,
+    experience: number,
+    belongings: (Cloth | Material | Prop | Consumable)[],
+    weightCapacity: number,
+    needs: {
+      hunger: { value: number; rate: number };
+      thirst: { value: number; rate: number };
+      fatigue: { value: number; rate: number };
+      bathroom: { value: number; rate: number };
+      hygiene: { value: number; rate: number };
+    },
+    conditions: {
+      type: string;
+      level: number;
+      rate: number;
+    }[],
+    skills: {
+      type: string;
+      level: number;
+      experience: number;
+      rate: number;
+    }[]
+  ) {
+    this.health = health;
+    this.money = money;
+    this.bank = bank;
+    this.level = level;
+    this.experience = experience;
+    this.belongings = belongings;
+    this.weightCapacity = weightCapacity;
+    this.needs = needs;
+    this.conditions = conditions;
+    this.skills = skills;
+  }
 
   public loadIntoWorld() {
     this.playerInstance.spawn(-14.295, 24.695, 71.656);
@@ -58,11 +88,28 @@ class Character {
     this.playerInstance.giveWeapon(0x83bf0278, 999, false);
   }
 
+  public getAllAttributes() {
+    return {
+      health: this.health,
+      money: this.money,
+      bank: this.bank,
+      level: this.level,
+      experience: this.experience,
+      belongings: this.belongings,
+      weightCapacity: this.weightCapacity,
+      needs: this.needs,
+      conditions: this.conditions,
+      skills: this.skills,
+    };
+  }
+
   public addToBelongings(item: Cloth | Material | Prop | Consumable) {
     this.belongings.push(item);
   }
 
-  public callableByRPC() {}
+  public callableByRPC = {
+    getAllAttributes: this.getAllAttributes,
+  };
 }
 
 export default Character;

@@ -5,19 +5,34 @@ import { VscLoading } from 'react-icons/vsc';
 import useRequester from '@/utils/use_requester';
 import signinHomeImage from '@/assets/signin_home_image.png';
 import { useEffect } from 'react';
+import { usePage } from '@/contexts/page';
 
 export default function Signin() {
+  const setPage = usePage((state) => state.setPage);
+
   const {
     data: data_1,
     fetch: fetch_1,
     loading: loading_1,
   } = useRequester('client_auth_getDiscordToken', false);
 
-  const { fetch: fetch_2 } = useRequester('server_auth_signin', false);
+  const { data: data_2, fetch: fetch_2 } = useRequester(
+    'server_auth_signin',
+    false
+  );
+
+  const { fetch: fetch_3 } = useRequester(
+    'server_account_loadCharacter',
+    false
+  );
 
   useEffect(() => {
     if (data_1?.token) fetch_2({ token: data_1.token });
   }, [data_1]);
+
+  useEffect(() => {
+    if (data_2) fetch_3();
+  }, data_2);
 
   return (
     <div className="flex flex-col w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden gap-[1vw]">
