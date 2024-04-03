@@ -16,13 +16,25 @@ export default function Signin() {
     loading: loading_1,
   } = useRequester('client_auth_getDiscordToken', false);
 
-  const { data: data_2, fetch: fetch_2 } = useRequester(
-    'server_auth_signin',
+  const {
+    data: data_2,
+    fetch: fetch_2,
+    loading: loading_2,
+  } = useRequester('server_auth_signin', false);
+
+  const {
+    data: data_3,
+    fetch: fetch_3,
+    loading: loading_3,
+  } = useRequester('server_account_loadCharacter', false);
+
+  const { fetch: fetch_4, loading: loading_4 } = useRequester(
+    'server_character_loadIntoWorld',
     false
   );
 
-  const { fetch: fetch_3 } = useRequester(
-    'server_account_loadCharacter',
+  const { fetch: fetch_5, loading: loading_5 } = useRequester(
+    'client_customCamera_delete',
     false
   );
 
@@ -33,6 +45,14 @@ export default function Signin() {
   useEffect(() => {
     if (data_2) fetch_3();
   }, data_2);
+
+  useEffect(() => {
+    if (data_3) {
+      fetch_4();
+      fetch_5();
+      setPage('mainHud');
+    }
+  }, [data_3]);
 
   return (
     <div className="flex flex-col w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden gap-[1vw]">
@@ -51,8 +71,12 @@ export default function Signin() {
           className="flex flex-row items-center gap-[0.5vw] px-[1.5vw] py-[1vw] h-min bg-green-800 hover:bg-green-900"
           onClick={() => fetch_1()}
         >
-          {!loading_1 && <FaDiscord className="text-[1.5vw]" />}
-          {loading_1 && <VscLoading className="text-[1.1vw] animate-spin" />}
+          {!(loading_1 || loading_2 || loading_3 || loading_4 || loading_5) && (
+            <FaDiscord className="text-[1.5vw]" />
+          )}
+          {(loading_1 || loading_2 || loading_3 || loading_4 || loading_5) && (
+            <VscLoading className="text-[1.1vw] animate-spin" />
+          )}
           <p className="font-normal text-[1.1vw]">Entrar</p>
         </Button>
 

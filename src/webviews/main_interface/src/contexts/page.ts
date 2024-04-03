@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import useRequester from '@/utils/use_requester.js';
 
 export const usePage = create<{
   page:
@@ -18,10 +17,5 @@ export const usePage = create<{
   ) => void;
 }>((set) => ({
   page: 'signin',
-  setPage: (value) => {
-    const { fetch } = useRequester('setPageMode', false);
-    if (value === 'mainHud') fetch(false);
-    fetch(true);
-    return set({ page: value });
-  },
+  setPage: (value) => set({ page: value }),
 }));

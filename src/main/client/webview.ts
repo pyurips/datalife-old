@@ -1,6 +1,5 @@
 import * as alt from 'alt-client';
 import requester from './requester.js';
-import Utils from './utils.js';
 
 class Webview {
   static webViews = ['http://assets/webviews/main_interface/index.html'];
@@ -35,10 +34,6 @@ class Webview {
     return this.activeWebViews
       .find((e) => e.id === webViewId)
       .webView.unfocus();
-  }
-
-  static setPageMode(state: boolean) {
-    Utils.setPageMode(state);
   }
 }
 

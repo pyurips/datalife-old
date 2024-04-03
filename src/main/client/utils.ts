@@ -6,17 +6,17 @@ class Utils {
 
   static showCursor(state: boolean) {
     if (state) {
-      this.cursorCount += 1;
+      Utils.cursorCount += 1;
       try {
         alt.showCursor(true);
       } catch (_) {}
     } else {
-      for (let i = 0; i < this.cursorCount; i++) {
+      for (let i = 0; i < Utils.cursorCount; i++) {
         try {
           alt.showCursor(false);
         } catch (_) {}
       }
-      this.cursorCount = 0;
+      Utils.cursorCount = 0;
     }
   }
 
@@ -26,9 +26,8 @@ class Utils {
     } else {
       native.triggerScreenblurFadeOut(100);
     }
-    native.displayRadar(!state);
-    native.displayHud(!state);
-    this.showCursor(state);
+    Utils.toggleNativeHud(!state);
+    Utils.showCursor(state);
     alt.toggleGameControls(!state);
   }
 

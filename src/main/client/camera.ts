@@ -121,8 +121,6 @@ export class Camera {
   destroy() {
     native.destroyCam(this.scriptID, false);
     this.unrender();
-
-    alt.log(`--> Destroyed camera: ${this.scriptID}`);
   }
 
   /**
@@ -165,7 +163,7 @@ export class Camera {
 }
 
 class CustomCamera {
-  static signinCamera: Camera = null;
+  static currentCamera: Camera = null;
 
   static createSigninCamera() {
     const camera = new Camera(
@@ -173,16 +171,13 @@ class CustomCamera {
       new alt.Vector3(0, 0, 0),
       40
     );
-
     camera.pointAtCoord(new alt.Vector3(402.8664, -996.4108, -98.5));
     camera.render();
+    CustomCamera.currentCamera = camera;
   }
 
-  static deleteSigninCamera() {
-    if (this.signinCamera) {
-      this.signinCamera.unrender();
-      this.signinCamera.destroy();
-    }
+  static delete() {
+    if (CustomCamera.currentCamera) CustomCamera.currentCamera.destroy();
   }
 }
 

@@ -1,6 +1,6 @@
 import CustomCamera from './camera.js';
 import Auth from './auth.js';
-import Webview from './webview.js';
+import Utils from './utils.js';
 
 function getOperation(type: string, operation: string) {
   if (type === 'customCamera') {
@@ -9,8 +9,8 @@ function getOperation(type: string, operation: string) {
   if (type === 'auth') {
     return Auth[operation];
   }
-  if (type === 'webview') {
-    return Webview[operation];
+  if (type === 'utils') {
+    return Utils[operation];
   }
 }
 

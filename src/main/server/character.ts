@@ -85,7 +85,7 @@ class Character {
   public loadIntoWorld() {
     this.playerInstance.spawn(-14.295, 24.695, 71.656);
     this.playerInstance.dimension = 0;
-    this.playerInstance.giveWeapon(0x83bf0278, 999, false);
+    this.playerInstance.giveWeapon(alt.hash('weapon_pistol'), 50, false);
   }
 
   public getAllAttributes() {
@@ -109,6 +109,7 @@ class Character {
 
   public callableByRPC = {
     getAllAttributes: this.getAllAttributes,
+    loadIntoWorld: this.loadIntoWorld,
   };
 }
 
