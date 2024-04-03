@@ -1,5 +1,6 @@
 import * as alt from 'alt-server';
-import { Cloth, Material, Prop, Consumable } from './item';
+import { Cloth, Material, Prop, Consumable } from './item.js';
+import Utils from './utils.js';
 
 class Character {
   private playerInstance: alt.Player;
@@ -95,21 +96,32 @@ class Character {
       bank: this.bank,
       level: this.level,
       experience: this.experience,
-      belongings: this.belongings,
       weightCapacity: this.weightCapacity,
-      needs: this.needs,
-      conditions: this.conditions,
-      skills: this.skills,
     };
   }
 
-  public addToBelongings(item: Cloth | Material | Prop | Consumable) {
-    this.belongings.push(item);
+  public addToBelongings(
+    id: number,
+    type: 'cloth' | 'material' | 'prop' | 'consumable',
+    quality: 0 | 1 | 2
+  ) {
+    if (type === 'cloth') return this.belongings.push(new Cloth(id, quality));
+    if (type === 'material')
+      return this.belongings.push(new Material(id, quality));
+    if (type === 'prop') return this.belongings.push(new Prop(id, quality));
+    if (type === 'consumable')
+      return this.belongings.push(new Consumable(id, quality));
+    throw Utils.sendClientError(1712133551);
+  }
+
+  public getBelongings() {
+    return this.belongings.map((item) => item.getAttributes());
   }
 
   public callableByRPC = {
     getAllAttributes: this.getAllAttributes,
     loadIntoWorld: this.loadIntoWorld,
+    getBelongings: this.getBelongings,
   };
 }
 

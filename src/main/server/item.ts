@@ -6,6 +6,13 @@ abstract class Item {
   abstract quality: 0 | 1 | 2;
   abstract weight: number;
   abstract stackable: boolean;
+  abstract getAttributes: () => {
+    name: string;
+    description: string;
+    quality: 0 | 1 | 2;
+    weight: number;
+    type: string;
+  };
 }
 
 export class Cloth implements Item {
@@ -78,6 +85,16 @@ export class Cloth implements Item {
 
   public unwear(player: alt.Player) {
     // TODO
+  }
+
+  public getAttributes() {
+    return {
+      name: this.name,
+      description: this.description,
+      quality: this.quality,
+      weight: this.weight,
+      type: 'cloth',
+    };
   }
 }
 
@@ -152,6 +169,16 @@ export class Prop implements Item {
   public unwear(player: alt.Player) {
     // TODO
   }
+
+  public getAttributes() {
+    return {
+      name: this.name,
+      description: this.description,
+      quality: this.quality,
+      weight: this.weight,
+      type: 'prop',
+    };
+  }
 }
 
 export class Consumable implements Item {
@@ -186,6 +213,16 @@ export class Consumable implements Item {
   public consume(player: alt.Player) {
     // TODO
   }
+
+  public getAttributes() {
+    return {
+      name: this.name,
+      description: this.description,
+      quality: this.quality,
+      weight: this.weight,
+      type: 'consumable',
+    };
+  }
 }
 
 export class Material implements Item {
@@ -210,5 +247,15 @@ export class Material implements Item {
     this.weight = this.itemsList[id].weight;
     this.stackable = this.itemsList[id].stackable;
     this.quality = quality;
+  }
+
+  public getAttributes() {
+    return {
+      name: this.name,
+      description: this.description,
+      quality: this.quality,
+      weight: this.weight,
+      type: 'material',
+    };
   }
 }
