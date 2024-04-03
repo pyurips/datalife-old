@@ -34,7 +34,6 @@ class Auth {
       );
     } catch (e) {
       if (e.name === 'DATALIFEClientError') throw e;
-      alt.log(e);
       throw Utils.sendClientError(1705460706);
     }
   }

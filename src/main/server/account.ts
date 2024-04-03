@@ -48,8 +48,14 @@ class Account {
     return Account.allAccounts;
   }
 
+  public loadACharacter() {
+    if (this.character) throw Utils.sendClientError(1712108032);
+    this.character = new Character(this.playerInstance);
+  }
+
   public callableByRPC = {
     getAll: this.getAll,
+    loadACharacter: this.loadACharacter
   };
 }
 
