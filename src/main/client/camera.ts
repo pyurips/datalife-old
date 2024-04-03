@@ -95,7 +95,7 @@ export class Camera {
       easeTime ? easeTime : 0,
       false,
       false,
-      null
+      0
     );
   }
 

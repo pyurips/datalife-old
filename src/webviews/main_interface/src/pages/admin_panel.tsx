@@ -2,10 +2,9 @@ import WorldTeleport from '@/components/admin_panel/world_teleport';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import adminCategories from '@/utils/admin_panel_categories';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Switch } from '@/components/ui/switch';
-import useRequester from '@/utils/use_requester';
-import { VscLoading } from 'react-icons/vsc';
+//import { VscLoading } from 'react-icons/vsc';
 import PlayersAll from '@/components/admin_panel/players_all';
 import VehiclesCreate from '@/components/admin_panel/vehicles_create';
 import { useDebugMode } from '@/contexts/admin';
@@ -14,22 +13,12 @@ export default function AdminPanel() {
   const debugMode = useDebugMode((state) => state.debugMode);
   const setDebugMode = useDebugMode((state) => state.setDebugMode);
 
-  const {
-    data: accountData,
-    data: accountFetch,
-    loading: accountLoading,
-  } = useRequester('account_getOne', true);
-
-  function roleHandler(roleId: number) {
-    if (roleId === 4) return 'Administrador';
-    if (roleId === 3) return 'Moderador';
-    if (roleId === 2) return 'Ajudante';
-    return 'Cargo indefinido';
-  }
-
-  useEffect(() => {
-    accountFetch();
-  }, []);
+  // function roleHandler(roleId: number) {
+  //   if (roleId === 4) return 'Administrador';
+  //   if (roleId === 3) return 'Moderador';
+  //   if (roleId === 2) return 'Ajudante';
+  //   return 'Cargo indefinido';
+  // }
 
   const [selectedCategory, setSelectedCategory] = useState(
     adminCategories[0].category
@@ -41,8 +30,8 @@ export default function AdminPanel() {
   return (
     <div className="flex flex-col w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden">
       <div className="flex w-full p-[1vw] flex-row gap-[1vw] items-center justify-between">
-        {accountLoading && <VscLoading className="text-[1.1vw] animate-spin" />}
-        {!accountLoading && <p>{roleHandler(accountData?.permission_level)}</p>}
+        {/* {accountLoading && <VscLoading className="text-[1.1vw] animate-spin" />}
+        {!accountLoading && <p>{roleHandler(accountData?.permission_level)}</p>} */}
         <div className="flex flex-row items-center gap-3">
           <Switch
             checked={debugMode}
