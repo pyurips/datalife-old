@@ -14,6 +14,7 @@ abstract class Item {
     quality: 0 | 1 | 2;
     weight: number;
     type: string;
+    quantity: number;
   };
 }
 
@@ -99,6 +100,7 @@ export class Cloth implements Item {
       quality: this.quality,
       weight: this.weight,
       type: 'cloth',
+      quantity: this.quantity,
     };
   }
 }
@@ -114,6 +116,7 @@ export class Prop implements Item {
   public upperBody: number;
   public dlc?: number;
   public stackable: boolean;
+  public quantity: number;
 
   private itemsList = [
     {
@@ -148,7 +151,8 @@ export class Prop implements Item {
     },
   ];
 
-  constructor(id: number, quality: 0 | 1 | 2) {
+  constructor(id: number, quality: 0 | 1 | 2, quantity: number = 1) {
+    if (quantity < 1) throw Utils.sendClientError(1712148108);
     this.name = this.itemsList[id].name;
     this.description = this.itemsList[id].description;
     this.weight = this.itemsList[id].weight;
@@ -158,6 +162,7 @@ export class Prop implements Item {
     this.textureId = this.itemsList[id].textureId;
     this.upperBody = this.itemsList[id].upperBody;
     this.quality = quality;
+    this.quantity = quantity;
   }
 
   public wear(player: alt.Player) {
@@ -182,6 +187,7 @@ export class Prop implements Item {
       quality: this.quality,
       weight: this.weight,
       type: 'prop',
+      quantity: this.quantity,
     };
   }
 }
@@ -194,6 +200,7 @@ export class Consumable implements Item {
   public value: number;
   public stackable: boolean;
   public kind: 'food' | 'drink' | 'medicine';
+  public quantity: number;
 
   private itemsList = [
     {
@@ -206,13 +213,15 @@ export class Consumable implements Item {
     },
   ];
 
-  constructor(id: number, quality: 0 | 1 | 2) {
+  constructor(id: number, quality: 0 | 1 | 2, quantity: number = 1) {
+    if (quantity < 1) throw Utils.sendClientError(1712148108);
     this.name = this.itemsList[id].name;
     this.description = this.itemsList[id].description;
     this.weight = this.itemsList[id].weight;
     this.stackable = this.itemsList[id].stackable;
     this.value = this.itemsList[id].value;
     this.quality = quality;
+    this.quantity = quantity;
   }
 
   public consume(player: alt.Player) {
@@ -226,6 +235,7 @@ export class Consumable implements Item {
       quality: this.quality,
       weight: this.weight,
       type: 'consumable',
+      quantity: this.quantity,
     };
   }
 }
@@ -236,6 +246,7 @@ export class Material implements Item {
   public quality: 0 | 1 | 2;
   public weight: number;
   public stackable: boolean;
+  public quantity: number;
 
   private itemsList = [
     {
@@ -246,12 +257,13 @@ export class Material implements Item {
     },
   ];
 
-  constructor(id: number, quality: 0 | 1 | 2) {
+  constructor(id: number, quality: 0 | 1 | 2, quantity: number = 1) {
     this.name = this.itemsList[id].name;
     this.description = this.itemsList[id].description;
     this.weight = this.itemsList[id].weight;
     this.stackable = this.itemsList[id].stackable;
     this.quality = quality;
+    this.quantity = quantity;
   }
 
   public getAttributes() {
@@ -261,6 +273,7 @@ export class Material implements Item {
       quality: this.quality,
       weight: this.weight,
       type: 'material',
+      quantity: this.quantity,
     };
   }
 }
