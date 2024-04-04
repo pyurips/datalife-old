@@ -103,15 +103,30 @@ class Character {
   public addToBelongings(
     id: number,
     type: 'cloth' | 'material' | 'prop' | 'consumable',
-    quality: 0 | 1 | 2
+    quality: 0 | 1 | 2,
+    quantity = 1
   ) {
-    if (type === 'cloth') return this.belongings.push(new Cloth(id, quality));
-    if (type === 'material')
-      return this.belongings.push(new Material(id, quality));
-    if (type === 'prop') return this.belongings.push(new Prop(id, quality));
-    if (type === 'consumable')
-      return this.belongings.push(new Consumable(id, quality));
-    throw Utils.sendClientError(1712133551);
+    let item: Cloth | Material | Prop | Consumable;
+    if (type === 'cloth') item = new Cloth(id, quality, quantity);
+    if (type === 'material') item = new Material(id, quality, quantity);
+    if (type === 'prop') item = new Prop(id, quality, quantity);
+    if (type === 'consumable') item = new Consumable(id, quality, quantity);
+
+    if (!item) throw Utils.sendClientError(1712200814);
+
+    if (!item.stackable) {
+      for (let i = 0; i < quantity; i++) this.belongings.push(item);
+      return;
+    }
+    if (
+      this.belongings.some((item) => item.id === id && item.quality === quality)
+    ) {
+      this.belongings.find(
+        (item) => item.id === id && item.quality === quality
+      ).quantity += quantity;
+      return;
+    }
+    this.belongings.push(item);
   }
 
   public getBelongings() {

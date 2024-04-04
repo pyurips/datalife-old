@@ -2,6 +2,7 @@ import * as alt from 'alt-server';
 import Utils from './utils.js';
 
 abstract class Item {
+  abstract id: number;
   abstract name: string;
   abstract description: string;
   abstract quality: 0 | 1 | 2;
@@ -19,6 +20,7 @@ abstract class Item {
 }
 
 export class Cloth implements Item {
+  public id: number;
   public name: string;
   public description: string;
   public quality: 0 | 1 | 2;
@@ -76,6 +78,7 @@ export class Cloth implements Item {
     this.upperBody = this.itemsList[id].upperBody;
     this.quality = quality;
     this.quantity = quantity;
+    this.id = id;
   }
 
   public wear(player: alt.Player) {
@@ -106,6 +109,7 @@ export class Cloth implements Item {
 }
 
 export class Prop implements Item {
+  public id: number;
   public name: string;
   public description: string;
   public quality: 0 | 1 | 2;
@@ -163,6 +167,7 @@ export class Prop implements Item {
     this.upperBody = this.itemsList[id].upperBody;
     this.quality = quality;
     this.quantity = quantity;
+    this.id = id;
   }
 
   public wear(player: alt.Player) {
@@ -193,6 +198,7 @@ export class Prop implements Item {
 }
 
 export class Consumable implements Item {
+  public id: number;
   public name: string;
   public description: string;
   public quality: 0 | 1 | 2;
@@ -222,6 +228,7 @@ export class Consumable implements Item {
     this.value = this.itemsList[id].value;
     this.quality = quality;
     this.quantity = quantity;
+    this.id = id;
   }
 
   public consume(player: alt.Player) {
@@ -241,6 +248,7 @@ export class Consumable implements Item {
 }
 
 export class Material implements Item {
+  public id: number;
   public name: string;
   public description: string;
   public quality: 0 | 1 | 2;
@@ -258,12 +266,14 @@ export class Material implements Item {
   ];
 
   constructor(id: number, quality: 0 | 1 | 2, quantity: number = 1) {
+    if (quantity < 1) throw Utils.sendClientError(1712148108);
     this.name = this.itemsList[id].name;
     this.description = this.itemsList[id].description;
     this.weight = this.itemsList[id].weight;
     this.stackable = this.itemsList[id].stackable;
     this.quality = quality;
     this.quantity = quantity;
+    this.id = id;
   }
 
   public getAttributes() {
