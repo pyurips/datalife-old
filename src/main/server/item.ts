@@ -70,7 +70,7 @@ export class Cloth implements Item {
     if (quantity < 1) throw Utils.sendClientError(1712148108);
     this.name = this.itemsList[id].name;
     this.description = this.itemsList[id].description;
-    this.weight = this.itemsList[id].weight;
+    this.weight = this.itemsList[id].weight * quantity;
     this.stackable = this.itemsList[id].stackable;
     this.componentId = this.itemsList[id].componentId;
     this.drawableId = this.itemsList[id].drawableId;
@@ -159,7 +159,7 @@ export class Prop implements Item {
     if (quantity < 1) throw Utils.sendClientError(1712148108);
     this.name = this.itemsList[id].name;
     this.description = this.itemsList[id].description;
-    this.weight = this.itemsList[id].weight;
+    this.weight = this.itemsList[id].weight * quantity;
     this.stackable = this.itemsList[id].stackable;
     this.componentId = this.itemsList[id].componentId;
     this.drawableId = this.itemsList[id].drawableId;
@@ -223,7 +223,7 @@ export class Consumable implements Item {
     if (quantity < 1) throw Utils.sendClientError(1712148108);
     this.name = this.itemsList[id].name;
     this.description = this.itemsList[id].description;
-    this.weight = this.itemsList[id].weight;
+    this.weight = this.itemsList[id].weight * quantity;
     this.stackable = this.itemsList[id].stackable;
     this.value = this.itemsList[id].value;
     this.quality = quality;
@@ -269,7 +269,7 @@ export class Material implements Item {
     if (quantity < 1) throw Utils.sendClientError(1712148108);
     this.name = this.itemsList[id].name;
     this.description = this.itemsList[id].description;
-    this.weight = this.itemsList[id].weight;
+    this.weight = this.itemsList[id].weight * quantity;
     this.stackable = this.itemsList[id].stackable;
     this.quality = quality;
     this.quantity = quantity;

@@ -121,9 +121,12 @@ class Character {
     if (
       this.belongings.some((item) => item.id === id && item.quality === quality)
     ) {
-      this.belongings.find(
+      const found = this.belongings.find(
         (item) => item.id === id && item.quality === quality
-      ).quantity += quantity;
+      );
+      if (!found) return;
+      found.quantity += quantity;
+      found.weight += item.weight * quantity;
       return;
     }
     this.belongings.push(item);

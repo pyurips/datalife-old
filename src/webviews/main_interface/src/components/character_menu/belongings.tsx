@@ -24,6 +24,10 @@ export default function Belongings() {
     fetch_1();
   }, []);
 
+  useEffect(() => {
+    if (data_1) console.log(data_1);
+  }, [data_1]);
+
   return (
     <div className="flex flex-col w-full gap-[1vw]">
       <header className="flex flex-row items-center gap-2">
@@ -34,12 +38,12 @@ export default function Belongings() {
       <ScrollArea>
         <section className="flex flex-1 flex-row gap-[1.2vw] flex-wrap p-[0.1vw]">
           {data_1 &&
-            data_1?.belongings.map((item: any) => (
+            data_1?.map((item: any) => (
               <DropdownMenu key={item.id}>
                 <DropdownMenuTrigger asChild>
                   <button className="flex flex-col w-[6vw] h-[6vw] bg-stone-900 items-end overflow-hidden rounded-[0.8vw] transition-all active:bg-stone-800">
                     <div className="flex flex-1 items-center justify-center"></div>
-                    <p className="text-[0.8vw] p-[0.3vw]">{item.id}</p>
+                    <p className="text-[0.8vw] p-[0.3vw]">{item.quantity}</p>
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="max-w-[15vw] bg-stone-950 border-none p-[0.5vw] rounded-[1vw]">
