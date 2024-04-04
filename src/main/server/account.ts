@@ -69,11 +69,8 @@ class Account {
       [],
       []
     );
-    this.character.addToBelongings(0, 'consumable', 0);
-    this.character.addToBelongings(0, 'consumable', 0);
-    this.character.addToBelongings(0, 'consumable', 0);
-    this.character.addToBelongings(0, 'consumable', 0);
-    this.character.addToBelongings(0, 'consumable', 0);
+    this.character.addToBelongings(0, 'consumable', 0, 10);
+    this.character.addToBelongings(1, 'cloth', 1, 5);
     return 1;
   }
 

@@ -111,10 +111,11 @@ class Character {
     if (type === 'material') item = new Material(id, quality, quantity);
     if (type === 'prop') item = new Prop(id, quality, quantity);
     if (type === 'consumable') item = new Consumable(id, quality, quantity);
-
     if (!item) throw Utils.sendClientError(1712200814);
 
     if (!item.stackable) {
+      item.quantity = 1;
+      item.weight = item.weight / quantity;
       for (let i = 0; i < quantity; i++) this.belongings.push(item);
       return;
     }
