@@ -37,16 +37,16 @@ export default function Belongings() {
 
       <ScrollArea>
         <section className="flex flex-1 flex-row gap-[1.2vw] flex-wrap p-[0.1vw]">
-          {data_1 &&
+          {/* {data_1 &&
             data_1?.map((item: any) => (
               <DropdownMenu key={item.id}>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex flex-col w-[6vw] h-[6vw] bg-stone-900 items-end overflow-hidden rounded-[0.8vw] transition-all active:bg-stone-800">
+                  <button className="flex flex-col w-[6vw] h-[6vw] items-end overflow-hidden rounded-[0.8vw] transition-all">
                     <div className="flex flex-1 items-center justify-center"></div>
                     <p className="text-[0.8vw] p-[0.3vw]">{item.quantity}</p>
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="max-w-[15vw] bg-stone-950 border-none p-[0.5vw] rounded-[1vw]">
+                <DropdownMenuContent className="max-w-[10vw] border-none p-[0.5vw] rounded-[1vw]">
                   <DropdownMenuLabel>
                     <div className="flex flex-col gap-[1vw]">
                       <p className="leading-[1vw] text-[0.9vw]">{item.name}</p>
@@ -64,7 +64,7 @@ export default function Belongings() {
                       </p>
                     </div>
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-stone-600" />
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem className="text-[0.8vw]">
                     Usar
                   </DropdownMenuItem>
@@ -73,31 +73,38 @@ export default function Belongings() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            ))}
+            ))} */}
           {new Array(50).fill(0).map((_, i) => (
             <DropdownMenu key={i}>
               <DropdownMenuTrigger asChild>
-                <button className="flex flex-col w-[6vw] h-[6vw] bg-stone-900 items-end overflow-hidden rounded-[0.8vw] transition-all active:bg-stone-800">
-                  <div className="flex flex-1 items-center justify-center"></div>
-                  <p className="text-[0.8vw] p-[0.3vw]">2151</p>
+                <button className="flex flex-col w-[6vw] h-[6vw] items-center justify-between overflow-hidden rounded-[0.8vw] transition-all hover:bg-stone-900">
+                  <div className="flex flex-1 items-center justify-center p-[1vw] overflow-hidden">
+                    <img
+                      src="/src/assets/items/material_0.svg"
+                      className="w-[4vw] h-[4vw]"
+                    />
+                  </div>
+                  <p className="text-[0.7vw] pr-[0.3vw] pb-[0.3vw] self-end">2151</p>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="max-w-[15vw] bg-stone-950 border-none p-[0.5vw] rounded-[1vw]">
+              <DropdownMenuContent className="max-w-[12vw] border-none p-[0.5vw] rounded-[1vw] bg-stone-900">
                 <DropdownMenuLabel>
                   <div className="flex flex-col gap-[1vw]">
-                    <p className="leading-[1vw] text-[0.9vw]">
+                    <p className="leading-[1vw] text-[1vw]">
                       Roupa esquisita amarela branca verde
                     </p>
 
                     <div className="flex flex-row items-center justify-between">
                       <p className="text-[0.8vw]">Qualidade</p>
                       <div className="flex flex-row gap-[0.2vw] items-end">
-                        <p className="text-[1vw]">20</p>
-                        <p className="text-[0.9vw] font-semibold">kg</p>
+                        <p className="text-[0.8vw] text-stone-400">20</p>
+                        <p className="text-[0.7vw] font-semibold text-stone-400">
+                          kg
+                        </p>
                       </div>
                     </div>
 
-                    <p className="leading-[1vw] text-[0.8vw] text-justify">
+                    <p className="leading-[1vw] text-[0.7vw] text-justify font-normal">
                       Descrição bem esquisita dessa roupa esquisita
                     </p>
                   </div>
@@ -106,7 +113,7 @@ export default function Belongings() {
                 <DropdownMenuItem className="text-[0.8vw]">
                   Usar
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-[0.8vw]">
+                <DropdownMenuItem className="text-[0.8vw] text-red-400 hover:text-inherit hover:bg-red-500 focus:bg-red-500">
                   Jogar fora
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -117,7 +124,7 @@ export default function Belongings() {
 
       <div className="flex flex-row items-center justify-between gap-[1vw]">
         <FaWeightHanging className="text-[1.5vw]" />
-        <Progress color="bg-green-500" className="h-[0.3vw]" value={100} />
+        <Progress color="bg-green-500" className="h-[0.3vw]" value={90} />
         <div className="flex flex-row gap-[0.2vw] items-end">
           <p className="text-[1vw]">110/120</p>
           <p className="text-[0.9vw] font-semibold">kg</p>
