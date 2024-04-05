@@ -32,7 +32,7 @@ export default function Belongings() {
     <div className="flex flex-col w-full gap-[1vw]">
       <header className="flex flex-row items-center gap-2">
         <FaSearch className="text-[1.3vw]" />
-        <Input />
+        <Input placeholder='Procure um item pelo nome' />
       </header>
 
       <ScrollArea>
@@ -77,7 +77,7 @@ export default function Belongings() {
           {new Array(50).fill(0).map((_, i) => (
             <DropdownMenu key={i}>
               <DropdownMenuTrigger asChild>
-                <button className="flex flex-col w-[6vw] h-[6vw] items-center justify-between overflow-hidden rounded-[0.8vw] transition-all hover:bg-stone-900">
+                <button className="flex flex-col w-[6vw] h-[6vw] items-center justify-between overflow-hidden rounded-[0.8vw] transition-all hover:bg-stone-900 bg-sky-950">
                   <div className="flex flex-1 items-center justify-center p-[1vw] overflow-hidden">
                     <img
                       src="/src/assets/items/material_0.svg"
