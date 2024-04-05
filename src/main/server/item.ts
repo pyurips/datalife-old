@@ -9,6 +9,7 @@ abstract class Item {
   abstract weight: number;
   abstract stackable: boolean;
   abstract quantity: number;
+  abstract type: 'cloth' | 'material' | 'consumable';
   abstract getAttributes: () => {
     name: string;
     description: string;
@@ -33,6 +34,7 @@ export class Cloth implements Item {
   public stackable: boolean;
   public quantity: number;
   public kind: 'cloth' | 'prop';
+  public type: 'cloth' | 'material' | 'consumable' = 'cloth';
 
   private itemsList = [
     {
@@ -133,6 +135,7 @@ export class Consumable implements Item {
   public stackable: boolean;
   public kind: 'food' | 'drink' | 'medicine';
   public quantity: number;
+  public type: 'cloth' | 'material' | 'consumable' = 'consumable';
 
   private itemsList = [
     {
@@ -181,6 +184,7 @@ export class Material implements Item {
   public weight: number;
   public stackable: boolean;
   public quantity: number;
+  public type: 'cloth' | 'material' | 'consumable' = 'material';
 
   private itemsList = [
     {

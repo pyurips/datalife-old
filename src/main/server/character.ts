@@ -102,7 +102,7 @@ class Character {
 
   public addToBelongings(
     id: number,
-    type: 'cloth' | 'material' | 'prop' | 'consumable',
+    type: 'cloth' | 'material' | 'consumable',
     quality: 0 | 1 | 2,
     quantity = 1
   ) {
@@ -119,12 +119,19 @@ class Character {
       return;
     }
     if (
-      this.belongings.some((item) => item.id === id && item.quality === quality)
+      this.belongings.some(
+        (item) =>
+          item.id === id && item.quality === quality && item.type === type
+      )
     ) {
       const found = this.belongings.find(
-        (item) => item.id === id && item.quality === quality
+        (item) =>
+          item.id === id && item.quality === quality && item.type === type
       );
-      if (!found) { this.belongings.push(item); return; }
+      if (!found) {
+        this.belongings.push(item);
+        return;
+      }
       found.quantity += quantity;
       found.weight += item.weight * quantity;
       return;
