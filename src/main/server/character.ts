@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { Cloth, Material, Prop, Consumable } from './item.js';
+import { Cloth, Material, Consumable } from './item.js';
 import Utils from './utils.js';
 
 class Character {
@@ -16,7 +16,7 @@ class Character {
   //public factions: Faction; TODO
   //public family: Family; TODO
   //public job: Job; TODO
-  public belongings: (Cloth | Material | Prop | Consumable)[];
+  public belongings: (Cloth | Material | Consumable)[];
   public weightCapacity: number;
 
   public needs: {
@@ -50,7 +50,7 @@ class Character {
     bank: number,
     level: number,
     experience: number,
-    belongings: (Cloth | Material | Prop | Consumable)[],
+    belongings: (Cloth | Material | Consumable)[],
     weightCapacity: number,
     needs: {
       hunger: { value: number; rate: number };
@@ -106,10 +106,9 @@ class Character {
     quality: 0 | 1 | 2,
     quantity = 1
   ) {
-    let item: Cloth | Material | Prop | Consumable;
+    let item: Cloth | Material | Consumable;
     if (type === 'cloth') item = new Cloth(id, quality, quantity);
     if (type === 'material') item = new Material(id, quality, quantity);
-    if (type === 'prop') item = new Prop(id, quality, quantity);
     if (type === 'consumable') item = new Consumable(id, quality, quantity);
     if (!item) throw Utils.sendClientError(1712200814);
 

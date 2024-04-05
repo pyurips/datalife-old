@@ -14,7 +14,7 @@ export default function App() {
   const setPage = usePage((state) => state.setPage);
   const canChangePage = usePage((state) => state.canChangePage);
   const [pressedKey, setPressedKey] = useState('');
-  const { fetch } = useRequester('client_utils_setPageMode', false);
+  const { fetch } = useRequester(['client_utils_setPageMode'], false);
 
   function listenerHandler(event: KeyboardEvent) {
     setPressedKey(event.key);
@@ -37,8 +37,7 @@ export default function App() {
   }, [pressedKey]);
 
   useEffect(() => {
-    if (page === 'mainHud') return fetch(false);
-    return fetch(true);
+    page === 'mainHud' ? fetch(false) : fetch(true);
   }, [page]);
 
   return (

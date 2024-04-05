@@ -32,6 +32,7 @@ export class Cloth implements Item {
   public dlc?: number;
   public stackable: boolean;
   public quantity: number;
+  public kind: 'cloth' | 'prop';
 
   private itemsList = [
     {
@@ -43,6 +44,7 @@ export class Cloth implements Item {
       drawableId: 15,
       textureId: 0,
       upperBody: 0,
+      kind: 'cloth',
     },
     {
       name: 'Jaqueta',
@@ -53,6 +55,7 @@ export class Cloth implements Item {
       drawableId: 15,
       textureId: 1,
       upperBody: 0,
+      kind: 'cloth',
     },
     {
       name: 'Colete',
@@ -63,6 +66,7 @@ export class Cloth implements Item {
       drawableId: 9,
       textureId: 0,
       upperBody: 1,
+      kind: 'cloth',
     },
   ];
 
@@ -82,14 +86,25 @@ export class Cloth implements Item {
   }
 
   public wear(player: alt.Player) {
-    if (this.dlc)
-      return player.setDlcClothes(
-        this.dlc,
-        this.componentId,
-        this.drawableId,
-        this.textureId
-      );
-    return player.setClothes(this.componentId, this.drawableId, this.textureId);
+    if (this.kind === 'cloth')
+      return this.dlc
+        ? player.setDlcClothes(
+            this.dlc,
+            this.componentId,
+            this.drawableId,
+            this.textureId
+          )
+        : player.setClothes(this.componentId, this.drawableId, this.textureId);
+    if (this.kind === 'prop')
+      return this.dlc
+        ? player.setDlcProp(
+            this.dlc,
+            this.componentId,
+            this.drawableId,
+            this.textureId
+          )
+        : player.setProp(this.componentId, this.drawableId, this.textureId);
+    throw Utils.sendClientError(1712303663);
   }
 
   public unwear(player: alt.Player) {
@@ -103,95 +118,6 @@ export class Cloth implements Item {
       quality: this.quality,
       weight: this.weight,
       type: 'cloth',
-      quantity: this.quantity,
-    };
-  }
-}
-
-export class Prop implements Item {
-  public id: number;
-  public name: string;
-  public description: string;
-  public quality: 0 | 1 | 2;
-  public weight: number;
-  public componentId: number;
-  public drawableId: number;
-  public textureId: number;
-  public upperBody: number;
-  public dlc?: number;
-  public stackable: boolean;
-  public quantity: number;
-
-  private itemsList = [
-    {
-      name: 'Óculos de Sol',
-      description: 'Óculos de sol comum',
-      weight: 0.1,
-      stackable: false,
-      componentId: 1,
-      drawableId: 1,
-      textureId: 0,
-      upperBody: 0,
-    },
-    {
-      name: 'Boné',
-      description: 'Um boné comum',
-      weight: 0.1,
-      stackable: false,
-      componentId: 0,
-      drawableId: 0,
-      textureId: 0,
-      upperBody: 0,
-    },
-    {
-      name: 'Máscara',
-      description: 'Uma máscara comum',
-      weight: 0.1,
-      stackable: false,
-      componentId: 1,
-      drawableId: 0,
-      textureId: 0,
-      upperBody: 0,
-    },
-  ];
-
-  constructor(id: number, quality: 0 | 1 | 2, quantity: number = 1) {
-    if (quantity < 1) throw Utils.sendClientError(1712148108);
-    this.name = this.itemsList[id].name;
-    this.description = this.itemsList[id].description;
-    this.weight = this.itemsList[id].weight * quantity;
-    this.stackable = this.itemsList[id].stackable;
-    this.componentId = this.itemsList[id].componentId;
-    this.drawableId = this.itemsList[id].drawableId;
-    this.textureId = this.itemsList[id].textureId;
-    this.upperBody = this.itemsList[id].upperBody;
-    this.quality = quality;
-    this.quantity = quantity;
-    this.id = id;
-  }
-
-  public wear(player: alt.Player) {
-    if (this.dlc)
-      return player.setDlcProp(
-        this.dlc,
-        this.componentId,
-        this.drawableId,
-        this.textureId
-      );
-    return player.setProp(this.componentId, this.drawableId, this.textureId);
-  }
-
-  public unwear(player: alt.Player) {
-    // TODO
-  }
-
-  public getAttributes() {
-    return {
-      name: this.name,
-      description: this.description,
-      quality: this.quality,
-      weight: this.weight,
-      type: 'prop',
       quantity: this.quantity,
     };
   }

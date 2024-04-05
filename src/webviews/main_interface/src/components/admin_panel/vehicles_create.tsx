@@ -12,16 +12,10 @@ import { Input } from '@/components/ui/input';
 import { FaSearch } from 'react-icons/fa';
 import vehiclesList from '@/utils/vehicles_list';
 import { useEffect, useState } from 'react';
-import useRequester from '@/utils/use_requester';
 
 export default function VehiclesCreate() {
   const [vehiclesListState, setVehiclesListState] = useState<any>(vehiclesList);
   const [search, setSearch] = useState('');
-
-  const { fetch: fetchToMe } = useRequester(
-    'admin_vehicles_createToMe',
-    false
-  );
 
   useEffect(() => {
     const filteredList = Object.fromEntries(
@@ -61,9 +55,7 @@ export default function VehiclesCreate() {
                     {e[0].charAt(0).toUpperCase() + e[0].slice(1)}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={() => fetchToMe({ modelId: e[1] })}
-                  >
+                  <DropdownMenuItem onClick={() => {}}>
                     Criar para mim
                   </DropdownMenuItem>
                   <DropdownMenuItem>Criar para o jogador</DropdownMenuItem>

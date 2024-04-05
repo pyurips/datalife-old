@@ -1,30 +1,18 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { SlOptionsVertical } from 'react-icons/sl';
+//import { SlOptionsVertical } from 'react-icons/sl';
 import { Input } from '@/components/ui/input';
 import { FaSearch } from 'react-icons/fa';
-import useRequester from '@/utils/use_requester';
-import { useEffect } from 'react';
-import { VscLoading } from 'react-icons/vsc';
+//import { VscLoading } from 'react-icons/vsc';
 
 export default function PlayersAll() {
-  const {
-    data: getAllResponseData,
-    fetch: getAllFetchData,
-    loading: getAllLoading,
-  } = useRequester('account_getAll', true);
-
-  useEffect(() => {
-    getAllFetchData();
-  }, []);
-
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="flex flex-row items-center gap-2 pr-3">
@@ -33,12 +21,12 @@ export default function PlayersAll() {
       </div>
       <ScrollArea className="w-full">
         <div className="flex flex-col gap-4">
-          {getAllLoading && (
+          {/* {getAllLoading && (
             <div className="flex items-center justify-center">
               <VscLoading className="text-[1.5vw] animate-spin" />
             </div>
-          )}
-          {!getAllLoading &&
+          )} */}
+          {/* {!getAllLoading &&
             getAllResponseData?.map((e: any, i: number) => (
               <div
                 key={i}
@@ -59,7 +47,7 @@ export default function PlayersAll() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-            ))}
+            ))} */}
         </div>
       </ScrollArea>
     </div>

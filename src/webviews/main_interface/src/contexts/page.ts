@@ -18,7 +18,7 @@ export const usePage = create<{
   ) => void;
   setCanChangePage: (value: boolean) => void;
 }>((set) => ({
-  page: 'characterMenu',
+  page: 'signin',
   canChangePage: false,
   setCanChangePage: (value) => set({ canChangePage: value }),
   setPage: (value) => set({ page: value }),
