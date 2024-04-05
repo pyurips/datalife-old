@@ -104,8 +104,8 @@ export default function Belongings() {
                       </div>
                     </div>
 
-                    <p className="leading-[1vw] text-[0.7vw] text-justify font-normal">
-                      Descrição bem esquisita dessa roupa esquisita
+                    <p className="leading-[1vw] text-[0.7vw] text-justify font-normal text-stone-300">
+                      Descrição bem esquisita dessa roupa esquisita Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt quis fuga, esse eveniet architecto nam amet illum quo! Ducimus molestiae qui quibusdam debitis temporibus modi quos accusantium cumque, magni quis!
                     </p>
                   </div>
                 </DropdownMenuLabel>
