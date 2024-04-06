@@ -7,6 +7,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+import material_0 from '@/assets/items/material_0.svg';
+
+const materialImages = [material_0];
+
 function getQualityColor(quality: 0 | 1 | 2) {
   if (quality === 1) return 'bg-sky-950';
   if (quality === 2) return 'bg-violet-950';
@@ -37,10 +41,7 @@ export default function MaterialDropDown({
           } ${getQualityColor(quality)}`}
         >
           <div className="flex flex-1 items-center justify-center p-[1vw] overflow-hidden">
-            <img
-              src={`/src/assets/items/material_${id}.svg`}
-              className="w-[4vw] h-[4vw]"
-            />
+            <img src={materialImages[id]} className="w-[4vw] h-[4vw]" />
           </div>
           <p className="text-[0.7vw] pr-[0.3vw] pb-[0.3vw] self-end">
             {quantity}

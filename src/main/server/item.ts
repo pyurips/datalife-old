@@ -11,6 +11,7 @@ abstract class Item {
   abstract quantity: number;
   abstract type: 'cloth' | 'material' | 'consumable';
   abstract getAttributes: () => {
+    id: number;
     name: string;
     description: string;
     quality: 0 | 1 | 2;
@@ -115,6 +116,7 @@ export class Cloth implements Item {
 
   public getAttributes() {
     return {
+      id: this.id,
       name: this.name,
       description: this.description,
       quality: this.quality,
@@ -166,6 +168,7 @@ export class Consumable implements Item {
 
   public getAttributes() {
     return {
+      id: this.id,
       name: this.name,
       description: this.description,
       quality: this.quality,
@@ -208,6 +211,7 @@ export class Material implements Item {
 
   public getAttributes() {
     return {
+      id: this.id,
       name: this.name,
       description: this.description,
       quality: this.quality,
