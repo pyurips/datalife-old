@@ -86,7 +86,7 @@ class Character {
   public loadIntoWorld() {
     this.playerInstance.spawn(-14.295, 24.695, 71.656);
     this.playerInstance.dimension = 0;
-    this.playerInstance.giveWeapon(alt.hash('weapon_pistol'), 50, false);
+    this.playerInstance.giveWeapon(alt.hash('weapon_pistol'), 50, true);
   }
 
   public getAllAttributes() {

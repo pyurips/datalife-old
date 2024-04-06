@@ -8,6 +8,9 @@ class Character {
     native.setPedConfigFlag(Character.player, 241, true);
     native.setPedConfigFlag(Character.player, 429, true);
     native.setPedConfigFlag(Character.player, 448, true);
+    native.displayAmmoThisFrame(false);
+    native.disableControlAction(0, 37, true);
+    native.disableControlAction(0, 199, true);
   }
 }
 
