@@ -1,6 +1,7 @@
 import * as alt from 'alt-server';
 import { Cloth, Material, Consumable } from './item.js';
 import Utils from './utils.js';
+import Vehicle from './vehicle.js';
 
 class Character {
   private playerInstance: alt.Player;
@@ -9,7 +10,7 @@ class Character {
   public bank: number;
   public level: number;
   public experience: number;
-  //public vehicles: Vehicle[]; TODO
+  public vehicles: Vehicle[];
   //public properties: Property[]; TODO
   //public residences: Residence[]; TODO
   //public establishments: Establishment[]; TODO
