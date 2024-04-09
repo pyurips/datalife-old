@@ -19,6 +19,18 @@ class Character {
   //public job: Job; TODO
   public belongings: (Cloth | Material | Consumable)[];
   public weightCapacity: number;
+  public hotkeysSlots: [
+    Cloth | Material | Consumable,
+    Cloth | Material | Consumable,
+    Cloth | Material | Consumable,
+    Cloth | Material | Consumable,
+    Cloth | Material | Consumable,
+    Cloth | Material | Consumable,
+    Cloth | Material | Consumable,
+    Cloth | Material | Consumable,
+    Cloth | Material | Consumable,
+    Cloth | Material | Consumable
+  ];
 
   public needs: {
     hunger: { value: number; rate: number };
