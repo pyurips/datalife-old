@@ -8,6 +8,7 @@ class Drop {
   public itemWeight: number;
   public itemQuantity: number;
   public itemQuality: 0 | 1 | 2;
+  public itemType: 'cloth' | 'material' | 'consumable';
   public createdAt: number;
   public dropInstance: alt.Object;
 
@@ -16,12 +17,14 @@ class Drop {
     itemWeight: number,
     itemQuantity: number,
     itemQuality: 0 | 1 | 2,
+    itemType: 'cloth' | 'material' | 'consumable',
     position: alt.Vector3
   ) {
     itemId = this.itemId;
     itemWeight = this.itemWeight;
     itemQuantity = this.itemQuantity;
     itemQuality = this.itemQuality;
+    itemType = this.itemType;
     position = this.position;
     this.createdAt = Date.now();
     this.dropInstance = new alt.Object(
@@ -41,7 +44,7 @@ class Drop {
   public addToBelongings(account: Account) {
     account.character.addToBelongings(
       this.itemId,
-      'cloth',
+      this.itemType,
       this.itemQuality,
       this.itemQuantity
     );
