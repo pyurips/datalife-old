@@ -18,6 +18,7 @@ export default function MainHud() {
       try {
         await fetch();
       } catch (error: any) {
+        console.log("Aconteceu um erro ao chamar aqui");
         console.error(error.message);
       }
     }, 5000);

@@ -46,6 +46,7 @@ class Webview {
     rot: alt.Vector3
   ) {
     const object = new alt.LocalObject('prop_tv_flat_01_screen', pos, rot);
+    object.alpha = 200;
     object.toggleCollision(false, false);
     const webView = new alt.WebView(
       Webview.webViews[webViewId],
@@ -66,21 +67,18 @@ class Webview {
     await new Promise((resolve) => {
       webView.once('load', resolve);
     });
-
+    new alt.Utils.EveryTick(() => {
+      const cameraPos = native.getGameplayCamCoord();
+      const tvPos = object.pos;
+      const direction = new alt.Vector3(
+        cameraPos.x - tvPos.x,
+        cameraPos.y - tvPos.y,
+        0
+      ).normalize();
+      const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
+      object.rot = new alt.Vector3(0, 0, rotationZ);
+    });
     Webview.activeWebViews.push({ id: webViewId, webView });
-    new alt.Utils.Timeout(() => {
-      new alt.Utils.EveryTick(() => {
-        const cameraPos = native.getGameplayCamCoord();
-        const tvPos = object.pos;
-        const direction = new alt.Vector3(
-          cameraPos.x - tvPos.x,
-          cameraPos.y - tvPos.y,
-          0
-        ).normalize();
-        const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
-        object.rot = new alt.Vector3(0, 0, rotationZ);
-      });
-    }, 500);
   }
 }
 
