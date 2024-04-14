@@ -6,9 +6,18 @@ import { FaToiletPaper } from 'react-icons/fa6';
 import { IoBedSharp } from 'react-icons/io5';
 import DebugPanel from '@/components/main_hud/debug_panel';
 import { useDebugMode } from '@/contexts/admin';
+import { useEffect } from 'react';
+import useRequester from '@/utils/use_requester';
 
 export default function MainHud() {
   const debugMode = useDebugMode((state) => state.debugMode);
+  const { fetch } = useRequester(['client_utils_testObjectView'], false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetch();
+    }, 5000);
+  }, []);
 
   return (
     <div className="flex flex-col gap-[1vw] w-full h-full p-[1vw]">

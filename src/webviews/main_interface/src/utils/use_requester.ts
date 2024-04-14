@@ -27,7 +27,10 @@ function useRequester(operations: string[], startLoading = true) {
 
     for await (const [index, operation] of operations.entries()) {
       const response = await requester(operation, requestData[index]);
-      if (response?.error) throw new Error(response.error);
+      if (response?.error) {
+        setLoading(false);
+        throw new Error(response.error);
+      }
       setData((prev) => [...prev, response]);
     }
     setLoading(false);

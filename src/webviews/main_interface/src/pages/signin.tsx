@@ -57,9 +57,9 @@ export default function Signin() {
           variant="secondary"
           disabled={loading_1 || loading_2}
           className="flex flex-row items-center gap-[0.5vw] px-[1.5vw] py-[1vw] h-min bg-green-800 hover:bg-green-900"
-          onClick={() => {
+          onClick={async () => {
             try {
-              fetch_1();
+              await fetch_1();
             } catch (error: any) {
               setErrorMessage(error.message);
             }
