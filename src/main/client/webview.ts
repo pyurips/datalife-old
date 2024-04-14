@@ -52,7 +52,6 @@ class Webview {
       object.model,
       'script_rt_tvscreen'
     );
-
     webView.on('request', async (operationName: string, data?: unknown) => {
       try {
         const response = await requester(operationName, data);
@@ -69,6 +68,19 @@ class Webview {
     });
 
     Webview.activeWebViews.push({ id: webViewId, webView });
+    new alt.Utils.Timeout(() => {
+      new alt.Utils.EveryTick(() => {
+        const cameraPos = native.getGameplayCamCoord();
+        const tvPos = object.pos;
+        const direction = new alt.Vector3(
+          cameraPos.x - tvPos.x,
+          cameraPos.y - tvPos.y,
+          0
+        ).normalize();
+        const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
+        object.rot = new alt.Vector3(0, 0, rotationZ);
+      });
+    }, 500);
   }
 }
 
