@@ -14,8 +14,12 @@ export default function MainHud() {
   const { fetch } = useRequester(['client_utils_testObjectView'], false);
 
   useEffect(() => {
-    setTimeout(() => {
-      fetch();
+    setTimeout(async () => {
+      try {
+        await fetch();
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }, 5000);
   }, []);
 
