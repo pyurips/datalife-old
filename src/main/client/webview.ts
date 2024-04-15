@@ -46,7 +46,7 @@ class Webview {
     rot: alt.Vector3
   ) {
     const object = new alt.LocalObject('prop_tv_flat_01_screen', pos, rot);
-    object.alpha = 200;
+    object.alpha = 240;
     object.toggleCollision(false, false);
     const webView = new alt.WebView(
       Webview.webViews[webViewId],
