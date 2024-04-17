@@ -11,6 +11,7 @@ class Webview {
     id: number;
     webView: alt.WebView;
     camAngleInterval?: number;
+    object?: alt.LocalObject;
   }[] = [];
 
   static async loadWebView(WebviewId: number, isOverlay = false) {
@@ -92,6 +93,11 @@ class Webview {
     Webview.activeWebViews = Webview.activeWebViews.filter(
       (e) => e.id !== webViewId
     );
+  }
+
+  static setObjectViewPos(webViewId: number, pos: alt.Vector3) {
+    const view = Webview.activeWebViews.find((e) => e.id === webViewId);
+    if (view) view.object.pos = pos;
   }
 }
 
