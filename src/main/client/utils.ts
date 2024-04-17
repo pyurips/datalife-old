@@ -1,6 +1,5 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
-import Webview from './webview.js';
 
 class Utils {
   static cursorCount = 0;
@@ -35,10 +34,6 @@ class Utils {
   static toggleNativeHud(state: boolean) {
     native.displayRadar(state);
     native.displayHud(state);
-  }
-
-  static async testObjectView() {
-    await Webview.createObjectView(1, alt.Player.local.pos, alt.Player.local.rot);
   }
 }
 

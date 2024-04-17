@@ -45,12 +45,12 @@ class Webview {
       .webView.unfocus();
   }
 
-  static async createObjectView(
-    webViewId: number,
-    pos: alt.Vector3,
-    rot: alt.Vector3
-  ) {
-    const object = new alt.LocalObject('prop_tv_flat_01_screen', pos, rot);
+  static async createObjectView(webViewId: number, pos: alt.Vector3) {
+    const object = new alt.LocalObject(
+      'prop_tv_flat_01_screen',
+      pos,
+      new alt.Vector3(0, 0, 0)
+    );
     object.alpha = 240;
     object.toggleCollision(false, false);
     const webView = new alt.WebView(
@@ -83,12 +83,19 @@ class Webview {
       const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
       object.rot = new alt.Vector3(0, 0, rotationZ);
     });
-    Webview.activeWebViews.push({ id: webViewId, webView, camAngleInterval });
+    Webview.activeWebViews.push({
+      id: webViewId,
+      webView,
+      camAngleInterval,
+      object,
+    });
   }
 
   static destroyObjectView(webViewId: number) {
     const view = Webview.activeWebViews.find((e) => e.id === webViewId);
+    if (!view) return;
     if (view?.camAngleInterval) alt.clearEveryTick(view.camAngleInterval);
+    if (view?.object) view.object.destroy();
     if (view) view.webView.destroy();
     Webview.activeWebViews = Webview.activeWebViews.filter(
       (e) => e.id !== webViewId

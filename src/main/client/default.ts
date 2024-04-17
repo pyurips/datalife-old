@@ -3,6 +3,7 @@ import CustomCamera from './camera.js';
 import Utils from './utils.js';
 import Webview from './webview.js';
 import Character from './character.js';
+import Interation from './interation.js';
 
 class Default {
   static onConnectionComplete() {
@@ -16,7 +17,8 @@ class Default {
 
   static onEveryTick() {
     alt.everyTick(() => {
-      Character.defaultCharacterBehaviors();
+      //Character.defaultCharacterBehaviors();
+      Interation.vehicleInteration();
     });
   }
 }

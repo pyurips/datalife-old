@@ -2,6 +2,7 @@ import * as alt from 'alt-server';
 import { Cloth, Material, Consumable } from './item.js';
 import Utils from './utils.js';
 import Vehicle from './vehicle.js';
+import Account from './account.js';
 
 class Character {
   private playerInstance: alt.Player;
@@ -100,6 +101,31 @@ class Character {
     this.playerInstance.spawn(-14.295, 24.695, 71.656);
     this.playerInstance.dimension = 0;
     this.playerInstance.giveWeapon(alt.hash('weapon_pistol'), 50, true);
+    setTimeout(() => {
+      new Vehicle(
+        Account.getAccountByPlayerInstance(this.playerInstance)
+      ).create({
+        model: 0x378236e1,
+        position: this.playerInstance.pos,
+        rotation: this.playerInstance.rot,
+        fuelType: 'gasoline',
+        fuelRate: 1,
+        fuel: 1000,
+      });
+    }, 2000);
+
+    setTimeout(() => {
+      new Vehicle(
+        Account.getAccountByPlayerInstance(this.playerInstance)
+      ).create({
+        model: 0x378236e1,
+        position: this.playerInstance.pos,
+        rotation: this.playerInstance.rot,
+        fuelType: 'gasoline',
+        fuelRate: 1,
+        fuel: 1000,
+      });
+    }, 10000);
   }
 
   public getAllAttributes() {
