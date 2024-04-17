@@ -7,7 +7,11 @@ class Webview {
     'http://assets/webviews/main_interface/index.html',
     'http://assets/webviews/vehicle_status_interface/index.html',
   ];
-  static activeWebViews: { id: number; webView: alt.WebView }[] = [];
+  static activeWebViews: {
+    id: number;
+    webView: alt.WebView;
+    camAngleInterval?: number;
+  }[] = [];
 
   static async loadWebView(WebviewId: number, isOverlay = false) {
     const webView = new alt.WebView(Webview.webViews[WebviewId], isOverlay);
@@ -67,7 +71,7 @@ class Webview {
     await new Promise((resolve) => {
       webView.once('load', resolve);
     });
-    new alt.Utils.EveryTick(() => {
+    const camAngleInterval = alt.everyTick(() => {
       const cameraPos = native.getGameplayCamCoord();
       const tvPos = object.pos;
       const direction = new alt.Vector3(
@@ -78,7 +82,16 @@ class Webview {
       const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
       object.rot = new alt.Vector3(0, 0, rotationZ);
     });
-    Webview.activeWebViews.push({ id: webViewId, webView });
+    Webview.activeWebViews.push({ id: webViewId, webView, camAngleInterval });
+  }
+
+  static destroyObjectView(webViewId: number) {
+    const view = Webview.activeWebViews.find((e) => e.id === webViewId);
+    if (view?.camAngleInterval) alt.clearEveryTick(view.camAngleInterval);
+    if (view) view.webView.destroy();
+    Webview.activeWebViews = Webview.activeWebViews.filter(
+      (e) => e.id !== webViewId
+    );
   }
 }
 
