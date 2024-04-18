@@ -38,9 +38,11 @@ export function toggleFocus(webViewId: number, state: boolean) {
 export async function createObjectView(webViewId: number) {
   const object = new alt.LocalObject(
     'prop_tv_flat_01_screen',
-    new alt.Vector3(0, 0, 0),
+    alt.Player.local.pos,
+    //new alt.Vector3(0, 0, 0),
     new alt.Vector3(0, 0, 0)
   );
+  await alt.Utils.requestModel(object.model);
   object.alpha = 240;
   object.toggleCollision(false, false);
   const webView = new alt.WebView(

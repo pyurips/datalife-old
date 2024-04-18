@@ -1,5 +1,5 @@
 {
-  "name": "vehicle_status_interface",
+  "name": "interactions_interface",
   "private": true,
   "version": "0.0.0",
   "type": "module",
