@@ -9,23 +9,30 @@ const webViews = [
   'http://assets/webviews/vehicle_status_interface/index.html',
 ];
 
-let activeWebViews: {
+let activeObjectViews: {
   id: number;
   webView: alt.WebView;
-  camAngleInterval?: number;
-  object?: alt.LocalObject;
+  camAngleInterval: number;
+  object: alt.LocalObject;
 }[] = [];
+
+let mainWebView: alt.WebView = null;
 
 export async function loadMainWebView() {
   const webView = new alt.WebView(webViews[0], false);
   await loadWebViewRequester(webView);
-  activeWebViews.push({ id: 0, webView });
+  mainWebView = webView;
+}
+
+export function toggleMainWebViewFocus(state: boolean) {
+  if (state) return mainWebView.focus();
+  return mainWebView.unfocus();
 }
 
 export function toggleFocus(webViewId: number, state: boolean) {
   if (state)
-    return activeWebViews.find((e) => e.id === webViewId).webView.focus();
-  return activeWebViews.find((e) => e.id === webViewId).webView.unfocus();
+    return activeObjectViews.find((e) => e.id === webViewId).webView.focus();
+  return activeObjectViews.find((e) => e.id === webViewId).webView.unfocus();
 }
 
 export async function createObjectView(webViewId: number) {
@@ -53,7 +60,7 @@ export async function createObjectView(webViewId: number) {
     const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
     object.rot = new alt.Vector3(0, 0, rotationZ);
   });
-  activeWebViews.push({
+  activeObjectViews.push({
     id: webViewId,
     webView,
     camAngleInterval,
@@ -62,16 +69,16 @@ export async function createObjectView(webViewId: number) {
 }
 
 export function destroyObjectView(webViewId: number) {
-  const view = activeWebViews.find((e) => e.id === webViewId);
+  const view = activeObjectViews.find((e) => e.id === webViewId);
   if (!view) return;
   if (view?.camAngleInterval) alt.clearEveryTick(view.camAngleInterval);
   if (view?.object) view.object.destroy();
   if (view) view.webView.destroy();
-  activeWebViews = activeWebViews.filter((e) => e.id !== webViewId);
+  activeObjectViews = activeObjectViews.filter((e) => e.id !== webViewId);
 }
 
 export function setObjectViewPos(webViewId: number, pos: alt.Vector3) {
-  const view = activeWebViews.find((e) => e.id === webViewId);
+  const view = activeObjectViews.find((e) => e.id === webViewId);
   if (view) view.object.pos = pos;
 }
 
@@ -101,14 +108,18 @@ async function loadWebViewRequester(webView: alt.WebView) {
 }
 
 export function setPage(page: 'signIn' | 'mainHud') {
-  alt.setMeta('page', page);
+  alt.setMeta('mainPage', page);
 }
 
-export function emitCustomEventToWebView(
+export function emitCustomEventToMainWebView(event: string, data?: unknown) {
+  mainWebView.emit(event, data);
+}
+
+export function emitCustomEventToObjectView(
   webViewId: number,
   event: string,
   data?: unknown
 ) {
-  const view = activeWebViews.find((e) => e.id === webViewId);
+  const view = activeObjectViews.find((e) => e.id === webViewId);
   if (view) view.webView.emit(event, data);
 }

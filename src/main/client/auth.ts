@@ -4,7 +4,7 @@ import { setPage } from './webview.js';
 
 const DISCORD_APP_ID = '1196692311728472097';
 
-export async function getDiscordToken() {
+export async function auth_signin() {
   try {
     const token = await alt.Discord.requestOAuth2Token(DISCORD_APP_ID);
     return { token };
@@ -17,7 +17,7 @@ export async function auth_signinTest() {
   await new Promise((resolve) =>
     setTimeout(() => {
       resolve(null);
-    }, 3000)
+    }, 1_000)
   );
   setPage('mainHud');
   deleteSigninCamera();
@@ -25,5 +25,6 @@ export async function auth_signinTest() {
 }
 
 export const callableByRPC = {
+  auth_signin,
   auth_signinTest,
 };

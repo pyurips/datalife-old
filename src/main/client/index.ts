@@ -3,9 +3,9 @@ import * as alt from 'alt-client';
 import { setPageMode } from './utils.js';
 import {
   loadMainWebView,
-  toggleFocus,
   setPage,
-  emitCustomEventToWebView,
+  emitCustomEventToMainWebView,
+  toggleMainWebViewFocus,
 } from './webview.js';
 import { defaultCharacterBehaviors } from './character.js';
 import { createSigninCamera } from './camera.js';
@@ -14,7 +14,7 @@ alt.on('connectionComplete', async () => {
   createSigninCamera();
   await loadMainWebView();
   setPage('signIn');
-  toggleFocus(0, true);
+  toggleMainWebViewFocus(true);
 });
 
 alt.everyTick(() => {
@@ -22,9 +22,9 @@ alt.everyTick(() => {
 });
 
 alt.on('globalMetaChange', (key, value) => {
-  if (key === 'page') {
+  if (key === 'mainPage') {
     if (value === 'mainHud') setPageMode(false);
     else setPageMode(true);
-    return emitCustomEventToWebView(0, 'webView_setPage', value);
+    return emitCustomEventToMainWebView('mainWebView_setPage', value);
   }
 });

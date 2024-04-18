@@ -8,7 +8,7 @@ import { useListener } from './utils/use_listener';
 // import AdminPanel from './pages/admin_panel';
 
 export default function App() {
-  const page = useListener('webView_setPage');
+  const page = useListener('mainWebView_setPage');
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <main className="h-screen w-screen flex items-center justify-center">
