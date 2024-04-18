@@ -1,27 +1,29 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
 
-class Vehicle {
-  static vehicleInstance = alt.Player.local.vehicle;
+const vehicle = alt.Player.local.vehicle;
 
-  static speed() {
-    return this.vehicleInstance.speed;
-  }
-
-  static gear() {
-    return this.vehicleInstance.gear;
-  }
-
-  static type() {
-    if (native.isThisModelABicycle(this.vehicleInstance.model)) return 'bicycle';
-    if (native.isThisModelABike(this.vehicleInstance.model)) return 'bike';
-    if (native.isThisModelABoat(this.vehicleInstance.model)) return 'boat';
-    if (native.isThisModelACar(this.vehicleInstance.model)) return 'car';
-    if (native.isThisModelAHeli(this.vehicleInstance.model)) return 'heli';
-    if (native.isThisModelAPlane(this.vehicleInstance.model)) return 'plane';
-    if (native.isThisModelAQuadbike(this.vehicleInstance.model)) return 'quadbike';
-    return null;
-  }
+export function getType() {
+  if (native.isThisModelABicycle(vehicle.model)) return 'bicycle';
+  if (native.isThisModelABike(vehicle.model)) return 'bike';
+  if (native.isThisModelABoat(vehicle.model)) return 'boat';
+  if (native.isThisModelACar(vehicle.model)) return 'car';
+  if (native.isThisModelAHeli(vehicle.model)) return 'heli';
+  if (native.isThisModelAPlane(vehicle.model)) return 'plane';
+  if (native.isThisModelAQuadbike(vehicle.model)) return 'quadbike';
+  return null;
 }
 
-export default Vehicle;
+export function getSpeed() {
+  return vehicle.speed;
+}
+
+export function getGear() {
+  return vehicle.gear;
+}
+
+export const callableByRPC = {
+  getType,
+  getSpeed,
+  getGear,
+};

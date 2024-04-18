@@ -1,111 +1,101 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
-import requester from './requester.js';
 
-class Webview {
-  static webViews = [
-    'http://assets/webviews/main_interface/index.html',
-    'http://assets/webviews/vehicle_status_interface/index.html',
-  ];
-  static activeWebViews: {
-    id: number;
-    webView: alt.WebView;
-    camAngleInterval?: number;
-    object?: alt.LocalObject;
-  }[] = [];
+import { callableByRPC as cameraRPC } from './camera.js';
 
-  static async loadWebView(WebviewId: number, isOverlay = false) {
-    const webView = new alt.WebView(Webview.webViews[WebviewId], isOverlay);
+const webViews = [
+  'http://assets/webviews/main_interface/index.html',
+  'http://assets/webviews/vehicle_status_interface/index.html',
+];
 
-    webView.on('request', async (operationName: string, data?: unknown) => {
-      try {
-        const response = await requester(operationName, data);
-        webView.emit(`response:${operationName}`, response);
-      } catch (error) {
-        webView.emit(`response:${operationName}`, {
-          error,
-        });
-      }
-    });
+let activeWebViews: {
+  id: number;
+  webView: alt.WebView;
+  camAngleInterval?: number;
+  object?: alt.LocalObject;
+}[] = [];
 
-    await new Promise((resolve) => {
-      webView.once('load', resolve);
-    });
-
-    Webview.activeWebViews.push({ id: WebviewId, webView });
-  }
-
-  static toggleFocus(webViewId: number, state: boolean) {
-    if (state)
-      return Webview.activeWebViews
-        .find((e) => e.id === webViewId)
-        .webView.focus();
-    return Webview.activeWebViews
-      .find((e) => e.id === webViewId)
-      .webView.unfocus();
-  }
-
-  static async createObjectView(webViewId: number, pos: alt.Vector3) {
-    const object = new alt.LocalObject(
-      'prop_tv_flat_01_screen',
-      pos,
-      new alt.Vector3(0, 0, 0)
-    );
-    object.alpha = 240;
-    object.toggleCollision(false, false);
-    const webView = new alt.WebView(
-      Webview.webViews[webViewId],
-      object.model,
-      'script_rt_tvscreen'
-    );
-    webView.on('request', async (operationName: string, data?: unknown) => {
-      try {
-        const response = await requester(operationName, data);
-        webView.emit(`response:${operationName}`, response);
-      } catch (error) {
-        webView.emit(`response:${operationName}`, {
-          error,
-        });
-      }
-    });
-
-    await new Promise((resolve) => {
-      webView.once('load', resolve);
-    });
-    const camAngleInterval = alt.everyTick(() => {
-      const cameraPos = native.getGameplayCamCoord();
-      const tvPos = object.pos;
-      const direction = new alt.Vector3(
-        cameraPos.x - tvPos.x,
-        cameraPos.y - tvPos.y,
-        0
-      ).normalize();
-      const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
-      object.rot = new alt.Vector3(0, 0, rotationZ);
-    });
-    Webview.activeWebViews.push({
-      id: webViewId,
-      webView,
-      camAngleInterval,
-      object,
-    });
-  }
-
-  static destroyObjectView(webViewId: number) {
-    const view = Webview.activeWebViews.find((e) => e.id === webViewId);
-    if (!view) return;
-    if (view?.camAngleInterval) alt.clearEveryTick(view.camAngleInterval);
-    if (view?.object) view.object.destroy();
-    if (view) view.webView.destroy();
-    Webview.activeWebViews = Webview.activeWebViews.filter(
-      (e) => e.id !== webViewId
-    );
-  }
-
-  static setObjectViewPos(webViewId: number, pos: alt.Vector3) {
-    const view = Webview.activeWebViews.find((e) => e.id === webViewId);
-    if (view) view.object.pos = pos;
-  }
+export async function loadMainWebView() {
+  const webView = new alt.WebView(webViews[0], false);
+  await loadWebViewRequester(webView);
+  activeWebViews.push({ id: 0, webView });
 }
 
-export default Webview;
+export function toggleFocus(webViewId: number, state: boolean) {
+  if (state)
+    return activeWebViews.find((e) => e.id === webViewId).webView.focus();
+  return activeWebViews.find((e) => e.id === webViewId).webView.unfocus();
+}
+
+export async function createObjectView(webViewId: number) {
+  const object = new alt.LocalObject(
+    'prop_tv_flat_01_screen',
+    new alt.Vector3(0, 0, 0),
+    new alt.Vector3(0, 0, 0)
+  );
+  object.alpha = 240;
+  object.toggleCollision(false, false);
+  const webView = new alt.WebView(
+    webViews[webViewId],
+    object.model,
+    'script_rt_tvscreen'
+  );
+  await loadWebViewRequester(webView);
+  const camAngleInterval = alt.everyTick(() => {
+    const cameraPos = native.getGameplayCamCoord();
+    const tvPos = object.pos;
+    const direction = new alt.Vector3(
+      cameraPos.x - tvPos.x,
+      cameraPos.y - tvPos.y,
+      0
+    ).normalize();
+    const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
+    object.rot = new alt.Vector3(0, 0, rotationZ);
+  });
+  activeWebViews.push({
+    id: webViewId,
+    webView,
+    camAngleInterval,
+    object,
+  });
+}
+
+export function destroyObjectView(webViewId: number) {
+  const view = activeWebViews.find((e) => e.id === webViewId);
+  if (!view) return;
+  if (view?.camAngleInterval) alt.clearEveryTick(view.camAngleInterval);
+  if (view?.object) view.object.destroy();
+  if (view) view.webView.destroy();
+  activeWebViews = activeWebViews.filter((e) => e.id !== webViewId);
+}
+
+export function setObjectViewPos(webViewId: number, pos: alt.Vector3) {
+  const view = activeWebViews.find((e) => e.id === webViewId);
+  if (view) view.object.pos = pos;
+}
+
+async function loadWebViewRequester(webView: alt.WebView) {
+  webView.on(
+    'request',
+    async (to: 'server' | 'client', operation: string, data?: unknown) => {
+      try {
+        let currentOperation = null;
+        let response = null;
+        if (to === 'client') {
+          currentOperation = cameraRPC[operation];
+          if (currentOperation) response = await currentOperation(data);
+        } else {
+          response = await alt.emitRpc('rpc', operation, data);
+        }
+        webView.emit(`response:${operation}`, response);
+      } catch (error) {
+        webView.emit(`response:${operation}`, {
+          error,
+        });
+      }
+    }
+  );
+  await new Promise((resolve) => {
+    webView.once('load', resolve);
+  });
+}
