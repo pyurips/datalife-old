@@ -42,3 +42,29 @@ export function getDistanceBetween(vector1: alt.Vector3, vector2: alt.Vector3) {
       Math.pow(vector1.z - vector2.z, 2)
   );
 }
+
+export function getClosestVectorFromGroup(
+  pos: alt.Vector3,
+  arrayOfPositions: { pos: alt.Vector3 }[],
+  range: number
+) {
+  const positionsInRange = arrayOfPositions.filter(
+    (item) => getDistanceBetween(pos, item.pos) <= range
+  );
+  positionsInRange.sort((a, b) => {
+    return getDistanceBetween(pos, a.pos) - getDistanceBetween(pos, b.pos);
+  });
+  return positionsInRange[0];
+}
+
+export function getClosestVehicleFromPlayer(player: alt.Player, range: number) {
+  return getClosestVectorFromGroup(player.pos, [...alt.Vehicle.all], range);
+}
+
+export function getClosestMarkerFromPlayer(player: alt.Player, range: number) {
+  return getClosestVectorFromGroup(player.pos, [...alt.Marker.all], range);
+}
+
+export function getClosestObjectFromPlayer(player: alt.Player, range: number) {
+  return getClosestVectorFromGroup(player.pos, [...alt.Object.all], range);
+}

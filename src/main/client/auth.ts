@@ -1,6 +1,7 @@
 import * as alt from 'alt-client';
 import { deleteSigninCamera } from './camera.js';
 import { createObjectView, setMainPage } from './webview.js';
+import { setCanInteract } from './interation.js';
 
 const DISCORD_APP_ID = '1196692311728472097';
 
@@ -23,6 +24,7 @@ export async function auth_signinTest() {
   deleteSigninCamera();
   await alt.emitRpc('rpc', 'player_loadIntoWorld');
   createObjectView(1);
+  setCanInteract(true);
 }
 
 export const callableByRPC = {

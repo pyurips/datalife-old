@@ -3,7 +3,17 @@ import { VehicleData } from './types.js';
 
 export function vehicle_createByStaff(player: alt.Player) {}
 
-export function vehicle_createByWorld(player: alt.Player) {}
+export function vehicle_createByWorld(player: alt.Player) {
+  new alt.Vehicle(
+    'blista',
+    player.pos.x,
+    player.pos.y,
+    player.pos.z,
+    0,
+    0,
+    0
+  );
+}
 
 export function vehicle_setVehicleData(player: alt.Player, data: VehicleData) {
   const vehicle = player.vehicle;

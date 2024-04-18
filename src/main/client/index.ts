@@ -9,6 +9,7 @@ import {
 } from './webview.js';
 import { defaultCharacterBehaviors } from './character.js';
 import { createSigninCamera } from './camera.js';
+import { checkInteraction, getCanInteract } from './interation.js';
 
 alt.on('connectionComplete', async () => {
   createSigninCamera();
@@ -18,6 +19,7 @@ alt.on('connectionComplete', async () => {
 });
 
 alt.everyTick(() => {
+  if (getCanInteract()) checkInteraction();
   defaultCharacterBehaviors();
 });
 

@@ -1,6 +1,7 @@
 import * as alt from 'alt-server';
 import { AccountData, CharacterData } from './types.js';
 import { sendClientError } from './utils.js';
+import { vehicle_createByWorld } from './vehicle.js';
 
 export function player_setAccountData(player: alt.Player, data: AccountData) {
   if (!player?.valid) throw sendClientError(1713440472);
@@ -47,6 +48,12 @@ export function player_loadIntoWorld(player: alt.Player) {
   if (!player?.valid) throw sendClientError(1713440399);
   player.spawn(-14.295, 24.695, 71.656);
   player.dimension = 0;
+  setTimeout(() => {
+    vehicle_createByWorld(player);
+  }, 2000);
+  setTimeout(() => {
+    vehicle_createByWorld(player);
+  }, 8000);
 }
 
 export const callableByRPC = {
