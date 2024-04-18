@@ -14,15 +14,11 @@ alt.onRpc(
   'rpc',
   async (player, type: string, operation: string, data?: unknown) => {
     try {
-      let currentOperation = null;
-      if (type === 'player') {
-        currentOperation = playerRPC[operation];
-      }
-      if (type === 'item') {
-        currentOperation = itemRPC[operation];
-      }
-      if (!currentOperation) throw new Error();
-      return await currentOperation(player, data);
+      let currentOperation = {
+        ...playerRPC,
+        ...itemRPC,
+      };
+      return await currentOperation[operation](player, data);
     } catch (e) {
       return e;
     }
