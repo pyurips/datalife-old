@@ -6,7 +6,10 @@ export function player_setAccountData(player: alt.Player, data: AccountData) {
   player.setMeta('account', data);
 }
 
-export function player_setCharacterData(player: alt.Player, data: CharacterData) {
+export function player_setCharacterData(
+  player: alt.Player,
+  data: CharacterData
+) {
   if (!player?.valid) throw new Error();
   player.setMeta('character', data);
 }
@@ -43,6 +46,12 @@ export function player_updateCharacterData(
   if (!player?.valid) throw new Error();
   const character = player.getMeta('character') as CharacterData;
   player_setCharacterData(player, { ...character, ...data });
+}
+
+export function player_loadIntoWorld(player: alt.Player) {
+  if (!player?.valid) throw new Error();
+  player.spawn(0, 0, 0, 0);
+  player.dimension = 0;
 }
 
 export const callableByRPC = {
