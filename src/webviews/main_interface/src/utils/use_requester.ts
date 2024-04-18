@@ -29,4 +29,10 @@ function useRequester(
   };
 }
 
-export default useRequester;
+export function auth_signIn(): {
+  data: { error: string } | undefined;
+  fetch: () => void;
+  loading: boolean;
+} {
+  return useRequester('client', 'auth_signin', false);
+}
