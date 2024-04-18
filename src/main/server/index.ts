@@ -12,15 +12,16 @@ alt.on('playerConnect', (player) => {
 
 alt.onRpc(
   'rpc',
-  async (player, type: string, operation: string, data?: unknown) => {
+  async (player, operation: string, data?: unknown) => {
     try {
-      let currentOperation = {
+      const currentOperation = {
         ...playerRPC,
         ...itemRPC,
       };
       return await currentOperation[operation](player, data);
     } catch (e) {
-      return e;
+      if (e.name === 'DATALIFEClientError') return e;
+      return new Error('Erro interno no servidor. Por favor, tente novamente mais tarde.');
     }
   }
 );

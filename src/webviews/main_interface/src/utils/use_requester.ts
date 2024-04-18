@@ -29,10 +29,10 @@ function useRequester(
   };
 }
 
-export function auth_signIn(): {
+export function auth_signInTest(): {
   data: { error: string } | undefined;
   fetch: () => void;
   loading: boolean;
 } {
-  return useRequester('client', 'auth_signin', false);
+  return useRequester('client', 'auth_signinTest', false);
 }

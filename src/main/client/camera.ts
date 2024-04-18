@@ -1,10 +1,24 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
 
-export let position: alt.Vector3 = new alt.Vector3(0, 0, 0);
-export let rotation: alt.Vector3 = new alt.Vector3(0, 0, 0);
-export let fov: number = 0;
-export let scriptID: number = 0;
+let position: alt.Vector3 = new alt.Vector3(0, 0, 0);
+let rotation: alt.Vector3 = new alt.Vector3(0, 0, 0);
+let fov: number = 0;
+let scriptID: number = 0;
+
+export function createSigninCamera() {
+  camera_create(
+    new alt.Vector3(-485, 1095.75, 350),
+    new alt.Vector3(0, 0, 0),
+    40
+  );
+  camera_pointAtCoord(new alt.Vector3(402.8664, -996.4108, -98.5));
+  camera_render();
+}
+
+export function deleteSigninCamera() {
+  camera_destroy();
+}
 
 /**
  * Create a new camera

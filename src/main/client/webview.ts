@@ -2,6 +2,7 @@ import * as alt from 'alt-client';
 import * as native from 'natives';
 
 import { callableByRPC as cameraRPC } from './camera.js';
+import { callableByRPC as authRPC } from './auth.js';
 
 const webViews = [
   'http://assets/webviews/main_interface/index.html',
@@ -79,11 +80,10 @@ async function loadWebViewRequester(webView: alt.WebView) {
     'request',
     async (to: 'server' | 'client', operation: string, data?: unknown) => {
       try {
-        let currentOperation = null;
+        const currentOperation = { ...authRPC, ...cameraRPC };
         let response = null;
         if (to === 'client') {
-          currentOperation = cameraRPC[operation];
-          if (currentOperation) response = await currentOperation(data);
+          response = await currentOperation[operation](data);
         } else {
           response = await alt.emitRpc('rpc', operation, data);
         }
@@ -98,4 +98,17 @@ async function loadWebViewRequester(webView: alt.WebView) {
   await new Promise((resolve) => {
     webView.once('load', resolve);
   });
+}
+
+export function setPage(page: 'signIn' | 'mainHud') {
+  alt.setMeta('page', page);
+}
+
+export function emitCustomEventToWebView(
+  webViewId: number,
+  event: string,
+  data?: unknown
+) {
+  const view = activeWebViews.find((e) => e.id === webViewId);
+  if (view) view.webView.emit(event, data);
 }
