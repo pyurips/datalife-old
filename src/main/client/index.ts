@@ -3,7 +3,7 @@ import * as alt from 'alt-client';
 import { setPageMode } from './utils.js';
 import {
   loadMainWebView,
-  setPage,
+  setMainPage,
   emitCustomEventToMainWebView,
   toggleMainWebViewFocus,
 } from './webview.js';
@@ -13,7 +13,7 @@ import { createSigninCamera } from './camera.js';
 alt.on('connectionComplete', async () => {
   createSigninCamera();
   await loadMainWebView();
-  setPage('signIn');
+  setMainPage('signIn');
   toggleMainWebViewFocus(true);
 });
 

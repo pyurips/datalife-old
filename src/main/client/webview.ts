@@ -6,7 +6,7 @@ import { callableByRPC as authRPC } from './auth.js';
 
 const webViews = [
   'http://assets/webviews/main_interface/index.html',
-  'http://assets/webviews/vehicle_status_interface/index.html',
+  'http://assets/webviews/interactions_interface/index.html',
 ];
 
 let activeObjectViews: {
@@ -107,7 +107,7 @@ async function loadWebViewRequester(webView: alt.WebView) {
   });
 }
 
-export function setPage(page: 'signIn' | 'mainHud') {
+export function setMainPage(page: 'signIn' | 'mainHud') {
   alt.setMeta('mainPage', page);
 }
 

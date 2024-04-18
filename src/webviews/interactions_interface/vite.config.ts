@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   base: "./",
   build: {
-    outDir: "../../../resources/webviews/vehicle_status_interface",
+    outDir: "../../../resources/webviews/interactions_interface",
   },
   resolve: {
     alias: {

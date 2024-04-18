@@ -1,6 +1,6 @@
 import * as alt from 'alt-client';
 import { deleteSigninCamera } from './camera.js';
-import { setPage } from './webview.js';
+import { setMainPage } from './webview.js';
 
 const DISCORD_APP_ID = '1196692311728472097';
 
@@ -19,7 +19,7 @@ export async function auth_signinTest() {
       resolve(null);
     }, 1_000)
   );
-  setPage('mainHud');
+  setMainPage('mainHud');
   deleteSigninCamera();
   await alt.emitRpc('rpc', 'player_loadIntoWorld');
 }
