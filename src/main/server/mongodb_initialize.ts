@@ -1,11 +1,10 @@
-import { Schema, model, createConnection, Connection } from 'mongoose';
+import { Schema, model, connect, Connection } from 'mongoose';
 import { AccountData, CharacterData } from './types.js';
 
-export let mongoDBCoreInstance: Connection = null;
-export let mongoDBGameInstance: Connection = null;
+let mongoDBCoreInstance: Connection;
+let mongoDBGameInstance: Connection;
 
 const accountSchema = new Schema<AccountData>({
-  id: { type: String, required: true },
   discordId: { type: String, required: true },
   createdAt: { type: Date, required: true },
   updatedAt: { type: Date, required: true },
@@ -71,33 +70,28 @@ export const characterModel = model<CharacterData>(
   characterSchema
 );
 
-export function initializeMongoDBCore() {
-  const MONGODB_URI = process.env.MONGODB_URI;
-  if (!MONGODB_URI) throw new Error('MONGODB_URI is not set');
-  mongoDBCoreInstance = createConnection(MONGODB_URI);
-  mongoDBCoreInstance.useDb('core');
+export async function initializeMongoDB() {
+  const MONGODB_CORE_URI = process.env.MONGODB_CORE_URI;
+  if (!MONGODB_CORE_URI) throw new Error('MONGODB_URI is not set');
+  mongoDBCoreInstance = (await connect(MONGODB_CORE_URI)).connection;
 }
 
-export function initializeMongoDBGame() {
-  const MONGODB_URI = process.env.MONGODB_URI;
-  if (!MONGODB_URI) throw new Error('MONGODB_URI is not set');
-  mongoDBGameInstance = createConnection(MONGODB_URI);
-
+export async function initializeMongoDBGame() {
   const NODE_ENV = process.env.NODE_ENV;
   if (!NODE_ENV) throw new Error('NODE_ENV is not set');
   if (NODE_ENV === 'development') {
-    mongoDBGameInstance.useDb('game_server_test');
+    const MONGODB_GAME_SERVER_TEST_URI =
+      process.env.MONGODB_GAME_SERVER_TEST_URI;
+    if (!MONGODB_GAME_SERVER_TEST_URI)
+      throw new Error('MONGODB_GAME_SERVER_TEST_URI is not set');
+    mongoDBGameInstance = (await connect(MONGODB_GAME_SERVER_TEST_URI))
+      .connection;
     return;
   }
 
   const SELECTED_GAME_SERVER = process.env.SELECTED_GAME_SERVER;
   if (!SELECTED_GAME_SERVER) throw new Error('SELECTED_GAME_SERVER is not set');
-  if (SELECTED_GAME_SERVER === '1') {
-    mongoDBGameInstance.useDb('game_server_1');
-    return;
-  }
-  if (SELECTED_GAME_SERVER === '2') {
-    mongoDBGameInstance.useDb('game_server_2');
-    return;
-  }
+  const MONGODB_GAME_SERVER_URI =
+    process.env[`MONGODB_GAME_SERVER_${SELECTED_GAME_SERVER}_URI`];
+  mongoDBGameInstance = (await connect(MONGODB_GAME_SERVER_URI)).connection;
 }

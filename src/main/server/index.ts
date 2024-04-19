@@ -3,8 +3,15 @@ import * as alt from 'alt-server';
 
 import { callableByRPC as playerRPC } from './player.js';
 import { callableByRPC as itemRPC } from './item.js';
+import {
+  initializeMongoDB,
+  initializeMongoDBGame
+} from './mongodb_initialize.js';
 
-alt.on('serverStarted', () => {});
+alt.on('serverStarted', async () => {
+  initializeMongoDB();
+  initializeMongoDBGame();
+});
 
 alt.on('playerConnect', (player) => {
   player.dimension = player.id + 1;
