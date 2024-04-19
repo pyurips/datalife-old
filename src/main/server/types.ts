@@ -1,4 +1,5 @@
 export type AccountData = {
+  _id: string;
   discordId: string;
   createdAt: Date;
   updatedAt: Date;

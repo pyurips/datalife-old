@@ -65,11 +65,13 @@ const characterSchema = new Schema<CharacterData>({
   },
 });
 
-export const accountModel = model<AccountData>('accounts', accountSchema);
-export const characterModel = model<CharacterData>(
-  'characters',
-  characterSchema
-);
+export function getAccountModel() {
+  return mongoDBCoreInstance.model('accounts', accountSchema);
+}
+
+export function getCharacterModel() {
+  return mongoDBGameInstance.model('characters', characterSchema);
+}
 
 export async function initializeMongoDB() {
   const MONGODB_CORE_URI = process.env.MONGODB_CORE_URI;
