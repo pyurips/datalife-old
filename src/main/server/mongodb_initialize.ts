@@ -19,6 +19,7 @@ const characterSchema = new Schema<CharacterData>({
   money: { type: Number, required: true },
   bank: { type: Number, required: true },
   level: { type: Number, required: true },
+  experienceRate: { type: Number, required: true },
   experience: { type: Number, required: true },
   belongings: {
     type: [

@@ -12,6 +12,7 @@ export type CharacterData = {
   money: number;
   bank: number;
   level: number;
+  experienceRate: number;
   experience: number;
   belongings: {
     id: number;
