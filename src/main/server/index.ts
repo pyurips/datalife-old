@@ -5,15 +5,22 @@ import { callableByRPC as playerRPC } from './player.js';
 import { callableByRPC as itemRPC } from './item.js';
 import {
   initializeMongoDB,
-  initializeMongoDBGame
+  initializeMongoDBGame,
 } from './mongodb_initialize.js';
+
+let CAN_CONNECT = false;
 
 alt.on('serverStarted', async () => {
   await initializeMongoDB();
   await initializeMongoDBGame();
+  CAN_CONNECT = true;
 });
 
 alt.on('playerConnect', (player) => {
+  if (!CAN_CONNECT)
+    return player.kick(
+      'Servidor não está pronto. Por favor, tente novamente mais tarde.'
+    );
   player.dimension = player.id + 1;
   player.spawn(0, 0, 0, 0);
   player.model = 0x705e61f2;
