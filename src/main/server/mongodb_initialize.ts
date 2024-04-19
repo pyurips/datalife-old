@@ -6,7 +6,7 @@ let mongoDBCoreInstance: Connection;
 let mongoDBGameInstance: Connection;
 
 const accountSchema = new Schema<AccountData>({
-  discordId: { type: String, required: true },
+  discordId: { type: String, required: true, unique: true },
   createdAt: { type: Date, required: true },
   updatedAt: { type: Date, required: true },
   lastLogin: { type: Date, required: true },
