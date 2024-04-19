@@ -12,8 +12,7 @@ export type CharacterData = {
   money: number;
   bank: number;
   level: number;
-  experienceRate: number;
-  experience: number;
+  experience: { value: number; rate: number };
   belongings: {
     id: number;
     type: string;
