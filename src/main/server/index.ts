@@ -9,8 +9,8 @@ import {
 } from './mongodb_initialize.js';
 
 alt.on('serverStarted', async () => {
-  initializeMongoDB();
-  initializeMongoDBGame();
+  await initializeMongoDB();
+  await initializeMongoDBGame();
 });
 
 alt.on('playerConnect', (player) => {

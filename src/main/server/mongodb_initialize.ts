@@ -1,4 +1,5 @@
-import { Schema, model, connect, Connection } from 'mongoose';
+import * as alt from 'alt-server';
+import { Schema, model, connect, Connection, createConnection } from 'mongoose';
 import { AccountData, CharacterData } from './types.js';
 
 let mongoDBCoreInstance: Connection;
@@ -73,7 +74,8 @@ export const characterModel = model<CharacterData>(
 export async function initializeMongoDB() {
   const MONGODB_CORE_URI = process.env.MONGODB_CORE_URI;
   if (!MONGODB_CORE_URI) throw new Error('MONGODB_URI is not set');
-  mongoDBCoreInstance = (await connect(MONGODB_CORE_URI)).connection;
+  mongoDBCoreInstance = await createConnection(MONGODB_CORE_URI).asPromise();
+  alt.log(`[DB] Connected to ${mongoDBCoreInstance.db.databaseName} database.`);
 }
 
 export async function initializeMongoDBGame() {
@@ -84,8 +86,12 @@ export async function initializeMongoDBGame() {
       process.env.MONGODB_GAME_SERVER_TEST_URI;
     if (!MONGODB_GAME_SERVER_TEST_URI)
       throw new Error('MONGODB_GAME_SERVER_TEST_URI is not set');
-    mongoDBGameInstance = (await connect(MONGODB_GAME_SERVER_TEST_URI))
-      .connection;
+    mongoDBGameInstance = await createConnection(
+      MONGODB_GAME_SERVER_TEST_URI
+    ).asPromise();
+    alt.log(
+      `[DB] Connected to ${mongoDBGameInstance.db.databaseName} database.`
+    );
     return;
   }
 
@@ -93,5 +99,8 @@ export async function initializeMongoDBGame() {
   if (!SELECTED_GAME_SERVER) throw new Error('SELECTED_GAME_SERVER is not set');
   const MONGODB_GAME_SERVER_URI =
     process.env[`MONGODB_GAME_SERVER_${SELECTED_GAME_SERVER}_URI`];
-  mongoDBGameInstance = (await connect(MONGODB_GAME_SERVER_URI)).connection;
+  mongoDBGameInstance = await createConnection(
+    MONGODB_GAME_SERVER_URI
+  ).asPromise();
+  alt.log(`[DB] Connected to ${mongoDBGameInstance.db.databaseName} database.`);
 }
