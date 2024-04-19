@@ -21,7 +21,7 @@ export type CharacterData = {
     amount: number;
   }[];
   weightCapacity: number;
-  hotkeysSlots: any[];
+  hotkeysSlots: { id: number; slot: number }[];
   needs: {
     hunger: { value: number; rate: number };
     thirst: { value: number; rate: number };
@@ -30,12 +30,12 @@ export type CharacterData = {
     hygiene: { value: number; rate: number };
   };
   conditions: {
-    type: string;
+    id: number;
     level: number;
     rate: number;
   }[];
   skills: {
-    type: string;
+    id: Number;
     level: number;
     experience: number;
     rate: number;
