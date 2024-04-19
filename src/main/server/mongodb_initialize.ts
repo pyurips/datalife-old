@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { Schema, model, connect, Connection, createConnection } from 'mongoose';
+import { Schema, Connection, createConnection } from 'mongoose';
 import { AccountData, CharacterData } from './types.js';
 
 let mongoDBCoreInstance: Connection;
