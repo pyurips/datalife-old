@@ -1,9 +1,9 @@
-import { player_getAccountMeta } from "./player.js";
-import * as alt from "alt-server";
-import { sendClientError } from "./utils.js";
+import * as alt from 'alt-server';
+import { sendClientError } from './utils.js';
+import { AccountMeta } from './types.js';
 
 export function checkPlayer(player: alt.Player) {
   if (!player?.valid) throw sendClientError(1713440399);
-  //const accountMeta = player_getAccountMeta(player);
-  //if (!accountMeta.id) throw sendClientError(1713620728);
+  const accountMeta = player.getMeta('accountMeta') as AccountMeta;
+  if (!accountMeta.id) throw sendClientError(1713620728);
 }
