@@ -40,9 +40,13 @@ alt.on('globalMetaChange', (key, value) => {
 alt.on('keyup', (key) => {
   if (key === 77) {
     if (getCurrentMainPage() !== 'mainHud') return;
-    getCursorState()
-      ? toggleMainWebViewFocus(true)
-      : toggleMainWebViewFocus(false);
     getCursorState() ? showCursor(false) : showCursor(true);
+    if (getCursorState()) {
+      toggleMainWebViewFocus(true);
+      alt.toggleGameControls(false);
+    } else {
+      toggleMainWebViewFocus(false);
+      alt.toggleGameControls(true);
+    }
   }
 });
