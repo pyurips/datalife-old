@@ -112,6 +112,10 @@ export function setMainPage(page: 'signIn' | 'mainHud') {
   alt.setMeta('mainPage', page);
 }
 
+export function getCurrentMainPage() {
+  return alt.getMeta('mainPage') as 'signIn' | 'mainHud';
+}
+
 export function emitCustomEventToMainWebView(event: string, data?: unknown) {
   mainWebView.emit(event, data);
 }

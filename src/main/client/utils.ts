@@ -19,6 +19,10 @@ export function showCursor(state: boolean) {
   }
 }
 
+export function getCursorState() {
+  return cursorCount > 0;
+}
+
 export function setPageMode(state: boolean) {
   if (state) {
     native.triggerScreenblurFadeIn(100);
