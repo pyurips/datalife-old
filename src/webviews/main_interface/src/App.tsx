@@ -1,7 +1,7 @@
 import { ThemeProvider } from './components/theme_provider';
 
 // import CharacterMenu from './pages/character_menu';
-// import MainHud from './pages/main_hud';
+import MainHud from './pages/main_hud';
 import Signin from './pages/signin';
 import { useListener } from './utils/use_listener';
 // import CharacterCustomization from './pages/character_customization';
@@ -13,7 +13,7 @@ export default function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <main className="h-screen w-screen flex items-center justify-center">
         {page === 'signIn' && <Signin />}
-        {/* {page === 'mainHud' && <MainHud />} */}
+        {page === 'mainHud' && <MainHud />}
         {/* {page === 'characterMenu' && <CharacterMenu />} */}
         {/* {page === 'characterCustomization' && <CharacterCustomization />} */}
         {/* {page === 'adminPanel' && <AdminPanel />} */}
