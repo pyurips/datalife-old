@@ -11,3 +11,9 @@ export function defaultCharacterBehaviors() {
   native.disableControlAction(0, 37, true);
   native.disableControlAction(0, 199, true);
 }
+
+export function healthAndArmourBarBehaviour() {
+  alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
+  native.scaleformMovieMethodAddParamInt(3);
+  native.endScaleformMovieMethod();
+}

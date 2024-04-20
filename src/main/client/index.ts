@@ -15,7 +15,10 @@ import {
   getCurrentMainPage,
   createObjectView,
 } from './webview.js';
-import { defaultCharacterBehaviors } from './character.js';
+import {
+  defaultCharacterBehaviors,
+  healthAndArmourBarBehaviour,
+} from './character.js';
 import { createSigninCamera } from './camera.js';
 import { checkInteraction, getCanInteract } from './interation.js';
 
@@ -23,6 +26,7 @@ alt.on('connectionComplete', async () => {
   toggleNativeHud(false);
   native.triggerScreenblurFadeIn(100);
   createSigninCamera();
+  healthAndArmourBarBehaviour();
   await loadMainWebView();
   await createObjectView(1);
   setMainPage('signIn');
