@@ -3,6 +3,7 @@ import * as alt from 'alt-server';
 
 import { callableByRPC as playerRPC } from './player.js';
 import { callableByRPC as itemRPC } from './item.js';
+import { callableByRPC as vehicleRPC } from './vehicle.js';
 import {
   initializeMongoDB,
   initializeMongoDBGame,
@@ -33,6 +34,7 @@ alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
     const currentOperation = {
       ...playerRPC,
       ...itemRPC,
+      ...vehicleRPC
     };
     return await currentOperation[operation](player, data);
   } catch (e) {

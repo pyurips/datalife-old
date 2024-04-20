@@ -1,20 +1,30 @@
 import * as alt from 'alt-client';
+import * as native from 'natives';
 
-import { getCursorState, setPageMode, showCursor } from './utils.js';
+import {
+  getCursorState,
+  setPageMode,
+  showCursor,
+  toggleNativeHud,
+} from './utils.js';
 import {
   loadMainWebView,
   setMainPage,
   emitCustomEventToMainWebView,
   toggleMainWebViewFocus,
   getCurrentMainPage,
+  createObjectView,
 } from './webview.js';
 import { defaultCharacterBehaviors } from './character.js';
 import { createSigninCamera } from './camera.js';
 import { checkInteraction, getCanInteract } from './interation.js';
 
 alt.on('connectionComplete', async () => {
+  toggleNativeHud(false);
+  native.triggerScreenblurFadeIn(100);
   createSigninCamera();
   await loadMainWebView();
+  await createObjectView(1);
   setMainPage('signIn');
   toggleMainWebViewFocus(true);
 });
@@ -37,7 +47,7 @@ alt.on('globalMetaChange', (key, value) => {
   }
 });
 
-alt.on('keyup', (key) => {
+alt.on('keyup', async (key) => {
   if (key === 77) {
     if (getCurrentMainPage() !== 'mainHud') return;
     getCursorState() ? showCursor(false) : showCursor(true);
@@ -48,5 +58,9 @@ alt.on('keyup', (key) => {
       toggleMainWebViewFocus(false);
       alt.toggleGameControls(true);
     }
+  }
+
+  if (key === 75) {
+    await alt.emitRpc('rpc', 'vehicle_toggleEngine');
   }
 });

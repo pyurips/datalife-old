@@ -1,5 +1,6 @@
 import * as alt from 'alt-server';
 import { VehicleData } from './types.js';
+import { checkPlayer } from './middlewares.js';
 
 export function vehicle_createByStaff(player: alt.Player) {}
 
@@ -30,3 +31,12 @@ export function vehicle_updateData(
   const currentData = vehicle.getMeta('data') as VehicleData;
   vehicle.setMeta('data', { ...currentData, ...data });
 }
+
+export function vehicle_toggleEngine(player: alt.Player) {
+  if (player.vehicle.engineOn) return (player.vehicle.engineOn = false);
+  return (player.vehicle.engineOn = true);
+}
+
+export const callableByRPC = {
+  vehicle_toggleEngine,
+};
