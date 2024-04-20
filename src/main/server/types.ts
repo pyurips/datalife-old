@@ -1,8 +1,3 @@
-export type AccountMeta = {
-  id: string;
-  inCharacter: boolean;
-};
-
 export type AccountData = {
   _id: string;
   discordId: string;

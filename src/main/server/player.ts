@@ -1,45 +1,52 @@
 import * as alt from 'alt-server';
-import { AccountData, CharacterData, AccountMeta } from './types.js';
+import { AccountData, CharacterData } from './types.js';
 import { vehicle_createByWorld } from './vehicle.js';
-import { getAccountById, updateAccountData } from './mongodb_account.js';
+import { sendClientError } from './utils.js';
 import { checkPlayer } from './middlewares.js';
 
-export function player_setAccountMeta(player: alt.Player, meta: AccountMeta) {
-  checkPlayer(player);
-  player.setMeta('accountMeta', meta);
+export function player_setAccountData(player: alt.Player, data: AccountData) {
+  if (!player?.valid) throw sendClientError(1713440472);
+  player.setMeta('account', data);
 }
 
-export function player_getAccountMeta(player: alt.Player) {
-  checkPlayer(player);
-  return player.getMeta('accountMeta') as AccountMeta;
-}
-
-export function player_updateAccountMeta(
+export function player_setCharacterData(
   player: alt.Player,
-  meta: Partial<AccountMeta>
+  data: CharacterData
 ) {
-  checkPlayer(player);
-  const accountMeta = player.getMeta('accountMeta') as AccountMeta;
-  player_setAccountMeta(player, { ...accountMeta, ...meta });
+  if (!player?.valid) throw sendClientError(1713440477);
+  player.setMeta('character', data);
 }
 
-export async function player_getAccountData(player: alt.Player) {
-  checkPlayer(player);
-  const accountMeta = player.getMeta('accountMeta') as AccountMeta;
-  return await getAccountById(accountMeta.id);
+export function player_getAccountData(player: alt.Player) {
+  if (!player?.valid) throw sendClientError(1713440487);
+  return player.getMeta('account') as AccountData;
 }
 
-export async function player_updateAccountData(
+export function player_getCharacterData(player: alt.Player) {
+  if (!player?.valid) throw sendClientError(1713440492);
+  return player.getMeta('character') as CharacterData;
+}
+
+export function player_updateAccountData(
   player: alt.Player,
   data: Partial<AccountData>
 ) {
-  checkPlayer(player);
-  const accountMeta = player.getMeta('accountMeta') as AccountMeta;
-  return await updateAccountData(accountMeta.id, data);
+  if (!player?.valid) throw sendClientError(1713440429);
+  const account = player.getMeta('account') as AccountData;
+  player_setAccountData(player, { ...account, ...data });
+}
+
+export function player_updateCharacterData(
+  player: alt.Player,
+  data: Partial<CharacterData>
+) {
+  if (!player?.valid) throw sendClientError(1713440417);
+  const character = player.getMeta('character') as CharacterData;
+  player_setCharacterData(player, { ...character, ...data });
 }
 
 export function player_loadIntoWorld(player: alt.Player) {
-  //checkPlayer(player); ESTÁ EM FASE DE TESTE
+  if (!player?.valid) throw sendClientError(1713440399);
   player.spawn(-14.295, 24.695, 71.656);
   player.dimension = 0;
   setTimeout(() => {
@@ -49,5 +56,5 @@ export function player_loadIntoWorld(player: alt.Player) {
 
 export const callableByRPC = {
   player_getAccountData,
-  player_loadIntoWorld
+  player_loadIntoWorld,
 };

@@ -34,7 +34,7 @@ alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
     const currentOperation = {
       ...playerRPC,
       ...itemRPC,
-      ...vehicleRPC
+      ...vehicleRPC,
     };
     return await currentOperation[operation](player, data);
   } catch (e) {
