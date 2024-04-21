@@ -60,23 +60,38 @@ export function player_updateNeedsForAll() {
     const characterNeeds = player_getCharacterData(player).needs;
     const newNeeds: typeof characterNeeds = {
       thirst: {
-        value: characterNeeds.thirst.value - characterNeeds.thirst.rate,
+        value:
+          characterNeeds.thirst.value - characterNeeds.thirst.rate < 0
+            ? 0
+            : characterNeeds.thirst.value - characterNeeds.thirst.rate,
         rate: characterNeeds.thirst.rate,
       },
       hunger: {
-        value: characterNeeds.hunger.value - characterNeeds.hunger.rate,
+        value:
+          characterNeeds.hunger.value - characterNeeds.hunger.rate < 0
+            ? 0
+            : characterNeeds.hunger.value - characterNeeds.hunger.rate,
         rate: characterNeeds.hunger.rate,
       },
       fatigue: {
-        value: characterNeeds.fatigue.value - characterNeeds.fatigue.rate,
+        value:
+          characterNeeds.fatigue.value - characterNeeds.fatigue.rate < 0
+            ? 0
+            : characterNeeds.fatigue.value - characterNeeds.fatigue.rate,
         rate: characterNeeds.fatigue.rate,
       },
       bathroom: {
-        value: characterNeeds.bathroom.value - characterNeeds.bathroom.rate,
+        value:
+          characterNeeds.bathroom.value - characterNeeds.bathroom.rate < 0
+            ? 0
+            : characterNeeds.bathroom.value - characterNeeds.bathroom.rate,
         rate: characterNeeds.bathroom.rate,
       },
       hygiene: {
-        value: characterNeeds.hygiene.value - characterNeeds.hygiene.rate,
+        value:
+          characterNeeds.hygiene.value - characterNeeds.hygiene.rate < 0
+            ? 0
+            : characterNeeds.hygiene.value - characterNeeds.hygiene.rate,
         rate: characterNeeds.hygiene.rate,
       },
     };
