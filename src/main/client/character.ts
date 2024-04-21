@@ -10,6 +10,7 @@ export function defaultCharacterBehaviors() {
   native.displayAmmoThisFrame(false);
   native.disableControlAction(0, 37, true);
   native.disableControlAction(0, 199, true);
+  //native.disableControlAction(0, 21, true); DESATIVAR PARA PODER CORRER
 }
 
 export function healthAndArmourBarBehaviour() {
