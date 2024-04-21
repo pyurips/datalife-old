@@ -54,6 +54,36 @@ export function player_loadIntoWorld(player: alt.Player) {
   }, 2000);
 }
 
+export function player_updateNeedsForAll() {
+  alt.Player.all.forEach((player) => {
+    checkPlayer(player);
+    const characterNeeds = player_getCharacterData(player).needs;
+    const newNeeds: typeof characterNeeds = {
+      thirst: {
+        value: characterNeeds.thirst.value - characterNeeds.thirst.rate,
+        rate: characterNeeds.thirst.rate,
+      },
+      hunger: {
+        value: characterNeeds.hunger.value - characterNeeds.hunger.rate,
+        rate: characterNeeds.hunger.rate,
+      },
+      fatigue: {
+        value: characterNeeds.fatigue.value - characterNeeds.fatigue.rate,
+        rate: characterNeeds.fatigue.rate,
+      },
+      bathroom: {
+        value: characterNeeds.bathroom.value - characterNeeds.bathroom.rate,
+        rate: characterNeeds.bathroom.rate,
+      },
+      hygiene: {
+        value: characterNeeds.hygiene.value - characterNeeds.hygiene.rate,
+        rate: characterNeeds.hygiene.rate,
+      },
+    };
+    player_updateCharacterData(player, { needs: newNeeds });
+  });
+}
+
 export const callableByRPC = {
   player_getAccountData,
   player_loadIntoWorld,

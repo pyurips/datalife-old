@@ -1,7 +1,10 @@
 import 'dotenv/config';
 import * as alt from 'alt-server';
 
-import { callableByRPC as playerRPC } from './player.js';
+import {
+  callableByRPC as playerRPC,
+  player_updateNeedsForAll,
+} from './player.js';
 import { callableByRPC as itemRPC } from './item.js';
 import { callableByRPC as vehicleRPC } from './vehicle.js';
 import {
@@ -10,6 +13,7 @@ import {
 } from './mongodb_initialize.js';
 
 let CAN_CONNECT = false;
+const ONE_SECOND = 1000;
 
 alt.on('serverStarted', async () => {
   await initializeMongoDB();
@@ -44,3 +48,7 @@ alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
     );
   }
 });
+
+setInterval(() => {
+  //player_updateNeedsForAll();
+}, ONE_SECOND);
