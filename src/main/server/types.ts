@@ -40,6 +40,7 @@ export type CharacterData = {
     experience: number;
     rate: number;
   }[];
+  isLiving: boolean;
 };
 
 export type VehicleData = {

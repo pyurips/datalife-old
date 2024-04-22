@@ -13,17 +13,17 @@ export function player_setCharacterData(
   player: alt.Player,
   data: CharacterData
 ) {
-  if (!player?.valid) throw sendClientError(1713440477);
+  checkPlayer(player);
   player.setMeta('character', data);
 }
 
 export function player_getAccountData(player: alt.Player) {
-  if (!player?.valid) throw sendClientError(1713440487);
+  checkPlayer(player);
   return player.getMeta('account') as AccountData;
 }
 
 export function player_getCharacterData(player: alt.Player) {
-  if (!player?.valid) throw sendClientError(1713440492);
+  checkPlayer(player);
   return player.getMeta('character') as CharacterData;
 }
 
@@ -31,7 +31,7 @@ export function player_updateAccountData(
   player: alt.Player,
   data: Partial<AccountData>
 ) {
-  if (!player?.valid) throw sendClientError(1713440429);
+  checkPlayer(player);
   const account = player.getMeta('account') as AccountData;
   player_setAccountData(player, { ...account, ...data });
 }
@@ -40,13 +40,44 @@ export function player_updateCharacterData(
   player: alt.Player,
   data: Partial<CharacterData>
 ) {
-  if (!player?.valid) throw sendClientError(1713440417);
+  checkPlayer(player);
   const character = player.getMeta('character') as CharacterData;
   player_setCharacterData(player, { ...character, ...data });
 }
 
 export function player_loadIntoWorld(player: alt.Player) {
-  if (!player?.valid) throw sendClientError(1713440399);
+  player_setAccountData(player, {
+    _id: '5f9b1b3b7f1f3b0b3c1b1b3b',
+    discordId: '1234567890',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    lastLogin: new Date(),
+    permissionLevel: 3,
+    bits: 5065445,
+  });
+
+  player_setCharacterData(player, {
+    health: 100,
+    money: 1000,
+    bank: 1000,
+    level: 1,
+    experience: { value: 0, rate: 0 },
+    belongings: [],
+    weightCapacity: 100,
+    hotkeysSlots: [],
+    needs: {
+      hunger: { value: 100, rate: 0.1 },
+      thirst: { value: 100, rate: 0.1 },
+      fatigue: { value: 100, rate: 0.1 },
+      bathroom: { value: 100, rate: 0.1 },
+      hygiene: { value: 100, rate: 0.1 },
+    },
+    conditions: [],
+    skills: [],
+    isLiving: true,
+  });
+
+  checkPlayer(player);
   player.spawn(-14.295, 24.695, 71.656);
   player.dimension = 0;
   setTimeout(() => {
@@ -57,7 +88,9 @@ export function player_loadIntoWorld(player: alt.Player) {
 export function player_updateNeedsForAll() {
   alt.Player.all.forEach((player) => {
     checkPlayer(player);
-    const characterNeeds = player_getCharacterData(player).needs;
+    const characterData = player_getCharacterData(player);
+    if (!(characterData && characterData.isLiving)) return;
+    const characterNeeds = characterData.needs;
     const newNeeds: typeof characterNeeds = {
       thirst: {
         value:
