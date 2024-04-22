@@ -112,6 +112,14 @@ export function setMainPage(page: 'signIn' | 'mainHud' | 'characterMenu') {
   alt.setMeta('mainPage', page);
 }
 
+export function canChangePage(state: boolean) {
+  alt.setMeta('canChangePage', state);
+}
+
+export function getCanChangePage() {
+  return alt.getMeta('canChangePage') as boolean;
+}
+
 export function getCurrentMainPage() {
   return alt.getMeta('mainPage') as 'signIn' | 'mainHud' | 'characterMenu';
 }

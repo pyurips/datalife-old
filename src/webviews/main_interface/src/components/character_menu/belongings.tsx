@@ -47,14 +47,20 @@ export default function Belongings() {
       )}
 
       {data && 'error' in data && (
-        <p className="text-red-500 text-[0.9vw] px-[1vw]">{data.error}</p>
+        <div className="flex flex-1 items-center justify-center">
+          <p className="text-red-500 text-[0.9vw] px-[1vw]">{data.error}</p>
+        </div>
       )}
 
       {!loading && data && 'belongings' in data && (
         <ScrollArea className="flex flex-1">
           <section className="flex flex-row gap-[1.2vw] flex-wrap p-[0.1vw]">
             {data.belongings.length === 0 && (
-              <p className="text-[0.9vw]">Você não possui nenhum item.</p>
+              <div className="flex flex-1 items-center justify-center">
+                <p className="text-[1.1vw] text-stone-400">
+                  Você não possui nenhum item
+                </p>
+              </div>
             )}
 
             {data.belongings.map((e) => (
@@ -124,20 +130,16 @@ export default function Belongings() {
         </ScrollArea>
       )}
 
-      {!loading && (
+      {!loading && data && 'belongings' in data && (
         <div className="flex flex-row items-center justify-between gap-[1vw]">
           <FaWeightHanging className="text-[1.5vw]" />
-          {data && 'belongings' in data && (
-            <Progress
-              color="bg-green-500"
-              className="h-[0.3vw]"
-              value={Math.round((data.currentWeight / data.weightCapacity) * 100)}
-            />
-          )}
+          <Progress
+            color="bg-green-500"
+            className="h-[0.3vw]"
+            value={Math.round((data.currentWeight / data.weightCapacity) * 100)}
+          />
           <div className="flex flex-row gap-[0.2vw] items-end">
-            {data && 'belongings' in data && (
-              <p className="text-[1vw]">{`${data.currentWeight}/${data.weightCapacity}`}</p>
-            )}
+            <p className="text-[1vw]">{`${data.currentWeight}/${data.weightCapacity}`}</p>
             <p className="text-[0.9vw] font-semibold">kg</p>
           </div>
         </div>

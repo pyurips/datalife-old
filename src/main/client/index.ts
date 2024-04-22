@@ -1,6 +1,5 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
-
 import {
   getCursorState,
   setPageMode,
@@ -15,13 +14,14 @@ import {
   getCurrentMainPage,
   createObjectView,
   initializeMainWebViewServerEventsReceptor,
+  getCanChangePage,
 } from './webview.js';
 import {
   defaultCharacterBehaviors,
   healthAndArmourBarBehaviour,
 } from './character.js';
 import { createSigninCamera } from './camera.js';
-import { checkInteraction, getCanInteract } from './interation.js';
+import { checkInteraction } from './interation.js';
 
 alt.on('connectionComplete', async () => {
   toggleNativeHud(false);
@@ -36,7 +36,7 @@ alt.on('connectionComplete', async () => {
 });
 
 alt.everyTick(() => {
-  if (getCanInteract()) checkInteraction();
+  checkInteraction();
   defaultCharacterBehaviors();
 });
 
@@ -67,6 +67,7 @@ alt.on('keyup', async (key) => {
   }
 
   if (key === alt.KeyCode.B) {
+    if (!getCanChangePage()) return;
     if (getCurrentMainPage() === 'characterMenu') return setMainPage('mainHud');
     setMainPage('characterMenu');
   }

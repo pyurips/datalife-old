@@ -56,11 +56,3 @@ export function checkInteraction() {
   setObjectViewPos(1, closestMarker.pos);
   return (currentInteraction = 'marker');
 }
-
-export function setCanInteract(canInteract: boolean) {
-  alt.setMeta('canInteract', canInteract);
-}
-
-export function getCanInteract() {
-  return alt.getMeta('canInteract');
-}
