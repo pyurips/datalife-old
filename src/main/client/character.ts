@@ -10,6 +10,9 @@ export function defaultCharacterBehaviors() {
   native.displayAmmoThisFrame(false);
   native.disableControlAction(0, 37, true);
   native.disableControlAction(0, 199, true);
+  native.hideHudComponentThisFrame(7);
+  native.hideHudComponentThisFrame(9);
+  native.hideHudComponentThisFrame(6);
   //native.disableControlAction(0, 21, true); DESATIVAR PARA PODER CORRER
 }
 
