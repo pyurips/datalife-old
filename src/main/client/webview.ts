@@ -108,12 +108,12 @@ async function loadWebViewRequester(webView: alt.WebView) {
   });
 }
 
-export function setMainPage(page: 'signIn' | 'mainHud') {
+export function setMainPage(page: 'signIn' | 'mainHud' | 'characterMenu') {
   alt.setMeta('mainPage', page);
 }
 
 export function getCurrentMainPage() {
-  return alt.getMeta('mainPage') as 'signIn' | 'mainHud';
+  return alt.getMeta('mainPage') as 'signIn' | 'mainHud' | 'characterMenu';
 }
 
 export function initializeMainWebViewServerEventsReceptor() {

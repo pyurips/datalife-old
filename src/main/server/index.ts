@@ -43,6 +43,7 @@ alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
     return await currentOperation[operation](player, data);
   } catch (e) {
     if (e.name === 'DATALIFEClientError') return e;
+    if (process.env.NODE_ENV === 'development') alt.logError(e);
     return new Error(
       'Erro interno no servidor. Por favor, tente novamente mais tarde.'
     );

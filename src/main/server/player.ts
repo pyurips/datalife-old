@@ -25,7 +25,16 @@ export function player_getAccountData(player: alt.Player) {
 
 export function player_getCharacterData(player: alt.Player) {
   checkPlayer(player);
-  return player.getMeta('character') as CharacterData;
+  const characterData = player.getMeta('character') as CharacterData;
+  return {
+    ...characterData,
+    belongings: characterData.belongings.map((item) => {
+      return {
+        ...item,
+        weight: item_getItem(item.id, item.type).weight * item.amount,
+      };
+    }),
+  };
 }
 
 export function player_updateAccountData(
@@ -172,4 +181,5 @@ export function player_addItemToBelongings(
 export const callableByRPC = {
   player_getAccountData,
   player_loadIntoWorld,
+  player_getCharacterData,
 };

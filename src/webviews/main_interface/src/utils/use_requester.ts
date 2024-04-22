@@ -52,6 +52,7 @@ export function player_getCharacterData(): {
           type: string;
           quality: number;
           amount: number;
+          weight: number;
         }[];
         weightCapacity: number;
         hotkeysSlots: { id: number; slot: number }[];

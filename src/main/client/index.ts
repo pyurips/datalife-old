@@ -54,7 +54,7 @@ alt.on('globalMetaChange', (key, value) => {
 });
 
 alt.on('keyup', async (key) => {
-  if (key === 77) {
+  if (key === alt.KeyCode.M) {
     if (getCurrentMainPage() !== 'mainHud') return;
     getCursorState() ? showCursor(false) : showCursor(true);
     if (getCursorState()) {
@@ -66,7 +66,12 @@ alt.on('keyup', async (key) => {
     }
   }
 
-  if (key === 75) {
+  if (key === alt.KeyCode.B) {
+    if (getCurrentMainPage() === 'characterMenu') return setMainPage('mainHud');
+    setMainPage('characterMenu');
+  }
+
+  if (key === alt.KeyCode.K) {
     await alt.emitRpc('rpc', 'vehicle_toggleEngine');
   }
 });

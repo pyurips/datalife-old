@@ -14,6 +14,10 @@ export default function Belongings() {
     fetch();
   }, []);
 
+  useEffect(() => {
+    if (data) console.log(JSON.stringify(data, null, 2));
+  }, [data]);
+
   return (
     <div className="flex flex-col w-full gap-[1vw]">
       <header className="flex flex-row items-center gap-2">
@@ -28,11 +32,7 @@ export default function Belongings() {
       )}
 
       {data && 'error' in data && (
-        <>
-          <div className="flex flex-1 items-center justify-center">
-            <p className="text-[1.2vw]">{data.error}</p>
-          </div>
-        </>
+        <p className="text-red-500 text-[0.9vw] px-[1vw]">{data.error}</p>
       )}
 
       {!loading && data && 'belongings' in data && (

@@ -1,6 +1,6 @@
 import { ThemeProvider } from './components/theme_provider';
 
-// import CharacterMenu from './pages/character_menu';
+import CharacterMenu from './pages/character_menu';
 import MainHud from './pages/main_hud';
 import Signin from './pages/signin';
 import { useGetPage } from './utils/use_listener';
@@ -14,7 +14,7 @@ export default function App() {
       <main className="h-screen w-screen flex items-center justify-center">
         {page === 'signIn' && <Signin />}
         {page === 'mainHud' && <MainHud />}
-        {/* {page === 'characterMenu' && <CharacterMenu />} */}
+        {page === 'characterMenu' && <CharacterMenu />}
         {/* {page === 'characterCustomization' && <CharacterCustomization />} */}
         {/* {page === 'adminPanel' && <AdminPanel />} */}
       </main>

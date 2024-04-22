@@ -16,6 +16,6 @@ function useListener(eventName: string) {
   return response;
 }
 
-export function useGetPage(): 'signIn' | 'mainHud' {
+export function useGetPage(): 'signIn' | 'mainHud' | 'characterMenu' {
   return useListener('client_setPage');
 }
