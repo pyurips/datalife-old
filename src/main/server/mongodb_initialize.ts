@@ -16,6 +16,7 @@ const accountSchema = new Schema<AccountData>({
 
 const characterSchema = new Schema<CharacterData>({
   health: { type: Number, required: true },
+  stamina: { type: Number, required: true },
   money: { type: Number, required: true },
   bank: { type: Number, required: true },
   level: { type: Number, required: true },

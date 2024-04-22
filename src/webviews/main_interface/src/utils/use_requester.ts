@@ -43,6 +43,7 @@ export function player_getCharacterData(): {
   data:
     | {
         health: number;
+        stamina: number;
         money: number;
         bank: number;
         level: number;

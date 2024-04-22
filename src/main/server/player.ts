@@ -73,6 +73,7 @@ export function player_loadIntoWorld(player: alt.Player) {
 
   player_setCharacterData(player, {
     health: 100,
+    stamina: 100,
     money: 1000,
     bank: 1000,
     level: 1,

@@ -10,6 +10,7 @@ export type AccountData = {
 
 export type CharacterData = {
   health: number;
+  stamina: number;
   money: number;
   bank: number;
   level: number;
