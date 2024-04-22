@@ -11,7 +11,7 @@ let currentInteraction: 'vehicle' | 'object' | 'marker' = null;
 const player = alt.Player.local;
 
 export function checkInteraction() {
-  const closestVehicle = getClosestVehicleFromPlayer(player, 5);
+  const closestVehicle = getClosestVehicleFromPlayer(player, 5, true);
   const closestObject = getClosestObjectFromPlayer(player, 5);
   const closestMarker = getClosestMarkerFromPlayer(player, 5);
 
@@ -34,7 +34,8 @@ export function checkInteraction() {
     closestDistances.push(closestMarkerDistance);
   }
 
-  if (!closestDistances.length) return setObjectViewPos(1, new alt.Vector3(0, 0, 0));
+  if (!closestDistances.length)
+    return setObjectViewPos(1, new alt.Vector3(0, 0, 0));
   let minDistance = Math.min(...closestDistances);
 
   if (minDistance === closestVehicleDistance) {

@@ -67,22 +67,24 @@ export default function MainHud() {
 
       {debugMode && <DebugPanel />}
 
-      <div className="flex flex-1 justify-center flex-col gap-[1vw] items-start opacity-70">
-        <div className="flex items-center justify-center p-[0.5vw] bg-stone-950 rounded-[0.5vw] gap-[0.5vw] h-[2.5vw] w-[4vw]">
-          <IoPersonCircle className="text-[1.5vw]" />
-          <p className="font-bold">B</p>
-        </div>
+      {!debugMode && (
+        <div className="flex flex-1 justify-center flex-col gap-[1vw] items-start opacity-70">
+          <div className="flex items-center justify-center p-[0.5vw] bg-stone-950 rounded-[0.5vw] gap-[0.5vw] h-[2.5vw] w-[4vw]">
+            <IoPersonCircle className="text-[1.5vw]" />
+            <p className="font-bold">B</p>
+          </div>
 
-        <div className="flex items-center justify-center p-[0.5vw] bg-stone-950 rounded-[0.5vw] gap-[0.5vw] h-[2.5vw] w-[4vw]">
-          <PiCursor className="text-[1.5vw]" />
-          <p className="font-bold">M</p>
-        </div>
+          <div className="flex items-center justify-center p-[0.5vw] bg-stone-950 rounded-[0.5vw] gap-[0.5vw] h-[2.5vw] w-[4vw]">
+            <PiCursor className="text-[1.5vw]" />
+            <p className="font-bold">M</p>
+          </div>
 
-        <div className="flex items-center justify-center p-[0.5vw] bg-stone-950 rounded-[0.5vw] gap-[0.5vw] h-[2.5vw] w-[4vw]">
-          <IoPersonCircle className="text-[1.5vw]" />
-          <p className="font-bold">F2</p>
+          <div className="flex items-center justify-center p-[0.5vw] bg-stone-950 rounded-[0.5vw] gap-[0.5vw] h-[2.5vw] w-[4vw]">
+            <IoPersonCircle className="text-[1.5vw]" />
+            <p className="font-bold">F2</p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

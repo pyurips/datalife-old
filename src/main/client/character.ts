@@ -14,9 +14,7 @@ export function defaultCharacterBehaviors() {
   native.hideHudComponentThisFrame(9);
   native.hideHudComponentThisFrame(6);
   //native.disableControlAction(0, 21, true); DESATIVAR PARA PODER CORRER
-}
 
-export function healthAndArmourBarBehaviour() {
   alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
   native.scaleformMovieMethodAddParamInt(3);
   native.endScaleformMovieMethod();

@@ -111,6 +111,9 @@ export function player_loadIntoWorld(player: alt.Player) {
   setTimeout(() => {
     vehicle_createByWorld(player);
   }, 2000);
+  setTimeout(() => {
+    vehicle_createByWorld(player);
+  }, 5000);
 }
 
 export function player_updateNeedsForAll() {

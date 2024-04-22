@@ -61,8 +61,24 @@ export function getClosestVectorFromGroup(
   return positionsInRange[0];
 }
 
-export function getClosestVehicleFromPlayer(player: alt.Player, range: number) {
-  return getClosestVectorFromGroup(player.pos, [...alt.Vehicle.all], range);
+export function getClosestVehicleFromPlayer(
+  player: alt.Player,
+  range: number,
+  excludeMine: boolean = false
+) {
+  return getClosestVectorFromGroup(
+    player.pos,
+    [...alt.Vehicle.all].filter((vehicle) => {
+      if (
+        excludeMine &&
+        player.vehicle?.valid &&
+        vehicle.id === player.vehicle.id
+      )
+        return false;
+      return true;
+    }),
+    range
+  );
 }
 
 export function getClosestMarkerFromPlayer(player: alt.Player, range: number) {
