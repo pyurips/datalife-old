@@ -1,3 +1,6 @@
+import * as alt from 'alt-server';
+import { mainWebViewEvents } from './types.js';
+
 export function sendClientError(
   internalCode: number,
   showInternalCode = true,
@@ -10,4 +13,16 @@ export function sendClientError(
   );
   clientError.name = 'DATALIFEClientError';
   return clientError;
+}
+
+export function emitToMainWebViewUnique(
+  player: alt.Player,
+  event: mainWebViewEvents,
+  data?: unknown
+) {
+  alt.emitClientRaw(player, 'emitCustomServerEventToMainWebView', event, data);
+}
+
+export function emitToMainWebViewAll(event: mainWebViewEvents, data?: unknown) {
+  alt.emitAllClientsRaw('emitCustomServerEventToMainWebView', event, data);
 }

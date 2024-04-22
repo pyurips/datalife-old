@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export function useListener(eventName: string) {
+function useListener(eventName: string) {
   const [response, setResponse] = useState<any>();
 
   function eventHandler(response: any) {
@@ -14,4 +14,8 @@ export function useListener(eventName: string) {
   }, []);
 
   return response;
+}
+
+export function useGetPage(): 'signIn' | 'mainHud' {
+  return useListener('client_setPage');
 }

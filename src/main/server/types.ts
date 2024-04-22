@@ -47,3 +47,5 @@ export type VehicleData = {
   fuelRate: number;
   fuel: number;
 };
+
+export type mainWebViewEvents = 'server_updateNeeds';

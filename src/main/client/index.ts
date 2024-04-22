@@ -10,10 +10,11 @@ import {
 import {
   loadMainWebView,
   setMainPage,
-  emitCustomEventToMainWebView,
+  emitCustomClientEventToMainWebView,
   toggleMainWebViewFocus,
   getCurrentMainPage,
   createObjectView,
+  initializeMainWebViewServerEventsReceptor,
 } from './webview.js';
 import {
   defaultCharacterBehaviors,
@@ -29,6 +30,7 @@ alt.on('connectionComplete', async () => {
   healthAndArmourBarBehaviour();
   await loadMainWebView();
   await createObjectView(1);
+  initializeMainWebViewServerEventsReceptor();
   setMainPage('signIn');
   toggleMainWebViewFocus(true);
 });
@@ -47,7 +49,7 @@ alt.on('globalMetaChange', (key, value) => {
       toggleMainWebViewFocus(true);
       setPageMode(true);
     }
-    return emitCustomEventToMainWebView('mainWebView_setPage', value);
+    return emitCustomClientEventToMainWebView('client_setPage', value);
   }
 });
 

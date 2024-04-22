@@ -116,7 +116,19 @@ export function getCurrentMainPage() {
   return alt.getMeta('mainPage') as 'signIn' | 'mainHud';
 }
 
-export function emitCustomEventToMainWebView(event: string, data?: unknown) {
+export function initializeMainWebViewServerEventsReceptor() {
+  alt.on(
+    'emitCustomServerEventToMainWebView',
+    (event: string, data?: unknown) => {
+      mainWebView.emit(event, data);
+    }
+  );
+}
+
+export function emitCustomClientEventToMainWebView(
+  event: string,
+  data?: unknown
+) {
   mainWebView.emit(event, data);
 }
 
