@@ -49,12 +49,14 @@ export function player_getCharacterData(): {
         experience: { value: number; rate: number };
         belongings: {
           id: number;
-          type: string;
-          quality: number;
+          type: 'consumable' | 'material' | 'cloth';
+          quality: 0 | 1 | 2;
           amount: number;
           weight: number;
+          usable: boolean;
         }[];
         weightCapacity: number;
+        currentWeight: number;
         hotkeysSlots: { id: number; slot: number }[];
         needs: {
           hunger: { value: number; rate: number };
@@ -74,7 +76,6 @@ export function player_getCharacterData(): {
           experience: number;
           rate: number;
         }[];
-        isLiving: boolean;
       }
     | { error: string }
     | undefined;

@@ -32,8 +32,13 @@ export function player_getCharacterData(player: alt.Player) {
       return {
         ...item,
         weight: item_getItem(item.id, item.type).weight * item.amount,
+        usable: item.type === 'consumable',
       };
     }),
+    currentWeight: characterData.belongings.reduce(
+      (acc, i) => acc + item_getItem(i.id, i.type).weight * i.amount,
+      0
+    ),
   };
 }
 
@@ -72,7 +77,20 @@ export function player_loadIntoWorld(player: alt.Player) {
     bank: 1000,
     level: 1,
     experience: { value: 0, rate: 0 },
-    belongings: [],
+    belongings: [
+      {
+        id: 0,
+        type: 'consumable',
+        quality: 0,
+        amount: 5,
+      },
+      {
+        id: 0,
+        type: 'material',
+        quality: 1,
+        amount: 5,
+      },
+    ],
     weightCapacity: 100,
     hotkeysSlots: [],
     needs: {
