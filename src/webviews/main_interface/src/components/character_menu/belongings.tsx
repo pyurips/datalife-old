@@ -134,7 +134,6 @@ export default function Belongings() {
         <div className="flex flex-row items-center justify-between gap-[1vw]">
           <FaWeightHanging className="text-[1.5vw]" />
           <Progress
-            color="bg-green-500"
             className="h-[0.3vw]"
             value={Math.round((data.currentWeight / data.weightCapacity) * 100)}
           />
