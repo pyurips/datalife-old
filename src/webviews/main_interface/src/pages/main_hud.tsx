@@ -13,7 +13,7 @@ export default function MainHud() {
   const debugMode = useDebugMode((state) => state.debugMode);
 
   return (
-    <div className="flex flex-col gap-[1vw] w-full h-full p-[1vw]">
+    <div className="flex flex-col gap-[1vw] w-full h-full p-[1vw] pb-0">
       <div className="flex flex-row items-center justify-between">
         <img src={logoDark} alt="DATALIFE logo" className="w-[8vw]" />
 
@@ -85,6 +85,22 @@ export default function MainHud() {
           </div>
         </div>
       )}
+
+      <div className="flex flex-col gap-[0.5vw] self-end">
+        <div className="flex flex-row items-center justify-center gap-[1vw]">
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+          </span>
+
+          <p className="text-stone-950 text-[0.9vw]">5 notificações não lidas</p>
+        </div>
+
+        <div className="flex flex-row items-center justify-center gap-[0.5vw] bg-stone-800 rounded-t-[1vw] w-[17vw] h-[3vw] border-t-[0.2vw] border-stone-500 border-x-[0.2vw]">
+          <div className="size-[0.3vw] rounded-full bg-stone-950"></div>
+          <div className="w-[6vw] h-[0.3vw] rounded-full bg-stone-950"></div>
+        </div>
+      </div>
     </div>
   );
 }
