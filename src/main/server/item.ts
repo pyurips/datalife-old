@@ -1,4 +1,6 @@
 import * as alt from 'alt-server';
+import { sendClientError } from './utils.js';
+import { ItemsType } from './types.js';
 
 export function item_wearCloth(player: alt.Player, id: number) {
   const cloth = clothes[id];
@@ -92,6 +94,13 @@ export const clothes: {
     kind: 'cloth',
   },
 ];
+
+export function item_getItem(id: number, type: ItemsType) {
+  if (type === 'consumable') return consumables[id];
+  if (type === 'material') return materials[id];
+  if (type === 'cloth') return clothes[id];
+  throw sendClientError(1713785225);
+}
 
 export const callableByRPC = {
   item_wearCloth,

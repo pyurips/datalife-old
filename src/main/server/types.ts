@@ -16,8 +16,8 @@ export type CharacterData = {
   experience: { value: number; rate: number };
   belongings: {
     id: number;
-    type: string;
-    quality: number;
+    type: ItemsType;
+    quality: 0 | 1 | 2;
     amount: number;
   }[];
   weightCapacity: number;
@@ -49,4 +49,6 @@ export type VehicleData = {
   fuel: number;
 };
 
-export type mainWebViewEvents = 'server_updateNeeds';
+export type ItemsType = 'consumable' | 'material' | 'cloth';
+
+export type MainWebViewEvents = 'server_updateNeeds';

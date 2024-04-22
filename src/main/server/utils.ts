@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { mainWebViewEvents } from './types.js';
+import { MainWebViewEvents } from './types.js';
 
 export function sendClientError(
   internalCode: number,
@@ -17,12 +17,12 @@ export function sendClientError(
 
 export function emitToMainWebViewUnique(
   player: alt.Player,
-  event: mainWebViewEvents,
+  event: MainWebViewEvents,
   data?: unknown
 ) {
   alt.emitClientRaw(player, 'emitCustomServerEventToMainWebView', event, data);
 }
 
-export function emitToMainWebViewAll(event: mainWebViewEvents, data?: unknown) {
+export function emitToMainWebViewAll(event: MainWebViewEvents, data?: unknown) {
   alt.emitAllClientsRaw('emitCustomServerEventToMainWebView', event, data);
 }

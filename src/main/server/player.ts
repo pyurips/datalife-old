@@ -1,8 +1,9 @@
 import * as alt from 'alt-server';
-import { AccountData, CharacterData } from './types.js';
+import { AccountData, CharacterData, ItemsType } from './types.js';
 import { vehicle_createByWorld } from './vehicle.js';
 import { sendClientError } from './utils.js';
 import { checkPlayer } from './middlewares.js';
+import { item_getItem } from './item.js';
 
 export function player_setAccountData(player: alt.Player, data: AccountData) {
   if (!player?.valid) throw sendClientError(1713440472);
@@ -129,6 +130,42 @@ export function player_updateNeedsForAll() {
       },
     };
     player_updateCharacterData(player, { needs: newNeeds });
+  });
+}
+
+export function player_addItemToBelongings(
+  player: alt.Player,
+  itemId: number,
+  type: ItemsType,
+  amount: number,
+  quality: 0 | 1 | 2
+) {
+  checkPlayer(player);
+  const characterBelongings = player_getCharacterData(player).belongings;
+  const item = item_getItem(itemId, type);
+  if (!item.stackable) {
+    for (let i = 0; i < amount; i++) {
+      player_updateCharacterData(player, {
+        belongings: [
+          ...characterBelongings,
+          { id: itemId, type, quality, amount: 1 },
+        ],
+      });
+    }
+    return;
+  }
+  const ownedItem = characterBelongings.find(
+    (i) => i.id === itemId && i.type === type && i.quality === quality
+  );
+  if (ownedItem)
+    return player_updateCharacterData(player, {
+      belongings: [
+        ...characterBelongings,
+        { id: itemId, type, quality, amount: ownedItem.amount + amount },
+      ],
+    });
+  return player_updateCharacterData(player, {
+    belongings: [...characterBelongings, { id: itemId, type, quality, amount }],
   });
 }
 

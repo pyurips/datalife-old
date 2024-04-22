@@ -36,3 +36,47 @@ export function auth_signInTest(): {
 } {
   return useRequester('client', 'auth_signinTest', false);
 }
+
+export function player_getCharacterData(): {
+  fetch: () => void;
+  loading: boolean;
+  data:
+    | {
+        health: number;
+        money: number;
+        bank: number;
+        level: number;
+        experience: { value: number; rate: number };
+        belongings: {
+          id: number;
+          type: string;
+          quality: number;
+          amount: number;
+        }[];
+        weightCapacity: number;
+        hotkeysSlots: { id: number; slot: number }[];
+        needs: {
+          hunger: { value: number; rate: number };
+          thirst: { value: number; rate: number };
+          fatigue: { value: number; rate: number };
+          bathroom: { value: number; rate: number };
+          hygiene: { value: number; rate: number };
+        };
+        conditions: {
+          id: number;
+          level: number;
+          rate: number;
+        }[];
+        skills: {
+          id: Number;
+          level: number;
+          experience: number;
+          rate: number;
+        }[];
+        isLiving: boolean;
+      }
+    | { error: string }
+    | undefined;
+} {
+  return useRequester('server', 'player_getCharacterData', true);
+}

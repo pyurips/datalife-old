@@ -1,15 +1,19 @@
 import { Input } from '@/components/ui/input';
+import { player_getCharacterData } from '@/utils/use_requester';
 import { FaSearch } from 'react-icons/fa';
-// import { ScrollArea } from '@/components/ui/scroll-area';
-// import { FaWeightHanging } from 'react-icons/fa';
-// import { Progress } from '@/components/ui/progress';
-// import { useEffect } from 'react';
-// import { VscLoading } from 'react-icons/vsc';
-// import ClothDropDown from './cloth_dropdown';
-// import MaterialDropDown from './material_dropdown';
-// import ConsumableDropDown from './consumable_dropdown';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { FaWeightHanging } from 'react-icons/fa';
+import { Progress } from '@/components/ui/progress';
+import { useEffect } from 'react';
+import { VscLoading } from 'react-icons/vsc';
 
 export default function Belongings() {
+  const { fetch, data, loading } = player_getCharacterData();
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <div className="flex flex-col w-full gap-[1vw]">
       <header className="flex flex-row items-center gap-2">
@@ -17,66 +21,26 @@ export default function Belongings() {
         <Input placeholder="Procure um item pelo nome" />
       </header>
 
-      {/* {loading && (
+      {loading && (
         <div className="flex flex-1 items-center justify-center">
           <VscLoading className="text-[2vw] animate-spin" />
         </div>
       )}
 
-      {!loading && (
+      {data && 'error' in data && (
+        <>
+          <div className="flex flex-1 items-center justify-center">
+            <p className="text-[1.2vw]">{data.error}</p>
+          </div>
+        </>
+      )}
+
+      {!loading && data && 'belongings' in data && (
         <ScrollArea className="flex flex-1">
           <section className="flex flex-row gap-[1.2vw] flex-wrap p-[0.1vw]">
-            {data[0]?.map(
-              (e: {
-                id: number;
-                name: string;
-                quantity: number;
-                weight: number;
-                description: string;
-                quality: 0 | 1 | 2;
-                type: 'cloth' | 'material' | 'consumable';
-              }) => {
-                if (e?.type === 'cloth') {
-                  return (
-                    <ClothDropDown
-                      key={e.id}
-                      id={e.id}
-                      name={e.name}
-                      quantity={e.quantity}
-                      weight={e.weight}
-                      description={e.description}
-                      quality={e.quality}
-                    />
-                  );
-                }
-                if (e?.type === 'material') {
-                  return (
-                    <MaterialDropDown
-                      key={e.id}
-                      id={e.id}
-                      name={e.name}
-                      quantity={e.quantity}
-                      weight={e.weight}
-                      description={e.description}
-                      quality={e.quality}
-                    />
-                  );
-                }
-                if (e?.type === 'consumable') {
-                  return (
-                    <ConsumableDropDown
-                      key={e.id}
-                      id={e.id}
-                      name={e.name}
-                      quantity={e.quantity}
-                      weight={e.weight}
-                      description={e.description}
-                      quality={e.quality}
-                    />
-                  );
-                }
-              }
-            )}
+            {data?.belongings.map((e) => (
+              <p>{e.id}</p>
+            ))}
           </section>
         </ScrollArea>
       )}
@@ -90,7 +54,7 @@ export default function Belongings() {
             <p className="text-[0.9vw] font-semibold">kg</p>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
