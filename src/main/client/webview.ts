@@ -125,7 +125,7 @@ export function getCurrentMainPage() {
 }
 
 export function initializeMainWebViewServerEventsReceptor() {
-  alt.on(
+  alt.onServer(
     'emitCustomServerEventToMainWebView',
     (event: string, data?: unknown) => {
       mainWebView.emit(event, data);

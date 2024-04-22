@@ -7,7 +7,7 @@ import { item_getItem } from './item.js';
 
 export function player_setAccountData(player: alt.Player, data: AccountData) {
   if (!player?.valid) throw sendClientError(1713440472);
-  player.setMeta('account', data);
+  player.setLocalMeta('account', data);
 }
 
 export function player_setCharacterData(
@@ -15,17 +15,19 @@ export function player_setCharacterData(
   data: CharacterData
 ) {
   checkPlayer(player);
-  player.setMeta('character', data);
+  player.setStreamSyncedMeta('character', data);
 }
 
 export function player_getAccountData(player: alt.Player) {
   checkPlayer(player);
-  return player.getMeta('account') as AccountData;
+  return player.getLocalMeta('account') as AccountData;
 }
 
 export function player_getCharacterData(player: alt.Player) {
   checkPlayer(player);
-  const characterData = player.getMeta('character') as CharacterData;
+  const characterData = player.getStreamSyncedMeta(
+    'character'
+  ) as CharacterData;
   return {
     ...characterData,
     belongings: characterData.belongings.map((item) => {
@@ -47,7 +49,7 @@ export function player_updateAccountData(
   data: Partial<AccountData>
 ) {
   checkPlayer(player);
-  const account = player.getMeta('account') as AccountData;
+  const account = player.getLocalMeta('account') as AccountData;
   player_setAccountData(player, { ...account, ...data });
 }
 
@@ -56,7 +58,7 @@ export function player_updateCharacterData(
   data: Partial<CharacterData>
 ) {
   checkPlayer(player);
-  const character = player.getMeta('character') as CharacterData;
+  const character = player.getStreamSyncedMeta('character') as CharacterData;
   player_setCharacterData(player, { ...character, ...data });
 }
 
@@ -103,7 +105,6 @@ export function player_loadIntoWorld(player: alt.Player) {
     },
     conditions: [],
     skills: [],
-    isLiving: true,
   });
 
   checkPlayer(player);
@@ -121,7 +122,7 @@ export function player_updateNeedsForAll() {
   alt.Player.all.forEach((player) => {
     checkPlayer(player);
     const characterData = player_getCharacterData(player);
-    if (!(characterData && characterData.isLiving)) return;
+    if (!characterData) return;
     const characterNeeds = characterData.needs;
     const newNeeds: typeof characterNeeds = {
       thirst: {

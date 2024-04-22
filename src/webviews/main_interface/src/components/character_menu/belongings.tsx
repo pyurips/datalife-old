@@ -1,10 +1,8 @@
 import { Input } from '@/components/ui/input';
-import { player_getCharacterData } from '@/utils/use_requester';
 import { FaSearch } from 'react-icons/fa';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { FaWeightHanging } from 'react-icons/fa';
 import { Progress } from '@/components/ui/progress';
-import { useEffect } from 'react';
 import { VscLoading } from 'react-icons/vsc';
 import {
   DropdownMenu,
@@ -15,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { getItem } from '@/utils/items_list';
+import { useCharacterData } from '@/contexts/player';
 
 function getQualityColor(quality: 0 | 1 | 2) {
   if (quality === 1) return 'bg-sky-950';
@@ -23,15 +22,7 @@ function getQualityColor(quality: 0 | 1 | 2) {
 }
 
 export default function Belongings() {
-  const { fetch, data, loading } = player_getCharacterData();
-
-  useEffect(() => {
-    fetch();
-  }, []);
-
-  useEffect(() => {
-    if (data) console.log(JSON.stringify(data, null, 2));
-  }, [data]);
+  const characterData = useCharacterData((state) => state.characterData);
 
   return (
     <div className="flex flex-col w-full gap-[1vw]">
@@ -40,22 +31,16 @@ export default function Belongings() {
         <Input placeholder="Procure um item pelo nome" />
       </header>
 
-      {loading && (
+      {!characterData && (
         <div className="flex flex-1 items-center justify-center">
           <VscLoading className="text-[2vw] animate-spin" />
         </div>
       )}
 
-      {data && 'error' in data && (
-        <div className="flex flex-1 items-center justify-center">
-          <p className="text-red-500 text-[0.9vw] px-[1vw]">{data.error}</p>
-        </div>
-      )}
-
-      {!loading && data && 'belongings' in data && (
+      {characterData && (
         <ScrollArea className="flex flex-1">
           <section className="flex flex-row gap-[1.2vw] flex-wrap p-[0.1vw]">
-            {data.belongings.length === 0 && (
+            {characterData.belongings.length === 0 && (
               <div className="flex flex-1 items-center justify-center">
                 <p className="text-[1.1vw] text-stone-400">
                   Você não possui nenhum item
@@ -63,7 +48,7 @@ export default function Belongings() {
               </div>
             )}
 
-            {data.belongings.map((e) => (
+            {characterData.belongings.map((e) => (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button
@@ -130,15 +115,17 @@ export default function Belongings() {
         </ScrollArea>
       )}
 
-      {!loading && data && 'belongings' in data && (
+      {characterData && (
         <div className="flex flex-row items-center justify-between gap-[1vw]">
           <FaWeightHanging className="text-[1.5vw]" />
           <Progress
             className="h-[0.3vw]"
-            value={Math.round((data.currentWeight / data.weightCapacity) * 100)}
+            value={Math.round(
+              (characterData.currentWeight / characterData.weightCapacity) * 100
+            )}
           />
           <div className="flex flex-row gap-[0.2vw] items-end">
-            <p className="text-[1vw]">{`${data.currentWeight}/${data.weightCapacity}`}</p>
+            <p className="text-[1vw]">{`${characterData.currentWeight}/${characterData.weightCapacity}`}</p>
             <p className="text-[0.9vw] font-semibold">kg</p>
           </div>
         </div>

@@ -3,6 +3,7 @@ import * as alt from 'alt-server';
 
 import {
   callableByRPC as playerRPC,
+  player_getCharacterData,
   player_updateNeedsForAll,
 } from './player.js';
 import { callableByRPC as itemRPC } from './item.js';
@@ -11,6 +12,7 @@ import {
   initializeMongoDB,
   initializeMongoDBGame,
 } from './mongodb_initialize.js';
+import { emitToMainWebViewUnique } from './utils.js';
 
 let CAN_CONNECT = false;
 const ONE_SECOND = 1000;
@@ -47,6 +49,19 @@ alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
     return new Error(
       'Erro interno no servidor. Por favor, tente novamente mais tarde.'
     );
+  }
+});
+
+alt.on('streamSyncedMetaChange', (entity, key, value, oldValue) => {
+  if (entity instanceof alt.Player) {
+    if (key === 'character') {
+      const characterData = player_getCharacterData(entity);
+      return emitToMainWebViewUnique(
+        entity,
+        'server_getCharacterData',
+        characterData
+      );
+    }
   }
 });
 

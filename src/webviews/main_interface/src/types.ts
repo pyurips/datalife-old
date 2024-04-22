@@ -1,13 +1,3 @@
-export type AccountData = {
-  _id: string;
-  discordId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  lastLogin: Date;
-  permissionLevel: 0 | 1 | 2 | 3;
-  bits: number;
-};
-
 export type CharacterData = {
   health: number;
   stamina: number;
@@ -17,11 +7,14 @@ export type CharacterData = {
   experience: { value: number; rate: number };
   belongings: {
     id: number;
-    type: ItemsType;
+    type: 'consumable' | 'material' | 'cloth';
     quality: 0 | 1 | 2;
     amount: number;
+    weight: number;
+    usable: boolean;
   }[];
   weightCapacity: number;
+  currentWeight: number;
   hotkeysSlots: { id: number; slot: number }[];
   needs: {
     hunger: { value: number; rate: number };
@@ -42,13 +35,3 @@ export type CharacterData = {
     rate: number;
   }[];
 };
-
-export type VehicleData = {
-  fuelType: 'gasoline' | 'diesel' | 'eletric' | 'kerosene' | null;
-  fuelRate: number;
-  fuel: number;
-};
-
-export type ItemsType = 'consumable' | 'material' | 'cloth';
-
-export type MainWebViewEvents = 'server_getCharacterData';

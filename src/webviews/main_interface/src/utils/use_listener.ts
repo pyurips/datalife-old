@@ -19,3 +19,7 @@ function useListener(eventName: string) {
 export function useGetPage(): 'signIn' | 'mainHud' | 'characterMenu' {
   return useListener('client_setPage');
 }
+
+export function useGetCharacterData() {
+  return useListener('server_getCharacterData');
+}
