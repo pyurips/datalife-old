@@ -67,7 +67,7 @@ export default function Belongings() {
                     </p>
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="max-w-[12vw] border-none p-[0.5vw] rounded-[1vw] bg-stone-900">
+                <DropdownMenuContent className="max-w-[12vw] border-none p-[0.5vw] rounded-[0.5vw] bg-stone-900">
                   <DropdownMenuLabel>
                     <div className="flex flex-col gap-[1vw]">
                       <p className="leading-[1vw] text-[1vw]">
@@ -101,11 +101,11 @@ export default function Belongings() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-stone-600" />
                   {e.usable && (
-                    <DropdownMenuItem className="text-[0.8vw]">
+                    <DropdownMenuItem className="text-[0.8vw] rounded-[0.5vw]">
                       Usar
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem className="text-[0.8vw] text-red-400 hover:text-inherit hover:bg-red-500 focus:bg-red-500">
+                  <DropdownMenuItem className="text-[0.8vw] text-red-400 hover:text-inherit hover:bg-red-500 focus:bg-red-500 rounded-[0.5vw]">
                     Jogar fora
                   </DropdownMenuItem>
                 </DropdownMenuContent>
