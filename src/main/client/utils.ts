@@ -86,5 +86,5 @@ export function getClosestMarkerFromPlayer(player: alt.Player, range: number) {
 }
 
 export function getClosestObjectFromPlayer(player: alt.Player, range: number) {
-  return getClosestVectorFromGroup(player.pos, [...alt.Object.all], range);
+  return getClosestVectorFromGroup(player.pos, [...alt.LocalObject.all], range);
 }

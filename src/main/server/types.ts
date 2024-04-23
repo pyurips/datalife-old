@@ -51,4 +51,12 @@ export type VehicleData = {
 
 export type ItemsType = 'consumable' | 'material' | 'cloth';
 
+export type DropData = {
+  virtualEntityId: number;
+  itemId: number;
+  type: ItemsType;
+  quality: 0 | 1 | 2;
+  amount: number;
+}
+
 export type MainWebViewEvents = 'server_getCharacterData';

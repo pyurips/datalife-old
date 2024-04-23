@@ -3,7 +3,7 @@ import { AccountData, CharacterData, ItemsType } from './types.js';
 import { vehicle_createByWorld } from './vehicle.js';
 import { sendClientError } from './utils.js';
 import { checkPlayer } from './middlewares.js';
-import { item_getItem } from './item.js';
+import { item_createAObjectDropFromPlayer, item_getItem } from './item.js';
 
 export function player_setAccountData(player: alt.Player, data: AccountData) {
   if (!player?.valid) throw sendClientError(1713440472);
@@ -110,12 +110,6 @@ export function player_loadIntoWorld(player: alt.Player) {
   checkPlayer(player);
   player.spawn(-14.295, 24.695, 71.656);
   player.dimension = 0;
-  setTimeout(() => {
-    vehicle_createByWorld(player);
-  }, 2000);
-  setTimeout(() => {
-    vehicle_createByWorld(player);
-  }, 5000);
 }
 
 export function player_updateNeedsForAll() {
@@ -208,6 +202,7 @@ export function player_removeBelongingsItem(
   quality: 0 | 1 | 2,
   amount: number
 ) {
+  checkPlayer(player);
   const characterBelongings = player_getCharacterData(player).belongings;
   const itemToDelete = characterBelongings.find(
     (i) => i.id === itemId && i.quality === quality && i.type === type
@@ -229,7 +224,40 @@ export function player_removeBelongingsItem(
   });
 }
 
-export function player_dropBelongingsItem(index: number, amount: number) {}
+export function player_dropBelongingsItem(
+  player: alt.Player,
+  index: number,
+  amount: number
+) {
+  checkPlayer(player);
+  const characterBelongings = player_getCharacterData(player).belongings;
+  const itemToDelete = characterBelongings[index];
+  alt.log(itemToDelete);
+  if (!itemToDelete) throw sendClientError(1713879613);
+  const finalAmount = itemToDelete.amount - amount;
+  if (finalAmount <= 0) {
+    item_createAObjectDropFromPlayer(player, {
+      itemId: itemToDelete.id,
+      type: itemToDelete.type,
+      quality: itemToDelete.quality,
+      amount: itemToDelete.amount,
+    });
+    return player_updateCharacterData(player, {
+      belongings: characterBelongings.filter((i, idx) => idx !== index),
+    });
+  }
+  item_createAObjectDropFromPlayer(player, {
+    itemId: itemToDelete.id,
+    type: itemToDelete.type,
+    quality: itemToDelete.quality,
+    amount,
+  });
+  return player_updateCharacterData(player, {
+    belongings: characterBelongings.map((i, idx) =>
+      idx === index ? { ...i, amount: finalAmount } : i
+    ),
+  });
+}
 
 export const callableByRPC = {
   player_getAccountData,

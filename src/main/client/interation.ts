@@ -51,7 +51,14 @@ export function checkInteraction() {
   }
 
   if (minDistance === closestObjectDistance) {
-    setObjectViewPos(1, closestObject.pos);
+    setObjectViewPos(
+      1,
+      new alt.Vector3(
+        closestObject.pos.x,
+        closestObject.pos.y,
+        closestObject.pos.z + 0.5
+      )
+    );
     return (currentInteraction = 'object');
   }
   setObjectViewPos(1, closestMarker.pos);

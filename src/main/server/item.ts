@@ -1,6 +1,10 @@
 import * as alt from 'alt-server';
 import { sendClientError } from './utils.js';
-import { ItemsType } from './types.js';
+import { DropData, ItemsType } from './types.js';
+import { checkPlayer } from './middlewares.js';
+
+const dropGroup = new alt.VirtualEntityGroup(100);
+const DROP_STREAMING_DISTANCE = 100;
 
 export function item_wearCloth(player: alt.Player, id: number) {
   const cloth = clothes[id];
@@ -100,6 +104,20 @@ export function item_getItem(id: number, type: ItemsType) {
   if (type === 'material') return materials[id];
   if (type === 'cloth') return clothes[id];
   throw sendClientError(1713785225);
+}
+
+export function item_createAObjectDropFromPlayer(player: alt.Player, dropData: Partial<DropData>) {
+  checkPlayer(player);
+  const drop = new alt.VirtualEntity(
+    dropGroup,
+    new alt.Vector3(
+      player.pos.x + Math.random(),
+      player.pos.y + Math.random(),
+      player.pos.z
+    ),
+    DROP_STREAMING_DISTANCE
+  );
+  drop.setStreamSyncedMeta('drop', {...dropData, virtualEntityId: drop.id});
 }
 
 export const callableByRPC = {

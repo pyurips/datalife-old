@@ -74,3 +74,17 @@ alt.on('keyup', async (key) => {
     await alt.emitRpc('rpc', 'vehicle_toggleEngine');
   }
 });
+
+alt.on('worldObjectStreamIn', (object: any) => {
+  if (object.getStreamSyncedMeta('drop')) {
+    alt.log(object.getStreamSyncedMeta('drop'));
+    const drop = new alt.LocalObject(
+      'prop_cs_box_clothes',
+      object.pos,
+      new alt.Vector3(0, 0, Math.random())
+    );
+    drop.positionFrozen = true;
+    drop.frozen = true;
+    drop.toggleCollision(false, false);
+  }
+});
