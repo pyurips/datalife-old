@@ -201,6 +201,36 @@ export function player_addItemToBelongings(
   });
 }
 
+export function player_removeBelongingsItem(
+  player: alt.Player,
+  itemId: number,
+  type: ItemsType,
+  quality: 0 | 1 | 2,
+  amount: number
+) {
+  const characterBelongings = player_getCharacterData(player).belongings;
+  const itemToDelete = characterBelongings.find(
+    (i) => i.id === itemId && i.quality === quality && i.type === type
+  );
+  if (!itemToDelete) throw sendClientError(1713879613);
+  const finalAmount = itemToDelete.amount - amount;
+  if (finalAmount <= 0)
+    return player_updateCharacterData(player, {
+      belongings: characterBelongings.filter(
+        (i) => i.id !== itemId || i.quality !== quality || i.type !== type
+      ),
+    });
+  return player_updateCharacterData(player, {
+    belongings: characterBelongings.map((i) =>
+      i.id === itemId && i.quality === quality && i.type === type
+        ? { ...i, amount: finalAmount }
+        : i
+    ),
+  });
+}
+
+export function player_dropBelongingsItem(index: number, amount: number) {}
+
 export const callableByRPC = {
   player_getAccountData,
   player_loadIntoWorld,
