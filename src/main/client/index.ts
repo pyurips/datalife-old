@@ -77,12 +77,12 @@ alt.on('keyup', async (key) => {
 
 alt.on('worldObjectStreamIn', (object: any) => {
   if (object.getStreamSyncedMeta('drop')) {
-    alt.log(object.getStreamSyncedMeta('drop'));
     const drop = new alt.LocalObject(
       'prop_cs_box_clothes',
       object.pos,
       new alt.Vector3(0, 0, Math.random())
     );
+    alt.log(drop);
     drop.positionFrozen = true;
     drop.frozen = true;
     drop.toggleCollision(false, false);

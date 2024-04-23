@@ -33,14 +33,14 @@ export function player_getCharacterData(player: alt.Player) {
     belongings: characterData.belongings.map((item) => {
       return {
         ...item,
-        weight: item_getItem(item.id, item.type).weight * item.amount,
+        weight: +(item_getItem(item.id, item.type).weight * item.amount).toFixed(1),
         usable: item.type === 'consumable',
       };
     }),
-    currentWeight: characterData.belongings.reduce(
+    currentWeight: +characterData.belongings.reduce(
       (acc, i) => acc + item_getItem(i.id, i.type).weight * i.amount,
       0
-    ),
+    ).toFixed(1),
   };
 }
 
@@ -232,7 +232,6 @@ export function player_dropBelongingsItem(
   checkPlayer(player);
   const characterBelongings = player_getCharacterData(player).belongings;
   const itemToDelete = characterBelongings[index];
-  alt.log(itemToDelete);
   if (!itemToDelete) throw sendClientError(1713879613);
   const finalAmount = itemToDelete.amount - amount;
   if (finalAmount <= 0) {
