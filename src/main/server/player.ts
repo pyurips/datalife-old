@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
 import { AccountData, CharacterData, ItemsType } from './types.js';
 import { vehicle_createByWorld } from './vehicle.js';
-import { sendClientError } from './utils.js';
+import { emitToMainWebViewUnique, sendClientError } from './utils.js';
 import { checkPlayer } from './middlewares.js';
 import { item_createAObjectDropFromPlayer, item_getItem } from './item.js';
 
@@ -261,6 +261,20 @@ export function player_dropBelongingsItem(
       idx === index ? { ...i, amount: finalAmount } : i
     ),
   });
+}
+
+export function player_emitCharacterDataToMainWebView(
+  player: alt.Player,
+  key: string
+) {
+  if (key === 'character') {
+    const characterData = player_getCharacterData(player);
+    return emitToMainWebViewUnique(
+      player,
+      'server_getCharacterData',
+      characterData
+    );
+  }
 }
 
 export const callableByRPC = {

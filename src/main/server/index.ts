@@ -3,6 +3,7 @@ import * as alt from 'alt-server';
 
 import {
   callableByRPC as playerRPC,
+  player_emitCharacterDataToMainWebView,
   player_getCharacterData,
   player_updateNeedsForAll,
 } from './player.js';
@@ -54,14 +55,7 @@ alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
 
 alt.on('streamSyncedMetaChange', (entity, key, value, oldValue) => {
   if (entity instanceof alt.Player) {
-    if (key === 'character') {
-      const characterData = player_getCharacterData(entity);
-      return emitToMainWebViewUnique(
-        entity,
-        'server_getCharacterData',
-        characterData
-      );
-    }
+    player_emitCharacterDataToMainWebView(entity, key);
   }
 });
 
