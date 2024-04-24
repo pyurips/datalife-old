@@ -68,7 +68,7 @@ export function getClosestVehicleFromPlayer(
 ) {
   return getClosestVectorFromGroup(
     player.pos,
-    [...alt.Vehicle.all].filter((vehicle) => {
+    [...alt.Vehicle.streamedIn].filter((vehicle) => {
       if (
         excludeMine &&
         player.vehicle?.valid &&

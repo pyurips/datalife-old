@@ -116,7 +116,7 @@ export function item_createAObjectDropFromPlayer(
     new alt.Vector3(
       player.pos.x + Math.random(),
       player.pos.y + Math.random(),
-      player.pos.z
+      player.pos.z - 1
     ),
     DROP_STREAMING_DISTANCE
   );
