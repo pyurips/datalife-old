@@ -33,14 +33,15 @@ export function player_getCharacterData(player: alt.Player) {
     belongings: characterData.belongings.map((item) => {
       return {
         ...item,
-        weight: +(item_getItem(item.id, item.type).weight * item.amount).toFixed(1),
+        weight: +(
+          item_getItem(item.id, item.type).weight * item.amount
+        ).toFixed(1),
         usable: item.type === 'consumable',
       };
     }),
-    currentWeight: +characterData.belongings.reduce(
-      (acc, i) => acc + item_getItem(i.id, i.type).weight * i.amount,
-      0
-    ).toFixed(1),
+    currentWeight: +characterData.belongings
+      .reduce((acc, i) => acc + item_getItem(i.id, i.type).weight * i.amount, 0)
+      .toFixed(1),
   };
 }
 
@@ -110,6 +111,10 @@ export function player_loadIntoWorld(player: alt.Player) {
   checkPlayer(player);
   player.spawn(-14.295, 24.695, 71.656);
   player.dimension = 0;
+
+  setTimeout(() => {
+    player_dropBelongingsItem(player, 0, 1);
+  }, 2_000);
 }
 
 export function player_updateNeedsForAll() {

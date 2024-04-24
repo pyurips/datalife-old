@@ -6,7 +6,7 @@ import {
   player_getCharacterData,
   player_updateNeedsForAll,
 } from './player.js';
-import { callableByRPC as itemRPC } from './item.js';
+import { callableByRPC as itemRPC, item_clearDrop } from './item.js';
 import { callableByRPC as vehicleRPC } from './vehicle.js';
 import {
   initializeMongoDB,
@@ -67,4 +67,5 @@ alt.on('streamSyncedMetaChange', (entity, key, value, oldValue) => {
 
 setInterval(() => {
   //player_updateNeedsForAll();
+  item_clearDrop();
 }, ONE_SECOND);

@@ -57,6 +57,7 @@ export type DropData = {
   type: ItemsType;
   quality: 0 | 1 | 2;
   amount: number;
+  createdAt: number;
 }
 
 export type MainWebViewEvents = 'server_getCharacterData';

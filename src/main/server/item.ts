@@ -106,7 +106,10 @@ export function item_getItem(id: number, type: ItemsType) {
   throw sendClientError(1713785225);
 }
 
-export function item_createAObjectDropFromPlayer(player: alt.Player, dropData: Partial<DropData>) {
+export function item_createAObjectDropFromPlayer(
+  player: alt.Player,
+  dropData: Partial<DropData>
+) {
   checkPlayer(player);
   const drop = new alt.VirtualEntity(
     dropGroup,
@@ -117,11 +120,33 @@ export function item_createAObjectDropFromPlayer(player: alt.Player, dropData: P
     ),
     DROP_STREAMING_DISTANCE
   );
-  drop.setStreamSyncedMeta('drop', {...dropData, virtualEntityId: drop.id});
+  drop.setStreamSyncedMeta('drop', {
+    ...dropData,
+    virtualEntityId: drop.id,
+    createdAt: Date.now(),
+  });
+}
+
+export function item_getObjectDrop(player: alt.Player, dropId: number) {
+  checkPlayer(player);
+  const drop = alt.VirtualEntity.all.find(
+    (drop) => drop.id === dropId && drop.type === 20
+  );
+  if (!drop) return null;
+  return drop;
+}
+
+export function item_clearDrop() {
+  alt.VirtualEntity.all.forEach((drop) => {
+    if (!(drop.type === 20)) return;
+    const dropData = drop.getStreamSyncedMeta('drop') as DropData;
+    if (Date.now() - dropData.createdAt >= 60_000) drop.destroy();
+  });
 }
 
 export const callableByRPC = {
   item_wearCloth,
   item_unwearCloth,
   item_useConsumable,
+  item_getObjectDrop,
 };

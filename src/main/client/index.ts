@@ -76,15 +76,31 @@ alt.on('keyup', async (key) => {
 });
 
 alt.on('worldObjectStreamIn', (object: any) => {
-  if (object.getStreamSyncedMeta('drop')) {
+  const isADrop = object.getStreamSyncedMeta('drop');
+
+  if (isADrop) {
     const drop = new alt.LocalObject(
       'prop_cs_box_clothes',
       object.pos,
       new alt.Vector3(0, 0, Math.random())
     );
-    alt.log(drop);
     drop.positionFrozen = true;
     drop.frozen = true;
     drop.toggleCollision(false, false);
+    drop.setMeta('virtualEntityId', isADrop.virtualEntityId);
   }
 });
+
+setInterval(() => {
+  alt.LocalObject.all.forEach(async (object) => {
+    if (!object?.valid) return;
+    const virtualEntityId = object.getMeta('virtualEntityId');
+    if (!virtualEntityId) return;
+    const objectExistYet = await alt.emitRpc(
+      'rpc',
+      'item_getObjectDrop',
+      virtualEntityId
+    );
+    if (!objectExistYet) object.destroy();
+  });
+}, 1_000);
