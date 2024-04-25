@@ -15,10 +15,14 @@ import {
   createObjectView,
   initializeMainWebViewServerEventsReceptor,
   getCanChangePage,
+  webView_attachObjectViewTo,
 } from './webview.js';
 import { defaultCharacterBehaviors } from './character.js';
 import { createSigninCamera } from './camera.js';
-import { checkInteraction } from './interation.js';
+import {
+  interaction_initializeObjectViewBase,
+  interation_check,
+} from './interation.js';
 
 alt.setWatermarkPosition(alt.WatermarkPosition.TopCenter);
 
@@ -26,19 +30,20 @@ alt.on('connectionComplete', async () => {
   toggleNativeHud(false);
   native.triggerScreenblurFadeIn(100);
   createSigninCamera();
-  await loadMainWebView();
+  await interaction_initializeObjectViewBase();
   await createObjectView(1);
+  await loadMainWebView();
   initializeMainWebViewServerEventsReceptor();
   setMainPage('signIn');
   toggleMainWebViewFocus(true);
 });
 
-alt.everyTick(() => {
-  checkInteraction();
+alt.everyTick(async () => {
+  //interation_check();
   defaultCharacterBehaviors();
 });
 
-alt.on('globalMetaChange', (key, value) => {
+alt.on('globalMetaChange', (key, value, oldValue) => {
   if (key === 'mainPage') {
     if (value === 'mainHud') {
       toggleMainWebViewFocus(false);
@@ -48,6 +53,13 @@ alt.on('globalMetaChange', (key, value) => {
       setPageMode(true);
     }
     return emitCustomClientEventToMainWebView('client_setPage', value);
+  }
+
+  if (key === 'closestInteractionEntity') {
+    if (!value || !oldValue) return;
+    if (value.id === oldValue.id && value.type === oldValue.type) return;
+    if (value instanceof alt.Vehicle || value instanceof alt.Object)
+      return webView_attachObjectViewTo(1, value);
   }
 });
 
@@ -84,14 +96,15 @@ alt.on('worldObjectStreamIn', (object: any) => {
       object.pos,
       new alt.Vector3(0, 0, Math.random())
     );
-    drop.positionFrozen = true;
-    drop.frozen = true;
-    drop.toggleCollision(false, false);
+    // drop.toggleCollision(false, false);
+    // drop.placeOnGroundProperly();
     drop.setMeta('virtualEntityId', isADrop.virtualEntityId);
   }
 });
 
 setInterval(() => {
+  interation_check();
+
   alt.LocalObject.all.forEach(async (object) => {
     if (!object?.valid) return;
     const virtualEntityId = object.getMeta('virtualEntityId');

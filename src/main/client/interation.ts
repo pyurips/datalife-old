@@ -1,66 +1,40 @@
 import * as alt from 'alt-client';
-import {
-  getClosestVehicleFromPlayer,
-  getClosestMarkerFromPlayer,
-  getClosestObjectFromPlayer,
-  getDistanceBetween,
-} from './utils.js';
-import { setObjectViewPos } from './webview.js';
+import { getDistanceBetween } from './utils.js';
+import { getClosestObjectFromPlayer } from './utils.js';
 
-let currentInteraction: 'vehicle' | 'object' | 'marker' = null;
-const player = alt.Player.local;
+export let OBJECT_view_BASE: alt.LocalObject = null;
 
-export function checkInteraction() {
-  const closestVehicle = getClosestVehicleFromPlayer(player, 5, true);
-  const closestObject = getClosestObjectFromPlayer(player, 5);
-  const closestMarker = getClosestMarkerFromPlayer(player, 5);
+export async function interaction_initializeObjectViewBase() {
+  OBJECT_view_BASE = new alt.LocalObject(
+    'prop_tv_flat_01_screen',
+    new alt.Vector3(0, 0, 0),
+    new alt.Vector3(0, 0, 0)
+  );
+  await alt.Utils.requestModel(OBJECT_view_BASE.model);
+  OBJECT_view_BASE.frozen = true;
+  OBJECT_view_BASE.positionFrozen = true;
+  OBJECT_view_BASE.toggleCollision(false, false);
+}
 
-  let closestVehicleDistance: number = null;
-  let closestObjectDistance: number = null;
-  let closestMarkerDistance: number = null;
+export function interation_check() {
+  const closestVehicle = alt.Utils.getClosestVehicle({ range: 5 });
+  const closestObject = alt.Utils.getClosestObject({ range: 3 });
 
-  const closestDistances = [];
+  const closestEntity = [closestVehicle, closestObject].reduce((prev, curr) => {
+    if (prev === null) return curr;
+    if (curr === null) return prev;
 
-  if (closestVehicle) {
-    closestVehicleDistance = getDistanceBetween(player.pos, closestVehicle.pos);
-    closestDistances.push(closestVehicleDistance);
-  }
-  if (closestObject) {
-    closestObjectDistance = getDistanceBetween(player.pos, closestObject.pos);
-    closestDistances.push(closestObjectDistance);
-  }
-  if (closestMarker) {
-    closestMarkerDistance = getDistanceBetween(player.pos, closestMarker.pos);
-    closestDistances.push(closestMarkerDistance);
-  }
+    const prevDist = getDistanceBetween(alt.Player.local.pos, prev.pos);
+    const currDist = getDistanceBetween(alt.Player.local.pos, curr.pos);
 
-  if (!closestDistances.length)
-    return setObjectViewPos(1, new alt.Vector3(0, 0, 0));
-  let minDistance = Math.min(...closestDistances);
+    return prevDist < currDist ? prev : curr;
+  }, null);
 
-  if (minDistance === closestVehicleDistance) {
-    setObjectViewPos(
-      1,
-      new alt.Vector3(
-        closestVehicle.pos.x,
-        closestVehicle.pos.y,
-        closestVehicle.pos.z + 1.5
-      )
-    );
-    return (currentInteraction = 'vehicle');
-  }
+  if (!closestEntity)
+    return alt.setMeta('closestInteractionEntity', OBJECT_view_BASE);
+  alt.setMeta('closestInteractionEntity', closestEntity);
+}
 
-  if (minDistance === closestObjectDistance) {
-    setObjectViewPos(
-      1,
-      new alt.Vector3(
-        closestObject.pos.x,
-        closestObject.pos.y,
-        closestObject.pos.z + 0.5
-      )
-    );
-    return (currentInteraction = 'object');
-  }
-  setObjectViewPos(1, closestMarker.pos);
-  return (currentInteraction = 'marker');
+export function interaction_getClosestInteractionEntity() {
+  return alt.getMeta('closestInteractionEntity') as alt.Vehicle | alt.Object;
 }
