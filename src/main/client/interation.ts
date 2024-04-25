@@ -6,7 +6,7 @@ export let OBJECT_view_BASE: alt.LocalObject = null;
 
 export async function interaction_initializeObjectViewBase() {
   OBJECT_view_BASE = new alt.LocalObject(
-    'prop_tv_flat_01_screen',
+    'prop_cs_box_clothes',
     new alt.Vector3(0, 0, 0),
     new alt.Vector3(0, 0, 0)
   );
@@ -18,9 +18,8 @@ export async function interaction_initializeObjectViewBase() {
 
 export function interation_check() {
   const closestVehicle = alt.Utils.getClosestVehicle({ range: 5 });
-  const closestObject = alt.Utils.getClosestObject({ range: 3 });
 
-  const closestEntity = [closestVehicle, closestObject].reduce((prev, curr) => {
+  const closestEntity = [closestVehicle].reduce((prev, curr) => {
     if (prev === null) return curr;
     if (curr === null) return prev;
 
