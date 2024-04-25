@@ -96,8 +96,8 @@ alt.on('worldObjectStreamIn', (object: any) => {
       object.pos,
       new alt.Vector3(0, 0, Math.random())
     );
-    // drop.toggleCollision(false, false);
-    // drop.placeOnGroundProperly();
+    drop.toggleCollision(false, false);
+    drop.placeOnGroundProperly();
     drop.setMeta('virtualEntityId', isADrop.virtualEntityId);
   }
 });
