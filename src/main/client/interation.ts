@@ -18,8 +18,9 @@ export async function interaction_initializeObjectViewBase() {
 
 export function interation_check() {
   const closestVehicle = alt.Utils.getClosestVehicle({ range: 5 });
+  const closestObject = alt.Utils.getClosestObject({ range: 2 });
 
-  const closestEntity = [closestVehicle].reduce((prev, curr) => {
+  const closestEntity = [closestVehicle, closestObject].reduce((prev, curr) => {
     if (prev === null) return curr;
     if (curr === null) return prev;
 
@@ -31,9 +32,10 @@ export function interation_check() {
 
   if (!closestEntity)
     return alt.setMeta('closestInteractionEntity', OBJECT_view_BASE);
+  if (
+    closestEntity instanceof alt.Object &&
+    !closestEntity.getMeta('virtualEntityId')
+  )
+    return;
   alt.setMeta('closestInteractionEntity', closestEntity);
-}
-
-export function interaction_getClosestInteractionEntity() {
-  return alt.getMeta('closestInteractionEntity') as alt.Vehicle | alt.Object;
 }

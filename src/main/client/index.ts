@@ -57,12 +57,16 @@ alt.on('globalMetaChange', (key, value, oldValue) => {
     return emitCustomClientEventToMainWebView('client_setPage', value);
   }
 
-  // if (key === 'closestInteractionEntity') {
-  //   if (!value || !oldValue) return;
-  //   if (value.id === oldValue.id && value.type === oldValue.type) return;
-  //   if (value instanceof alt.Vehicle || value instanceof alt.Object)
-  //     return webView_attachObjectViewTo(1, value);
-  // }
+  if (key === 'closestInteractionEntity') {
+    if (!value || !oldValue) return;
+    if (value.id === oldValue.id && value.type === oldValue.type) return;
+    if (value instanceof alt.Vehicle || value instanceof alt.Object) {
+      alt.log(
+        `ID: ${value.id} | Type: ${value.type} | VALID: ${value.valid} | POS: ${value.pos}`
+      );
+      webView_attachObjectViewTo(1, value);
+    }
+  }
 });
 
 alt.on('keyup', async (key) => {
@@ -101,13 +105,6 @@ alt.on('worldObjectStreamIn', (object: any) => {
     drop.toggleCollision(false, false);
     drop.placeOnGroundProperly();
     drop.setMeta('virtualEntityId', isADrop.virtualEntityId);
-    new alt.Utils.EveryTick(() => {
-      if (getDistanceBetween(alt.Player.local.pos, drop.pos) < 2) {
-        webView_attachObjectViewTo(1, drop);
-      } else {
-        webView_attachObjectViewTo(1, OBJECT_view_BASE);
-      }
-    });
   }
 });
 
