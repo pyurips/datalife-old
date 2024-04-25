@@ -62,10 +62,11 @@ export function getClosestVectorFromGroup(
 }
 
 export function getClosestVehicleFromPlayer(
-  player: alt.Player,
   range: number,
   excludeMine: boolean = false
 ) {
+  const player = alt.Player.local;
+
   return getClosestVectorFromGroup(
     player.pos,
     [...alt.Vehicle.streamedIn].filter((vehicle) => {
@@ -85,6 +86,12 @@ export function getClosestVehicleFromPlayer(
 //   return getClosestVectorFromGroup(player.pos, [...alt.Marker.all], range);
 // }
 
-export function getClosestObjectFromPlayer(range: number) {
-  return getClosestVectorFromGroup(alt.Player.local.pos, [...alt.LocalObject.all], range);
+export function getClosestDropFromPlayer(range: number) {
+  const player = alt.Player.local;
+
+  return getClosestVectorFromGroup(
+    player.pos,
+    [...alt.LocalObject.all.filter((e) => e.getMeta('virtualEntityId'))],
+    range
+  );
 }

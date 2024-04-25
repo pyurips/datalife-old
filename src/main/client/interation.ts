@@ -1,6 +1,6 @@
 import * as alt from 'alt-client';
-import { getDistanceBetween } from './utils.js';
-import { getClosestObjectFromPlayer } from './utils.js';
+import { getClosestDropFromPlayer, getClosestVehicleFromPlayer, getDistanceBetween } from './utils.js';
+import { webView_attachObjectViewTo } from './webview.js';
 
 export let OBJECT_view_BASE: alt.LocalObject = null;
 
@@ -17,12 +17,11 @@ export async function interaction_initializeObjectViewBase() {
 }
 
 export function interation_check() {
-  const closestVehicle = alt.Utils.getClosestVehicle({ range: 5 });
-  const closestObject = alt.Utils.getClosestObject({ range: 2 });
-
+  const closestVehicle = getClosestVehicleFromPlayer(5, true);
+  const closestObject = getClosestDropFromPlayer(3);
   const closestEntity = [closestVehicle, closestObject].reduce((prev, curr) => {
-    if (prev === null) return curr;
-    if (curr === null) return prev;
+    if (!prev) return curr;
+    if (!curr) return prev;
 
     const prevDist = getDistanceBetween(alt.Player.local.pos, prev.pos);
     const currDist = getDistanceBetween(alt.Player.local.pos, curr.pos);
@@ -30,12 +29,6 @@ export function interation_check() {
     return prevDist < currDist ? prev : curr;
   }, null);
 
-  if (!closestEntity)
-    return alt.setMeta('closestInteractionEntity', OBJECT_view_BASE);
-  if (
-    closestEntity instanceof alt.Object &&
-    !closestEntity.getMeta('virtualEntityId')
-  )
-    return;
-  alt.setMeta('closestInteractionEntity', closestEntity);
+  if (!closestEntity) return webView_attachObjectViewTo(1, OBJECT_view_BASE);
+  return webView_attachObjectViewTo(1, closestEntity);
 }

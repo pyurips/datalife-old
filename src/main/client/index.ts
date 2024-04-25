@@ -2,7 +2,6 @@ import * as alt from 'alt-client';
 import * as native from 'natives';
 import {
   getCursorState,
-  getDistanceBetween,
   setPageMode,
   showCursor,
   toggleNativeHud,
@@ -21,7 +20,6 @@ import {
 import { defaultCharacterBehaviors } from './character.js';
 import { createSigninCamera } from './camera.js';
 import {
-  OBJECT_view_BASE,
   interaction_initializeObjectViewBase,
   interation_check,
 } from './interation.js';
@@ -41,7 +39,7 @@ alt.on('connectionComplete', async () => {
 });
 
 alt.everyTick(async () => {
-  //interation_check();
+  interation_check();
   defaultCharacterBehaviors();
 });
 
@@ -57,16 +55,12 @@ alt.on('globalMetaChange', (key, value, oldValue) => {
     return emitCustomClientEventToMainWebView('client_setPage', value);
   }
 
-  if (key === 'closestInteractionEntity') {
-    if (!value || !oldValue) return;
-    if (value.id === oldValue.id && value.type === oldValue.type) return;
-    if (value instanceof alt.Vehicle || value instanceof alt.Object) {
-      alt.log(
-        `ID: ${value.id} | Type: ${value.type} | VALID: ${value.valid} | POS: ${value.pos}`
-      );
-      webView_attachObjectViewTo(1, value);
-    }
-  }
+  // if (key === 'closestInteractionEntity') {
+  //   if (!value || !oldValue) return;
+  //   if (value.id === oldValue.id && value.type === oldValue.type) return;
+  //   if (value instanceof alt.Vehicle || value instanceof alt.Object)
+  //     return webView_attachObjectViewTo(1, value);
+  // }
 });
 
 alt.on('keyup', async (key) => {
@@ -93,7 +87,7 @@ alt.on('keyup', async (key) => {
   }
 });
 
-alt.on('worldObjectStreamIn', (object: any) => {
+alt.on('worldObjectStreamIn', async (object: any) => {
   const isADrop = object.getStreamSyncedMeta('drop');
 
   if (isADrop) {
@@ -109,8 +103,6 @@ alt.on('worldObjectStreamIn', (object: any) => {
 });
 
 setInterval(() => {
-  interation_check();
-
   alt.LocalObject.all.forEach(async (object) => {
     if (!object?.valid) return;
     const virtualEntityId = object.getMeta('virtualEntityId');

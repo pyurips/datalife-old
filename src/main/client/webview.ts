@@ -147,21 +147,22 @@ export function webView_attachObjectViewTo(
   entity: alt.Entity
 ) {
   const objectView = activeObjectViews.find((e) => e.id === objectViewId);
-  if (objectView) {
-    const cameraPos = native.getGameplayCamCoord();
-    const tvPos = objectView.object.pos;
-    const direction = new alt.Vector3(
-      cameraPos.x - tvPos.x,
-      cameraPos.y - tvPos.y,
-      0
-    ).normalize();
-    const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
+  if (!objectView) return;
+  if (!objectView.object) return;
 
-    objectView.object.attachToEntity(
-      entity,
-      -1,
-      new alt.Vector3(0, 0, 1.5),
-      new alt.Vector3(0, 0, rotationZ)
-    );
-  }
+  const cameraPos = native.getGameplayCamCoord();
+  const tvPos = objectView.object.pos;
+  const direction = new alt.Vector3(
+    cameraPos.x - tvPos.x,
+    cameraPos.y - tvPos.y,
+    0
+  ).normalize();
+  const rotationZ = Math.atan2(direction.y, direction.x) + Math.PI / 2;
+
+  objectView.object.attachToEntity(
+    entity,
+    -1,
+    new alt.Vector3(0, 0, 1.5),
+    new alt.Vector3(0, 0, rotationZ)
+  );
 }
