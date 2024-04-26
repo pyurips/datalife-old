@@ -50,7 +50,7 @@ export function getClosestDropFromPlayer(player: alt.Player, range: number) {
   return positionsInRange[0];
 }
 
-export function getVehicleFromPlayer(
+export function getClosestVehicleFromPlayer(
   player: alt.Player,
   range: number,
   excludeMine = false
