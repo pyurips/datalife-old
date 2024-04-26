@@ -69,7 +69,7 @@ export function getClosestVehicleFromPlayer(
 
   return getClosestVectorFromGroup(
     player.pos,
-    [...alt.Vehicle.streamedIn].filter((vehicle) => {
+    alt.Vehicle.streamedIn.filter((vehicle) => {
       if (
         excludeMine &&
         player.vehicle?.valid &&
@@ -91,7 +91,7 @@ export function getClosestDropFromPlayer(range: number) {
 
   return getClosestVectorFromGroup(
     player.pos,
-    [...alt.LocalObject.all.filter((e) => e.getMeta('virtualEntityId'))],
+    alt.LocalObject.all.filter((e) => e.hasMeta('virtualEntityId')),
     range
   );
 }

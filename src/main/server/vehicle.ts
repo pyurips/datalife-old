@@ -7,7 +7,7 @@ export function vehicle_createByStaff(player: alt.Player) {
 }
 
 export function vehicle_createByWorld(player: alt.Player) {
-  new alt.Vehicle('comet5', player.pos.x, player.pos.y, player.pos.z, 0, 0, 0);
+  new alt.Vehicle('italirsx', player.pos.x, player.pos.y, player.pos.z, 0, 0, 0);
 }
 
 export function vehicle_setVehicleData(player: alt.Player, data: VehicleData) {
@@ -27,6 +27,7 @@ export function vehicle_updateData(
 }
 
 export function vehicle_toggleEngine(player: alt.Player) {
+  checkPlayer(player);
   if (player.vehicle.engineOn) return (player.vehicle.engineOn = false);
   return (player.vehicle.engineOn = true);
 }
