@@ -5,7 +5,7 @@ import {
   getDistanceBetween,
 } from './utils.js';
 
-export function interation_check(player: alt.Player) {
+export function interaction_check(player: alt.Player) {
   const closestVehicle = getClosestVehicleFromPlayer(player, 5, true);
   const closestObject = getClosestDropFromPlayer(player, 3);
   const closestEntity = [closestVehicle, closestObject].reduce((prev, curr) => {
@@ -18,5 +18,10 @@ export function interation_check(player: alt.Player) {
     return prevDist < currDist ? prev : curr;
   }, null);
 
-  return closestEntity;
+  if (!closestEntity) return;
+  return alt.log(closestEntity);
 }
+
+export const callableByRPC = {
+  interaction_check,
+};

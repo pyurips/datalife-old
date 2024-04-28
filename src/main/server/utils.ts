@@ -62,7 +62,7 @@ export function getClosestVehicleFromPlayer(
       vehicle.id === player.vehicle.id
     )
       return false;
-    return true;
+    return getDistanceBetween(player.pos, vehicle.pos) <= range;
   });
   positionsInRange.sort((a, b) => {
     return (

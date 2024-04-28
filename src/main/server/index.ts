@@ -9,6 +9,7 @@ import {
 } from './player.js';
 import { callableByRPC as itemRPC, item_clearDrop } from './item.js';
 import { callableByRPC as vehicleRPC } from './vehicle.js';
+import { callableByRPC as interactionRPC } from './interaction.js';
 import {
   initializeMongoDB,
   initializeMongoDBGame,
@@ -42,6 +43,7 @@ alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
       ...playerRPC,
       ...itemRPC,
       ...vehicleRPC,
+      ...interactionRPC,
     };
     return await currentOperation[operation](player, data);
   } catch (e) {

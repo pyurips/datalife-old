@@ -85,6 +85,10 @@ alt.on('keyup', async (key) => {
   if (key === alt.KeyCode.K) {
     await alt.emitRpc('rpc', 'vehicle_toggleEngine');
   }
+
+  if (key === alt.KeyCode.E) {
+    await alt.emitRpc('rpc', 'interaction_check');
+  }
 });
 
 alt.on('worldObjectStreamIn', async (object: any) => {
