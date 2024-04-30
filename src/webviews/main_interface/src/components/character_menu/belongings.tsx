@@ -14,6 +14,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { getItem } from '@/utils/items_list';
 import { useCharacterData } from '@/contexts/player';
+import bitsIconLight from '@/assets/bits_icon_light.svg';
+import moneyIcon from '@/assets/money_icon.svg';
+import primeIconLight from '@/assets/prime_icon_light.svg';
 
 function getQualityColor(quality: 0 | 1 | 2) {
   if (quality === 1) return 'bg-sky-950';
@@ -26,6 +29,20 @@ export default function Belongings() {
 
   return (
     <div className="flex flex-col w-full gap-[1vw]">
+      <div className="flex flex-row gap-[3vw] items-center">
+        <div className="flex flex-row gap-[1vw] items-center justify-center bg-stone-900 p-[0.5vw] rounded-[0.5vw]">
+          <img draggable={false} className="size-[2vw]" src={moneyIcon} />
+          <p className="text-[1vw]">485.451.230</p>
+        </div>
+
+        <div className="flex flex-row gap-[1vw] items-center justify-center bg-stone-900 p-[0.5vw] rounded-[0.5vw]">
+          <img draggable={false} className="size-[2vw]" src={bitsIconLight} />
+          <p className="text-[1vw]">458</p>
+        </div>
+
+        <img draggable={false} className="h-[2vw]" src={primeIconLight} />
+      </div>
+
       <header className="flex flex-row items-center gap-2">
         <FaSearch className="text-[1.3vw]" />
         <Input placeholder="Procure um item pelo nome" />
