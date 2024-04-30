@@ -32,12 +32,22 @@ export default function Belongings() {
       <div className="flex flex-row gap-[3vw] items-center">
         <div className="flex flex-row gap-[1vw] items-center justify-center bg-stone-900 p-[0.5vw] rounded-[0.5vw]">
           <img draggable={false} className="size-[2vw]" src={moneyIcon} />
-          <p className="text-[1vw]">485.451.230</p>
+          <p className="text-[1vw]">
+            {new Intl.NumberFormat('pt-BR', {
+              style: 'decimal',
+              maximumFractionDigits: 0,
+            }).format(4555154154)}
+          </p>
         </div>
 
         <div className="flex flex-row gap-[1vw] items-center justify-center bg-stone-900 p-[0.5vw] rounded-[0.5vw]">
           <img draggable={false} className="size-[2vw]" src={bitsIconLight} />
-          <p className="text-[1vw]">458</p>
+          <p className="text-[1vw]">
+            {new Intl.NumberFormat('pt-BR', {
+              style: 'decimal',
+              maximumFractionDigits: 0,
+            }).format(45554)}
+          </p>
         </div>
 
         <img draggable={false} className="h-[2vw]" src={primeIconLight} />
