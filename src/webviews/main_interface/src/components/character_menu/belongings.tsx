@@ -30,9 +30,9 @@ export default function Belongings() {
   return (
     <div className="flex flex-col w-full gap-[1vw]">
       <div className="flex flex-row gap-[3vw] items-center">
-        <div className="flex flex-row gap-[1vw] items-center justify-center bg-stone-900 p-[0.5vw] rounded-[0.5vw]">
+        <div className="flex flex-row gap-[0.8vw] items-center justify-center">
           <img draggable={false} className="size-[2vw]" src={moneyIcon} />
-          <p className="text-[1vw]">
+          <p className="text-[0.9vw]">
             {new Intl.NumberFormat('pt-BR', {
               style: 'decimal',
               maximumFractionDigits: 0,
@@ -40,9 +40,9 @@ export default function Belongings() {
           </p>
         </div>
 
-        <div className="flex flex-row gap-[1vw] items-center justify-center bg-stone-900 p-[0.5vw] rounded-[0.5vw]">
+        <div className="flex flex-row gap-[0.8vw] items-center justify-center">
           <img draggable={false} className="size-[2vw]" src={bitsIconLight} />
-          <p className="text-[1vw]">
+          <p className="text-[0.9vw]">
             {new Intl.NumberFormat('pt-BR', {
               style: 'decimal',
               maximumFractionDigits: 0,

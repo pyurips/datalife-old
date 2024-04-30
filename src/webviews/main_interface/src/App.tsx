@@ -26,7 +26,6 @@ export default function App() {
         {page === 'characterMenu' && <CharacterMenu />}
         {/* {page === 'characterCustomization' && <CharacterCustomization />} */}
         {/* {page === 'adminPanel' && <AdminPanel />} */}
-        <CharacterMenu />
       </main>
     </ThemeProvider>
   );
