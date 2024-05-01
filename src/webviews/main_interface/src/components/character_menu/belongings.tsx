@@ -36,7 +36,7 @@ export default function Belongings() {
             {new Intl.NumberFormat('pt-BR', {
               style: 'decimal',
               maximumFractionDigits: 0,
-            }).format(4555154154)}
+            }).format(characterData?.money || 0)}
           </p>
         </div>
 

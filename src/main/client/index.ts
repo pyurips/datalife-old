@@ -15,11 +15,11 @@ import {
   createObjectView,
   initializeMainWebViewServerEventsReceptor,
   getCanChangePage,
-  webView_attachObjectViewTo,
 } from './webview.js';
 import { defaultCharacterBehaviors } from './character.js';
 import { createSigninCamera } from './camera.js';
 import {
+  interaction_checkOnTap,
   interaction_initializeObjectViewBase,
   interation_check,
 } from './interation.js';
@@ -54,13 +54,6 @@ alt.on('globalMetaChange', (key, value, oldValue) => {
     }
     return emitCustomClientEventToMainWebView('client_setPage', value);
   }
-
-  // if (key === 'closestInteractionEntity') {
-  //   if (!value || !oldValue) return;
-  //   if (value.id === oldValue.id && value.type === oldValue.type) return;
-  //   if (value instanceof alt.Vehicle || value instanceof alt.Object)
-  //     return webView_attachObjectViewTo(1, value);
-  // }
 });
 
 alt.on('keyup', async (key) => {
@@ -83,10 +76,14 @@ alt.on('keyup', async (key) => {
   }
 
   if (key === alt.KeyCode.K) {
+    const player = alt.Player.local;
+    if (!player?.valid) return;
+    if (!player.vehicle) return;
     await alt.emitRpc('rpc', 'vehicle_toggleEngine');
   }
 
   if (key === alt.KeyCode.E) {
+    if (!interaction_checkOnTap()) return;
     await alt.emitRpc('rpc', 'interaction_check');
   }
 });

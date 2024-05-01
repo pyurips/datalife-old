@@ -1,5 +1,9 @@
 import * as alt from 'alt-client';
-import { getClosestDropFromPlayer, getClosestVehicleFromPlayer, getDistanceBetween } from './utils.js';
+import {
+  getClosestDropFromPlayer,
+  getClosestVehicleFromPlayer,
+  getDistanceBetween,
+} from './utils.js';
 import { webView_attachObjectViewTo } from './webview.js';
 
 export let OBJECT_view_BASE: alt.LocalObject = null;
@@ -31,4 +35,20 @@ export function interation_check() {
 
   if (!closestEntity) return webView_attachObjectViewTo(1, OBJECT_view_BASE);
   return webView_attachObjectViewTo(1, closestEntity);
+}
+
+export function interaction_checkOnTap() {
+  const closestVehicle = getClosestVehicleFromPlayer(5, true);
+  const closestObject = getClosestDropFromPlayer(3);
+  const closestEntity = [closestVehicle, closestObject].reduce((prev, curr) => {
+    if (!prev) return curr;
+    if (!curr) return prev;
+
+    const prevDist = getDistanceBetween(alt.Player.local.pos, prev.pos);
+    const currDist = getDistanceBetween(alt.Player.local.pos, curr.pos);
+
+    return prevDist < currDist ? prev : curr;
+  }, null);
+
+  return closestEntity;
 }
