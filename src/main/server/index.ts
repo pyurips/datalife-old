@@ -4,8 +4,6 @@ import * as alt from 'alt-server';
 import {
   callableByRPC as playerRPC,
   player_emitCharacterDataToMainWebView,
-  player_getCharacterData,
-  player_updateNeedsForAll,
 } from './player.js';
 import { callableByRPC as itemRPC, item_clearDrop } from './item.js';
 import { callableByRPC as vehicleRPC } from './vehicle.js';
@@ -14,7 +12,6 @@ import {
   initializeMongoDB,
   initializeMongoDBGame,
 } from './mongodb_initialize.js';
-import { emitToMainWebViewUnique } from './utils.js';
 
 let CAN_CONNECT = false;
 const ONE_SECOND = 1000;
@@ -36,6 +33,10 @@ alt.on('playerConnect', (player) => {
 });
 
 alt.on('playerDisconnect', (player, reason) => {});
+
+alt.on('playerDeath', (victim, killer, weaponHash) => {
+  victim.spawn(-14.295, 24.695, 71.656);
+});
 
 alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
   try {

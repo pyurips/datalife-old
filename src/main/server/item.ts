@@ -10,7 +10,7 @@ export function item_wearCloth(player: alt.Player, id: number) {
   const cloth = clothes[id];
   if (!cloth) throw new Error();
   if (cloth.kind === 'cloth')
-    return this.dlc
+    return cloth.dlc
       ? player.setDlcClothes(
           cloth.dlc,
           cloth.componentId,
@@ -25,7 +25,7 @@ export function item_wearCloth(player: alt.Player, id: number) {
         cloth.drawableId,
         cloth.textureId
       )
-    : player.setProp(this.componentId, this.drawableId, this.textureId);
+    : player.setProp(cloth.componentId, cloth.drawableId, cloth.textureId);
 }
 
 export function item_unwearCloth(player: alt.Player, id: number) {
@@ -96,6 +96,15 @@ export const clothes: {
     textureId: 0,
     upperBody: 1,
     kind: 'cloth',
+  },
+  {
+    weight: 0.2,
+    stackable: false,
+    componentId: 6,
+    drawableId: 4,
+    textureId: 0,
+    upperBody: 0,
+    kind: 'prop',
   },
 ];
 
