@@ -4,6 +4,9 @@ import {
   getClosestVehicleFromPlayer,
   getDistanceBetween,
 } from './utils.js';
+import { DropData } from './types.js';
+import { player_addItemToBelongings } from './player.js';
+import { item_deleteDropById } from './item.js';
 
 export function interaction_check(player: alt.Player) {
   const closestVehicle = getClosestVehicleFromPlayer(player, 5, true);
@@ -19,7 +22,17 @@ export function interaction_check(player: alt.Player) {
   }, null);
 
   if (!closestEntity) return;
-  return alt.log(closestEntity);
+  if (closestEntity.hasStreamSyncedMeta('drop')) {
+    const dropData = closestEntity.getStreamSyncedMeta('drop') as DropData;
+    player_addItemToBelongings(
+      player,
+      dropData.itemId,
+      dropData.type,
+      dropData.amount,
+      dropData.quality
+    );
+    return item_deleteDropById(dropData.virtualEntityId);
+  }
 }
 
 export const callableByRPC = {

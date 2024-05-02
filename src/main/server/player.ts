@@ -111,12 +111,9 @@ export function player_loadIntoWorld(player: alt.Player) {
   checkPlayer(player);
   player.spawn(-14.295, 24.695, 71.656);
   player.dimension = 0;
-  setTimeout(() => {
-    vehicle_createByWorld(player);
-  }, 1000);
   // setTimeout(() => {
   //   vehicle_createByWorld(player);
-  // }, 5000);
+  // }, 1000);
   setTimeout(() => {
     player_dropBelongingsItem(player, 0, 1);
   }, 6000);
@@ -193,13 +190,13 @@ export function player_addItemToBelongings(
   const ownedItem = characterBelongings.find(
     (i) => i.id === itemId && i.type === type && i.quality === quality
   );
-  if (ownedItem)
+  if (ownedItem) {
+    ownedItem.amount += amount;
+
     return player_updateCharacterData(player, {
-      belongings: [
-        ...characterBelongings,
-        { id: itemId, type, quality, amount: ownedItem.amount + amount },
-      ],
+      belongings: characterBelongings,
     });
+  }
   return player_updateCharacterData(player, {
     belongings: [...characterBelongings, { id: itemId, type, quality, amount }],
   });
