@@ -136,15 +136,6 @@ export function item_createAObjectDropFromPlayer(
   });
 }
 
-export function item_getObjectDrop(player: alt.Player, dropId: number) {
-  checkPlayer(player);
-  const drop = alt.VirtualEntity.all.find(
-    (drop) => drop.id === dropId && drop.hasStreamSyncedMeta('drop')
-  );
-  if (!drop) return null;
-  return drop;
-}
-
 export function item_clearDrop() {
   alt.VirtualEntity.all.forEach((drop) => {
     if (!drop.hasStreamSyncedMeta('drop')) return;
@@ -169,5 +160,4 @@ export const callableByRPC = {
   item_wearCloth,
   item_unwearCloth,
   item_useConsumable,
-  item_getObjectDrop,
 };

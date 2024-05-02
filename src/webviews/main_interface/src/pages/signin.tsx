@@ -26,7 +26,7 @@ export default function Signin() {
           onClick={() => fetch()}
         >
           {!loading && <FaDiscord className="text-[1.5vw]" />}
-          {loading && <VscLoading className="text-[1.1vw] animate-spin" />}
+          {loading && <VscLoading className="text-[1.5vw] animate-spin" />}
           <p className="font-normal text-[1.1vw]">Entrar</p>
         </Button>
 

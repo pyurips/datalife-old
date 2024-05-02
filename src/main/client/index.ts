@@ -104,17 +104,3 @@ alt.on('worldObjectStreamIn', async (object: any) => {
     drop.setMeta('virtualEntityId', isADrop.virtualEntityId);
   }
 });
-
-setInterval(() => {
-  alt.LocalObject.all.forEach(async (object) => {
-    if (!object?.valid) return;
-    const virtualEntityId = object.getMeta('virtualEntityId');
-    if (!virtualEntityId) return;
-    const objectExistYet = await alt.emitRpc(
-      'rpc',
-      'item_getObjectDrop',
-      virtualEntityId
-    );
-    if (!objectExistYet) object.destroy();
-  });
-}, 1_000);

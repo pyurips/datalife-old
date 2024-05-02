@@ -80,7 +80,7 @@ export function player_loadIntoWorld(player: alt.Player) {
     money: 1000,
     bank: 1000,
     level: 1,
-    experience: { value: 0, rate: 0 },
+    experience: { value: 0, rate: 1 },
     belongings: [
       {
         id: 0,
@@ -115,8 +115,8 @@ export function player_loadIntoWorld(player: alt.Player) {
   //   vehicle_createByWorld(player);
   // }, 1000);
   setTimeout(() => {
-    player_dropBelongingsItem(player, 0, 1);
-  }, 6000);
+    player_dropBelongingsItem(player, { index: 0, amount: 2 });
+  }, 3_000);
 }
 
 export function player_updateNeedsForAll() {
@@ -233,14 +233,13 @@ export function player_removeBelongingsItem(
 
 export function player_dropBelongingsItem(
   player: alt.Player,
-  index: number,
-  amount: number
+  data: { index: number; amount: number }
 ) {
   checkPlayer(player);
   const characterBelongings = player_getCharacterData(player).belongings;
-  const itemToDelete = characterBelongings[index];
+  const itemToDelete = characterBelongings[data.index];
   if (!itemToDelete) throw sendClientError(1713879613);
-  const finalAmount = itemToDelete.amount - amount;
+  const finalAmount = itemToDelete.amount - data.amount;
   if (finalAmount <= 0) {
     item_createAObjectDropFromPlayer(player, {
       itemId: itemToDelete.id,
@@ -249,18 +248,18 @@ export function player_dropBelongingsItem(
       amount: itemToDelete.amount,
     });
     return player_updateCharacterData(player, {
-      belongings: characterBelongings.filter((i, idx) => idx !== index),
+      belongings: characterBelongings.filter((i, idx) => idx !== data.index),
     });
   }
   item_createAObjectDropFromPlayer(player, {
     itemId: itemToDelete.id,
     type: itemToDelete.type,
     quality: itemToDelete.quality,
-    amount,
+    amount: data.amount,
   });
   return player_updateCharacterData(player, {
     belongings: characterBelongings.map((i, idx) =>
-      idx === index ? { ...i, amount: finalAmount } : i
+      idx === data.index ? { ...i, amount: finalAmount } : i
     ),
   });
 }
