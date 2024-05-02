@@ -23,6 +23,7 @@ import {
   interaction_initializeObjectViewBase,
   interation_check,
 } from './interation.js';
+import { item_initializeClearDropById } from './item.js';
 
 alt.setWatermarkPosition(alt.WatermarkPosition.TopCenter);
 
@@ -36,6 +37,7 @@ alt.on('connectionComplete', async () => {
   initializeMainWebViewServerEventsReceptor();
   setMainPage('signIn');
   toggleMainWebViewFocus(true);
+  item_initializeClearDropById();
 });
 
 alt.everyTick(async () => {

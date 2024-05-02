@@ -147,9 +147,12 @@ export function item_getObjectDrop(player: alt.Player, dropId: number) {
 
 export function item_clearDrop() {
   alt.VirtualEntity.all.forEach((drop) => {
-    if (!(drop.type === 20)) return;
+    if (!drop.hasStreamSyncedMeta('drop')) return;
     const dropData = drop.getStreamSyncedMeta('drop') as DropData;
-    if (Date.now() - dropData.createdAt >= 60_000) drop.destroy();
+    if (Date.now() - dropData.createdAt >= 60_000) {
+      drop.destroy();
+      alt.emitAllClientsRaw('client_item_clearDropById', drop.id);
+    }
   });
 }
 
@@ -159,6 +162,7 @@ export function item_deleteDropById(dropId: number) {
   );
   if (!drop) return;
   drop.destroy();
+  alt.emitAllClientsRaw('client_item_clearDropById', dropId);
 }
 
 export const callableByRPC = {
