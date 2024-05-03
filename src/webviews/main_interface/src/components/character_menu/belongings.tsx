@@ -17,7 +17,7 @@ import { useCharacterData } from '@/contexts/player';
 import bitsIconLight from '@/assets/bits_icon_light.svg';
 import moneyIcon from '@/assets/money_icon.svg';
 import primeIconLight from '@/assets/prime_icon_light.svg';
-import { player_dropBelongingsItem } from '@/utils/use_requester';
+import { player_dropBelongingsItem } from '@/utils/player_requester';
 
 function getQualityColor(quality: 0 | 1 | 2) {
   if (quality === 1) return 'bg-sky-950';

@@ -60,4 +60,5 @@ export function vehicle_toggleEngine(player: alt.Player) {
 
 export const callableByRPC = {
   vehicle_toggleEngine,
+  vehicle_createToMeByStaff,
 };

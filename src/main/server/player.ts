@@ -1,6 +1,5 @@
 import * as alt from 'alt-server';
 import { AccountData, CharacterData, ItemsType } from './types.js';
-import { vehicle_createByWorld } from './vehicle.js';
 import { emitToMainWebViewUnique, sendClientError } from './utils.js';
 import { checkPlayer } from './middlewares.js';
 import { item_createAObjectDropFromPlayer, item_getItem } from './item.js';
@@ -111,9 +110,6 @@ export function player_loadIntoWorld(player: alt.Player) {
   checkPlayer(player);
   player.spawn(-14.295, 24.695, 71.656);
   player.dimension = 0;
-  setTimeout(() => {
-    vehicle_createByWorld(player);
-  }, 1000);
 }
 
 export function player_updateNeedsForAll() {
