@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { BsDiscord, BsYoutube, BsInstagram } from 'react-icons/bs';
 import { VscLoading } from 'react-icons/vsc';
 import signinHomeImage from '@/assets/signin_home_image.png';
-import { auth_signInTest } from '@/utils/use_requester';
+import { auth_signInTest } from '@/utils/auth_requester';
 
 export default function Signin() {
   const { data, fetch, loading } = auth_signInTest();

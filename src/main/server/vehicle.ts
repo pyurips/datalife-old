@@ -2,7 +2,7 @@ import * as alt from 'alt-server';
 import { VehicleData } from './types.js';
 import { checkPlayer, getPermissionLevel } from './middlewares.js';
 
-export function vehicle_createToPlayerByStaff(
+export function vehicle_createToMeByStaff(
   player: alt.Player,
   data: { vehicleHash: number }
 ) {
