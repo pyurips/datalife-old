@@ -47,6 +47,7 @@ export type VehicleData = {
   fuelType: 'gasoline' | 'diesel' | 'eletric' | 'kerosene' | null;
   fuelRate: number;
   fuel: number;
+  interactionImageUrl: string;
 };
 
 export type ItemsType = 'consumable' | 'material' | 'cloth';

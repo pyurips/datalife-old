@@ -6,16 +6,15 @@ export function vehicle_createToPlayerByStaff(
   player: alt.Player,
   data: { vehicleHash: number }
 ) {
-  checkPlayer(player);
   if (getPermissionLevel(player) < 1) return;
   new alt.Vehicle(
     data.vehicleHash,
-    player.pos.x,
-    player.pos.y,
+    player.pos.x + Math.cos(player.rot.z) * 2,
+    player.pos.y + Math.sin(player.rot.z) * 2,
     player.pos.z,
-    0,
-    0,
-    0
+    player.rot.x,
+    player.rot.y,
+    player.rot.z
   );
 }
 

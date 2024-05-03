@@ -19,3 +19,8 @@ export function world_teleportPlayerToOtherByStaff(
   if (!firstPlayer || !secondPlayer) return;
   firstPlayer.pos = secondPlayer.pos;
 }
+
+export const callableByRPC = {
+  world_teleportMeByStaff,
+  world_teleportPlayerToOtherByStaff,
+};
