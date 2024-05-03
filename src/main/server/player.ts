@@ -111,12 +111,9 @@ export function player_loadIntoWorld(player: alt.Player) {
   checkPlayer(player);
   player.spawn(-14.295, 24.695, 71.656);
   player.dimension = 0;
-  // setTimeout(() => {
-  //   vehicle_createByWorld(player);
-  // }, 1000);
   setTimeout(() => {
-    player_dropBelongingsItem(player, { index: 0, amount: 2 });
-  }, 3_000);
+    vehicle_createByWorld(player);
+  }, 1000);
 }
 
 export function player_updateNeedsForAll() {
@@ -282,4 +279,5 @@ export const callableByRPC = {
   player_getAccountData,
   player_loadIntoWorld,
   player_getCharacterData,
+  player_dropBelongingsItem,
 };

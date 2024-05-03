@@ -83,3 +83,11 @@ export function player_getCharacterData(): {
 } {
   return useRequester('server', 'player_getCharacterData', true);
 }
+
+export function player_dropBelongingsItem(): {
+  fetch: (data: { index: number; amount: number }) => void;
+  loading: boolean;
+  data: { error: string } | undefined;
+} {
+  return useRequester('server', 'player_dropBelongingsItem', false);
+}

@@ -140,9 +140,9 @@ export function item_clearDrop() {
   alt.VirtualEntity.all.forEach((drop) => {
     if (!drop.hasStreamSyncedMeta('drop')) return;
     const dropData = drop.getStreamSyncedMeta('drop') as DropData;
-    if (Date.now() - dropData.createdAt >= 60_000) {
+    if (Date.now() - dropData.createdAt >= 10_000) {
       drop.destroy();
-      alt.emitAllClientsRaw('client_item_clearDropById', drop.id);
+      alt.emitAllClientsRaw('client_item_clearDropById', dropData.virtualEntityId);
     }
   });
 }
