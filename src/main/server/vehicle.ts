@@ -1,12 +1,26 @@
 import * as alt from 'alt-server';
 import { VehicleData } from './types.js';
-import { checkPlayer } from './middlewares.js';
+import { checkPlayer, getPermissionLevel } from './middlewares.js';
 
-export function vehicle_createByStaff(player: alt.Player) {
+export function vehicle_createToPlayerByStaff(
+  player: alt.Player,
+  data: { vehicleHash: number }
+) {
   checkPlayer(player);
+  if (getPermissionLevel(player) < 1) return;
+  new alt.Vehicle(
+    data.vehicleHash,
+    player.pos.x,
+    player.pos.y,
+    player.pos.z,
+    0,
+    0,
+    0
+  );
 }
 
 export function vehicle_createByWorld(player: alt.Player) {
+  checkPlayer(player);
   new alt.Vehicle(
     'italirsx',
     player.pos.x,

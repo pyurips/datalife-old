@@ -7,7 +7,7 @@ import Signin from './pages/signin';
 import { useGetCharacterData, useGetPage } from './utils/use_listener';
 import { useCharacterData } from './contexts/player';
 // import CharacterCustomization from './pages/character_customization';
-// import AdminPanel from './pages/admin_panel';
+import AdminPanel from './pages/admin_panel';
 
 export default function App() {
   const page = useGetPage();
@@ -25,7 +25,7 @@ export default function App() {
         {page === 'mainHud' && <MainHud />}
         {page === 'characterMenu' && <CharacterMenu />}
         {/* {page === 'characterCustomization' && <CharacterCustomization />} */}
-        {/* {page === 'adminPanel' && <AdminPanel />} */}
+        {page === 'adminPanel' && <AdminPanel />}
       </main>
     </ThemeProvider>
   );

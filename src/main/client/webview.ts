@@ -101,7 +101,7 @@ async function loadWebViewRequester(webView: alt.WebView) {
   });
 }
 
-export function setMainPage(page: 'signIn' | 'mainHud' | 'characterMenu') {
+export function setMainPage(page: 'signIn' | 'mainHud' | 'characterMenu' | 'adminPanel') {
   alt.setMeta('mainPage', page);
 }
 
@@ -114,7 +114,11 @@ export function getCanChangePage() {
 }
 
 export function getCurrentMainPage() {
-  return alt.getMeta('mainPage') as 'signIn' | 'mainHud' | 'characterMenu';
+  return alt.getMeta('mainPage') as
+    | 'signIn'
+    | 'mainHud'
+    | 'characterMenu'
+    | 'adminPanel';
 }
 
 export function initializeMainWebViewServerEventsReceptor() {

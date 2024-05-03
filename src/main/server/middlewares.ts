@@ -7,3 +7,9 @@ export function checkPlayer(player: alt.Player) {
   const accountData = player.getLocalMeta('account') as AccountData;
   if (!accountData._id) throw sendClientError(1713620728);
 }
+
+export function getPermissionLevel(player: alt.Player) {
+  if (!player?.valid) throw sendClientError(1714770857);
+  const accountData = player.getLocalMeta('account') as AccountData;
+  return accountData.permissionLevel;
+}

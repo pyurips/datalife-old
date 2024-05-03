@@ -77,6 +77,14 @@ alt.on('keyup', async (key) => {
     setMainPage('characterMenu');
   }
 
+  if (key === alt.KeyCode.F2) {
+    if (!getCanChangePage()) return;
+    if ((alt.Player.local.getSyncedMeta('account') as any).permissionLevel < 1)
+      return;
+    if (getCurrentMainPage() === 'adminPanel') return setMainPage('mainHud');
+    setMainPage('adminPanel');
+  }
+
   if (key === alt.KeyCode.K) {
     const player = alt.Player.local;
     if (!player?.valid) return;
