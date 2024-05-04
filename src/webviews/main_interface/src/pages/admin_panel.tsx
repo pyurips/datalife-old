@@ -8,6 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import PlayersAll from '@/components/admin_panel/players_all';
 import VehiclesCreate from '@/components/admin_panel/vehicles_create';
 import { useDebugMode } from '@/contexts/admin';
+import DebugAnimation from '@/components/admin_panel/debug_animation';
 
 export default function AdminPanel() {
   const debugMode = useDebugMode((state) => state.debugMode);
@@ -89,6 +90,9 @@ export default function AdminPanel() {
             selectedOption === 'Ver todos' && <PlayersAll />}
           {selectedCategory === 'Veículos' && selectedOption === 'Criar' && (
             <VehiclesCreate />
+          )}
+          {selectedCategory === 'Debug' && selectedOption === 'Animações' && (
+            <DebugAnimation />
           )}
         </div>
       </div>

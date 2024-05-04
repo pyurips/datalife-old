@@ -54,3 +54,22 @@ export function player_dropBelongingsItem(): {
 } {
   return useRequester('server', 'player_dropBelongingsItem', false);
 }
+
+export function player_setAnimationByStaff(): {
+  fetch: (data: {
+    animDict: string;
+    animName: string;
+    blendInSpeed?: number;
+    blendOutSpeed?: number;
+    duration?: number;
+    flags?: number;
+    playbackRate?: number;
+    lockX?: boolean;
+    lockY?: boolean;
+    lockZ?: boolean;
+  }) => void;
+  loading: boolean;
+  data: { error: string } | undefined;
+} {
+  return useRequester('server', 'player_setAnimationByStaff', false);
+}

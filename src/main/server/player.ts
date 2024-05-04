@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
 import { AccountData, CharacterData, ItemsType } from './types.js';
 import { emitToMainWebViewUnique, sendClientError } from './utils.js';
-import { checkPlayer } from './middlewares.js';
+import { checkPlayer, getPermissionLevel } from './middlewares.js';
 import { item_createAObjectDropFromPlayer, item_getItem } from './item.js';
 
 export function player_setAccountData(player: alt.Player, data: AccountData) {
@@ -271,9 +271,40 @@ export function player_emitCharacterDataToMainWebView(
   }
 }
 
+export function player_setAnimationByStaff(
+  player: alt.Player,
+  data: {
+    animDict: string;
+    animName: string;
+    blendInSpeed?: number;
+    blendOutSpeed?: number;
+    duration?: number;
+    flags?: number;
+    playbackRate?: number;
+    lockX?: boolean;
+    lockY?: boolean;
+    lockZ?: boolean;
+  }
+) {
+  if (getPermissionLevel(player) < 1) return;
+  player.playAnimation(
+    data.animDict,
+    data.animName,
+    data.blendInSpeed,
+    data.blendOutSpeed,
+    data.duration,
+    data.flags,
+    data.playbackRate,
+    data.lockX,
+    data.lockY,
+    data.lockZ
+  );
+}
+
 export const callableByRPC = {
   player_getAccountData,
   player_loadIntoWorld,
   player_getCharacterData,
   player_dropBelongingsItem,
+  player_setAnimationByStaff,
 };

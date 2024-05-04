@@ -9,12 +9,16 @@ const adminCategories = [
   },
   {
     category: 'Servidor',
-    options: ['Reiniciar', 'Desligar'],
+    options: ['Configuração', 'Status'],
   },
   {
     category: 'Veículos',
     options: ['Ver todos', 'Criar'],
   },
+  {
+    category: 'Debug',
+    options: ['Animações', 'Modo câmera'],
+  }
 ];
 
 export default adminCategories;
