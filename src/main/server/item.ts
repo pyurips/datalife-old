@@ -2,6 +2,7 @@ import * as alt from 'alt-server';
 import { sendClientError } from './utils.js';
 import { DropData, ItemsType } from './types.js';
 import { checkPlayer } from './middlewares.js';
+import { player_addToHunger, player_getCharacterData } from './player.js';
 
 const dropGroup = new alt.VirtualEntityGroup(100);
 const DROP_STREAMING_DISTANCE = 100;
@@ -32,8 +33,18 @@ export function item_unwearCloth(player: alt.Player, id: number) {
   // TODO
 }
 
-export function item_useConsumable(player: alt.Player, id: number) {
-  // TODO
+export function item_consume(player: alt.Player, index: number) {
+  const itemFromBelongings = player_getCharacterData(player).belongings[index];
+  if (!itemFromBelongings) return;
+  if (itemFromBelongings.type !== 'consumable') return;
+  const item = item_getItem(
+    itemFromBelongings.id,
+    'consumable'
+  ) as (typeof consumables)[0];
+  if (!item) return;
+
+  if (itemFromBelongings.id === 0)
+    return player_addToHunger(player, item.value);
 }
 
 export const consumables: {
@@ -142,7 +153,10 @@ export function item_clearDrop() {
     const dropData = drop.getStreamSyncedMeta('drop') as DropData;
     if (Date.now() - dropData.createdAt >= 10_000) {
       drop.destroy();
-      alt.emitAllClientsRaw('client_item_clearDropById', dropData.virtualEntityId);
+      alt.emitAllClientsRaw(
+        'client_item_clearDropById',
+        dropData.virtualEntityId
+      );
     }
   });
 }
@@ -159,5 +173,5 @@ export function item_deleteDropById(dropId: number) {
 export const callableByRPC = {
   item_wearCloth,
   item_unwearCloth,
-  item_useConsumable,
+  item_consume,
 };
