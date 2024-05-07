@@ -301,6 +301,141 @@ export function player_setAnimationByStaff(
   );
 }
 
+export function player_addToHunger(player: alt.Player, amount: number) {
+  checkPlayer(player);
+  const characterData = player_getCharacterData(player);
+  const newHunger = characterData.needs.hunger.value + amount;
+  player_updateCharacterData(player, {
+    needs: {
+      ...characterData.needs,
+      hunger: {
+        ...characterData.needs.hunger,
+        value: newHunger > 100 ? 100 : newHunger,
+      },
+    },
+  });
+}
+
+export function player_addToThirst(player: alt.Player, amount: number) {
+  checkPlayer(player);
+  const characterData = player_getCharacterData(player);
+  const newThirst = characterData.needs.thirst.value + amount;
+  player_updateCharacterData(player, {
+    needs: {
+      ...characterData.needs,
+      thirst: {
+        ...characterData.needs.thirst,
+        value: newThirst > 100 ? 100 : newThirst,
+      },
+    },
+  });
+}
+
+export function player_addToFatigue(player: alt.Player, amount: number) {
+  checkPlayer(player);
+  const characterData = player_getCharacterData(player);
+  const newFatigue = characterData.needs.fatigue.value + amount;
+  player_updateCharacterData(player, {
+    needs: {
+      ...characterData.needs,
+      fatigue: {
+        ...characterData.needs.fatigue,
+        value: newFatigue > 100 ? 100 : newFatigue,
+      },
+    },
+  });
+}
+
+export function player_addToBathroom(player: alt.Player, amount: number) {
+  checkPlayer(player);
+  const characterData = player_getCharacterData(player);
+  const newBathroom = characterData.needs.bathroom.value + amount;
+  player_updateCharacterData(player, {
+    needs: {
+      ...characterData.needs,
+      bathroom: {
+        ...characterData.needs.bathroom,
+        value: newBathroom > 100 ? 100 : newBathroom,
+      },
+    },
+  });
+}
+
+export function player_addToHygiene(player: alt.Player, amount: number) {
+  checkPlayer(player);
+  const characterData = player_getCharacterData(player);
+  const newHygiene = characterData.needs.hygiene.value + amount;
+  player_updateCharacterData(player, {
+    needs: {
+      ...characterData.needs,
+      hygiene: {
+        ...characterData.needs.hygiene,
+        value: newHygiene > 100 ? 100 : newHygiene,
+      },
+    },
+  });
+}
+
+export function player_removeFromHunger(player: alt.Player, amount: number) {
+  checkPlayer(player);
+  const characterData = player_getCharacterData(player);
+  const newHunger = characterData.needs.hunger.value - amount;
+  player_updateCharacterData(player, {
+    needs: {
+      ...characterData.needs,
+      hunger: {
+        ...characterData.needs.hunger,
+        value: newHunger < 0 ? 0 : newHunger,
+      },
+    },
+  });
+}
+
+export function player_removeFromThirst(player: alt.Player, amount: number) {
+  checkPlayer(player);
+  const characterData = player_getCharacterData(player);
+  const newThirst = characterData.needs.thirst.value - amount;
+  player_updateCharacterData(player, {
+    needs: {
+      ...characterData.needs,
+      thirst: {
+        ...characterData.needs.thirst,
+        value: newThirst < 0 ? 0 : newThirst,
+      },
+    },
+  });
+}
+
+export function player_removeFromFatigue(player: alt.Player, amount: number) {
+  checkPlayer(player);
+  const characterData = player_getCharacterData(player);
+  const newFatigue = characterData.needs.fatigue.value - amount;
+  player_updateCharacterData(player, {
+    needs: {
+      ...characterData.needs,
+      fatigue: {
+        ...characterData.needs.fatigue,
+        value: newFatigue < 0 ? 0 : newFatigue,
+      },
+    },
+  });
+}
+
+export function player_removeFromBathroom(player: alt.Player, amount: number) {
+  checkPlayer(player);
+  const characterData = player_getCharacterData(player);
+  const newBathroom = characterData.needs.bathroom.value - amount;
+  player_updateCharacterData(player, {
+    needs: {
+      ...characterData.needs,
+      bathroom: {
+        ...characterData.needs.bathroom,
+        value: newBathroom < 0 ? 0 : newBathroom,
+      },
+    },
+  });
+}
+
 export const callableByRPC = {
   player_getAccountData,
   player_loadIntoWorld,
