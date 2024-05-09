@@ -8,14 +8,19 @@ import DebugPanel from '@/components/main_hud/debug_panel';
 import { useDebugMode } from '@/contexts/admin';
 import { IoPersonCircle } from 'react-icons/io5';
 import { PiCursor } from 'react-icons/pi';
+import { IoMdMic /*IoMdMicOff*/ } from 'react-icons/io';
 
 export default function MainHud() {
   const debugMode = useDebugMode((state) => state.debugMode);
 
   return (
-    <div className="flex flex-col gap-[1vw] w-full h-full p-[1vw] pb-0">
-      <div className="flex flex-row items-center justify-between">
-        <img src={logoDark} alt="DATALIFE logo" className="w-[6vw] self-start" />
+    <div className="flex flex-col w-full h-full">
+      <div className="flex flex-row items-center justify-between p-[1vw]">
+        <img
+          src={logoDark}
+          alt="DATALIFE logo"
+          className="w-[6vw] self-start"
+        />
 
         <div className="flex flex-row items-center gap-[1vw] bg-stone-950/75 p-[0.5vw] rounded-[0.5vw]">
           <div className="flex flex-col gap-[0.5vw]">
@@ -41,10 +46,18 @@ export default function MainHud() {
         </div>
       </div>
 
-      {debugMode && <DebugPanel />}
+      {debugMode && (
+        <div className="flex flex-1 px-[1vw]">
+          <DebugPanel />
+        </div>
+      )}
 
       {!debugMode && (
-        <div className="flex flex-1 justify-center flex-col gap-[1vw] items-start opacity-70">
+        <div className="flex flex-1 justify-center flex-col gap-[1vw] items-start opacity-70 px-[1vw]">
+          <div className="flex items-center justify-center p-[0.5vw] bg-stone-950 rounded-[0.5vw] gap-[0.5vw] h-[2.5vw] w-[4vw]">
+            <IoMdMic className="text-[1.5vw]" />
+          </div>
+
           <div className="flex items-center justify-center p-[0.5vw] bg-stone-950 rounded-[0.5vw] gap-[0.5vw] h-[2.5vw] w-[4vw]">
             <IoPersonCircle className="text-[1.5vw]" />
             <p>B</p>
@@ -62,7 +75,7 @@ export default function MainHud() {
         </div>
       )}
 
-      <div className="flex flex-col items-center gap-[0.5vw] self-end">
+      <div className="flex flex-col items-center gap-[0.5vw] self-end px-[1vw]">
         <div className="flex flex-row items-center justify-center gap-[1vw] bg-stone-900 p-[0.5vw] rounded-[0.5vw] opacity-75 w-fit">
           <span className="relative flex h-[0.7vw] w-[0.7vw]">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
