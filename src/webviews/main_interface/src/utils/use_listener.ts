@@ -20,7 +20,8 @@ export function useGetPage():
   | 'signIn'
   | 'mainHud'
   | 'characterMenu'
-  | 'adminPanel' {
+  | 'adminPanel'
+  | 'vehicleInteraction' {
   return useListener('client_setPage');
 }
 

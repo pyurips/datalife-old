@@ -31,17 +31,18 @@ export function vehicle_createByWorld(player: alt.Player) {
   );
 }
 
-export function vehicle_setVehicleData(player: alt.Player, data: VehicleData) {
-  const vehicle = player.vehicle;
+export function vehicle_setVehicleData(
+  vehicle: alt.Vehicle,
+  data: VehicleData
+) {
   if (!vehicle?.valid) throw new Error();
   vehicle.setMeta('data', data);
 }
 
 export function vehicle_updateData(
-  player: alt.Player,
+  vehicle: alt.Vehicle,
   data: Partial<VehicleData>
 ) {
-  const vehicle = player.vehicle;
   if (!vehicle?.valid) throw new Error();
   const currentData = vehicle.getMeta('data') as VehicleData;
   vehicle.setMeta('data', { ...currentData, ...data });

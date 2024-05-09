@@ -5,10 +5,10 @@ export type AccountData = {
   updatedAt: Date;
   lastLogin: Date;
   permissionLevel: 0 | 1 | 2 | 3;
-  bits: number;
 };
 
 export type CharacterData = {
+  name: string;
   health: number;
   stamina: number;
   money: number;
@@ -44,10 +44,31 @@ export type CharacterData = {
 };
 
 export type VehicleData = {
+  ownerId: string;
   fuelType: 'gasoline' | 'diesel' | 'eletric' | 'kerosene' | null;
   fuelRate: number;
   fuel: number;
   interactionImageUrl: string;
+  trunk: {
+    id: number;
+    type: ItemsType;
+    quality: 0 | 1 | 2;
+    amount: number;
+  }[];
+  trunkWeightCapacity: number;
+  trunkWeight: number;
+  gloveCompartment: {
+    id: number;
+    type: ItemsType;
+    quality: 0 | 1 | 2;
+    amount: number;
+  }[];
+  gloveCompartmentWeightCapacity: number;
+  gloveCompartmentWeight: number;
+  gloveCompartmentState: boolean;
+  batteryCharge: number;
+  batteryCapacity: number;
+  batteryState: boolean;
 };
 
 export type ItemsType = 'consumable' | 'material' | 'cloth';
@@ -59,6 +80,6 @@ export type DropData = {
   quality: 0 | 1 | 2;
   amount: number;
   createdAt: number;
-}
+};
 
 export type MainWebViewEvents = 'server_getCharacterData';

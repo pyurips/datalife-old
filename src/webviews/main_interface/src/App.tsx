@@ -8,6 +8,7 @@ import { useGetCharacterData, useGetPage } from './utils/use_listener';
 import { useCharacterData } from './contexts/player';
 // import CharacterCustomization from './pages/character_customization';
 import AdminPanel from './pages/admin_panel';
+import VehicleInteraction from './pages/vehicle_interaction';
 
 export default function App() {
   const page = useGetPage();
@@ -26,6 +27,7 @@ export default function App() {
         {page === 'characterMenu' && <CharacterMenu />}
         {/* {page === 'characterCustomization' && <CharacterCustomization />} */}
         {page === 'adminPanel' && <AdminPanel />}
+        <VehicleInteraction />
       </main>
     </ThemeProvider>
   );

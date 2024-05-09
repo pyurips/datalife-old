@@ -70,10 +70,10 @@ export function player_loadIntoWorld(player: alt.Player) {
     updatedAt: new Date(),
     lastLogin: new Date(),
     permissionLevel: 3,
-    bits: 5065445,
   });
 
   player_setCharacterData(player, {
+    name: 'Pabliuri',
     health: 100,
     stamina: 100,
     money: 1000,
