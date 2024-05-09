@@ -15,6 +15,8 @@ export default function DebugPanel() {
       } | ${playerRot?.z || 0}`}</p>
       <p>Velocidade do personagem</p>
       <p className="text-stone-400">{`${playerSpeed?.speed || 0}`}</p>
+      <p>Dimensão do personagem</p>
+      <p className="text-stone-400">{`${playerSpeed?.speed || 0}`}</p>
     </div>
   );
 }

@@ -9,6 +9,9 @@ import { useDebugMode } from '@/contexts/admin';
 import { IoPersonCircle } from 'react-icons/io5';
 import { PiCursor } from 'react-icons/pi';
 import { IoMdMic /*IoMdMicOff*/ } from 'react-icons/io';
+import { GiHealthNormal, GiRun } from 'react-icons/gi';
+import { TiWeatherCloudy } from 'react-icons/ti';
+import { FaRegClock } from 'react-icons/fa6';
 
 export default function MainHud() {
   const debugMode = useDebugMode((state) => state.debugMode);
@@ -17,31 +20,56 @@ export default function MainHud() {
     <div className="flex flex-col w-full h-full">
       <div className="flex flex-row items-center justify-between p-[1vw]">
         <img
+          draggable={false}
           src={logoDark}
           alt="DATALIFE logo"
           className="w-[6vw] self-start"
         />
 
         <div className="flex flex-row items-center gap-[1vw] bg-stone-950/75 p-[0.5vw] rounded-[0.5vw]">
-          <div className="flex flex-col gap-[0.5vw]">
-            <Progress className="w-[7vw] h-[0.3vw]" value={100} />
-            <Progress className="w-[7vw] h-[0.3vw]" value={100} />
+          <div className="flex flex-col gap-[0.3vw]">
+            <div className="flex flex-row gap-[0.5vw] items-center">
+              <GiHealthNormal className="text-[1vw]" />
+              <Progress className="w-[7vw] h-[0.3vw]" value={100} />
+            </div>
+            <div className="flex flex-row gap-[0.5vw] items-center">
+              <GiRun className="text-[1vw]" />
+              <Progress className="w-[7vw] h-[0.3vw]" value={100} />
+            </div>
           </div>
+
           <div className="flex flex-col gap-[0.1vw] items-center">
             <PiBowlFoodFill className="text-[1.3vw]" />
             <Progress className="w-[3vw] h-[0.3vw]" value={100} />
           </div>
+
           <div className="flex flex-col gap-[0.1vw] items-center">
             <BiSolidDrink className="text-[1.3vw]" />
             <Progress className="w-[3vw] h-[0.3vw]" value={100} />
           </div>
+
           <div className="flex flex-col gap-[0.1vw] items-center">
             <FaToiletPaper className="text-[1.3vw]" />
             <Progress className="w-[3vw] h-[0.3vw]" value={100} />
           </div>
+
           <div className="flex flex-col gap-[0.1vw] items-center">
             <IoBedSharp className="text-[1.3vw]" />
             <Progress className="w-[3vw] h-[0.3vw]" value={35} />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex self-end px-[1vw]">
+        <div className="flex flex-row bg-stone-950/75 rounded-[0.4vw] p-[0.3vw] gap-[1vw] items-center">
+          <div className="flex flex-row gap-[0.3vw] items-center">
+            <TiWeatherCloudy className="text-[1vw]" />
+            <p className="text-[0.8vw]">Limpo</p>
+          </div>
+
+          <div className="flex flex-row gap-[0.3vw] items-center">
+            <FaRegClock className="text-[1vw]" />
+            <p className="text-[0.8vw]">25 Nov 2020, Qui, às 16:25</p>
           </div>
         </div>
       </div>
