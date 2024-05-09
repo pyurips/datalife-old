@@ -83,7 +83,6 @@ async function loadWebViewRequester(webView: alt.WebView) {
       try {
         const currentOperation = { ...authRPC, ...cameraRPC };
         let response = null;
-        alt.log(to, operation, data);
         if (to === 'client') {
           response = await currentOperation[operation](data);
         } else {

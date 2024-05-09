@@ -73,6 +73,7 @@ export function player_loadIntoWorld(player: alt.Player) {
   });
 
   player_setCharacterData(player, {
+    _id: '5f9b1b3b7f1f3b0b3c1b1b3b',
     name: 'Pabliuri',
     health: 100,
     stamina: 100,

@@ -11,10 +11,10 @@ const accountSchema = new Schema<AccountData>({
   updatedAt: { type: Date, required: true },
   lastLogin: { type: Date, required: true },
   permissionLevel: { type: Number, required: true },
-  bits: { type: Number, required: true },
 });
 
 const characterSchema = new Schema<CharacterData>({
+  name: { type: String, required: true, unique: true },
   health: { type: Number, required: true },
   stamina: { type: Number, required: true },
   money: { type: Number, required: true },

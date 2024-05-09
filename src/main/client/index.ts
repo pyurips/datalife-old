@@ -92,7 +92,11 @@ alt.on('keyup', async (key) => {
   }
 
   if (key === alt.KeyCode.E) {
-    if (!interaction_checkOnTap()) return;
+    const entity = interaction_checkOnTap();
+    if (!entity) return;
+    if (entity.type === 1 && entity.hasStreamSyncedMeta('data')) {
+      alt.log(entity.getStreamSyncedMeta('data'));
+    }
     await alt.emitRpc('rpc', 'interaction_check');
   }
 });

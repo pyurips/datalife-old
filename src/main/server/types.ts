@@ -8,6 +8,7 @@ export type AccountData = {
 };
 
 export type CharacterData = {
+  _id: string;
   name: string;
   health: number;
   stamina: number;

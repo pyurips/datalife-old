@@ -27,6 +27,5 @@ export async function signinAccount(discordId: string) {
     updatedAt: new Date(),
     lastLogin: new Date(),
     permissionLevel: 0,
-    bits: 0,
   });
 }
