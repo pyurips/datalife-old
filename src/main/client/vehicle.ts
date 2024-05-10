@@ -1,5 +1,6 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
+import { getClosestVehicleFromPlayer } from './utils.js';
 
 const vehicle = alt.Player.local.vehicle;
 
@@ -22,8 +23,16 @@ export function getGear() {
   return vehicle.gear;
 }
 
+export function vehicle_getInteractionData() {
+  const closestVehicle = getClosestVehicleFromPlayer(5, true);
+  if (!closestVehicle) return null;
+  if (!closestVehicle.hasStreamSyncedMeta('data')) return null;
+  return closestVehicle.getStreamSyncedMeta('data');
+}
+
 export const callableByRPC = {
   getType,
   getSpeed,
   getGear,
+  vehicle_getInteractionData,
 };

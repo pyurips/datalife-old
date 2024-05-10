@@ -3,6 +3,7 @@ import * as native from 'natives';
 
 import { callableByRPC as cameraRPC } from './camera.js';
 import { callableByRPC as authRPC } from './auth.js';
+import { callableByRPC as vehicleRPC } from './vehicle.js';
 import { OBJECT_view_BASE } from './interation.js';
 
 const webViews = [
@@ -81,7 +82,7 @@ async function loadWebViewRequester(webView: alt.WebView) {
     'request',
     async (to: 'server' | 'client', operation: string, data?: unknown) => {
       try {
-        const currentOperation = { ...authRPC, ...cameraRPC };
+        const currentOperation = { ...authRPC, ...cameraRPC, ...vehicleRPC };
         let response = null;
         if (to === 'client') {
           response = await currentOperation[operation](data);
@@ -101,7 +102,9 @@ async function loadWebViewRequester(webView: alt.WebView) {
   });
 }
 
-export function setMainPage(page: 'signIn' | 'mainHud' | 'characterMenu' | 'adminPanel') {
+export function setMainPage(
+  page: 'signIn' | 'mainHud' | 'characterMenu' | 'adminPanel'
+) {
   alt.setMeta('mainPage', page);
 }
 
@@ -137,7 +140,7 @@ export function emitCustomClientEventToMainWebView(
   mainWebView.emit(event, data);
 }
 
-export function emitCustomEventToObjectView(
+export function webView_emitCustomEventToObjectView(
   webViewId: number,
   event: string,
   data?: unknown

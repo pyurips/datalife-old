@@ -4,9 +4,17 @@ import {
   getClosestVehicleFromPlayer,
   getDistanceBetween,
 } from './utils.js';
-import { webView_attachObjectViewTo } from './webview.js';
+import {
+  webView_attachObjectViewTo,
+  webView_emitCustomEventToObjectView,
+} from './webview.js';
 
 export let OBJECT_view_BASE: alt.LocalObject = null;
+
+function getEntityType(type: number) {
+  if (type === 1) return 'vehicle';
+  return 'drop';
+}
 
 export async function interaction_initializeObjectViewBase() {
   OBJECT_view_BASE = new alt.LocalObject(
@@ -33,7 +41,15 @@ export function interation_check() {
     return prevDist < currDist ? prev : curr;
   }, null);
 
-  if (!closestEntity) return webView_attachObjectViewTo(1, OBJECT_view_BASE);
+  if (!closestEntity) {
+    webView_emitCustomEventToObjectView(1, 'client_getEntityType', null);
+    return webView_attachObjectViewTo(1, OBJECT_view_BASE);
+  }
+  webView_emitCustomEventToObjectView(
+    1,
+    'client_getEntityType',
+    getEntityType(closestEntity.type)
+  );
   return webView_attachObjectViewTo(1, closestEntity);
 }
 
