@@ -26,5 +26,5 @@ export function useGetPage():
 }
 
 export function useGetCharacterData() {
-  return useListener('server_getCharacterData');
+  return useListener('client_getCharacterData');
 }

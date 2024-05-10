@@ -6,6 +6,7 @@ import { player_addToHunger, player_getCharacterData } from './player.js';
 
 const dropGroup = new alt.VirtualEntityGroup(100);
 const DROP_STREAMING_DISTANCE = 100;
+const DELETE_DROP_AFTER = 60_000;
 
 export function item_wearCloth(player: alt.Player, id: number) {
   const cloth = clothes[id];
@@ -151,7 +152,7 @@ export function item_clearDrop() {
   alt.VirtualEntity.all.forEach((drop) => {
     if (!drop.hasStreamSyncedMeta('drop')) return;
     const dropData = drop.getStreamSyncedMeta('drop') as DropData;
-    if (Date.now() - dropData.createdAt >= 10_000) {
+    if (Date.now() - dropData.createdAt >= DELETE_DROP_AFTER) {
       drop.destroy();
       alt.emitAllClientsRaw(
         'client_item_clearDropById',

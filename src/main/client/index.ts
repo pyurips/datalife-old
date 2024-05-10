@@ -24,6 +24,7 @@ import {
   interation_check,
 } from './interation.js';
 import { item_initializeClearDropById } from './item.js';
+import { player_emitCharacterDataToMainWebView } from './player.js';
 
 alt.setWatermarkPosition(alt.WatermarkPosition.TopCenter);
 
@@ -113,5 +114,11 @@ alt.on('worldObjectStreamIn', async (object: any) => {
     drop.toggleCollision(false, false);
     drop.placeOnGroundProperly();
     drop.setMeta('virtualEntityId', isADrop.virtualEntityId);
+  }
+});
+
+alt.on('streamSyncedMetaChange', (object, key, value, oldValue) => {
+  if (object instanceof alt.Player) {
+    return player_emitCharacterDataToMainWebView(key, value);
   }
 });

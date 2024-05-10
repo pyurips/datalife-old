@@ -1,10 +1,7 @@
 import 'dotenv/config';
 import * as alt from 'alt-server';
 
-import {
-  callableByRPC as playerRPC,
-  player_emitCharacterDataToMainWebView,
-} from './player.js';
+import { callableByRPC as playerRPC } from './player.js';
 import { callableByRPC as itemRPC, item_clearDrop } from './item.js';
 import { callableByRPC as vehicleRPC } from './vehicle.js';
 import { callableByRPC as interactionRPC } from './interaction.js';
@@ -53,12 +50,6 @@ alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
     return new Error(
       'Erro interno no servidor. Por favor, tente novamente mais tarde.'
     );
-  }
-});
-
-alt.on('streamSyncedMetaChange', (entity, key, value, oldValue) => {
-  if (entity instanceof alt.Player) {
-    player_emitCharacterDataToMainWebView(entity, key);
   }
 });
 
