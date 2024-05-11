@@ -8,6 +8,8 @@ export function world_loadRPCs() {
     'world_teleportToCoords',
     (player, data: { x: number; y: number; z: number; playerId?: string }) => {
       checkPlayer(player, 2);
+      if (!data?.x || !data?.y || !data?.z)
+        throw sendClientError(0, false, 'Invalid coordinates');
       let targetPlayer = player;
       if (data?.playerId)
         targetPlayer = alt.Player.all.find(

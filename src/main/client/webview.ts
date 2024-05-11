@@ -3,6 +3,7 @@ import * as native from 'natives';
 
 import vehicle from './vehicle.js';
 import auth from './auth.js';
+import world from './world.js';
 import { OBJECT_view_BASE } from './interation.js';
 
 const webViews = [
@@ -21,6 +22,7 @@ let mainWebView: alt.WebView = null;
 const OPERATIONS = {
   ...vehicle,
   ...auth,
+  ...world,
 };
 
 export async function webView_loadMain() {
