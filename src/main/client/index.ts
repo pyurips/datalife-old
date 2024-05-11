@@ -7,14 +7,14 @@ import {
   toggleNativeHud,
 } from './utils.js';
 import {
-  loadMainWebView,
-  setMainPage,
-  emitCustomClientEventToMainWebView,
-  toggleMainWebViewFocus,
-  getCurrentMainPage,
-  createObjectView,
-  initializeMainWebViewServerEventsReceptor,
-  getCanChangePage,
+  webView_loadMain,
+  webView_setMainPage,
+  webView_emitCustomClientEventToMainWebView,
+  webView_toggleMainFocus,
+  webView_getCurrentMainPage,
+  webView_createObjectView,
+  webView_initializeMainWebViewServerEventsReceptor,
+  webView_getCanChangePage,
 } from './webview.js';
 import { defaultCharacterBehaviors } from './character.js';
 import { createSigninCamera } from './camera.js';
@@ -25,6 +25,7 @@ import {
 } from './interation.js';
 import { item_initializeClearDropById } from './item.js';
 import { player_emitCharacterDataToMainWebView } from './player.js';
+import { vehicle_toggleEngine } from './vehicle.js';
 
 alt.setWatermarkPosition(alt.WatermarkPosition.TopCenter);
 
@@ -33,11 +34,11 @@ alt.on('connectionComplete', async () => {
   native.triggerScreenblurFadeIn(100);
   createSigninCamera();
   await interaction_initializeObjectViewBase();
-  await createObjectView(1);
-  await loadMainWebView();
-  initializeMainWebViewServerEventsReceptor();
-  setMainPage('signIn');
-  toggleMainWebViewFocus(true);
+  await webView_createObjectView(1);
+  await webView_loadMain();
+  webView_initializeMainWebViewServerEventsReceptor();
+  webView_setMainPage('signIn');
+  webView_toggleMainFocus(true);
   item_initializeClearDropById();
 });
 
@@ -49,47 +50,46 @@ alt.everyTick(async () => {
 alt.on('globalMetaChange', (key, value, oldValue) => {
   if (key === 'mainPage') {
     if (value === 'mainHud') {
-      toggleMainWebViewFocus(false);
+      webView_toggleMainFocus(false);
       setPageMode(false);
     } else {
-      toggleMainWebViewFocus(true);
+      webView_toggleMainFocus(true);
       setPageMode(true);
     }
-    return emitCustomClientEventToMainWebView('client_setPage', value);
+    return webView_emitCustomClientEventToMainWebView('client_setPage', value);
   }
 });
 
 alt.on('keyup', async (key) => {
   if (key === alt.KeyCode.M) {
-    if (getCurrentMainPage() !== 'mainHud') return;
+    if (webView_getCurrentMainPage() !== 'mainHud') return;
     getCursorState() ? showCursor(false) : showCursor(true);
     if (getCursorState()) {
-      toggleMainWebViewFocus(true);
+      webView_toggleMainFocus(true);
       alt.toggleGameControls(false);
     } else {
-      toggleMainWebViewFocus(false);
+      webView_toggleMainFocus(false);
       alt.toggleGameControls(true);
     }
   }
 
   if (key === alt.KeyCode.B) {
-    if (!getCanChangePage()) return;
-    if (getCurrentMainPage() === 'characterMenu') return setMainPage('mainHud');
-    setMainPage('characterMenu');
+    if (!webView_getCanChangePage()) return;
+    if (webView_getCurrentMainPage() === 'characterMenu')
+      return webView_setMainPage('mainHud');
+    webView_setMainPage('characterMenu');
   }
 
   if (key === alt.KeyCode.F2) {
-    if (!getCanChangePage()) return;
+    if (!webView_getCanChangePage()) return;
     if ((alt.getLocalMeta('account') as any).permissionLevel < 1) return;
-    if (getCurrentMainPage() === 'adminPanel') return setMainPage('mainHud');
-    setMainPage('adminPanel');
+    if (webView_getCurrentMainPage() === 'adminPanel')
+      return webView_setMainPage('mainHud');
+    webView_setMainPage('adminPanel');
   }
 
   if (key === alt.KeyCode.K) {
-    const player = alt.Player.local;
-    if (!player?.valid) return;
-    if (!player.vehicle) return;
-    await alt.emitRpc('rpc', 'vehicle_toggleEngine');
+    vehicle_toggleEngine();
   }
 
   if (key === alt.KeyCode.E) {

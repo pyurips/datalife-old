@@ -1,9 +1,8 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
 
-import { callableByRPC as cameraRPC } from './camera.js';
-import { callableByRPC as authRPC } from './auth.js';
-import { callableByRPC as vehicleRPC } from './vehicle.js';
+import vehicle from './vehicle.js';
+import auth from './auth.js';
 import { OBJECT_view_BASE } from './interation.js';
 
 const webViews = [
@@ -19,24 +18,29 @@ let activeObjectViews: {
 
 let mainWebView: alt.WebView = null;
 
-export async function loadMainWebView() {
+const OPERATIONS = {
+  ...vehicle,
+  ...auth,
+};
+
+export async function webView_loadMain() {
   const webView = new alt.WebView(webViews[0], false);
-  await loadWebViewRequester(webView);
+  await webView_loadRequester(webView);
   mainWebView = webView;
 }
 
-export function toggleMainWebViewFocus(state: boolean) {
+export function webView_toggleMainFocus(state: boolean) {
   if (state) return mainWebView.focus();
   return mainWebView.unfocus();
 }
 
-export function toggleFocus(webViewId: number, state: boolean) {
+export function webView_toggleObjectViewFocus(webViewId: number, state: boolean) {
   if (state)
     return activeObjectViews.find((e) => e.id === webViewId).webView.focus();
   return activeObjectViews.find((e) => e.id === webViewId).webView.unfocus();
 }
 
-export async function createObjectView(webViewId: number) {
+export async function webView_createObjectView(webViewId: number) {
   const object = new alt.LocalObject(
     'prop_tv_flat_01_screen',
     new alt.Vector3(0, 0, 0),
@@ -56,7 +60,7 @@ export async function createObjectView(webViewId: number) {
     object.model,
     'script_rt_tvscreen'
   );
-  await loadWebViewRequester(webView);
+  await webView_loadRequester(webView);
   activeObjectViews.push({
     id: webViewId,
     webView,
@@ -64,7 +68,7 @@ export async function createObjectView(webViewId: number) {
   });
 }
 
-export function destroyObjectView(webViewId: number) {
+export function webView_destroyObjectView(webViewId: number) {
   const view = activeObjectViews.find((e) => e.id === webViewId);
   if (!view) return;
   if (view?.object) view.object.destroy();
@@ -72,51 +76,42 @@ export function destroyObjectView(webViewId: number) {
   activeObjectViews = activeObjectViews.filter((e) => e.id !== webViewId);
 }
 
-export function setObjectViewPos(webViewId: number, pos: alt.Vector3) {
+export function webView_setObjectViewPos(webViewId: number, pos: alt.Vector3) {
   const view = activeObjectViews.find((e) => e.id === webViewId);
   if (view) view.object.pos = pos;
 }
 
-async function loadWebViewRequester(webView: alt.WebView) {
-  webView.on(
-    'request',
-    async (to: 'server' | 'client', operation: string, data?: unknown) => {
-      try {
-        const currentOperation = { ...authRPC, ...cameraRPC, ...vehicleRPC };
-        let response = null;
-        if (to === 'client') {
-          response = await currentOperation[operation](data);
-        } else {
-          response = await alt.emitRpc('rpc', operation, data);
-        }
-        webView.emit(`response:${operation}`, response);
-      } catch (error) {
-        webView.emit(`response:${operation}`, {
-          error,
-        });
-      }
+async function webView_loadRequester(webView: alt.WebView) {
+  webView.on('request', async (operation: string, data?: unknown) => {
+    try {
+      const response = await OPERATIONS[operation](data);
+      webView.emit(`response:${operation}`, response);
+    } catch (error) {
+      webView.emit(`response:${operation}`, {
+        error,
+      });
     }
-  );
+  });
   await new Promise((resolve) => {
     webView.once('load', resolve);
   });
 }
 
-export function setMainPage(
+export function webView_setMainPage(
   page: 'signIn' | 'mainHud' | 'characterMenu' | 'adminPanel'
 ) {
   alt.setMeta('mainPage', page);
 }
 
-export function canChangePage(state: boolean) {
+export function webView_canChangePage(state: boolean) {
   alt.setMeta('canChangePage', state);
 }
 
-export function getCanChangePage() {
+export function webView_getCanChangePage() {
   return alt.getMeta('canChangePage') as boolean;
 }
 
-export function getCurrentMainPage() {
+export function webView_getCurrentMainPage() {
   return alt.getMeta('mainPage') as
     | 'signIn'
     | 'mainHud'
@@ -124,7 +119,7 @@ export function getCurrentMainPage() {
     | 'adminPanel';
 }
 
-export function initializeMainWebViewServerEventsReceptor() {
+export function webView_initializeMainWebViewServerEventsReceptor() {
   alt.onServer(
     'emitCustomServerEventToMainWebView',
     (event: string, data?: unknown) => {
@@ -133,7 +128,7 @@ export function initializeMainWebViewServerEventsReceptor() {
   );
 }
 
-export function emitCustomClientEventToMainWebView(
+export function webView_emitCustomClientEventToMainWebView(
   event: string,
   data?: unknown
 ) {

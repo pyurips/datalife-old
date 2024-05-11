@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
 import { AccountData, CharacterData, ItemsType } from './types.js';
 import { sendClientError } from './utils.js';
-import { checkPlayer, getPermissionLevel } from './middlewares.js';
+import { checkPlayer } from './middlewares.js';
 import { item_createAObjectDropFromPlayer, item_getItem } from './item.js';
 
 export function player_setAccountData(player: alt.Player, data: AccountData) {
@@ -14,7 +14,22 @@ export function player_setCharacterData(
   data: CharacterData
 ) {
   checkPlayer(player);
-  player.setStreamSyncedMeta('character', data);
+  const dataWithWeight = {
+    ...data,
+    belongings: data.belongings.map((item) => {
+      return {
+        ...item,
+        weight: +(
+          item_getItem(item.id, item.type).weight * item.amount
+        ).toFixed(1),
+        usable: item.type === 'consumable',
+      };
+    }),
+    currentWeight: +data.belongings
+      .reduce((acc, i) => acc + item_getItem(i.id, i.type).weight * i.amount, 0)
+      .toFixed(1),
+  };
+  player.setStreamSyncedMeta('character', dataWithWeight);
 }
 
 export function player_getAccountData(player: alt.Player) {
@@ -24,24 +39,7 @@ export function player_getAccountData(player: alt.Player) {
 
 export function player_getCharacterData(player: alt.Player) {
   checkPlayer(player);
-  const characterData = player.getStreamSyncedMeta(
-    'character'
-  ) as CharacterData;
-  return {
-    ...characterData,
-    belongings: characterData.belongings.map((item) => {
-      return {
-        ...item,
-        weight: +(
-          item_getItem(item.id, item.type).weight * item.amount
-        ).toFixed(1),
-        usable: item.type === 'consumable',
-      };
-    }),
-    currentWeight: +characterData.belongings
-      .reduce((acc, i) => acc + item_getItem(i.id, i.type).weight * i.amount, 0)
-      .toFixed(1),
-  };
+  return player.getStreamSyncedMeta('character') as CharacterData;
 }
 
 export function player_updateAccountData(
@@ -225,70 +223,73 @@ export function player_removeBelongingsItem(
   });
 }
 
-export function player_dropBelongingsItem(
-  player: alt.Player,
-  data: { index: number; amount: number }
-) {
-  checkPlayer(player);
-  const characterBelongings = player_getCharacterData(player).belongings;
-  const itemToDelete = characterBelongings[data.index];
-  if (!itemToDelete) throw sendClientError(1713879613);
-  const finalAmount = itemToDelete.amount - data.amount;
-  if (finalAmount <= 0) {
+alt.onRpc(
+  'player_dropBelongingsItem',
+  (player, data: { index: number; amount: number }) => {
+    checkPlayer(player);
+    const characterBelongings = player_getCharacterData(player).belongings;
+    const itemToDelete = characterBelongings[data.index];
+    if (!itemToDelete) throw sendClientError(1713879613);
+    const finalAmount = itemToDelete.amount - data.amount;
+    if (finalAmount <= 0) {
+      item_createAObjectDropFromPlayer(player, {
+        itemId: itemToDelete.id,
+        type: itemToDelete.type,
+        quality: itemToDelete.quality,
+        amount: itemToDelete.amount,
+      });
+      return player_updateCharacterData(player, {
+        belongings: characterBelongings.filter((i, idx) => idx !== data.index),
+      });
+    }
     item_createAObjectDropFromPlayer(player, {
       itemId: itemToDelete.id,
       type: itemToDelete.type,
       quality: itemToDelete.quality,
-      amount: itemToDelete.amount,
+      amount: data.amount,
     });
     return player_updateCharacterData(player, {
-      belongings: characterBelongings.filter((i, idx) => idx !== data.index),
+      belongings: characterBelongings.map((i, idx) =>
+        idx === data.index ? { ...i, amount: finalAmount } : i
+      ),
     });
   }
-  item_createAObjectDropFromPlayer(player, {
-    itemId: itemToDelete.id,
-    type: itemToDelete.type,
-    quality: itemToDelete.quality,
-    amount: data.amount,
-  });
-  return player_updateCharacterData(player, {
-    belongings: characterBelongings.map((i, idx) =>
-      idx === data.index ? { ...i, amount: finalAmount } : i
-    ),
-  });
-}
+);
 
-export function player_setAnimationByStaff(
-  player: alt.Player,
-  data: {
-    animDict: string;
-    animName: string;
-    blendInSpeed?: number;
-    blendOutSpeed?: number;
-    duration?: number;
-    flags?: number;
-    playbackRate?: number;
-    lockX?: boolean;
-    lockY?: boolean;
-    lockZ?: boolean;
+alt.onRpc(
+  'player_setAnimationByStaff',
+  (
+    player,
+    data: {
+      animDict: string;
+      animName: string;
+      blendInSpeed?: number;
+      blendOutSpeed?: number;
+      duration?: number;
+      flags?: number;
+      playbackRate?: number;
+      lockX?: boolean;
+      lockY?: boolean;
+      lockZ?: boolean;
+    }
+  ) => {
+    checkPlayer(player, 2);
+    player.playAnimation(
+      data.animDict,
+      data.animName,
+      data.blendInSpeed,
+      data.blendOutSpeed,
+      data.duration,
+      data.flags,
+      data.playbackRate,
+      data.lockX,
+      data.lockY,
+      data.lockZ
+    );
   }
-) {
-  if (getPermissionLevel(player) < 1) return;
-  player.playAnimation(
-    data.animDict,
-    data.animName,
-    data.blendInSpeed,
-    data.blendOutSpeed,
-    data.duration,
-    data.flags,
-    data.playbackRate,
-    data.lockX,
-    data.lockY,
-    data.lockZ
-  );
-}
+);
 
-export function player_addToHunger(player: alt.Player, amount: number) {
+export function player_addToHungerNeeds(player: alt.Player, amount: number) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
   const newHunger = characterData.needs.hunger.value + amount;
@@ -303,7 +304,7 @@ export function player_addToHunger(player: alt.Player, amount: number) {
   });
 }
 
-export function player_addToThirst(player: alt.Player, amount: number) {
+export function player_addToThirstNeeds(player: alt.Player, amount: number) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
   const newThirst = characterData.needs.thirst.value + amount;
@@ -318,7 +319,7 @@ export function player_addToThirst(player: alt.Player, amount: number) {
   });
 }
 
-export function player_addToFatigue(player: alt.Player, amount: number) {
+export function player_addToFatigueNeeds(player: alt.Player, amount: number) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
   const newFatigue = characterData.needs.fatigue.value + amount;
@@ -333,7 +334,7 @@ export function player_addToFatigue(player: alt.Player, amount: number) {
   });
 }
 
-export function player_addToBathroom(player: alt.Player, amount: number) {
+export function player_addToBathroomNeeds(player: alt.Player, amount: number) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
   const newBathroom = characterData.needs.bathroom.value + amount;
@@ -348,7 +349,7 @@ export function player_addToBathroom(player: alt.Player, amount: number) {
   });
 }
 
-export function player_addToHygiene(player: alt.Player, amount: number) {
+export function player_addToHygieneNeeds(player: alt.Player, amount: number) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
   const newHygiene = characterData.needs.hygiene.value + amount;
@@ -363,7 +364,10 @@ export function player_addToHygiene(player: alt.Player, amount: number) {
   });
 }
 
-export function player_removeFromHunger(player: alt.Player, amount: number) {
+export function player_removeFromHungerNeeds(
+  player: alt.Player,
+  amount: number
+) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
   const newHunger = characterData.needs.hunger.value - amount;
@@ -378,7 +382,10 @@ export function player_removeFromHunger(player: alt.Player, amount: number) {
   });
 }
 
-export function player_removeFromThirst(player: alt.Player, amount: number) {
+export function player_removeFromThirstNeeds(
+  player: alt.Player,
+  amount: number
+) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
   const newThirst = characterData.needs.thirst.value - amount;
@@ -393,7 +400,10 @@ export function player_removeFromThirst(player: alt.Player, amount: number) {
   });
 }
 
-export function player_removeFromFatigue(player: alt.Player, amount: number) {
+export function player_removeFromFatigueNeeds(
+  player: alt.Player,
+  amount: number
+) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
   const newFatigue = characterData.needs.fatigue.value - amount;
@@ -408,7 +418,10 @@ export function player_removeFromFatigue(player: alt.Player, amount: number) {
   });
 }
 
-export function player_removeFromBathroom(player: alt.Player, amount: number) {
+export function player_removeFromBathroomNeeds(
+  player: alt.Player,
+  amount: number
+) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
   const newBathroom = characterData.needs.bathroom.value - amount;
@@ -422,11 +435,3 @@ export function player_removeFromBathroom(player: alt.Player, amount: number) {
     },
   });
 }
-
-export const callableByRPC = {
-  player_getAccountData,
-  player_loadIntoWorld,
-  player_getCharacterData,
-  player_dropBelongingsItem,
-  player_setAnimationByStaff,
-};

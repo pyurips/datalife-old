@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 
-function useListener(eventName: string) {
-  const [response, setResponse] = useState<any>();
+export enum EventNames {
+  player_getCharacterData = 'player_getCharacterData',
+  webView_setPage = 'webView_setPage',
+}
 
-  function eventHandler(response: any) {
+export function useListener<R>(eventName: EventNames) {
+  const [response, setResponse] = useState<R>();
+
+  function eventHandler(response: R) {
     return setResponse(response);
   }
 
@@ -14,17 +19,4 @@ function useListener(eventName: string) {
   }, []);
 
   return response;
-}
-
-export function useGetPage():
-  | 'signIn'
-  | 'mainHud'
-  | 'characterMenu'
-  | 'adminPanel'
-  | 'vehicleInteraction' {
-  return useListener('client_setPage');
-}
-
-export function useGetCharacterData() {
-  return useListener('client_getCharacterData');
 }

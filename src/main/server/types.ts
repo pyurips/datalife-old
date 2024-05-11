@@ -42,6 +42,7 @@ export type CharacterData = {
     experience: number;
     rate: number;
   }[];
+  currentWeight?: number;
 };
 
 export type VehicleData = {

@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
-export function useRequester(
-  to: 'server' | 'client',
-  operation: string,
+export enum RequestNames {}
+
+export function useRequester<Req, Res>(
+  operation: RequestNames,
   startLoading: boolean
 ) {
   const [loading, setLoading] = useState<boolean>(startLoading);
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<Res>();
 
-  function fetch(requestData?: unknown) {
+  function fetch(requestData: Req) {
     setLoading(true);
     if (!window.alt) {
       console.error('Não foi encontrado o método alt no objeto Window');
@@ -19,7 +20,7 @@ export function useRequester(
       setData(response);
       return setLoading(false);
     });
-    return window.alt.emit('request', to, operation, requestData);
+    return window.alt.emit('request', operation, requestData);
   }
 
   return {

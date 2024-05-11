@@ -4,7 +4,7 @@ import { getClosestVehicleFromPlayer } from './utils.js';
 
 const vehicle = alt.Player.local.vehicle;
 
-export function getType() {
+export function vehicle_getType() {
   if (native.isThisModelABicycle(vehicle.model)) return 'bicycle';
   if (native.isThisModelABike(vehicle.model)) return 'bike';
   if (native.isThisModelABoat(vehicle.model)) return 'boat';
@@ -15,11 +15,11 @@ export function getType() {
   return null;
 }
 
-export function getSpeed() {
+export function vehicle_getSpeed() {
   return vehicle.speed;
 }
 
-export function getGear() {
+export function vehicle_getGear() {
   return vehicle.gear;
 }
 
@@ -30,9 +30,14 @@ export function vehicle_getInteractionData() {
   return closestVehicle.getStreamSyncedMeta('data');
 }
 
-export const callableByRPC = {
-  getType,
-  getSpeed,
-  getGear,
+export function vehicle_toggleEngine() {
+  if (!vehicle) return;
+  alt.emitRpc('vehicle_toggleEngine');
+}
+
+export default {
+  vehicle_getType,
+  vehicle_getSpeed,
+  vehicle_getGear,
   vehicle_getInteractionData,
 };

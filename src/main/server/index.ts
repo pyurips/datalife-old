@@ -1,14 +1,17 @@
 import 'dotenv/config';
 import * as alt from 'alt-server';
-
-import { callableByRPC as playerRPC } from './player.js';
-import { callableByRPC as itemRPC, item_clearDrop } from './item.js';
-import { callableByRPC as vehicleRPC } from './vehicle.js';
-import { callableByRPC as interactionRPC } from './interaction.js';
+import { item_clearDrop } from './item.js';
 import {
   initializeMongoDB,
   initializeMongoDBGame,
 } from './mongodb_initialize.js';
+
+import 'auth.js';
+import 'interaction.js';
+import 'item.js';
+import 'player.js';
+import 'vehicle.js';
+import 'world.js';
 
 let CAN_CONNECT = false;
 const ONE_SECOND = 1000;
@@ -33,24 +36,6 @@ alt.on('playerDisconnect', (player, reason) => {});
 
 alt.on('playerDeath', (victim, killer, weaponHash) => {
   victim.spawn(-14.295, 24.695, 71.656);
-});
-
-alt.onRpc('rpc', async (player, operation: string, data?: unknown) => {
-  try {
-    const currentOperation = {
-      ...playerRPC,
-      ...itemRPC,
-      ...vehicleRPC,
-      ...interactionRPC,
-    };
-    return await currentOperation[operation](player, data);
-  } catch (e) {
-    if (e.name === 'DATALIFEClientError') return e;
-    if (process.env.NODE_ENV === 'development') alt.logError(`[DEV] ${e}`);
-    return new Error(
-      'Erro interno no servidor. Por favor, tente novamente mais tarde.'
-    );
-  }
 });
 
 setInterval(() => {

@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 
-function useListener(eventName: string) {
-  const [response, setResponse] = useState<any>();
+export enum EventNames {
+  interaction_getEntityType = 'interaction_getEntityType',
+}
 
-  function eventHandler(response: any) {
+export function useListener<R>(eventName: EventNames) {
+  const [response, setResponse] = useState<R>();
+
+  function eventHandler(response: R) {
     return setResponse(response);
   }
 
@@ -14,8 +18,4 @@ function useListener(eventName: string) {
   }, []);
 
   return response;
-}
-
-export function getEntityTypeEvent(): 'vehicle' | 'drop' | null {
-  return useListener('client_getEntityType');
 }
