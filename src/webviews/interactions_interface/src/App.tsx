@@ -1,3 +1,4 @@
+import Drop from './pages/drop';
 import Loading from './pages/loading';
 import Vehicle from './pages/vehicle';
 import { Event_item_getEntityType } from './types/entity';
@@ -12,6 +13,7 @@ export default function App() {
     <main className="flex items-center justify-center w-[512px] h-[256px]">
       {!entityType && <Loading />}
       {entityType === 'vehicle' && <Vehicle />}
+      <Drop />
     </main>
   );
 }
