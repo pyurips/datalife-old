@@ -60,57 +60,6 @@ export function player_updateCharacterData(
   player_setCharacterData(player, { ...character, ...data });
 }
 
-export function player_loadIntoWorld(player: alt.Player) {
-  player_setAccountData(player, {
-    _id: '5f9b1b3b7f1f3b0b3c1b1b3b',
-    discordId: '1234567890',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    lastLogin: new Date(),
-    permissionLevel: 3,
-  });
-
-  player_setCharacterData(player, {
-    _id: '5f9b1b3b7f1f3b0b3c1b1b3b',
-    name: 'Pabliuri',
-    health: 100,
-    stamina: 100,
-    money: 1000,
-    bank: 1000,
-    level: 1,
-    experience: { value: 0, rate: 1 },
-    belongings: [
-      {
-        id: 0,
-        type: 'consumable',
-        quality: 0,
-        amount: 5,
-      },
-      {
-        id: 0,
-        type: 'material',
-        quality: 1,
-        amount: 5,
-      },
-    ],
-    weightCapacity: 100,
-    hotkeysSlots: [],
-    needs: {
-      hunger: { value: 100, rate: 0.1 },
-      thirst: { value: 100, rate: 0.1 },
-      fatigue: { value: 100, rate: 0.1 },
-      bathroom: { value: 100, rate: 0.1 },
-      hygiene: { value: 100, rate: 0.1 },
-    },
-    conditions: [],
-    skills: [],
-  });
-
-  checkPlayer(player);
-  player.spawn(-14.295, 24.695, 71.656);
-  player.dimension = 0;
-}
-
 export function player_updateNeedsForAll() {
   alt.Player.all.forEach((player) => {
     checkPlayer(player);
@@ -223,71 +172,126 @@ export function player_removeBelongingsItem(
   });
 }
 
-alt.onRpc(
-  'player_dropBelongingsItem',
-  (player, data: { index: number; amount: number }) => {
-    checkPlayer(player);
-    const characterBelongings = player_getCharacterData(player).belongings;
-    const itemToDelete = characterBelongings[data.index];
-    if (!itemToDelete) throw sendClientError(1713879613);
-    const finalAmount = itemToDelete.amount - data.amount;
-    if (finalAmount <= 0) {
+export function player_loadRPCs() {
+  alt.onRpc(
+    'player_dropBelongingsItem',
+    (player, data: { index: number; amount: number }) => {
+      checkPlayer(player);
+      const characterBelongings = player_getCharacterData(player).belongings;
+      const itemToDelete = characterBelongings[data.index];
+      if (!itemToDelete) throw sendClientError(1713879613);
+      const finalAmount = itemToDelete.amount - data.amount;
+      if (finalAmount <= 0) {
+        item_createAObjectDropFromPlayer(player, {
+          itemId: itemToDelete.id,
+          type: itemToDelete.type,
+          quality: itemToDelete.quality,
+          amount: itemToDelete.amount,
+        });
+        return player_updateCharacterData(player, {
+          belongings: characterBelongings.filter(
+            (i, idx) => idx !== data.index
+          ),
+        });
+      }
       item_createAObjectDropFromPlayer(player, {
         itemId: itemToDelete.id,
         type: itemToDelete.type,
         quality: itemToDelete.quality,
-        amount: itemToDelete.amount,
+        amount: data.amount,
       });
       return player_updateCharacterData(player, {
-        belongings: characterBelongings.filter((i, idx) => idx !== data.index),
+        belongings: characterBelongings.map((i, idx) =>
+          idx === data.index ? { ...i, amount: finalAmount } : i
+        ),
       });
     }
-    item_createAObjectDropFromPlayer(player, {
-      itemId: itemToDelete.id,
-      type: itemToDelete.type,
-      quality: itemToDelete.quality,
-      amount: data.amount,
-    });
-    return player_updateCharacterData(player, {
-      belongings: characterBelongings.map((i, idx) =>
-        idx === data.index ? { ...i, amount: finalAmount } : i
-      ),
-    });
-  }
-);
+  );
 
-alt.onRpc(
-  'player_setAnimationByStaff',
-  (
-    player,
-    data: {
-      animDict: string;
-      animName: string;
-      blendInSpeed?: number;
-      blendOutSpeed?: number;
-      duration?: number;
-      flags?: number;
-      playbackRate?: number;
-      lockX?: boolean;
-      lockY?: boolean;
-      lockZ?: boolean;
+  alt.onRpc(
+    'player_setAnimationByStaff',
+    (
+      player,
+      data: {
+        animDict: string;
+        animName: string;
+        blendInSpeed?: number;
+        blendOutSpeed?: number;
+        duration?: number;
+        flags?: number;
+        playbackRate?: number;
+        lockX?: boolean;
+        lockY?: boolean;
+        lockZ?: boolean;
+      }
+    ) => {
+      checkPlayer(player, 2);
+      player.playAnimation(
+        data.animDict,
+        data.animName,
+        data.blendInSpeed,
+        data.blendOutSpeed,
+        data.duration,
+        data.flags,
+        data.playbackRate,
+        data.lockX,
+        data.lockY,
+        data.lockZ
+      );
     }
-  ) => {
-    checkPlayer(player, 2);
-    player.playAnimation(
-      data.animDict,
-      data.animName,
-      data.blendInSpeed,
-      data.blendOutSpeed,
-      data.duration,
-      data.flags,
-      data.playbackRate,
-      data.lockX,
-      data.lockY,
-      data.lockZ
-    );
-  }
-);
+  );
+
+  alt.onRpc('player_loadIntoWorld', (player) => {
+    player_setAccountData(player, {
+      _id: '5f9b1b3b7f1f3b0b3c1b1b3b',
+      discordId: '1234567890',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      lastLogin: new Date(),
+      permissionLevel: 3,
+    });
+
+    player_setCharacterData(player, {
+      _id: '5f9b1b3b7f1f3b0b3c1b1b3b',
+      name: 'Pabliuri',
+      health: 100,
+      stamina: 100,
+      money: 1000,
+      bank: 1000,
+      level: 1,
+      experience: { value: 0, rate: 1 },
+      belongings: [
+        {
+          id: 0,
+          type: 'consumable',
+          quality: 0,
+          amount: 5,
+        },
+        {
+          id: 0,
+          type: 'material',
+          quality: 1,
+          amount: 5,
+        },
+      ],
+      weightCapacity: 100,
+      hotkeysSlots: [],
+      needs: {
+        hunger: { value: 100, rate: 0.1 },
+        thirst: { value: 100, rate: 0.1 },
+        fatigue: { value: 100, rate: 0.1 },
+        bathroom: { value: 100, rate: 0.1 },
+        hygiene: { value: 100, rate: 0.1 },
+      },
+      conditions: [],
+      skills: [],
+    });
+
+    checkPlayer(player);
+    player.spawn(-14.295, 24.695, 71.656);
+    player.dimension = 0;
+  });
+}
 
 export function player_addToHungerNeeds(player: alt.Player, amount: number) {
   checkPlayer(player);

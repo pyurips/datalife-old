@@ -42,12 +42,12 @@ export function interation_check() {
   }, null);
 
   if (!closestEntity) {
-    webView_emitCustomEventToObjectView(1, 'client_getEntityType', null);
+    webView_emitCustomEventToObjectView(1, 'interaction_getEntityType', null);
     return webView_attachObjectViewTo(1, OBJECT_view_BASE);
   }
   webView_emitCustomEventToObjectView(
     1,
-    'client_getEntityType',
+    'interaction_getEntityType',
     getEntityType(closestEntity.type)
   );
   return webView_attachObjectViewTo(1, closestEntity);

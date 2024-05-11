@@ -5,6 +5,8 @@ import {
   initializeMongoDB,
   initializeMongoDBGame,
 } from './mongodb_initialize.js';
+import { vehicle_loadRPCs } from './vehicle.js';
+import { player_loadRPCs } from './player.js';
 
 let CAN_CONNECT = false;
 const ONE_SECOND = 1000;
@@ -12,6 +14,8 @@ const ONE_SECOND = 1000;
 alt.on('serverStarted', async () => {
   await initializeMongoDB();
   await initializeMongoDBGame();
+  player_loadRPCs();
+  vehicle_loadRPCs();
   CAN_CONNECT = true;
 });
 

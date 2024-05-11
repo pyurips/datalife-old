@@ -4,46 +4,6 @@ import { checkPlayer } from './middlewares.js';
 import { player_getCharacterData } from './player.js';
 import { sendClientError } from './utils.js';
 
-alt.onRpc(
-  'vehicle_createToPlayer',
-  (player, data: { vehicleHash: number; playerId?: string }) => {
-    checkPlayer(player, 2);
-    let targetPlayer = player;
-    if (data?.playerId)
-      targetPlayer = alt.Player.all.find(
-        (p) => player_getCharacterData(p)._id === data.playerId
-      );
-    if (!targetPlayer) throw sendClientError(0, false, "Player doesn't exist");
-    const vehicle = new alt.Vehicle(
-      data.vehicleHash,
-      targetPlayer.pos.x + Math.cos(player.rot.z) * 2,
-      targetPlayer.pos.y + Math.sin(player.rot.z) * 2,
-      targetPlayer.pos.z,
-      targetPlayer.rot.x,
-      targetPlayer.rot.y,
-      targetPlayer.rot.z
-    );
-    vehicle_setVehicleData(vehicle, {
-      ownerId: null,
-      fuelType: 'gasoline',
-      fuelRate: 0.1,
-      fuel: 100,
-      interactionImageUrl:
-        'https://i.pinimg.com/originals/7c/d4/15/7cd415c2a1d5649e16a8eef19cf13664.gif',
-      trunk: [],
-      trunkWeightCapacity: 100,
-      trunkWeight: 0,
-      gloveCompartment: [],
-      gloveCompartmentWeightCapacity: 10,
-      gloveCompartmentWeight: 0,
-      gloveCompartmentState: false,
-      batteryCharge: 100,
-      batteryCapacity: 100,
-      batteryState: true,
-    });
-  }
-);
-
 export function vehicle_createByWorld(player: alt.Player) {
   checkPlayer(player);
   const characterData = player_getCharacterData(player);
@@ -93,13 +53,56 @@ export function vehicle_updateData(
   vehicle.setStreamSyncedMeta('data', { ...currentData, ...data });
 }
 
-alt.on('vehicle_toggleEngine', (player) => {
-  checkPlayer(player);
-  if (!player.vehicle) return;
-  if (player.vehicle.engineOn) {
-    player.vehicle.engineOn = false;
+export function vehicle_loadRPCs() {
+  alt.onRpc('vehicle_toggleEngine', (player) => {
+    checkPlayer(player);
+    if (!player.vehicle) return;
+    if (player.vehicle.engineOn) {
+      player.vehicle.engineOn = false;
+      return;
+    }
+    player.vehicle.engineOn = true;
     return;
-  }
-  player.vehicle.engineOn = true;
-  return;
-});
+  });
+
+  alt.onRpc(
+    'vehicle_createToPlayer',
+    (player, data: { vehicleHash: number; playerId?: string }) => {
+      checkPlayer(player, 2);
+      let targetPlayer = player;
+      if (data?.playerId)
+        targetPlayer = alt.Player.all.find(
+          (p) => player_getCharacterData(p)._id === data.playerId
+        );
+      if (!targetPlayer)
+        throw sendClientError(0, false, "Player doesn't exist");
+      const vehicle = new alt.Vehicle(
+        data.vehicleHash,
+        targetPlayer.pos.x + Math.cos(player.rot.z) * 2,
+        targetPlayer.pos.y + Math.sin(player.rot.z) * 2,
+        targetPlayer.pos.z,
+        targetPlayer.rot.x,
+        targetPlayer.rot.y,
+        targetPlayer.rot.z
+      );
+      vehicle_setVehicleData(vehicle, {
+        ownerId: null,
+        fuelType: 'gasoline',
+        fuelRate: 0.1,
+        fuel: 100,
+        interactionImageUrl:
+          'https://i.pinimg.com/originals/7c/d4/15/7cd415c2a1d5649e16a8eef19cf13664.gif',
+        trunk: [],
+        trunkWeightCapacity: 100,
+        trunkWeight: 0,
+        gloveCompartment: [],
+        gloveCompartmentWeightCapacity: 10,
+        gloveCompartmentWeight: 0,
+        gloveCompartmentState: false,
+        batteryCharge: 100,
+        batteryCapacity: 100,
+        batteryState: true,
+      });
+    }
+  );
+}

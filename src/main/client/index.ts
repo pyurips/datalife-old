@@ -82,7 +82,7 @@ alt.on('keyup', async (key) => {
 
   if (key === alt.KeyCode.F2) {
     if (!webView_getCanChangePage()) return;
-    if ((alt.getLocalMeta('account') as any).permissionLevel < 1) return;
+    if ((alt.Player.local.getStreamSyncedMeta('character') as any).permissionLevel < 1) return;
     if (webView_getCurrentMainPage() === 'adminPanel')
       return webView_setMainPage('mainHud');
     webView_setMainPage('adminPanel');
@@ -98,7 +98,6 @@ alt.on('keyup', async (key) => {
     if (entity.type === 1 && entity.hasStreamSyncedMeta('data')) {
       alt.log(entity.getStreamSyncedMeta('data'));
     }
-    await alt.emitRpc('rpc', 'interaction_check');
   }
 });
 

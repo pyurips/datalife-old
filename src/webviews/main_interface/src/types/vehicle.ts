@@ -1,5 +1,5 @@
-export type Request_vehicle_createToMeByStaff = {
+export type Request_vehicle_createToPlayer = {
   vehicleHash: number;
   playerId?: string;
 };
-export type Response_vehicle_createToMeByStaff = {error: string} | null;
+export type Response_vehicle_createToPlayer = {error: string} | null;
