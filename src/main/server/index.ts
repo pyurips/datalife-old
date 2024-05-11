@@ -8,6 +8,7 @@ import {
 import { vehicle_loadRPCs } from './vehicle.js';
 import { player_loadRPCs } from './player.js';
 import { world_loadRPCs } from './world.js';
+import { interaction_loadRPCs } from './interaction.js';
 
 let CAN_CONNECT = false;
 const ONE_SECOND = 1000;
@@ -18,6 +19,7 @@ alt.on('serverStarted', async () => {
   player_loadRPCs();
   vehicle_loadRPCs();
   world_loadRPCs();
+  interaction_loadRPCs();
   CAN_CONNECT = true;
 });
 

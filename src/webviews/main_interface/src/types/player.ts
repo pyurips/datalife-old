@@ -48,5 +48,10 @@ export type Request_player_setAnimationByStaff = {
   lockY?: boolean;
   lockZ?: boolean;
 };
-
 export type Response_player_setAnimationByStaff = { error: string } | null;
+
+export type Request_player_dropBelongingsItem = {
+  index: number;
+  amount: number;
+};
+export type Response_player_dropBelongingsItem = { error: string } | null;

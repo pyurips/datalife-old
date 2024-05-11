@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 export enum RequestNames {
   vehicle_getInteractionData = 'vehicle_getInteractionData',
+  item_getInteractionDropData = 'item_getInteractionDropData',
 }
 
 export function useRequester<Req, Res>(

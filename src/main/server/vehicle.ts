@@ -22,7 +22,7 @@ export function vehicle_createByWorld(player: alt.Player) {
     fuelRate: 0.1,
     fuel: 100,
     interactionImageUrl:
-      'https://i.pinimg.com/originals/7c/d4/15/7cd415c2a1d5649e16a8eef19cf13664.gif',
+      'https://media1.tenor.com/m/ZAMoMuQgf9UAAAAd/mapache-pedro.gif',
     trunk: [],
     trunkWeightCapacity: 100,
     trunkWeight: 0,
@@ -91,7 +91,7 @@ export function vehicle_loadRPCs() {
         fuelRate: 0.1,
         fuel: 100,
         interactionImageUrl:
-          'https://i.pinimg.com/originals/7c/d4/15/7cd415c2a1d5649e16a8eef19cf13664.gif',
+          'https://media1.tenor.com/m/ZAMoMuQgf9UAAAAd/mapache-pedro.gif',
         trunk: [],
         trunkWeightCapacity: 100,
         trunkWeight: 0,

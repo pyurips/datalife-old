@@ -17,6 +17,11 @@ import { useCharacterData } from '@/contexts/player';
 import bitsIconLight from '@/assets/bits_icon_light.svg';
 import moneyIcon from '@/assets/money_icon.svg';
 import primeIconLight from '@/assets/prime_icon_light.svg';
+import { RequestNames, useRequester } from '@/utils/use_requester';
+import {
+  Request_player_dropBelongingsItem,
+  Response_player_dropBelongingsItem,
+} from '@/types/player';
 
 function getQualityColor(quality: 0 | 1 | 2) {
   if (quality === 1) return 'bg-sky-950';
@@ -26,6 +31,10 @@ function getQualityColor(quality: 0 | 1 | 2) {
 
 export default function Belongings() {
   const characterData = useCharacterData((state) => state.characterData);
+  const { fetch } = useRequester<
+    Request_player_dropBelongingsItem,
+    Response_player_dropBelongingsItem
+  >(RequestNames.player_dropBelongingsItem, false);
 
   return (
     <div className="flex flex-col w-full gap-[1vw]">
@@ -75,7 +84,7 @@ export default function Belongings() {
               </div>
             )}
 
-            {characterData.belongings.map((e, _) => (
+            {characterData.belongings.map((e, index) => (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button
@@ -133,7 +142,7 @@ export default function Belongings() {
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuItem
-                    onClick={() => /*fetch({ index, amount: 1 })*/ {}}
+                    onClick={() => fetch({ index, amount: 1 })}
                     className="text-[0.8vw] text-red-400 hover:text-inherit hover:bg-red-500 focus:bg-red-500 rounded-[0.5vw]"
                   >
                     Jogar fora

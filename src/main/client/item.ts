@@ -16,7 +16,7 @@ export function item_getInteractionDropData() {
   const closestDrop = getClosestDropFromPlayer(3);
   if (!closestDrop) return null;
   if (!closestDrop.hasMeta('drop')) return null;
-  alt.log(`ID of closest drop: ${closestDrop.getMeta('drop')}`);
+  return closestDrop.getMeta('drop');
 }
 
 export default {

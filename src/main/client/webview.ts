@@ -5,6 +5,7 @@ import vehicle from './vehicle.js';
 import auth from './auth.js';
 import world from './world.js';
 import item from './item.js';
+import player from './player.js';
 
 import { OBJECT_view_BASE } from './interation.js';
 
@@ -26,6 +27,7 @@ const OPERATIONS = {
   ...auth,
   ...world,
   ...item,
+  ...player,
 };
 
 export async function webView_loadMain() {
@@ -106,7 +108,7 @@ async function webView_loadRequester(webView: alt.WebView) {
 }
 
 export function webView_setMainPage(
-  page: 'signIn' | 'mainHud' | 'characterMenu' | 'adminPanel'
+  page: 'signIn' | 'mainHud' | 'characterMenu' | 'adminPanel' | 'vehicleInteraction'
 ) {
   alt.setMeta('mainPage', page);
 }

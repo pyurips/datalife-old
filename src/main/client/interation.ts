@@ -11,11 +11,6 @@ import {
 
 export let OBJECT_view_BASE: alt.LocalObject = null;
 
-function getEntityType(type: number) {
-  if (type === 1) return 'vehicle';
-  return 'drop';
-}
-
 export async function interaction_initializeObjectViewBase() {
   OBJECT_view_BASE = new alt.LocalObject(
     'prop_cs_box_clothes',
@@ -45,11 +40,13 @@ export function interation_check() {
     webView_emitCustomEventToObjectView(1, 'interaction_getEntityType', null);
     return webView_attachObjectViewTo(1, OBJECT_view_BASE);
   }
-  webView_emitCustomEventToObjectView(
-    1,
-    'interaction_getEntityType',
-    getEntityType(closestEntity.type)
-  );
+
+  if (closestEntity.hasMeta('drop'))
+    webView_emitCustomEventToObjectView(1, 'interaction_getEntityType', 'drop');
+
+  if (closestEntity.hasStreamSyncedMeta('data'))
+    webView_emitCustomEventToObjectView(1, 'interaction_getEntityType', 'vehicle');
+
   return webView_attachObjectViewTo(1, closestEntity);
 }
 

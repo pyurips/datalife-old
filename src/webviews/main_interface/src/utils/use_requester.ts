@@ -6,6 +6,7 @@ export enum RequestNames {
   vehicle_createToPlayer = 'vehicle_createToPlayer',
   world_teleportPlayerToOther = 'world_teleportPlayerToOther',
   world_teleportToCoords = 'world_teleportToCoords',
+  player_dropBelongingsItem = 'player_dropBelongingsItem',
 }
 
 export function useRequester<Req, Res>(

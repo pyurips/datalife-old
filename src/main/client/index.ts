@@ -82,7 +82,11 @@ alt.on('keyup', async (key) => {
 
   if (key === alt.KeyCode.F2) {
     if (!webView_getCanChangePage()) return;
-    if ((alt.Player.local.getStreamSyncedMeta('character') as any).permissionLevel < 1) return;
+    if (
+      (alt.Player.local.getStreamSyncedMeta('character') as any)
+        .permissionLevel < 1
+    )
+      return;
     if (webView_getCurrentMainPage() === 'adminPanel')
       return webView_setMainPage('mainHud');
     webView_setMainPage('adminPanel');
@@ -95,9 +99,10 @@ alt.on('keyup', async (key) => {
   if (key === alt.KeyCode.E) {
     const entity = interaction_checkOnTap();
     if (!entity) return;
-    if (entity.type === 1 && entity.hasStreamSyncedMeta('data')) {
-      alt.log(entity.getStreamSyncedMeta('data'));
+    if (entity.hasStreamSyncedMeta('data')) {
+      return webView_setMainPage('vehicleInteraction');
     }
+    if (entity.hasMeta('drop')) return await alt.emitRpc('interaction_getDrop');
   }
 });
 
