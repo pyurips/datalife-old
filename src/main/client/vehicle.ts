@@ -32,14 +32,14 @@ export function vehicle_getInteractionData() {
 
 export async function vehicle_toggleEngine() {
   if (!player.vehicle) return;
-  await alt.emitRpc('vehicle_toggleEngine');
+  return await alt.emitRpc('vehicle_toggleEngine');
 }
 
 export async function vehicle_createToPlayer(data: {
   vehicleHash: number;
   playerId?: string;
 }) {
-  await alt.emitRpc('vehicle_createToPlayer', data);
+  return await alt.emitRpc('vehicle_createToPlayer', data);
 }
 
 export default {

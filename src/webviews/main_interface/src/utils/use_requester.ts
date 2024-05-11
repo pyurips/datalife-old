@@ -4,6 +4,8 @@ export enum RequestNames {
   auth_signinTest = 'auth_signinTest',
   player_setAnimationByStaff = 'player_setAnimationByStaff',
   vehicle_createToPlayer = 'vehicle_createToPlayer',
+  world_teleportPlayerToOther = 'world_teleportPlayerToOther',
+  world_teleportToCoords = 'world_teleportToCoords',
 }
 
 export function useRequester<Req, Res>(
