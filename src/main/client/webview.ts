@@ -4,6 +4,8 @@ import * as native from 'natives';
 import vehicle from './vehicle.js';
 import auth from './auth.js';
 import world from './world.js';
+import item from './item.js';
+
 import { OBJECT_view_BASE } from './interation.js';
 
 const webViews = [
@@ -23,6 +25,7 @@ const OPERATIONS = {
   ...vehicle,
   ...auth,
   ...world,
+  ...item,
 };
 
 export async function webView_loadMain() {
@@ -36,7 +39,10 @@ export function webView_toggleMainFocus(state: boolean) {
   return mainWebView.unfocus();
 }
 
-export function webView_toggleObjectViewFocus(webViewId: number, state: boolean) {
+export function webView_toggleObjectViewFocus(
+  webViewId: number,
+  state: boolean
+) {
   if (state)
     return activeObjectViews.find((e) => e.id === webViewId).webView.focus();
   return activeObjectViews.find((e) => e.id === webViewId).webView.unfocus();

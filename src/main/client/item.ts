@@ -1,12 +1,24 @@
 import * as alt from 'alt-client';
+import { getClosestDropFromPlayer } from './utils.js';
 
 export function item_initializeClearDropById() {
   alt.onServer('client_item_clearDropById', (id: number) => {
     alt.LocalObject.all.forEach(async (object) => {
       if (!object?.valid) return;
-      if (!object.hasMeta('virtualEntityId')) return;
-      const virtualEntityId = object.getMeta('virtualEntityId') as number;
-      if (virtualEntityId === id) return object.destroy();
+      if (!object.hasMeta('drop')) return;
+      const drop = object.getMeta('drop') as any;
+      if (drop.virtualEntityId === id) return object.destroy();
     });
   });
 }
+
+export function item_getInteractionDropData() {
+  const closestDrop = getClosestDropFromPlayer(3);
+  if (!closestDrop) return null;
+  if (!closestDrop.hasMeta('drop')) return null;
+  alt.log(`ID of closest drop: ${closestDrop.getMeta('drop')}`);
+}
+
+export default {
+  item_getInteractionDropData,
+};

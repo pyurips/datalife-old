@@ -112,7 +112,7 @@ alt.on('worldObjectStreamIn', async (object: any) => {
     );
     drop.toggleCollision(false, false);
     drop.placeOnGroundProperly();
-    drop.setMeta('virtualEntityId', isADrop.virtualEntityId);
+    drop.setMeta('drop', isADrop);
   }
 });
 
