@@ -35,3 +35,18 @@ export type Event_player_getCharacterData = {
     rate: number;
   }[];
 };
+
+export type Request_player_setAnimationByStaff = {
+  animDict: string;
+  animName: string;
+  blendInSpeed?: number;
+  blendOutSpeed?: number;
+  duration?: number;
+  flags?: number;
+  playbackRate?: number;
+  lockX?: boolean;
+  lockY?: boolean;
+  lockZ?: boolean;
+};
+
+export type Response_player_setAnimationByStaff = { error: string } | null;

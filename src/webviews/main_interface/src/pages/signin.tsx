@@ -3,10 +3,17 @@ import { Button } from '@/components/ui/button';
 import { BsDiscord, BsYoutube, BsInstagram } from 'react-icons/bs';
 import { VscLoading } from 'react-icons/vsc';
 import signinHomeImage from '@/assets/signin_home_image.png';
-import { auth_signInTest } from '@/utils/auth_requester';
+import { RequestNames, useRequester } from '@/utils/use_requester';
+import {
+  Request_auth_signinTest,
+  Response_auth_signinTest,
+} from '@/types/auth';
 
 export default function Signin() {
-  const { data, fetch, loading } = auth_signInTest();
+  const { data, fetch, loading } = useRequester<
+    Request_auth_signinTest,
+    Response_auth_signinTest
+  >(RequestNames.auth_signinTest, false);
 
   return (
     <div className="flex flex-col w-[50vw] h-[30vw] bg-stone-950 rounded-[1vw] overflow-hidden gap-[1vw]">
@@ -23,7 +30,7 @@ export default function Signin() {
           variant="secondary"
           disabled={loading}
           className="flex flex-row items-center gap-[0.5vw] px-[1.5vw] py-[1vw] h-min bg-green-800 hover:bg-green-900"
-          onClick={() => fetch()}
+          onClick={() => fetch(null)}
         >
           {!loading && <FaDiscord className="text-[1.5vw]" />}
           {loading && <VscLoading className="text-[1.5vw] animate-spin" />}

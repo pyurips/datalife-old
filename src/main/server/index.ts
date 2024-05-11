@@ -6,13 +6,6 @@ import {
   initializeMongoDBGame,
 } from './mongodb_initialize.js';
 
-import 'auth.js';
-import 'interaction.js';
-import 'item.js';
-import 'player.js';
-import 'vehicle.js';
-import 'world.js';
-
 let CAN_CONNECT = false;
 const ONE_SECOND = 1000;
 

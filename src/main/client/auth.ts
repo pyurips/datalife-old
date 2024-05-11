@@ -21,7 +21,7 @@ export async function auth_signinTest() {
   );
   webView_setMainPage('mainHud');
   deleteSigninCamera();
-  await alt.emitRpc('rpc', 'player_loadIntoWorld');
+  await alt.emitRpc('player_loadIntoWorld');
   webView_canChangePage(true);
 }
 

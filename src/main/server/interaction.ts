@@ -34,7 +34,3 @@ export function interaction_check(player: alt.Player) {
     return item_deleteDropById(dropData.virtualEntityId);
   }
 }
-
-export const callableByRPC = {
-  interaction_check,
-};

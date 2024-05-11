@@ -1,13 +1,20 @@
-import { vehicle_getInteractionData } from '@/utils/vehicle_requester';
+import { RequestNames, useRequester } from '@/utils/use_requester';
 import { IoPersonCircle } from 'react-icons/io5';
 import Loading from './loading';
 import { useEffect } from 'react';
+import {
+  Request_vehicle_getInteractionData,
+  Response_vehicle_getInteractionData,
+} from '@/types/vehicle';
 
 export default function Vehicle() {
-  const { data, fetch, loading } = vehicle_getInteractionData();
+  const { data, fetch, loading } = useRequester<
+    Request_vehicle_getInteractionData,
+    Response_vehicle_getInteractionData
+  >(RequestNames.vehicle_getInteractionData, true);
 
   useEffect(() => {
-    fetch();
+    fetch(null);
   }, []);
 
   if (!data || loading) return <Loading />;

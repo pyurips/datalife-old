@@ -2,10 +2,17 @@ import { useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { player_setAnimationByStaff } from '@/utils/player_requester';
+import { RequestNames, useRequester } from '@/utils/use_requester';
+import {
+  Request_player_setAnimationByStaff,
+  Response_player_setAnimationByStaff,
+} from '@/types/player';
 
 export default function DebugAnimation() {
-  const { fetch } = player_setAnimationByStaff();
+  const { fetch } = useRequester<
+    Request_player_setAnimationByStaff,
+    Response_player_setAnimationByStaff
+  >(RequestNames.player_setAnimationByStaff, false);
 
   const [animation, setAnimation] = useState<{
     animDict: string;

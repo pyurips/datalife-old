@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-export enum RequestNames {}
+export enum RequestNames {
+  vehicle_getInteractionData = 'vehicle_getInteractionData',
+}
 
 export function useRequester<Req, Res>(
   operation: RequestNames,

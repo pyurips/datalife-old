@@ -56,7 +56,7 @@ alt.on('globalMetaChange', (key, value, oldValue) => {
       webView_toggleMainFocus(true);
       setPageMode(true);
     }
-    return webView_emitCustomClientEventToMainWebView('client_setPage', value);
+    return webView_emitCustomClientEventToMainWebView('webView_setPage', value);
   }
 });
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 export enum RequestNames {
   auth_signinTest = 'auth_signinTest',
+  player_setAnimationByStaff = 'player_setAnimationByStaff',
 }
 
 export function useRequester<Req, Res>(

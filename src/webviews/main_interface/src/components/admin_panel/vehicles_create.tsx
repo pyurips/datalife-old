@@ -12,13 +12,11 @@ import { Input } from '@/components/ui/input';
 import { FaSearch } from 'react-icons/fa';
 import vehiclesList from '@/utils/vehicles_list';
 import { useEffect, useState } from 'react';
-import { vehicle_createToMeByStaff } from '@/utils/vehicle_requester';
 
 export default function VehiclesCreate() {
   const [vehiclesListState, setVehiclesListState] =
     useState<Partial<typeof vehiclesList>>(vehiclesList);
   const [search, setSearch] = useState('');
-  const { fetch } = vehicle_createToMeByStaff();
 
   useEffect(() => {
     const filteredList = Object.fromEntries(
@@ -59,7 +57,7 @@ export default function VehiclesCreate() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onClick={() => fetch({ vehicleHash: e[1] })}
+                    onClick={() => /*fetch({ vehicleHash: e[1] })*/ {}}
                   >
                     Criar para mim
                   </DropdownMenuItem>
