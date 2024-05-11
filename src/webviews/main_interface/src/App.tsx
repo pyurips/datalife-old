@@ -4,15 +4,18 @@ import { ThemeProvider } from './components/theme_provider';
 import CharacterMenu from './pages/character_menu';
 import MainHud from './pages/main_hud';
 import Signin from './pages/signin';
-import { useGetCharacterData, useGetPage } from './utils/use_listener';
+import { EventNames, useListener } from './utils/use_listener';
 import { useCharacterData } from './contexts/player';
-// import CharacterCustomization from './pages/character_customization';
 import AdminPanel from './pages/admin_panel';
 import VehicleInteraction from './pages/vehicle_interaction';
+import { Event_webView_setPage } from './types/webView';
+import { Event_player_getCharacterData } from './types/player';
 
 export default function App() {
-  const page = useGetPage();
-  const characterData = useGetCharacterData();
+  const page = useListener<Event_webView_setPage>(EventNames.webView_setPage);
+  const characterData = useListener<Event_player_getCharacterData>(
+    EventNames.player_getCharacterData
+  );
   const setCharacterData = useCharacterData((state) => state.setCharacterData);
 
   useEffect(() => {
@@ -25,7 +28,6 @@ export default function App() {
         {page === 'signIn' && <Signin />}
         {page === 'mainHud' && <MainHud />}
         {page === 'characterMenu' && <CharacterMenu />}
-        {/* {page === 'characterCustomization' && <CharacterCustomization />} */}
         {page === 'adminPanel' && <AdminPanel />}
         {page === 'vehicleInteraction' && <VehicleInteraction />}
       </main>

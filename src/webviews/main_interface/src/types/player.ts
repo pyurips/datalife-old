@@ -1,4 +1,4 @@
-export type CharacterData = {
+export type Event_player_getCharacterData = {
   health: number;
   stamina: number;
   money: number;

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 export enum RequestNames {
-  player_getCharacterData = 'player_getCharacterData',
-  player_getCharacterDataById = 'player_getCharacterDataById',
+  auth_signinTest = 'auth_signinTest',
 }
 
 export function useRequester<Req, Res>(
