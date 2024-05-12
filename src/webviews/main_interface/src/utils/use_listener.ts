@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 export enum EventNames {
   player_getCharacterData = 'player_getCharacterData',
   webView_setPage = 'webView_setPage',
+  vehicle_setVehicleHUD = 'vehicle_setVehicleHUD',
 }
 
 export function useListener<R>(eventName: EventNames) {

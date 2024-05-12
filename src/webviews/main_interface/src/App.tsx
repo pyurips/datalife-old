@@ -10,17 +10,27 @@ import AdminPanel from './pages/admin_panel';
 import VehicleInteraction from './pages/vehicle_interaction';
 import { Event_webView_setPage } from './types/webView';
 import { Event_player_getCharacterData } from './types/player';
+import { useVehicleHUD } from './contexts/vehicle';
+import { Event_vehicle_setVehicleHUD } from './types/vehicle';
 
 export default function App() {
   const page = useListener<Event_webView_setPage>(EventNames.webView_setPage);
   const characterData = useListener<Event_player_getCharacterData>(
     EventNames.player_getCharacterData
   );
+  const vehicleHUDState = useListener<Event_vehicle_setVehicleHUD>(
+    EventNames.vehicle_setVehicleHUD
+  );
   const setCharacterData = useCharacterData((state) => state.setCharacterData);
+  const setVehicleHUD = useVehicleHUD((state) => state.setState);
 
   useEffect(() => {
     if (characterData) setCharacterData(characterData);
   }, [characterData]);
+
+  useEffect(() => {
+    if (vehicleHUDState !== undefined) setVehicleHUD(vehicleHUDState);
+  }, [vehicleHUDState]);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

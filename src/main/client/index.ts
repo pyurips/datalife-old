@@ -132,3 +132,12 @@ alt.on('streamSyncedMetaChange', (object, key, value, oldValue) => {
     return player_emitCharacterDataToMainWebView(key, value);
   }
 });
+
+alt.on('enteredVehicle', (vehicle) => {
+  alt.log(`Número de assentos: ${vehicle.seatCount}`);
+  webView_emitCustomClientEventToMainWebView('vehicle_setVehicleHUD', true);
+});
+
+alt.on('leftVehicle', () => {
+  webView_emitCustomClientEventToMainWebView('vehicle_setVehicleHUD', false);
+});

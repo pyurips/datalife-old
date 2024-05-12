@@ -13,10 +13,11 @@ import { GiHealthNormal, GiRun } from 'react-icons/gi';
 import { TiWeatherCloudy } from 'react-icons/ti';
 import { FaRegClock } from 'react-icons/fa6';
 import VehiclePanel from '@/components/main_hud/vehicle_panel';
-
+import { useVehicleHUD } from '@/contexts/vehicle';
 
 export default function MainHud() {
   const debugMode = useDebugMode((state) => state.debugMode);
+  const vehicleHUD = useVehicleHUD((state) => state.state);
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -106,7 +107,7 @@ export default function MainHud() {
       )}
 
       <div className="flex flex-row items-center justify-end px-[1vw] gap-[15vw]">
-        <VehiclePanel />
+        {vehicleHUD && <VehiclePanel />}
 
         <div className="flex flex-col items-center gap-[0.5vw]">
           <div className="flex flex-row items-center justify-center gap-[1vw] bg-stone-900 p-[0.5vw] rounded-[0.5vw] opacity-75 w-fit">
