@@ -16,7 +16,8 @@ export function vehicle_getType() {
 }
 
 export function vehicle_getSpeed() {
-  return player.vehicle.speed;
+  if (!player.vehicle) return null;
+  return Math.round(player.vehicle.speed * 3.6);
 }
 
 export function vehicle_getGear() {
