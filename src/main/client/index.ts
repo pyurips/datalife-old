@@ -80,6 +80,12 @@ alt.on('keyup', async (key) => {
     webView_setMainPage('characterMenu');
   }
 
+  if (key === alt.KeyCode.Escape) {
+    if (!webView_getCanChangePage()) return;
+    if (webView_getCurrentMainPage() === 'mainHud') return;
+    return webView_setMainPage('mainHud');
+  }
+
   if (key === alt.KeyCode.F2) {
     if (!webView_getCanChangePage()) return;
     if (
