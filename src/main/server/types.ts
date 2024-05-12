@@ -1,3 +1,5 @@
+import * as alt from 'alt-server';
+
 export type AccountData = {
   _id: string;
   discordId: string;
@@ -50,6 +52,7 @@ export type VehicleData = {
   fuelType: 'gasoline' | 'diesel' | 'eletric' | 'kerosene' | null;
   fuelRate: number;
   fuel: number;
+  fuelCapacity: number;
   interactionImageUrl: string;
   trunk: {
     id: number;
@@ -86,3 +89,26 @@ export type DropData = {
 };
 
 export type MainWebViewEvents = 'server_getCharacterData';
+
+export type ConsumableStructure = {
+  weight: number;
+  stackable: boolean;
+  value: number;
+  useCallback: (player: alt.Player) => void;
+};
+
+export type MaterialStructure = {
+  weight: number;
+  stackable: boolean;
+};
+
+export type ClothStructure = {
+  weight: number;
+  stackable: boolean;
+  componentId: number;
+  drawableId: number;
+  textureId: number;
+  upperBody: number;
+  dlc?: number;
+  kind: 'cloth' | 'prop';
+};

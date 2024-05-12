@@ -2,14 +2,17 @@ import * as alt from 'alt-server';
 import { sendClientError } from './utils.js';
 import { DropData, ItemsType } from './types.js';
 import { checkPlayer } from './middlewares.js';
-import { player_addToHungerNeeds, player_getCharacterData } from './player.js';
+import { player_getCharacterData } from './player.js';
+import { consumablesList } from './item_consumables.js';
+import { materialsList } from './item_materials.js';
+import { clothesList } from './item_clothes.js';
 
 const dropGroup = new alt.VirtualEntityGroup(100);
 const DROP_STREAMING_DISTANCE = 100;
 const DELETE_DROP_AFTER = 60_000;
 
 export function item_wearCloth(player: alt.Player, id: number) {
-  const cloth = clothes[id];
+  const cloth = clothesList[id];
   if (!cloth) throw new Error();
   if (cloth.kind === 'cloth')
     return cloth.dlc
@@ -34,19 +37,17 @@ export function item_unwearCloth(player: alt.Player, id: number) {
   // TODO
 }
 
-alt.onRpc('item_use', (player, data: { index: number }) => {
-  checkPlayer(player);
-  const itemFromBelongings =
-    player_getCharacterData(player).belongings[data.index];
-  if (!itemFromBelongings) throw sendClientError(1715391585);
-  alt.log(itemFromBelongings);
-});
-
 export function item_getItem(id: number, type: ItemsType) {
-  if (type === 'consumable') return consumables[id];
-  if (type === 'material') return materials[id];
-  if (type === 'cloth') return clothes[id];
-  throw sendClientError(1713785225);
+  switch (type) {
+    case 'consumable':
+      return consumablesList[id];
+    case 'material':
+      return materialsList[id];
+    case 'cloth':
+      return clothesList[id];
+    default:
+      throw sendClientError(1715503203);
+  }
 }
 
 export function item_createAObjectDropFromPlayer(
@@ -93,74 +94,12 @@ export function item_deleteDropById(dropId: number) {
   alt.emitAllClientsRaw('client_item_clearDropById', dropId);
 }
 
-const consumables: {
-  weight: number;
-  stackable: boolean;
-  value: number;
-  kind: 'food' | 'drink' | 'medicine';
-}[] = [
-  {
-    weight: 0.1,
-    stackable: true,
-    value: 5,
-    kind: 'food',
-  },
-];
-
-const materials: {
-  weight: number;
-  stackable: boolean;
-}[] = [
-  {
-    weight: 0.5,
-    stackable: true,
-  },
-];
-
-const clothes: {
-  weight: number;
-  stackable: boolean;
-  componentId: number;
-  drawableId: number;
-  textureId: number;
-  upperBody: number;
-  dlc?: number;
-  kind: 'cloth' | 'prop';
-}[] = [
-  {
-    weight: 0.5,
-    stackable: false,
-    componentId: 11,
-    drawableId: 15,
-    textureId: 0,
-    upperBody: 0,
-    kind: 'cloth',
-  },
-  {
-    weight: 1,
-    stackable: false,
-    componentId: 11,
-    drawableId: 15,
-    textureId: 1,
-    upperBody: 0,
-    kind: 'cloth',
-  },
-  {
-    weight: 1.5,
-    stackable: false,
-    componentId: 9,
-    drawableId: 9,
-    textureId: 0,
-    upperBody: 1,
-    kind: 'cloth',
-  },
-  {
-    weight: 0.2,
-    stackable: false,
-    componentId: 6,
-    drawableId: 4,
-    textureId: 0,
-    upperBody: 0,
-    kind: 'prop',
-  },
-];
+export function item_loadRPCs() {
+  alt.onRpc('item_use', (player, data: { index: number }) => {
+    checkPlayer(player);
+    const itemFromBelongings =
+      player_getCharacterData(player).belongings[data.index];
+    if (!itemFromBelongings) throw sendClientError(1715391585);
+    alt.log(itemFromBelongings);
+  });
+}

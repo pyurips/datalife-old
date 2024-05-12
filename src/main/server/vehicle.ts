@@ -21,6 +21,7 @@ export function vehicle_createByWorld(player: alt.Player) {
     fuelType: 'gasoline',
     fuelRate: 0.1,
     fuel: 100,
+    fuelCapacity: 100,
     interactionImageUrl:
       'https://media1.tenor.com/m/ZAMoMuQgf9UAAAAd/mapache-pedro.gif',
     trunk: [],
@@ -92,6 +93,7 @@ export function vehicle_loadRPCs() {
         fuelType: 'gasoline',
         fuelRate: 0.1,
         fuel: 100,
+        fuelCapacity: 100,
         interactionImageUrl:
           'https://media1.tenor.com/m/ZAMoMuQgf9UAAAAd/mapache-pedro.gif',
         trunk: [],
