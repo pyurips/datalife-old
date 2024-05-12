@@ -71,6 +71,7 @@ export type VehicleData = {
   batteryCharge: number;
   batteryCapacity: number;
   batteryState: boolean;
+  allowedPlayers: string[];
 };
 
 export type ItemsType = 'consumable' | 'material' | 'cloth';

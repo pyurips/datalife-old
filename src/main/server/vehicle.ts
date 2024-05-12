@@ -33,6 +33,7 @@ export function vehicle_createByWorld(player: alt.Player) {
     batteryCharge: 100,
     batteryCapacity: 100,
     batteryState: true,
+    allowedPlayers: [characterData._id],
   });
 }
 
@@ -69,6 +70,7 @@ export function vehicle_loadRPCs() {
     'vehicle_createToPlayer',
     (player, data: { vehicleHash: number; playerId?: string }) => {
       checkPlayer(player, 2);
+      const characterData = player_getCharacterData(player);
       let targetPlayer = player;
       if (data?.playerId)
         targetPlayer = alt.Player.all.find(
@@ -102,6 +104,7 @@ export function vehicle_loadRPCs() {
         batteryCharge: 100,
         batteryCapacity: 100,
         batteryState: true,
+        allowedPlayers: [characterData._id],
       });
     }
   );
