@@ -12,6 +12,8 @@ import { IoMdMic /*IoMdMicOff*/ } from 'react-icons/io';
 import { GiHealthNormal, GiRun } from 'react-icons/gi';
 import { TiWeatherCloudy } from 'react-icons/ti';
 import { FaRegClock } from 'react-icons/fa6';
+import VehiclePanel from '@/components/main_hud/vehicle_panel';
+
 
 export default function MainHud() {
   const debugMode = useDebugMode((state) => state.debugMode);
@@ -103,21 +105,25 @@ export default function MainHud() {
         </div>
       )}
 
-      <div className="flex flex-col items-center gap-[0.5vw] self-end px-[1vw]">
-        <div className="flex flex-row items-center justify-center gap-[1vw] bg-stone-900 p-[0.5vw] rounded-[0.5vw] opacity-75 w-fit">
-          <span className="relative flex h-[0.7vw] w-[0.7vw]">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-[0.7vw] w-[0.7vw] bg-sky-500"></span>
-          </span>
+      <div className="flex flex-row items-center justify-end px-[1vw] gap-[15vw]">
+        <VehiclePanel />
 
-          <p className="text-[0.8vw] text-stone-300">
-            5 notificações não lidas
-          </p>
-        </div>
+        <div className="flex flex-col items-center gap-[0.5vw]">
+          <div className="flex flex-row items-center justify-center gap-[1vw] bg-stone-900 p-[0.5vw] rounded-[0.5vw] opacity-75 w-fit">
+            <span className="relative flex h-[0.7vw] w-[0.7vw]">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-[0.7vw] w-[0.7vw] bg-sky-500"></span>
+            </span>
 
-        <div className="flex flex-row items-center justify-center gap-[0.5vw] bg-gradient-to-r from-stone-900 bg-stone-700 rounded-t-[2vw] w-[20vw] h-[3vw] border-t-[0.2vw] border-stone-500 border-x-[0.2vw]">
-          <div className="size-[0.4vw] rounded-full bg-gradient-to-r from-stone-950 bg-stone-900"></div>
-          <div className="w-[6vw] h-[0.3vw] rounded-full bg-stone-950"></div>
+            <p className="text-[0.8vw] text-stone-300">
+              5 notificações não lidas
+            </p>
+          </div>
+
+          <div className="flex flex-row items-center justify-center gap-[0.5vw] bg-gradient-to-r from-stone-900 bg-stone-700 rounded-t-[2vw] w-[20vw] h-[3vw] border-t-[0.2vw] border-stone-500 border-x-[0.2vw]">
+            <div className="size-[0.4vw] rounded-full bg-gradient-to-r from-stone-950 bg-stone-900"></div>
+            <div className="w-[6vw] h-[0.3vw] rounded-full bg-stone-950"></div>
+          </div>
         </div>
       </div>
     </div>

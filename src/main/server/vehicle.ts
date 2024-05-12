@@ -33,7 +33,7 @@ export function vehicle_createByWorld(player: alt.Player) {
     batteryCharge: 100,
     batteryCapacity: 100,
     batteryState: true,
-    allowedPlayers: [characterData._id],
+    allowedPlayers: [],
   });
 }
 
