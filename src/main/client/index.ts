@@ -99,7 +99,7 @@ alt.on('keyup', async (key) => {
   if (key === alt.KeyCode.E) {
     const entity = interaction_checkOnTap();
     if (!entity) return;
-    if (entity.hasStreamSyncedMeta('data')) {
+    if (entity.hasStreamSyncedMeta('vehicle')) {
       return webView_setMainPage('vehicleInteraction');
     }
     if (entity.hasMeta('drop')) return await alt.emitRpc('interaction_getDrop');

@@ -30,7 +30,6 @@ export default function App() {
         {page === 'characterMenu' && <CharacterMenu />}
         {page === 'adminPanel' && <AdminPanel />}
         {page === 'vehicleInteraction' && <VehicleInteraction />}
-        <MainHud />
       </main>
     </ThemeProvider>
   );

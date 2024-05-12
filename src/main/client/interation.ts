@@ -44,7 +44,7 @@ export function interation_check() {
   if (closestEntity.hasMeta('drop'))
     webView_emitCustomEventToObjectView(1, 'interaction_getEntityType', 'drop');
 
-  if (closestEntity.hasStreamSyncedMeta('data'))
+  if (closestEntity.hasStreamSyncedMeta('vehicle'))
     webView_emitCustomEventToObjectView(1, 'interaction_getEntityType', 'vehicle');
 
   return webView_attachObjectViewTo(1, closestEntity);

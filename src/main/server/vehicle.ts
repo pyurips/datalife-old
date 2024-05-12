@@ -43,7 +43,7 @@ export function vehicle_setVehicleData(
   data: VehicleData
 ) {
   if (!vehicle?.valid) throw new Error();
-  vehicle.setStreamSyncedMeta('data', data);
+  vehicle.setStreamSyncedMeta('vehicle', data);
 }
 
 export function vehicle_updateData(
@@ -51,8 +51,8 @@ export function vehicle_updateData(
   data: Partial<VehicleData>
 ) {
   if (!vehicle?.valid) throw new Error();
-  const currentData = vehicle.getMeta('data') as VehicleData;
-  vehicle.setStreamSyncedMeta('data', { ...currentData, ...data });
+  const currentData = vehicle.getStreamSyncedMeta('vehicle') as VehicleData;
+  vehicle.setStreamSyncedMeta('vehicle', { ...currentData, ...data });
 }
 
 export function vehicle_loadRPCs() {

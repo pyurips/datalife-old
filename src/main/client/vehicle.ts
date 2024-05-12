@@ -26,8 +26,8 @@ export function vehicle_getGear() {
 export function vehicle_getInteractionData() {
   const closestVehicle = getClosestVehicleFromPlayer(5, true);
   if (!closestVehicle) return null;
-  if (!closestVehicle.hasStreamSyncedMeta('data')) return null;
-  return closestVehicle.getStreamSyncedMeta('data');
+  if (!closestVehicle.hasStreamSyncedMeta('vehicle')) return null;
+  return closestVehicle.getStreamSyncedMeta('vehicle');
 }
 
 export async function vehicle_toggleEngine() {
