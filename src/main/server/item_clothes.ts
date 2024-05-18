@@ -1,4 +1,4 @@
-import { ClothStructure } from './types.js';
+import { ClothStructure } from "../shared/types";
 
 enum Clothes {
   tshirt,

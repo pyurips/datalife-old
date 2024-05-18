@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { MainWebViewEvents } from './types.js';
+import { MainWebViewEvents } from '../shared/types.js';
 
 export function sendClientError(
   internalCode: number,

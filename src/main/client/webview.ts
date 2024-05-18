@@ -8,6 +8,7 @@ import item from './item.js';
 import player from './player.js';
 
 import { OBJECT_view_BASE } from './interation.js';
+import { MainInterfacePages } from '../shared/types.js';
 
 const webViews = [
   'http://assets/webviews/main_interface/index.html',
@@ -107,9 +108,7 @@ async function webView_loadRequester(webView: alt.WebView) {
   });
 }
 
-export function webView_setMainPage(
-  page: 'signIn' | 'mainHud' | 'characterMenu' | 'adminPanel' | 'vehicleInteraction'
-) {
+export function webView_setMainPage(page: MainInterfacePages) {
   alt.setMeta('mainPage', page);
 }
 
@@ -122,11 +121,7 @@ export function webView_getCanChangePage() {
 }
 
 export function webView_getCurrentMainPage() {
-  return alt.getMeta('mainPage') as
-    | 'signIn'
-    | 'mainHud'
-    | 'characterMenu'
-    | 'adminPanel';
+  return alt.getMeta('mainPage') as MainInterfacePages;
 }
 
 export function webView_initializeMainWebViewServerEventsReceptor() {

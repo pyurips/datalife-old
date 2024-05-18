@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { VehicleData } from './types.js';
+import { VehicleData } from '../shared/types.js';
 import { checkPlayer } from './middlewares.js';
 import { player_getCharacterData } from './player.js';
 import { sendClientError } from './utils.js';

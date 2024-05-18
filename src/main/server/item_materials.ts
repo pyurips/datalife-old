@@ -1,4 +1,4 @@
-import { MaterialStructure } from './types.js';
+import { MaterialStructure } from "../shared/types";
 
 enum Materials {
   wood,

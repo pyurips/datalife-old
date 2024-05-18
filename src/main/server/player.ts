@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { AccountData, CharacterData, ItemsType } from './types.js';
+import { AccountData, CharacterData, ItemsType } from '../shared/types.js';
 import { sendClientError } from './utils.js';
 import { checkPlayer } from './middlewares.js';
 import { item_createAObjectDropFromPlayer, item_getItem } from './item.js';

@@ -1,4 +1,6 @@
-import * as alt from 'alt-server';
+import * as alt from 'alt-shared';
+import * as alt_server from 'alt-server';
+import * as alt_client from 'alt-client';
 
 export type AccountData = {
   _id: string;
@@ -94,7 +96,7 @@ export type ConsumableStructure = {
   weight: number;
   stackable: boolean;
   value: number;
-  useCallback: (player: alt.Player) => void;
+  useCallback: (player: alt_server.Player) => void;
 };
 
 export type MaterialStructure = {
@@ -112,3 +114,10 @@ export type ClothStructure = {
   dlc?: number;
   kind: 'cloth' | 'prop';
 };
+
+export type MainInterfacePages =
+  | 'signIn'
+  | 'mainHud'
+  | 'characterMenu'
+  | 'adminPanel'
+  | 'vehicleInteraction';

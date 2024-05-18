@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import { sendClientError } from './utils.js';
-import { DropData, ItemsType } from './types.js';
+import { DropData, ItemsType } from '../shared/types.js';
 import { checkPlayer } from './middlewares.js';
 import { player_getCharacterData } from './player.js';
 import { consumablesList } from './item_consumables.js';

@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import { sendClientError } from './utils.js';
-import { AccountData } from './types.js';
+import { AccountData } from '../shared/types.js';
 
 export function checkPlayer(player: alt.Player, minPermissionLevel = 0) {
   if (!player?.valid) return;

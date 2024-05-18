@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import { Schema, Connection, createConnection } from 'mongoose';
-import { AccountData, CharacterData } from './types.js';
+import { AccountData, CharacterData } from '../shared/types.js';
 
 let mongoDBCoreInstance: Connection;
 let mongoDBGameInstance: Connection;

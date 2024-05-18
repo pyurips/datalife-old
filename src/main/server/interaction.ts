@@ -4,7 +4,7 @@ import {
   getClosestVehicleFromPlayer,
   getDistanceBetween,
 } from './utils.js';
-import { DropData } from './types.js';
+import { DropData } from '../shared/types.js';
 import { player_addItemToBelongings } from './player.js';
 import { item_deleteDropById } from './item.js';
 

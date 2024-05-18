@@ -1,4 +1,4 @@
-import { ConsumableStructure } from './types.js';
+import { ConsumableStructure } from "../shared/types";
 
 enum Consumables {
   bread,

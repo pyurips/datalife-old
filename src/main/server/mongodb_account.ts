@@ -1,5 +1,5 @@
 import { getAccountModel } from './mongodb_initialize.js';
-import { AccountData } from './types.js';
+import { AccountData } from '../shared/types.js';
 
 export async function getAccountByDiscordId(discordId: string) {
   return await getAccountModel().findOne({ discordId }).exec();
