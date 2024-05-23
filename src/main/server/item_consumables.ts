@@ -1,4 +1,6 @@
-import { ConsumableStructure } from "../shared/types";
+import * as alt from 'alt-server';
+import { ConsumableStructure } from '../shared/types.js';
+import { player_addToHungerNeeds } from './player.js';
 
 enum Consumables {
   bread,
@@ -11,18 +13,21 @@ export const consumablesList: { [key in Consumables]: ConsumableStructure } = {
     weight: 0.1,
     stackable: true,
     value: 5,
-    useCallback: (player) => {},
+    deleteAfterUse: true,
+    useCallback: (player) => player_addToHungerNeeds(player, 10),
   },
   [Consumables.water]: {
     weight: 0.1,
     stackable: true,
     value: 5,
+    deleteAfterUse: true,
     useCallback: (player) => {},
   },
   [Consumables.medicine]: {
     weight: 0.1,
     stackable: true,
     value: 5,
+    deleteAfterUse: true,
     useCallback: (player) => {},
   },
 };

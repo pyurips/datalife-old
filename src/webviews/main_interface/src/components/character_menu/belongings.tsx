@@ -22,6 +22,7 @@ import {
   Request_player_dropBelongingsItem,
   Response_player_dropBelongingsItem,
 } from '@/types/player';
+import { Request_item_use, Response_item_use } from '@/types/item';
 
 function getQualityColor(quality: 0 | 1 | 2) {
   if (quality === 1) return 'bg-sky-950';
@@ -35,6 +36,11 @@ export default function Belongings() {
     Request_player_dropBelongingsItem,
     Response_player_dropBelongingsItem
   >(RequestNames.player_dropBelongingsItem, false);
+
+  const { fetch: useItem } = useRequester<Request_item_use, Response_item_use>(
+    RequestNames.item_use,
+    false
+  );
 
   return (
     <div className="flex flex-col w-full gap-[1vw]">
@@ -137,7 +143,10 @@ export default function Belongings() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-stone-600" />
                   {e.usable && (
-                    <DropdownMenuItem className="text-[0.8vw] rounded-[0.5vw]">
+                    <DropdownMenuItem
+                      onClick={() => useItem({ index })}
+                      className="text-[0.8vw] rounded-[0.5vw]"
+                    >
                       Usar
                     </DropdownMenuItem>
                   )}

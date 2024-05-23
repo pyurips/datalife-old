@@ -19,6 +19,11 @@ export function item_getInteractionDropData() {
   return closestDrop.getMeta('drop');
 }
 
+export async function item_use(data: unknown) {
+  return await alt.emitRpc('item_use', data);
+}
+
 export default {
+  item_use,
   item_getInteractionDropData,
 };

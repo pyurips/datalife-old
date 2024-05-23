@@ -96,6 +96,7 @@ export type ConsumableStructure = {
   weight: number;
   stackable: boolean;
   value: number;
+  deleteAfterUse: boolean;
   useCallback: (player: alt_server.Player) => void;
 };
 

@@ -1,8 +1,11 @@
 import * as alt from 'alt-server';
 import { sendClientError } from './utils.js';
-import { DropData, ItemsType } from '../shared/types.js';
+import { ConsumableStructure, DropData, ItemsType } from '../shared/types.js';
 import { checkPlayer } from './middlewares.js';
-import { player_getCharacterData } from './player.js';
+import {
+  player_getCharacterData,
+  player_removeBelongingsItem,
+} from './player.js';
 import { consumablesList } from './item_consumables.js';
 import { materialsList } from './item_materials.js';
 import { clothesList } from './item_clothes.js';
@@ -100,6 +103,19 @@ export function item_loadRPCs() {
     const itemFromBelongings =
       player_getCharacterData(player).belongings[data.index];
     if (!itemFromBelongings) throw sendClientError(1715391585);
-    alt.log(itemFromBelongings);
+    if (itemFromBelongings.type !== 'consumable')
+      throw sendClientError(1715391585);
+    const item = item_getItem(
+      itemFromBelongings.id,
+      itemFromBelongings.type
+    ) as ConsumableStructure;
+    item.useCallback(player);
+    player_removeBelongingsItem(
+      player,
+      itemFromBelongings.id,
+      itemFromBelongings.type,
+      itemFromBelongings.quality,
+      1
+    );
   });
 }
