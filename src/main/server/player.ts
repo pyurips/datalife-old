@@ -294,6 +294,7 @@ export function player_loadRPCs() {
     checkPlayer(player);
     player.spawn(-14.295, 24.695, 71.656);
     player.dimension = 0;
+    player.giveWeapon(alt.hash('weapon_pistol'), 50, true);
   });
 }
 

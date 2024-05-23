@@ -7,9 +7,8 @@ export function defaultCharacterBehaviors() {
   native.setPedConfigFlag(player, 241, true);
   native.setPedConfigFlag(player, 429, true);
   native.setPedConfigFlag(player, 448, true);
+  native.setPedConfigFlag(player, 35, false);
   native.displayAmmoThisFrame(false);
-  native.disableControlAction(0, 37, true);
-  native.disableControlAction(0, 199, true);
   native.hideHudComponentThisFrame(7);
   native.hideHudComponentThisFrame(9);
   native.hideHudComponentThisFrame(6);

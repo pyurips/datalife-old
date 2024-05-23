@@ -27,7 +27,15 @@ import { item_initializeClearDropById } from './item.js';
 import { player_emitCharacterDataToMainWebView } from './player.js';
 import { vehicle_toggleEngine } from './vehicle.js';
 
-alt.setWatermarkPosition(alt.WatermarkPosition.TopCenter);
+alt.on('playerWeaponShoot', (weaponHash, totalAmmo, ammoInClip) => {
+  alt.log(
+    `Arma: ${weaponHash} | Munição total: ${totalAmmo} | Munição no pente: ${ammoInClip}`
+  );
+});
+
+alt.on('playerWeaponChange', (oldWeapon, newWeapon) => {
+  alt.log(`Arma antiga: ${oldWeapon} | Nova arma: ${newWeapon}`);
+});
 
 alt.on('connectionComplete', async () => {
   toggleNativeHud(false);
