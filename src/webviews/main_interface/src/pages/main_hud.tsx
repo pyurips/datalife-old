@@ -14,8 +14,10 @@ import { TiWeatherCloudy } from 'react-icons/ti';
 import { FaRegClock } from 'react-icons/fa6';
 import VehiclePanel from '@/components/main_hud/vehicle_panel';
 import { useVehicleHUD } from '@/contexts/vehicle';
+import { useCharacterData } from '@/contexts/player';
 
 export default function MainHud() {
+  const characterData = useCharacterData((state) => state.characterData);
   const debugMode = useDebugMode((state) => state.debugMode);
   const vehicleHUD = useVehicleHUD((state) => state.state);
 
@@ -43,22 +45,22 @@ export default function MainHud() {
 
           <div className="flex flex-col gap-[0.1vw] items-center">
             <PiBowlFoodFill className="text-[1.3vw]" />
-            <Progress className="w-[3vw] h-[0.3vw]" value={100} />
+            <Progress className="w-[3vw] h-[0.3vw]" value={characterData?.needs.hunger.value} />
           </div>
 
           <div className="flex flex-col gap-[0.1vw] items-center">
             <BiSolidDrink className="text-[1.3vw]" />
-            <Progress className="w-[3vw] h-[0.3vw]" value={100} />
+            <Progress className="w-[3vw] h-[0.3vw]" value={characterData?.needs.thirst.value} />
           </div>
 
           <div className="flex flex-col gap-[0.1vw] items-center">
             <FaToiletPaper className="text-[1.3vw]" />
-            <Progress className="w-[3vw] h-[0.3vw]" value={100} />
+            <Progress className="w-[3vw] h-[0.3vw]" value={characterData?.needs.bathroom.value} />
           </div>
 
           <div className="flex flex-col gap-[0.1vw] items-center">
             <IoBedSharp className="text-[1.3vw]" />
-            <Progress className="w-[3vw] h-[0.3vw]" value={35} />
+            <Progress className="w-[3vw] h-[0.3vw]" value={characterData?.needs.fatigue.value} />
           </div>
         </div>
       </div>

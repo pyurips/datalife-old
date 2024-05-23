@@ -62,7 +62,11 @@ export function player_updateCharacterData(
 
 export function player_updateNeedsForAll() {
   alt.Player.all.forEach((player) => {
-    checkPlayer(player);
+    try {
+      checkPlayer(player);
+    } catch (_) {
+      return;
+    }
     const characterData = player_getCharacterData(player);
     if (!characterData) return;
     const characterNeeds = characterData.needs;

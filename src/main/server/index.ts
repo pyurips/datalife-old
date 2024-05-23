@@ -6,7 +6,7 @@ import {
   initializeMongoDBGame,
 } from './mongodb_initialize.js';
 import { vehicle_loadRPCs } from './vehicle.js';
-import { player_loadRPCs } from './player.js';
+import { player_loadRPCs, player_updateNeedsForAll } from './player.js';
 import { world_loadRPCs } from './world.js';
 import { interaction_loadRPCs } from './interaction.js';
 
@@ -39,7 +39,7 @@ alt.on('playerDeath', (victim, killer, weaponHash) => {
   victim.spawn(-14.295, 24.695, 71.656);
 });
 
-setInterval(() => {
-  //player_updateNeedsForAll();
+alt.setInterval(() => {
+  player_updateNeedsForAll();
   item_clearDrop();
 }, ONE_SECOND);
