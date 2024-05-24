@@ -14,6 +14,10 @@ import { item_loadRPCs } from './item.js';
 let CAN_CONNECT = false;
 const ONE_SECOND = 1000;
 
+alt.on('weaponDamage', () => {
+  
+});
+
 alt.on('serverStarted', async () => {
   await initializeMongoDB();
   await initializeMongoDBGame();

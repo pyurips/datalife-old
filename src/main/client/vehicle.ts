@@ -1,6 +1,7 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
 import { getClosestVehicleFromPlayer } from './utils.js';
+import { VehicleData } from '../shared/types.js';
 
 const player = alt.Player.local;
 
@@ -15,22 +16,6 @@ export function vehicle_getType() {
   return null;
 }
 
-export function vehicle_getSpeed() {
-  if (!player.vehicle) return null;
-  return Math.round(player.vehicle.speed * 3.6);
-}
-
-export function vehicle_getGear() {
-  return player.vehicle.gear;
-}
-
-export function vehicle_getInteractionData() {
-  const closestVehicle = getClosestVehicleFromPlayer(5, true);
-  if (!closestVehicle) return null;
-  if (!closestVehicle.hasStreamSyncedMeta('vehicle')) return null;
-  return closestVehicle.getStreamSyncedMeta('vehicle');
-}
-
 export async function vehicle_toggleEngine() {
   if (!player.vehicle) return;
   return await alt.emitRpc('vehicle_toggleEngine');
@@ -43,10 +28,23 @@ export async function vehicle_createToPlayer(data: {
   return await alt.emitRpc('vehicle_createToPlayer', data);
 }
 
+export async function vehicle_getData(data: { interactionMode: boolean }) {
+  let vehicle: alt.Vehicle;
+  if (!data.interactionMode) vehicle = player.vehicle;
+  if (data.interactionMode)
+    vehicle = getClosestVehicleFromPlayer(5, true) as alt.Vehicle;
+  if (!vehicle) return null;
+  if (!vehicle.hasStreamSyncedMeta('vehicle')) return null;
+  const vehicleData = vehicle.getStreamSyncedMeta('vehicle') as VehicleData;
+  return {
+    ...vehicleData,
+    speed: Math.round(player.vehicle.speed * 3.6),
+    gear: player.vehicle.gear,
+    type: vehicle_getType(),
+  };
+}
+
 export default {
-  vehicle_getType,
-  vehicle_getSpeed,
-  vehicle_getGear,
-  vehicle_getInteractionData,
+  vehicle_getData,
   vehicle_createToPlayer,
 };

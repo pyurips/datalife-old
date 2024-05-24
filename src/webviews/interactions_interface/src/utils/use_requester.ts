@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export enum RequestNames {
-  vehicle_getInteractionData = 'vehicle_getInteractionData',
+  vehicle_getData = 'vehicle_getData',
   item_getInteractionDropData = 'item_getInteractionDropData',
 }
 
