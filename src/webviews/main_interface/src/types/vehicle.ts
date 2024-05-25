@@ -4,9 +4,6 @@ export type Request_vehicle_createToPlayer = {
 };
 export type Response_vehicle_createToPlayer = { error: string } | null;
 
-export type Request_vehicle_getSpeed = null;
-export type Response_vehicle_getSpeed = number | null;
-
 export type Event_vehicle_setVehicleHUD = boolean;
 
 export type Request_vehicle_getData = { interactionMode: boolean };
@@ -38,7 +35,7 @@ export type Response_vehicle_getData = {
   batteryCapacity: number;
   batteryState: boolean;
   allowedPlayers: string[];
-  gear: number;
-  speed: number;
+  gear: number | null;
+  speed: number | null;
   type: string | null;
 } | null;

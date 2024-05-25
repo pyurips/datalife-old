@@ -27,7 +27,7 @@ export type Response_vehicle_getData = {
   batteryCapacity: number;
   batteryState: boolean;
   allowedPlayers: string[];
-  gear: number;
-  speed: number;
+  gear: number | null;
+  speed: number | null;
   type: string | null;
 } | null;

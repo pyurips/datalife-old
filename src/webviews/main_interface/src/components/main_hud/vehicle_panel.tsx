@@ -5,19 +5,19 @@ import { BsFillFuelPumpFill } from 'react-icons/bs';
 import { RequestNames, useRequester } from '@/utils/use_requester';
 import { useEffect } from 'react';
 import {
-  Request_vehicle_getSpeed,
-  Response_vehicle_getSpeed,
+  Request_vehicle_getData,
+  Response_vehicle_getData,
 } from '@/types/vehicle';
 
 export default function VehiclePanel() {
   const { fetch, data } = useRequester<
-    Request_vehicle_getSpeed,
-    Response_vehicle_getSpeed
-  >(RequestNames.vehicle_getSpeed, false);
+    Request_vehicle_getData,
+    Response_vehicle_getData
+  >(RequestNames.vehicle_getData, false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      fetch(null);
+      fetch({ interactionMode: false });
     }, 1000);
 
     return () => clearInterval(interval);
@@ -26,7 +26,7 @@ export default function VehiclePanel() {
   return (
     <div className="flex gap-[1vw] items-center p-[0.5vw] rounded-[0.5vw] bg-stone-950/75">
       <p className="text-[1vw] font-semibold">
-        {data || 0} <span className="text-[0.9vw] font-normal">km/h</span>
+        {data?.speed || 0} <span className="text-[0.9vw] font-normal">km/h</span>
       </p>
       <div className="flex flex-col gap-[0.1vw] items-center">
         <BsFillFuelPumpFill className="text-[1.3vw]" />

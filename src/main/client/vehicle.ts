@@ -6,6 +6,7 @@ import { VehicleData } from '../shared/types.js';
 const player = alt.Player.local;
 
 export function vehicle_getType() {
+  if (!player.vehicle) return null;
   if (native.isThisModelABicycle(player.vehicle.model)) return 'bicycle';
   if (native.isThisModelABike(player.vehicle.model)) return 'bike';
   if (native.isThisModelABoat(player.vehicle.model)) return 'boat';
@@ -38,8 +39,8 @@ export async function vehicle_getData(data: { interactionMode: boolean }) {
   const vehicleData = vehicle.getStreamSyncedMeta('vehicle') as VehicleData;
   return {
     ...vehicleData,
-    speed: Math.round(player.vehicle.speed * 3.6),
-    gear: player.vehicle.gear,
+    speed: player.vehicle ? Math.round(player.vehicle.speed * 3.6) : null,
+    gear: player.vehicle?.gear || null,
     type: vehicle_getType(),
   };
 }
